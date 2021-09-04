@@ -1,0 +1,328 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:VTM">
+
+    <ControlTemplate x:Key="ButtonControlNonHoverEffect" TargetType="{x:Type Button}">
+        <Border x:Name="border"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter" 
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                              Focusable="False"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"
+                              RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Cursor="Hand"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderThickness" TargetName="border" Value="0,0,0,2"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
+                <Setter Property="BorderThickness" TargetName="border" Value="3"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                <Setter Property="Foreground" Value="#FF838383"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="VTMDataGrid" TargetType="{x:Type DataGrid}">
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="GridLinesVisibility" Value="All"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="#666666"/>
+        <Setter Property="VerticalGridLinesBrush" Value="#666666"/>
+        <Setter Property="BorderBrush" Value="#666666"/>
+        <Setter Property="FontFamily" Value="Calibri Light"/>
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="RowHeight" Value="20"/>
+    </Style>
+
+    <Style x:Key="VTMDataGridHeader" TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background" Value="#2E3F3F"/>
+        <Setter Property="Foreground" Value="#FFC7C7C7"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        <Setter Property="BorderBrush" Value="#666666"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="VTMDataGridCellHeader" TargetType="{x:Type DataGridCell}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="BorderBrush" Value="#FF918C8C"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Background" Value="#2E3F3F"/>
+        <Setter Property="Foreground" Value="#FFC7C7C7"/>
+        <Style.Triggers >
+            <Trigger Property="IsSelected" Value="True" >
+                <Setter Property="Foreground" Value="#FFCFCF00"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="VTMDataGridCellDataNomal" TargetType="{x:Type DataGridCell}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="BorderBrush" Value="#FF918C8C"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Style.Triggers >
+            <Trigger Property="IsSelected" Value="True" >
+                <Setter Property="Background" Value="#3261AF"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="VTMDataGridCellData" TargetType="{x:Type DataGridCell}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="BorderBrush" Value="#FF918C8C"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Style.Triggers >
+            <Trigger Property="IsSelected" Value="True" >
+                <Setter Property="Background" Value="#3261AF"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="VTMDataGridCellCMD" TargetType="{x:Type DataGridCell}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="BorderBrush" Value="#FF918C8C"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="Yellow"/>
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Height" Value="Auto"/>
+
+        <Style.Triggers >
+            <Trigger Property="IsSelected" Value="True" >
+                <Setter Property="Background" Value="#3261AF"/>
+            </Trigger>
+            <DataTrigger Binding="{Binding CMD}" Value="MAK" >
+                <Setter Property="Background" Value="Cyan"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="VTMDataGridCellCondition" TargetType="{x:Type DataGridCell}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="BorderBrush" Value="#FF918C8C"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Style.Triggers >
+            <Trigger Property="IsSelected" Value="True" >
+                <Setter Property="Background" Value="#3261AF"/>
+            </Trigger>
+            <DataTrigger Binding="{Binding CMD}" Value="MAK" >
+                <Setter Property="Background" Value="Cyan"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="VTMDataGridCellSpect" TargetType="{x:Type DataGridCell}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="BorderBrush" Value="#FF918C8C"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="Cyan"/>
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Style.Triggers >
+            <Trigger Property="IsSelected" Value="True" >
+                <Setter Property="Background" Value="#3261AF"/>
+            </Trigger>
+            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="VTMDataGridCellConstan" TargetType="{x:Type DataGridCell}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="BorderBrush" Value="#FF918C8C"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="Background" Value="#03132C"/>
+        <Style.Triggers >
+            <Trigger Property="IsSelected" Value="True" >
+                <Setter Property="Background" Value="#3261AF"/>
+            </Trigger>
+            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <ControlTemplate x:Key="ButtonElipse" TargetType="{x:Type Button}">
+        <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter" 
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                              Focusable="False"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"
+                              RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderThickness" TargetName="border" Value="0,0,0,2"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                <Setter Property="Foreground" Value="#FF838383"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="ToggleButtonElipse" TargetType="{x:Type ToggleButton}">
+        <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter" 
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                              Focusable="False"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"
+                              RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderThickness" TargetName="border" Value="1"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                <Setter Property="BorderThickness" TargetName="border" Value="1"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                <Setter Property="Foreground" Value="#FF838383"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="TabVTMControl" TargetType="{x:Type TabItem}">
+        <Border x:Name="Border" BorderThickness="1,1,1,0" BorderBrush="#FF2C333A" CornerRadius="4,4,0,0" Margin="0">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFC1B8B8" Offset="0.005"/>
+                    <GradientStop Color="#FF615A5A" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <ContentPresenter x:Name="ContentSite"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            ContentSource="Header"
+                            Margin="10,2"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter TargetName="Border" Property="Background" Value="#FF898F98" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="False">
+                <Setter TargetName="Border" Property="Background" Value="#FF43474D" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Name="checkBoxShadow" TargetType="CheckBox">
+        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <BulletDecorator Background="Transparent">
+                        <BulletDecorator.Bullet>
+                            <Border x:Name="Border"
+                                       Width="15"
+                                        Height="15"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                       BorderThickness="1"
+                                       ClipToBounds="True">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="5" ShadowDepth="2" />
+                                </Border.Effect>
+                                <Path x:Name="CheckMark"
+                                          Width="8"
+                                          Height="8"
+                                         HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="M 0 0 L 8 8 M 0 8 L 8 1"
+                                          Stretch="Fill"
+                                          Stroke="LightGray"
+                                          StrokeEndLineCap="Round"
+                                         StrokeStartLineCap="Round"
+                                          StrokeThickness="2"></Path>
+                            </Border>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter Margin="4,0,0,0"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              RecognizesAccessKey="True"></ContentPresenter>
+                    </BulletDecorator>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="false">
+                            <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="BorderBrush" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="BorderBrush" Value="Gray" />
+                            <Setter TargetName="CheckMark" Property="Stroke" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

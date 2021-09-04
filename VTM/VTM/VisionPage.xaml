@@ -1,0 +1,546 @@
+﻿<Page x:Class="VTM.VisionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VTM"
+      mc:Ignorable="d"
+      Title="VisionPage" Width="1860" Height="1000">
+
+
+    <Grid>
+        <Grid x:Name ="PanelVision" Visibility="Visible" Margin="10" Background="#FF012725" Grid.Column="1">
+            <Grid.Effect>
+                <DropShadowEffect/>
+            </Grid.Effect>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="1237*"/>
+                <ColumnDefinition Width="613*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="660*"/>
+                <RowDefinition Height="251*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.ColumnSpan="2" >
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF040404" Offset="1"/>
+                        <GradientStop Color="#FF727070"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <TextBlock Text="MODEL VISION" Foreground="#FF080283" TextDecorations="Underline" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Margin="15,0,0,0" HorizontalAlignment="Left">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="0" Color="White"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock x:Name="tbModelNameVision" Text="{Binding ElementName=tbModelName, Path=Text}" Foreground="White" TextDecorations="{x:Null}" FontSize="22" VerticalAlignment="Center" Margin="180,0,0,0" HorizontalAlignment="Left" FontStyle="Italic" FontWeight="Bold">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="0" Color="White"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Grid>
+
+            <Grid Background="#FF080808" Grid.Row="1" Margin="5">
+                <Grid.Effect>
+                    <DropShadowEffect Color="White" ShadowDepth="0"/>
+                </Grid.Effect>
+                <Image x:Name="cameraViewVision" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="{Binding ElementName=cameraView, Path=Source}"/>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Border>
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black" Offset="0"/>
+                            <GradientStop Color="#FF05614C" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <TextBlock Text="FND"
+                               FontSize="24" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" >
+                        <TextBlock.Effect>
+                            <DropShadowEffect Direction="0" Color="#FFF9F9F9" ShadowDepth="2"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                </Border>
+
+                <TabControl Margin="5,0,5,5" Background="#FF064B42" Grid.Row="1"  BorderBrush="#FF187442">
+                    <TabItem Header="Detect   " BorderThickness="0" Height="25" OpacityMask="Black" Foreground="#FF80CF0F" FontWeight="Bold" FontFamily="Britannic Bold" FontSize="20">
+                        <TabItem.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="#FF397670" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.Background>
+                        <Grid Background="#FF064B42" Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="7*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1.3*"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Site" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Azure"/>
+                            <TextBlock Name="SiteNameA" Text="A" FontSize="70" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Name="SiteNameB" Text="B" Grid.Row="1" FontSize="70" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                            <TextBlock Text="Image" Grid.Column="1" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Azure"/>
+                            <Image x:Name="FND_A" Height="{Binding ElementName=SiteNameA, Path=ActualHeight}" Width="200" Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Left" Margin="54,0,0,18" Source="img/Barcode.png"/>
+                            <Image x:Name="FND_B" Height="{Binding ActualHeight, ElementName=SiteNameA}" Width="200" Grid.Column="1"  Grid.Row="1" VerticalAlignment="Center"  HorizontalAlignment="Left" Margin="54,0,0,18" Source="img/Barcode.png"/>
+
+
+                            <TextBlock Text="Threshold Binary" Grid.Column="2" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Azure"/>
+                            <Slider x:Name="FND_Threshold_A" Grid.Column="2" Value="1" Maximum="255" Minimum="1" Margin="10,0" VerticalAlignment="Center" SmallChange="1" LargeChange="5" Interval="32"/>
+                            <TextBlock Text="{Binding ElementName=FND_Threshold_A, Path=Value}"  Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="117,0,117,9"/>
+                            <Slider x:Name="FND_Threshold_B" Grid.Column="2" Margin="10,0" Value="1" Maximum="255" Minimum="1" VerticalAlignment="Center" Grid.Row="1" SmallChange="1" LargeChange="5" Interval="32"/>
+                            <TextBlock Text="{Binding ElementName=FND_Threshold_B, Path=Value}"  Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,12"/>
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header=" Read  "  Foreground="#FF80CF0F" Height="25" BorderThickness="0" FontWeight="Bold" FontFamily="Britannic Bold" FontSize="20">
+                        <TabItem.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="#FF397670" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.Background>
+                        <Grid Background="#FF064B42"/>
+                    </TabItem>
+                </TabControl>
+
+                <Grid Grid.Row="2" Background="#FF0A3429">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="142*"/>
+                        <ColumnDefinition Width="130*"/>
+                        <ColumnDefinition Width="191*"/>
+                        <ColumnDefinition Width="148*"/>
+                        <ColumnDefinition Width="101*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.ColumnSpan="5" >
+
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="#FF1C5A5D" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock Text="FND Format"
+                               FontSize="24" FontWeight="Bold"  Foreground="White" HorizontalAlignment="Center" >
+                            <TextBlock.Effect>
+                                <DropShadowEffect Direction="0" Color="#FFF9F9F9" ShadowDepth="2"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Border>
+
+                    <Border Margin="5,4,5,8" Background="#FF20AE81" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" CornerRadius="5" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFCFCFCF" ShadowDepth="3"/>
+                        </Border.Effect>
+                        <Button x:Name="btDetectFND" Content="Detect FND" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FF7C1A23" FontSize="16" Padding="1" />
+                    </Border>
+                    <Border Margin="5,4,5,13" Background="#FF20AE81" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" CornerRadius="5" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFCFCFCF" ShadowDepth="3"/>
+                        </Border.Effect>
+                        <Button  Content="LED Pos" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FF7C1A23" FontSize="16" Padding="1" />
+                    </Border>
+                    <Border Margin="5,4,159,13"  Background="#FF20AE81" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" Grid.ColumnSpan="2" CornerRadius="5" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFCFCFCF" ShadowDepth="3"/>
+                        </Border.Effect>
+                        <Button  Content="LED Off" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FF7C1A23" FontSize="16" Padding="1" />
+                    </Border>
+                    <Border Margin="19,4,33,13"  Background="#FF20AE81" Grid.Row="2" Grid.Column="2"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" CornerRadius="5" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFCFCFCF" ShadowDepth="3"/>
+                        </Border.Effect>
+                        <Button  Content="LED On" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FF7C1A23" FontSize="16" Padding="1" />
+                    </Border>
+                    <Border Margin="146,4,38,13"  Background="#FF20AE81" Grid.Row="2" Grid.Column="2"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" CornerRadius="5" Grid.ColumnSpan="2" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFCFCFCF" ShadowDepth="3"/>
+                        </Border.Effect>
+                        <Button  Content="Thresh" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FF7C1A23" FontSize="16" Padding="1" />
+                    </Border>
+                    <Border Margin="5,4,5,13"  Background="#FF20AE81" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" CornerRadius="5" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFCFCFCF" ShadowDepth="3"/>
+                        </Border.Effect>
+                        <Button  Content="Save" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FF7C1A23" FontSize="16" Padding="1" />
+                    </Border>
+                    <Border Margin="5,4,5,8"  Background="#FF20AE81" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" CornerRadius="5" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFCFCFCF" ShadowDepth="3"/>
+                        </Border.Effect>
+                        <Button  Content="Redraw FND" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FF7C1A23" FontSize="16" Padding="1" />
+                    </Border>
+                    <Border Margin="5,4,5,8"  Background="#FF20AE81" Grid.Row="1" Grid.Column="4"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" CornerRadius="5" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFCFCFCF" ShadowDepth="3"/>
+                        </Border.Effect>
+                        <Button  Content="Copy A" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FF7C1A23" FontSize="16" Padding="1"/>
+                    </Border>
+                    <Border  Margin="5,4,5,8"  Background="#FF20AE81" Grid.Row="1" Grid.Column="3"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" CornerRadius="5" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFCFCFCF" ShadowDepth="3"/>
+                        </Border.Effect>
+                        <Button  Content="Change Format" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FF7C1A23" FontSize="16" Padding="1" />
+                    </Border>
+
+                    <Border  Margin="5,8"  Background="#FF20AE81" Grid.Row="0" Grid.Column="4"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="24" CornerRadius="5" >
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFCFCFCF" ShadowDepth="3"/>
+                        </Border.Effect>
+                        <Button  Content="New" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FF7C1A23" FontSize="16" Padding="1" />
+                    </Border>
+
+                    <TextBox x:Name="FND_Format" Grid.Column="2" Margin="0,10" Grid.Row="1" TextWrapping="Wrap" Text="27:77" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontFamily="Consolas" FontSize="14" AutomationProperties.Name="FND_Format"/>
+                    <Grid Grid.ColumnSpan="5" Margin="26,0,32,0" Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Content="View Cross" Grid.Column="0"  HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Padding="4,-4,0,0" Foreground="#FFE6E6E6" Background="#FF0CA272" Width="112" Grid.ColumnSpan="2" Margin="0,0,110,0"/>
+                        <CheckBox Content="Capture" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Padding="4,-4,0,0" Foreground="#FFE6E6E6" Background="#FF0CA272" Width="114"/>
+                        <CheckBox Content="LED View"  Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Padding="4,-4,0,0" Foreground="#FFE6E6E6" Background="#FF0CA272" Width="114"/>
+                        <CheckBox Content="LED Text" Grid.Column="3" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Padding="4,-4,0,0" Foreground="#FFE6E6E6" Background="#FF0CA272" Width="114"/>
+                        <CheckBox Content="Disp Detect" Grid.Column="4" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Padding="4,-4,0,0" Foreground="#FFE6E6E6" Background="#FF0CA272" Width="114"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="3" Background="#FF0A3429">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Grid.Row="0" >
+                        <TextBlock Text="   Mouse : " Foreground="LightGray" VerticalAlignment="Center"></TextBlock>
+                        <TextBox Text="Mouse on canvas location" Width="150" Foreground="#FF494646"  HorizontalAlignment="Left" VerticalAlignment="Center"></TextBox>
+                        <TextBlock Text="   Intensity : " Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                        <TextBox Text="1" Width="100" Foreground="#FF3C1818"  VerticalAlignment="Center" HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+                        <Border CornerRadius="20" Margin="0,0,5,0"  Background="#FF5A615F" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="22" Width="140" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFF9F9F9" ShadowDepth="3"/>
+                            </Border.Effect>
+                            <Button  Content="Offset" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FFF3F2F2" FontSize="16" Padding="5,1" HorizontalAlignment="Left" Width="130" />
+                        </Border>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1" >
+                        <Border CornerRadius="20" Margin="0,10,0,9"  Background="#FF5A615F" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" Width="188" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFF9F9F9" ShadowDepth="3"/>
+                            </Border.Effect>
+                            <Button  Content="Edit LED Data" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FFF3F2F2" FontSize="16" Padding="5,1" />
+                        </Border>
+                        <Border CornerRadius="20" Margin="10,10,0,9"  Background="#FF5A615F" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" Width="171" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFF9F9F9" ShadowDepth="3"/>
+                            </Border.Effect>
+                            <Button  Content="Detect LED" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FFF3F2F2" FontSize="16" Padding="5,1" />
+                        </Border>
+                        <Border CornerRadius="20" Margin="0,0,5,0" Background="#FF5A615F" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="22" Width="140" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFF9F9F9" ShadowDepth="3"/>
+                            </Border.Effect>
+                            <Button  Content="Capture" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FFF3F2F2" FontSize="16" Padding="5,1" />
+                        </Border>
+                    </DockPanel>
+                    <DockPanel Grid.Row="2" >
+                        <Border CornerRadius="20" Margin="0,10,0,9"  Background="#FF5A615F" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" Width="128" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFF9F9F9" ShadowDepth="3"/>
+                            </Border.Effect>
+                            <Button  Content="Property" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FFF3F2F2" FontSize="16" Padding="5,1" />
+                        </Border>
+                        <TextBox Width="100" Margin="10,0,0,0"  Text="12" VerticalContentAlignment="Center" VerticalAlignment="Center" FontSize="18" />
+                        <Border CornerRadius="20" Margin="10,10,0,9"  Background="#FF5A615F" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="22" Width="125" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFF9F9F9" ShadowDepth="3"/>
+                            </Border.Effect>
+                            <Button  Content="Change Size" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FFF3F2F2" FontSize="16" Padding="5,1" />
+                        </Border>
+                        <CheckBox Content="View Log"  VerticalAlignment="Center"  HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Padding="4,-4,0,0" Foreground="#FFE6E6E6" Background="#FF0CA272" Width="81" Margin="10,18,0,9" Height="14"/>
+
+                        <Border CornerRadius="20" Margin="0,10,5,9"  Background="#FF631A0A" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" Height="22" Width="95" >
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFF9F9F9" ShadowDepth="3"/>
+                            </Border.Effect>
+                            <Button  Content="Clear" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FFF3F2F2" FontSize="16" Padding="5,1" />
+                        </Border>
+                    </DockPanel>
+                </Grid>
+                <TextBox Grid.Row="4" Text="- This is Led view log" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF010F0E" Foreground="#FFBFBFBF" BorderBrush="Black" FontFamily="Consolas" />
+            </Grid>
+            <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border Grid.Column="0">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black" Offset="0"/>
+                            <GradientStop Color="#FF0C757A" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <TextBlock Text="Camera Setting" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Foreground="#FFC6DCC2"/>
+                </Border>
+
+                <Border Grid.Column="2">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black" Offset="0"/>
+                            <GradientStop Color="#FF0C757A" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <TextBlock Text="Power" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Foreground="#FFC6DCC2"/>
+                </Border>
+                <ComboBox Grid.Column="3" Width="67" HorizontalAlignment="Left" SelectedIndex="1" VerticalContentAlignment="Center" FontSize="18">
+                    <ComboBoxItem Content="DTX"/>
+                    <ComboBoxItem Content="DRX"/>
+                    <ComboBoxItem Content="DTU"/>
+                </ComboBox>
+                <TextBox  Grid.Column="3" Margin="72,0,0,0" Foreground="LightGray"  HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="18" Width="343" />
+                <TextBox  Text="This is log ^^ " FontFamily="Consolas" Grid.Column="3" Grid.Row="1" Margin="0,10,0,0"  HorizontalAlignment="Stretch" VerticalContentAlignment="Top" Foreground="#FFE4DFDF" Background="#FF010E0F" />
+                <Border CornerRadius="20" Background="#FF20AE81" Grid.Row="0" Grid.Column="3"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Margin="420,3,0,3" Width="93" >
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FFF9F9F9" ShadowDepth="3"/>
+                    </Border.Effect>
+                    <Button  Content="Send" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FF7C1A23" FontSize="12"/>
+                </Border>
+                <Border CornerRadius="20" Background="#FF4B0D0A" Grid.Row="0" Grid.Column="3"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Margin="529,3,0,3" Width="78" >
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FFF9F9F9" ShadowDepth="3"/>
+                    </Border.Effect>
+                    <Button  Content="Clear" Background="{x:Null}" BorderThickness="0" FontWeight="Bold" Foreground="#FFAEA6A7" FontSize="12" />
+                </Border>
+                <Grid Grid.Column="2" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.3*"/>
+                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="0.8*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="220V" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="110V" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="U220" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="U110" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="4" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="DC1" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="6" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="DC2" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="7" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="LAMP" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="8" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="1" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="2" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" Grid.Row="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="3" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="4" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="4" Grid.Row="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="5" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="5" Grid.Row="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="6" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="7" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="7" Grid.Row="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="8" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="8" Grid.Row="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="9" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="10" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" Grid.Row="2" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="11" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="2" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="12" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="4" Grid.Row="2" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="13" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="5" Grid.Row="2" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="14" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="2" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="15" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="7" Grid.Row="2" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="16" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="8" Grid.Row="2" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="17" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="18" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" Grid.Row="3" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="19" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="3" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="20" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="4" Grid.Row="3" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="21" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="5" Grid.Row="3" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="22" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="3" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="23" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="7" Grid.Row="3" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="24" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="8" Grid.Row="3" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="25" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="4" Grid.Column="1" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="26" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" Grid.Row="4" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="27" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="4" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="28" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="4" Grid.Row="4" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="29" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="5" Grid.Row="4" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="30" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="4" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="31" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="7" Grid.Row="4" Background="Gainsboro" Foreground="Black"/>
+                    <Button Content="32" Margin="3,7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="8" Grid.Row="4" Background="Gainsboro" Foreground="Black"/>
+
+                    <Border Panel.ZIndex="-1" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="9" BorderBrush="#FF1F3E31" BorderThickness="3,3,1,3">
+                    </Border>
+                    <Border  Grid.Row="1" Grid.RowSpan="4" Background="#FF1F3E31">
+                        <TextBlock Text="KEY" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Foreground="#FF73D7FD"/>
+                    </Border>
+
+
+
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.RowSpan="2" Background="#FF0C2921" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="2">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="#FF0C757A" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock Text="RLY" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Foreground="#FFC6DCC2"/>
+                    </Border>
+                    <Border Grid.Column="0">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="#FF0C757A" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock Text="Camera Control" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Foreground="#FFC6DCC2"/>
+                    </Border>
+
+                    <Grid Grid.Row="1" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Zoom" Grid.Column="0" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Azure" FontFamily="Cooper Black"/>
+                        <TextBlock Text="Pan" Grid.Column="1" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Azure" FontFamily="Cooper Black"/>
+                        <TextBlock Text="Title" Grid.Column="2" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Azure" FontFamily="Cooper Black"/>
+
+                        <Slider x:Name="camZoom" Grid.Row="1" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="{Binding ElementName= camZoom, Path=Value}" Grid.Row="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Azure" FontFamily="Cooper Black"/>
+                        <Slider x:Name="camPan" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="{Binding ElementName= camPan, Path=Value}" Grid.Column="1" Grid.Row="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Azure" FontFamily="Cooper Black"/>
+                        <Slider x:Name="camTitle" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="{Binding ElementName= camTitle, Path=Value}" Grid.Row="2" Grid.Column="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Azure" FontFamily="Cooper Black"/>
+
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button Content="1" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="2" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="3" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" Grid.Row="1" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="4" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="1" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="5" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="4" Grid.Row="1" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="6" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="5" Grid.Row="1" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="7" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="1" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="8" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="7" Grid.Row="1" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="9" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="10" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="2" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="11" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" Grid.Row="2" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="12" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Grid.Row="2" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="13" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="4" Grid.Row="2" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="14" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="5" Grid.Row="2" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="15" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="6" Grid.Row="2" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Button Content="16" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="7" Grid.Row="2" Background="Gainsboro" Foreground="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                        <ComboBox Grid.Row="0" Margin="3" Grid.Column="6" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <CheckBox Content="Direct"  HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Padding="4,-4,0,0" Foreground="#FFE6E6E6" Background="#FF0CA272" Width="156" Grid.ColumnSpan="3" Grid.Column="3" Margin="8,8,10,10"/>
+
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Exposure" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFD6D6D6" Margin="3" />
+                    <Slider x:Name="slExposureValue" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="3"/>
+                    <TextBox x:Name="tbExposureValue" Text="{Binding ElementName=slExposureValue, Path=Value, Mode=TwoWay}" Margin="3" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="Gain" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFD6D6D6" Margin="3" />
+                    <Slider x:Name="slExposureValue_Copy" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Margin="3"/>
+                    <TextBox x:Name="tbExposureValue_Copy" Text="{Binding Value, ElementName=slExposureValue, Mode=TwoWay}" Margin="3" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="Brightness" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFD6D6D6" Margin="3" />
+                    <Slider x:Name="slExposureValue_Copy1" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Margin="3"/>
+                    <TextBox x:Name="tbExposureValue_Copy1" Text="{Binding Value, ElementName=slExposureValue, Mode=TwoWay}" Margin="3" Grid.Column="1" Grid.Row="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="Contract" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFD6D6D6" Margin="3" />
+                    <Slider x:Name="slExposureValue_Copy2" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" Margin="3"/>
+                    <TextBox x:Name="tbExposureValue_Copy2" Text="{Binding Value, ElementName=slExposureValue, Mode=TwoWay}" Margin="3" Grid.Column="1" Grid.Row="7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="Satuation" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFD6D6D6" Margin="3" />
+                    <Slider x:Name="slExposureValue_Copy3" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Margin="3" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="tbExposureValue_Copy3" Text="{Binding Value, ElementName=slExposureValue, Mode=TwoWay}" Margin="3" Grid.Column="3" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="White Balance" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFD6D6D6" Margin="3" />
+                    <Slider x:Name="slExposureValue_Copy4" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Margin="3" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="tbExposureValue_Copy4" Text="{Binding Value, ElementName=slExposureValue, Mode=TwoWay}" Margin="3" Grid.Column="3" Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBlock Text="Shapness" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFD6D6D6" Margin="3" />
+                    <Slider x:Name="slExposureValue_Copy5" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" Margin="3" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="tbExposureValue_Copy5" Text="{Binding Value, ElementName=slExposureValue, Mode=TwoWay}" Margin="3" Grid.Column="3" Grid.Row="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

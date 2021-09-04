@@ -1,0 +1,143 @@
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VTM.csprojAssemblyReference.cache
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\MainWindow.g.cs
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\App.g.cs
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VTM_MarkupCompile.cache
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VTM_MarkupCompile.lref
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\VTM.csprojAssemblyReference.cache
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\MainWindow.g.cs
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\App.g.cs
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\VTM_MarkupCompile.cache
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\VTM_MarkupCompile.lref
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\VTM.exe.config
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\VTM.exe
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\VTM.pdb
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\AForge.dll
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\AForge.Imaging.dll
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\AForge.Math.dll
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\AForge.Video.DirectShow.dll
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\AForge.Video.dll
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\AForge.xml
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\AForge.Imaging.xml
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\AForge.Math.xml
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\AForge.Video.xml
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\bin\Debug\AForge.Video.DirectShow.xml
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\App.baml
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\MainWindow.baml
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\VTM.g.resources
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\VTM.Properties.Resources.resources
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\VTM.csproj.GenerateResource.cache
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\VTM.csproj.CoreCompileInputs.cache
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\VTM.csproj.CopyComplete
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\VTM.exe
+D:\DEV\3. DEV Projects\9. VTM\Software\OLD\DEV_VTM\VTM\VTM\obj\Debug\VTM.pdb
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\VTM.exe.config
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\VTM.exe
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\VTM.pdb
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\AForge.dll
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\AForge.Imaging.dll
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\AForge.Math.dll
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\AForge.Video.DirectShow.dll
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\AForge.Video.dll
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\AForge.xml
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\AForge.Imaging.xml
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\AForge.Math.xml
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\AForge.Video.xml
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\bin\Debug\AForge.Video.DirectShow.xml
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\App.baml
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\MainWindow.baml
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VTM.g.resources
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VTM.Properties.Resources.resources
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VTM.csproj.GenerateResource.cache
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VTM.csproj.CoreCompileInputs.cache
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VTM.csproj.CopyComplete
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VTM.exe
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VTM.pdb
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\AutoPage.g.cs
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VisionPage.g.cs
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\AutoPage.baml
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\VisionPage.baml
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\ManualPage.g.cs
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\ModelPage.g.cs
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\ManualPage.baml
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\ModelPage.baml
+D:\DEV\3. DEV Projects\9. VTM\Software\DEV_VTM\VTM\VTM\obj\Debug\css\VTM_StyleDictionary.baml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\VTM.exe.config
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\VTM.exe
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\VTM.pdb
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\AForge.dll
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\AForge.Imaging.dll
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\AForge.Math.dll
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\AForge.Video.DirectShow.dll
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\AForge.Video.dll
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\AForge.xml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\AForge.Imaging.xml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\AForge.Math.xml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\AForge.Video.xml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\bin\Debug\AForge.Video.DirectShow.xml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VTM.csprojAssemblyReference.cache
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\AutoPage.g.cs
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\MainWindow.g.cs
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\ManualPage.g.cs
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\ModelPage.g.cs
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VisionPage.g.cs
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\App.g.cs
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VTM_MarkupCompile.cache
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VTM_MarkupCompile.lref
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\App.baml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\AutoPage.baml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\css\VTM_StyleDictionary.baml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\MainWindow.baml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\ManualPage.baml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\ModelPage.baml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VisionPage.baml
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VTM.g.resources
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VTM.Properties.Resources.resources
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VTM.csproj.GenerateResource.cache
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VTM.csproj.CoreCompileInputs.cache
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VTM.csproj.CopyComplete
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VTM.exe
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\VTM.pdb
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\Password.g.cs
+D:\1.DEV\1. Project\1. Machine\19. DPT\4. Software\VTM\VTM\obj\Debug\Password.baml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VTM.csprojAssemblyReference.cache
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\AutoPage.g.cs
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\MainWindow.g.cs
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\ManualPage.g.cs
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\ModelPage.g.cs
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\Password.g.cs
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VisionPage.g.cs
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\App.g.cs
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VTM_MarkupCompile.cache
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VTM_MarkupCompile.lref
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VTM.exe
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VTM.pdb
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\VTM.exe.config
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\VTM.exe
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\VTM.pdb
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\AForge.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\AForge.Imaging.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\AForge.Math.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\AForge.Video.DirectShow.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\AForge.Video.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\AForge.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\AForge.Imaging.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\AForge.Math.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\AForge.Video.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\AForge.Video.DirectShow.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\App.baml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\AutoPage.baml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\css\VTM_StyleDictionary.baml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\MainWindow.baml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\ManualPage.baml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\ModelPage.baml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\Password.baml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VisionPage.baml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VTM.g.resources
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VTM.Properties.Resources.resources
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VTM.csproj.GenerateResource.cache
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VTM.csproj.CoreCompileInputs.cache
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\Debug\VTM.csproj.CopyComplete
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\WebEye.Controls.Wpf.WebCameraControl.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\WebEye.Controls.Wpf.WebCameraControl.pdb
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\Newtonsoft.Json.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\Debug\Newtonsoft.Json.xml
