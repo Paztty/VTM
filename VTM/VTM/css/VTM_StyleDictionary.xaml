@@ -41,6 +41,7 @@
         <Setter Property="FontFamily" Value="Calibri Light"/>
         <Setter Property="Background" Value="Black"/>
         <Setter Property="RowHeight" Value="20"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="VTMDataGridHeader" TargetType="{x:Type DataGridColumnHeader}">

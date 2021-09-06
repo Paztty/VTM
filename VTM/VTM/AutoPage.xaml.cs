@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace VTM
 {
@@ -28,7 +29,9 @@ namespace VTM
         Model model = new Model();
         Model MainModel = new Model();
 
-        DateTime EscapTime = DateTime.Now;
+
+
+        public DateTime EscapTime = DateTime.Now;
 
         public bool UserSite1 = true;
         public bool UserSite2 = true;
@@ -37,6 +40,7 @@ namespace VTM
 
         public string TestResult = "REALDY";
         //public ImageSource CameraImage { get; set; }
+
 
         public AutoPage(Model model)
         {
@@ -50,7 +54,7 @@ namespace VTM
 
         private void Model_LoadFinish(object sender, EventArgs e)
         {
-
+            //model = MainModel;
             model = (Model)MainModel.Clone();
             model.StepTestChange += Model_StepTestChangeAsync;
             model.TestRunFinish += Model_TestRunFinish;
@@ -137,7 +141,7 @@ namespace VTM
             {
                 model.StepTesting = 0;
                 model.IsTestting = false;
-                Thread RunTest = new Thread(model.runTest);
+                Thread RunTest = new Thread(model.runTest, BackgroundProperty.GlobalIndex);
                 RunTest.IsBackground = true;
                 RunTest.Start();
             }
@@ -147,17 +151,12 @@ namespace VTM
         {
             if (model.StepTesting >= 0)
             {
-                
-                Dispatcher.Invoke(new Action(delegate
+                this.Dispatcher.Invoke(new Action(delegate
                 {
-                    //TestStepsGrid.Items.Refresh();
-                    //DataGridRow row = (DataGridRow)TestStepsGrid.ItemContainerGenerator.ContainerFromIndex(model.StepTesting);
-                    //object item = TestStepsGrid.Items[model.StepTesting];
                     TestStepsGrid.SelectedItem = model.Steps[(int)sender];
-                    TestStepsGrid.ScrollIntoView(TestStepsGrid.SelectedItem);
-                    //row.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
                     lbEscapTime.Content = DateTime.Now.Subtract(EscapTime).TotalSeconds.ToString("F1") + "s";
-                }), System.Windows.Threading.DispatcherPriority.Send);
+                    TestStepsGrid.ScrollIntoView(TestStepsGrid.SelectedItem);
+                }), DispatcherPriority.Send);
             }
         }
         private void Model_TestRunFinish(object sender, EventArgs e)

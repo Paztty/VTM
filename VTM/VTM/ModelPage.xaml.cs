@@ -25,6 +25,8 @@ namespace VTM
         Model model = new Model();
         Model MainModel = new Model();
 
+        MUX MachineMux = new MUX();
+
         List<Label> PCB_LABEL = new List<Label>();
 
         public ModelPage(Model model)
@@ -36,6 +38,9 @@ namespace VTM
             this.model.LoadFinish += Model_LoadFinish;
 
             Error_Positions_Table.ItemsSource = model.ErrorPositions;
+
+            MUX_Channels_Table.ItemsSource = null;
+            MUX_Channels_Table.ItemsSource = MachineMux.Channels;
 
             PCB_LABEL.Add(PCB1);
             PCB_LABEL.Add(PCB2);

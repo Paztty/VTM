@@ -39,3 +39,4 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\x64\Debug\VTM.csproj.CopyComplete
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\x64\Debug\VTM.exe
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\x64\Debug\VTM.pdb
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\x64\Debug\VTM.csprojAssemblyReference.cache

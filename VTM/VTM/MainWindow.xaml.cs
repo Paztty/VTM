@@ -33,6 +33,8 @@ namespace VTM
     /// </summary>
     public partial class MainWindow : Window
     {
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
 
         //Date time
         String CurrentDateTime { get; set; } = DateTime.Now.ToString("yyyy - MM - dd HH: mm:ss  ");
@@ -89,7 +91,7 @@ namespace VTM
             //password.ShowDialog();
 
             model.LoadFinish += Model_LoadFinish;
-
+            //model.StepTestChange += Model_StepTestChangeAsync;
             CameraInit();
         }
 
@@ -126,7 +128,16 @@ namespace VTM
                 this.DragMove();
         }
 
-        bool IsShowPassWorldPanel = false;
+
+        private void BtOpenModel_Click(object sender, RoutedEventArgs e)
+        {
+            model.Load();
+        }
+
+        #endregion
+
+        #region Page select
+
 
         private void btPanelControl_Switch(object sender, RoutedEventArgs e)
         {
@@ -176,97 +187,22 @@ namespace VTM
             }
         }
 
-        private void BtOpenModel_Click(object sender, RoutedEventArgs e)
-        {
-            model.Load();
-        }
-
         #endregion
 
-        #region Page select
-
+        #region AutoPage
+        //private void Model_StepTestChangeAsync(object sender, EventArgs e)
+        //{
+        //    if (model.StepTesting >= 0)
+        //    {
+        //        Dispatcher.Invoke(new Action(delegate
+        //        {
+        //            autoPage.TestStepsGrid.SelectedItem = model.Steps[(int)sender];
+        //            autoPage.lbEscapTime.Content = DateTime.Now.Subtract(autoPage.EscapTime).TotalSeconds.ToString("F1") + "s";
+        //            autoPage.TestStepsGrid.ScrollIntoView(autoPage.TestStepsGrid.SelectedItem);
+        //        }), System.Windows.Threading.DispatcherPriority.Send);
+        //    }
+        //}
         #endregion
-
-
-        //private async void BtRunTest_Click(object sender, RoutedEventArgs e)
-        //{
-        //    tbElapsedTime.Text = "0";
-        //    StartTestAnimation();
-        //    var startTime = DateTime.Now;
-        //    pbTestProgress.Value = 0;
-        //    Random rand = new Random();
-        //    Steps.SelectionMode = DataGridSelectionMode.Single;
-        //    Steps.SelectionUnit = DataGridSelectionUnit.FullRow;
-        //    for (int i = 0; i < Model.Steps.Count; i++)
-        //    {
-        //        pbTestProgress.Value = (int)(i / ((float)Model.Steps.Count - 1) * 100);
-        //        AnimationTest();
-        //        Steps.SelectedItem = Steps.Items[i];
-        //        Steps.ScrollIntoView(Steps.Items[i]);
-        //        DataGridRow dgrow = (DataGridRow)Steps.ItemContainerGenerator.ContainerFromItem(Steps.Items[i]);
-        //        dgrow.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-
-        //        if (Model.Steps[i].SKIP == "TRUE")
-        //        {
-        //            continue;
-        //        }
-        //        else
-        //        {
-        //            await Task.Delay(rand.Next(100));
-        //        }
-
-        //        tbElapsedTime.Text = (DateTime.Now.Subtract(startTime).TotalSeconds).ToString("F2");
-
-        //    }
-        //    StopTestAnimation();
-        //}
-
-        //#region Testting Animation
-
-        //Double testAnimationPanelOrigin;
-        //private void StartTestAnimation()
-        //{
-        //    pnStatusFAIL.Visibility = Visibility.Collapsed;
-        //    pnStatusGood.Visibility = Visibility.Collapsed;
-        //    pnStatusReady.Visibility = Visibility.Collapsed;
-        //    pnStatusTestting.Visibility = Visibility.Visible;
-        //    testAnimationPanelOrigin = pnStatusTestting.Margin.Top;
-        //}
-
-        //double animationOffset = 0;
-        //bool isBottomAnimation = false;
-        //private void AnimationTest()
-        //{
-        //    pnStatusTestting.Margin = new Thickness(3, testAnimationPanelOrigin + animationOffset, 3, testAnimationPanelOrigin + pnStatusTestting.ActualHeight - animationOffset);
-        //    Task.Delay(1);
-        //    if (isBottomAnimation)
-        //    {
-        //        animationOffset--;
-        //        if (animationOffset < -5)
-        //        {
-        //            isBottomAnimation = false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        animationOffset++;
-        //        if (animationOffset > 5)
-        //        {
-        //            isBottomAnimation = true;
-        //        }
-        //    }
-
-        //}
-        //private void StopTestAnimation()
-        //{
-        //    pnStatusFAIL.Visibility = Visibility.Collapsed;
-        //    pnStatusGood.Visibility = Visibility.Collapsed;
-        //    pnStatusReady.Visibility = Visibility.Collapsed;
-        //    pnStatusTestting.Visibility = Visibility.Visible;
-        //    pnStatusTestting.Margin = new Thickness(3);
-        //}
-
-        //#endregion
 
 
         #region Camera
@@ -286,7 +222,7 @@ namespace VTM
 
                 LocalWebCam = new VideoCaptureDevice(LoadWebCamsCollection[0].MonikerString);
                 LocalWebCam.NewFrame -= new NewFrameEventHandler(Cam_NewFrame);
-                LocalWebCam.NewFrame += new NewFrameEventHandler(Cam_NewFrame);
+                //LocalWebCam.NewFrame += new NewFrameEventHandler(Cam_NewFrame);
 
                 LocalWebCam.VideoResolution = LocalWebCam.VideoCapabilities[15];
                 //for (int i = 0; i < LocalWebCam.VideoCapabilities.Length; i++)
@@ -342,6 +278,23 @@ namespace VTM
 
         void Cam_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
+            //using (System.Drawing.Bitmap bmp = (Bitmap)eventArgs.Frame.Clone())
+            //{
+            //    IntPtr hBitmap = bmp.GetHbitmap();
+            //    try
+            //    {
+            //        var source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+            //        Dispatcher.BeginInvoke(new ThreadStart(delegate
+            //        {
+            //            //autoPage.cameraView.Source = null;
+            //            autoPage.cameraView.Source = source;
+            //        }));
+            //    }
+            //    finally
+            //    {
+            //        DeleteObject(hBitmap);
+            //    }
+            //}
             try
             {
                 var bitmap = (Bitmap)eventArgs.Frame.Clone();
@@ -350,20 +303,18 @@ namespace VTM
                 System.Drawing.Image img = bitmap;
 
                 MemoryStream ms = new MemoryStream();
-                img.Save(ms, ImageFormat.Bmp);
-                ms.Seek(0, SeekOrigin.Begin);
-                BitmapImage bi = new BitmapImage();
-                bi.BeginInit();
-                bi.StreamSource = ms;
-                bi.EndInit();
-
-                bi.Freeze();
-                Dispatcher.BeginInvoke(new ThreadStart(delegate
-                {
-                    autoPage.cameraView.Source = null;
-                    autoPage.cameraView.Source = bi;
-                }));
-
+                    img.Save(ms, ImageFormat.Jpeg);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.StreamSource = ms;
+                    bi.EndInit();
+                    bi.Freeze();
+                    //Dispatcher.BeginInvoke(new ThreadStart(delegate
+                    //{
+                    //    autoPage.cameraView.Source = null;
+                    //    autoPage.cameraView.Source = bi;
+                    //}));
                 if (!IsLastPreviewState)
                 {
                     Support.WriteLine("Camera started.");
@@ -373,6 +324,7 @@ namespace VTM
             }
             catch (Exception ex)
             {
+                GC.Collect();
                 Support.WriteLine("Camera get frame error " + ex.GetHashCode().ToString());
             }
         }
