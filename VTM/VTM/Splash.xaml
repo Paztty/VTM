@@ -1,0 +1,24 @@
+﻿<Window x:Class="VTM.Splash"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VTM"
+        mc:Ignorable="d"
+        Title="Splash" x:Name="splashWindow" Height="1200" Width="2000" AllowsTransparency="True"  WindowStartupLocation="CenterScreen" WindowStyle="None" BorderThickness="0" Opacity="1" Background="{x:Null}" WindowState="Maximized">
+    <Grid>
+        <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <Image Source="img/companyLoge.png" Opacity="{Binding ElementName=splashWindow, Path=Opacity}" Stretch="None" >
+                <Image.Effect>
+                    <DropShadowEffect BlurRadius="20" ShadowDepth="10"/>
+                </Image.Effect>
+            </Image>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60" Foreground="#FF929BA8" FontWeight="Bold" Height="83" Content="Visions Tester Machine " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0">
+                <Label.Effect>
+                    <DropShadowEffect BlurRadius="20" ShadowDepth="10"/>
+                </Label.Effect>
+            </Label>
+        </DockPanel>
+
+    </Grid>
+</Window>

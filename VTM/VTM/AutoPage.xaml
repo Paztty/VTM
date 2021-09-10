@@ -16,7 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid x:Name ="PanelAuto" Visibility="Visible" Margin="5" Background="#FF5D5D5D">
+    <Grid x:Name ="AutoPanel" Grid.Row="1" Visibility="Visible" Margin="5" Background="#FF5D5D5D">
         <Grid.Effect>
             <DropShadowEffect/>
         </Grid.Effect>
@@ -141,18 +141,18 @@
                             </DockPanel>
                         </TabItem.Header>
                         <Border Margin="1" BorderBrush="#898F98" BorderThickness="1">
-                            <Grid Background="#FF43474D" >
+                            <Grid Background="#FF43474D"  >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50"/>
-                                    <RowDefinition/>
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Grid Margin="5,5,5,0" Background= "#2E3F3F" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="160"/>
                                         <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="0"/>
                                         <ColumnDefinition Width="1*" x:Name="SiteA"/>
                                         <ColumnDefinition Width="1*" x:Name="SiteB"/>
                                         <ColumnDefinition Width="1*" x:Name="SiteC"/>
@@ -167,45 +167,176 @@
                                         <TextBlock  Text="No" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial"/>
                                     </Border>
                                     <Border Grid.Column="1" Grid.RowSpan="2" BorderBrush="#FF918C8C" BorderThickness="0,1,1,0">
-                                        <TextBlock  Text="CMD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock  Text="Code" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                     <Border Grid.Column="2" Grid.RowSpan="2" BorderBrush="#FF918C8C" BorderThickness="0,1,1,0">
-                                        <TextBlock  Text="Conditions" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock  Text="Content" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                     <Border Grid.Column="3" Grid.RowSpan="2" BorderBrush="#FF918C8C" BorderThickness="0,1,1,0">
-                                        <TextBlock  Text="Oper" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock  Text="CMD" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
-                                    <Border Grid.Column="4" Grid.RowSpan="2" BorderBrush="#FF918C8C" BorderThickness="0,1,1,0">
-                                        <TextBlock  Text="Min - Max" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
+                                    <Border Grid.Column="4" Grid.RowSpan="2" BorderBrush="#FF918C8C" BorderThickness="0,1,1,0"/>
                                     <Border Grid.Column="5" Grid.RowSpan="1" BorderBrush="#FF918C8C" BorderThickness="0,1,1,1">
                                         <TextBlock  Text="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                     <Border Grid.Column="5" Grid.Row="1" BorderBrush="#FF918C8C" BorderThickness="0,0,1,0" Background="#FF151515">
-                                        <CheckBox x:Name="WaitSite1" Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" Background="White" VerticalContentAlignment="Center" FontSize="13" BorderBrush="#FF144701"/>
+                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" VerticalContentAlignment="Center" FontSize="13" />
                                     </Border>
                                     <Border Grid.Column="6" Grid.RowSpan="1" BorderBrush="#FF918C8C" BorderThickness="0,1,1,1">
                                         <TextBlock  Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Lucida Console"/>
                                     </Border>
                                     <Border Grid.Column="6" Grid.Row="1" BorderBrush="#FF918C8C" BorderThickness="0,0,1,0" Background="#FF151515">
-                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" Background="White" VerticalContentAlignment="Center" FontSize="13" BorderBrush="#FF144701"/>
+                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" VerticalContentAlignment="Center" FontSize="13" />
                                     </Border>
                                     <Border Grid.Column="7" Grid.RowSpan="1" BorderBrush="#FF918C8C" BorderThickness="0,1,1,1">
                                         <TextBlock  Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Lucida Console"/>
                                     </Border>
                                     <Border Grid.Column="7" Grid.Row="1" BorderBrush="#FF918C8C" BorderThickness="0,0,1,0" Background="#FF151515">
-                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" Background="White" VerticalContentAlignment="Center" FontSize="13" BorderBrush="#FF144701"/>
+                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" VerticalContentAlignment="Center" FontSize="13" />
                                     </Border>
                                     <Border Grid.Column="8" Grid.RowSpan="1" BorderBrush="#FF918C8C" BorderThickness="0,1,1,1">
-                                        <TextBlock Text="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Lucida Console"/>
+                                        <TextBlock  Text="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Lucida Console"/>
                                     </Border>
                                     <Border Grid.Column="8" Grid.Row="1" BorderBrush="#FF918C8C" BorderThickness="0,0,1,0" Background="#FF151515">
-                                        <CheckBox Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" Background="White" VerticalContentAlignment="Center" FontSize="13" BorderBrush="#FF144701"/>
+                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console"  VerticalContentAlignment="Center" FontSize="13" />
                                     </Border>
                                     <Border Grid.Column="10" Grid.RowSpan="2" BorderBrush="#FF918C8C" BorderThickness="0,1,1,1" Background="#2E3F3F">
                                         <Image Source="img/arrows.png" Margin="2" />
                                     </Border>
                                 </Grid>
+                                <DataGrid x:Name="QRcodesGrid" IsReadOnly="True" 
+                                                          Grid.Row="1" Margin="5,0,5,5" Background="#FF202020"
+                                                          AutoGenerateColumns="False" GridLinesVisibility="All"
+                                                          SelectionMode="Single" HeadersVisibility="None"
+                                                          Style="{StaticResource VTMDataGrid}"
+                                                          ColumnHeaderStyle="{ StaticResource VTMDataGridHeader}" 
+                                                          SelectionChanged="TestStepsGrid_SelectionChanged">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Path=No, Mode=OneWay}"
+                                                            Header="No" Width="39"
+                                                             Foreground="#FFE8E8E8" CellStyle="{StaticResource VTMDataGridCellHeader}">
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Path=CMD, Mode=OneWay}"
+                                                            Header="CMD" Width="40"
+                                                             Foreground="#FFF7F71C" CellStyle="{StaticResource VTMDataGridCellConstan}">
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Path=Condition1, Mode=OneWay}"
+                                                            Header="Condition" Width="100"
+                                                            >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="{x:Type DataGridCell}">
+                                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                                    <Setter Property="BorderBrush" Value="#6C6B6B"/>
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="BorderThickness" Value="0,0,0,0"/>
+                                                    <Setter Property="Background" Value="#03132C"/>
+                                                    <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                            <Setter Property="FontFamily" Value="Arial"/>
+                                                            <Setter Property="FontSize" Value="12"/>
+                                                            <Setter Property="TextBlock.Width" Value="1000"/>
+                                                            <Setter Property="Margin" Value="-180,0,-1000,0"/>
+                                                            <Setter Property="Padding" Value="10,5,0,0"/>
+                                                            <Setter Property="TextBlock.TextAlignment" Value="Left"/>
+                                                            <Setter Property="Background" Value="#202020"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Skip}" Value="True" >
+                                                            <Setter Property="Background" Value="Gray"/>
+                                                            <Setter Property="Foreground" Value="Black"/>
+                                                        </DataTrigger>
+                                                        <Trigger Property="IsSelected" Value="True" >
+                                                            <Setter Property="Background" Value="#3261AF"/>
+                                                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Path=Oper, Mode=OneWay}"
+                                                            Header="Oper" Width="60"
+                                                            >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style BasedOn="{StaticResource VTMDataGridCellConstan}"  TargetType="{x:Type DataGridCell}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                            <Setter Property="TextBlock.Width" Value="0"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Path=Min_Max , Mode=OneWay}"
+                                                            Header="Min ~ Max" Width="80"
+                                                            >
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style BasedOn="{StaticResource VTMDataGridCellConstan}"  TargetType="{x:Type DataGridCell}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                            <Setter Property="TextBlock.Width" Value="0"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding Path=ValueGet1, Mode=OneWay}"
+                                                            Header="1" Width="1*"
+                                                             Foreground="#FFE8E8E8">
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style BasedOn="{StaticResource VTMDataGridCellData}"  TargetType="{x:Type DataGridCell}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                            <Setter Property="TextBlock.Width" Value="0"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Path=ValueGet2, Mode=OneWay}"
+                                                            Header="1"  Width="1*"
+                                                             Foreground="#FFD8D8D8">
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style BasedOn="{StaticResource VTMDataGridCellData}"  TargetType="{x:Type DataGridCell}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                            <Setter Property="TextBlock.Width" Value="0"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Path=ValueGet3, Mode=OneWay}"
+                                                            Header="3"  Width="1*"
+                                                             Foreground="#FFD8D8D8">
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style BasedOn="{StaticResource VTMDataGridCellData}"  TargetType="{x:Type DataGridCell}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                            <Setter Property="TextBlock.Width" Value="0"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Path=ValueGet4, Mode=OneWay}"
+                                                            Header="4"  Width="1*"
+                                                             Foreground="#FFD8D8D8">
+                                            <DataGridTextColumn.CellStyle>
+                                                <Style BasedOn="{StaticResource VTMDataGridCellData}"  TargetType="{x:Type DataGridCell}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                            <Setter Property="TextBlock.Width" Value="0"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGridTextColumn.CellStyle>
+                                        </DataGridTextColumn>
+
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+
                             </Grid>
                         </Border>
                     </TabItem>
@@ -262,37 +393,37 @@
                                         <TextBlock  Text="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                     <Border Grid.Column="5" Grid.Row="1" BorderBrush="#FF918C8C" BorderThickness="0,0,1,0" Background="#FF151515">
-                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" Background="White" VerticalContentAlignment="Center" FontSize="13" BorderBrush="#FF144701"/>
+                                        <CheckBox x:Name="WaitSite1" Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" VerticalContentAlignment="Center" FontSize="13" Checked="WaitSite1_Checked" Unchecked="WaitSite1_Unchecked"/>
                                     </Border>
                                     <Border Grid.Column="6" Grid.RowSpan="1" BorderBrush="#FF918C8C" BorderThickness="0,1,1,1">
                                         <TextBlock  Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Lucida Console"/>
                                     </Border>
                                     <Border Grid.Column="6" Grid.Row="1" BorderBrush="#FF918C8C" BorderThickness="0,0,1,0" Background="#FF151515">
-                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" Background="White" VerticalContentAlignment="Center" FontSize="13" BorderBrush="#FF144701"/>
+                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" VerticalContentAlignment="Center" FontSize="13" />
                                     </Border>
                                     <Border Grid.Column="7" Grid.RowSpan="1" BorderBrush="#FF918C8C" BorderThickness="0,1,1,1">
                                         <TextBlock  Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Lucida Console"/>
                                     </Border>
                                     <Border Grid.Column="7" Grid.Row="1" BorderBrush="#FF918C8C" BorderThickness="0,0,1,0" Background="#FF151515">
-                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" Background="White" VerticalContentAlignment="Center" FontSize="13" BorderBrush="#FF144701"/>
+                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" VerticalContentAlignment="Center" FontSize="13" />
                                     </Border>
                                     <Border Grid.Column="8" Grid.RowSpan="1" BorderBrush="#FF918C8C" BorderThickness="0,1,1,1">
                                         <TextBlock  Text="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Lucida Console"/>
                                     </Border>
                                     <Border Grid.Column="8" Grid.Row="1" BorderBrush="#FF918C8C" BorderThickness="0,0,1,0" Background="#FF151515">
-                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console" Background="White" VerticalContentAlignment="Center" FontSize="13" BorderBrush="#FF144701"/>
+                                        <CheckBox  Content="Wait" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gainsboro" FontFamily="Lucida Console"  VerticalContentAlignment="Center" FontSize="13" />
                                     </Border>
                                     <Border Grid.Column="10" Grid.RowSpan="2" BorderBrush="#FF918C8C" BorderThickness="0,1,1,1" Background="#2E3F3F">
                                         <Image Source="img/arrows.png" Margin="2" />
                                     </Border>
                                 </Grid>
                                 <DataGrid x:Name="TestStepsGrid" IsReadOnly="True" 
-                                          Grid.Row="1" Margin="5,0,5,5" Background="#FF202020"
-                                          AutoGenerateColumns="False" GridLinesVisibility="All"
-                                          SelectionMode="Single" HeadersVisibility="None"
-                                          Style="{StaticResource VTMDataGrid}"
-                                          ColumnHeaderStyle="{ StaticResource VTMDataGridHeader}" 
-                                          SelectionChanged="TestStepsGrid_SelectionChanged">
+                                                          Grid.Row="1" Margin="5,0,5,5" Background="#FF202020"
+                                                          AutoGenerateColumns="False" GridLinesVisibility="All"
+                                                          SelectionMode="Single" HeadersVisibility="None"
+                                                          Style="{StaticResource VTMDataGrid}"
+                                                          ColumnHeaderStyle="{ StaticResource VTMDataGridHeader}" 
+                                                          SelectionChanged="TestStepsGrid_SelectionChanged">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Binding="{Binding Path=No, Mode=OneWay}"
                                                             Header="No" Width="39"
@@ -782,10 +913,9 @@
                         </TabControl>
                     </Grid>
                 </Grid>
-
             </Grid>
-
         </Grid>
     </Grid>
+
 
 </Page>

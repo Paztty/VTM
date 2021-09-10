@@ -239,7 +239,8 @@
                 <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="True">
-                <Setter Property="BorderThickness" TargetName="border" Value="1"/>
+                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                <Setter Property="Cursor" Value="Pen"></Setter>
                 <Setter Property="Foreground" Value="Black"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
@@ -276,7 +277,7 @@
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderBrush" Value="Gray" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
@@ -289,20 +290,17 @@
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                        BorderThickness="1"
                                        ClipToBounds="True">
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="5" ShadowDepth="2" />
-                                </Border.Effect>
                                 <Path x:Name="CheckMark"
-                                          Width="8"
-                                          Height="8"
-                                         HorizontalAlignment="Center"
+                                          Width="10"
+                                          Height="10"
+                                          HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
-                                          Data="M 0 0 L 8 8 M 0 8 L 8 1"
-                                          Stretch="Fill"
-                                          Stroke="LightGray"
+                                          Data="M0,5L4,9 M3,9L10,0"
+                                          Stretch="None"
+                                          Stroke="#55A6DD"
                                           StrokeEndLineCap="Round"
-                                         StrokeStartLineCap="Round"
-                                          StrokeThickness="2"></Path>
+                                          StrokeStartLineCap="Round"
+                                          StrokeThickness="3"></Path>
                             </Border>
                         </BulletDecorator.Bullet>
                         <ContentPresenter Margin="4,0,0,0"
@@ -314,7 +312,7 @@
                         <Trigger Property="IsChecked" Value="false">
                             <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                        <Trigger Property="IsFocused" Value="true">
+                        <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="BorderBrush" Value="White" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">

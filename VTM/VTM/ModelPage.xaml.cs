@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,10 +33,10 @@ namespace VTM
         public ModelPage(Model model)
         {
             InitializeComponent();
-            //MainModel = model;
-            //MainModel.LoadFinish += Model_LoadFinish;
-            this.model = model;
-            this.model.LoadFinish += Model_LoadFinish;
+            MainModel = model;
+            MainModel.LoadFinish += Model_LoadFinish;
+            //this.model = model;
+            //this.model.LoadFinish += Model_LoadFinish;
 
             Error_Positions_Table.ItemsSource = model.ErrorPositions;
 
@@ -54,13 +55,25 @@ namespace VTM
 
         private void Model_LoadFinish(object sender, EventArgs e)
         {
-            //model = (Model)MainModel.Clone();
+            model = (Model)MainModel.Clone();
             tbModelName.Text = model.Name;
             tbModelNamePath.Text = model.Path;
             TestStepsGrid.ItemsSource = null;
             TestStepsGrid.ItemsSource = model.Steps;
+            Error_Positions_Table.ItemsSource = model.ErrorPositions;
+            //await Task.Run(UpdateDataToGrid);
         }
 
+        public void UpdateDataToGrid()
+        {
+            foreach (var item in model.Steps)
+            {
+                Dispatcher.Invoke(new Action(delegate
+                {
+                    TestStepsGrid.Items.Add(item);
+                }));
+            }
+        }
 
 
 
@@ -171,17 +184,6 @@ namespace VTM
         bool IsAddingErrorPosition = false;
         Model.ErrorPosition newErrorPosition = new Model.ErrorPosition();
 
-        private void btPCB_Error_Position_Add_Click(object sender, RoutedEventArgs e)
-        {
-            IsAddingErrorPosition = true;
-            //model.ErrorPositions.Add(new Model.ErrorPosition()
-            //{
-            //    No = model.ErrorPositions.Count + 1,
-            //    Position = "123 ~ 321",
-            //});
-            //Error_Positions_Table.Items.Refresh();
-        }
-
         private void btPCB_Error_Position_Delete_Click(object sender, RoutedEventArgs e)
         {
             if (Error_Positions_Table.SelectedIndex >= 0 && Error_Positions_Table.SelectedIndex < model.ErrorPositions.Count)
@@ -230,7 +232,7 @@ namespace VTM
 
                 Canvas_PCB_Error_Mark.Children.Add(model.ErrorPositions[model.ErrorPositions.Count - 1].rect);
                 Canvas_PCB_Error_Mark.Children.Add(model.ErrorPositions[model.ErrorPositions.Count - 1].label);
-                
+
             }
         }
 
@@ -248,6 +250,7 @@ namespace VTM
                 //Canvas.SetTop(model.ErrorPositions[model.ErrorPositions.Count - 1].rect, model.ErrorPositions[model.ErrorPositions.Count - 1].Y);
                 //Canvas.SetLeft(model.ErrorPositions[model.ErrorPositions.Count - 1].rect, model.ErrorPositions[model.ErrorPositions.Count - 1].X);
 
+                Error_Positions_Table.ItemsSource = model.ErrorPositions;
                 Error_Positions_Table.Items.Refresh();
                 IsAddingErrorPosition = false;
                 btPCB_Error_Position_Add.IsChecked = false;
@@ -320,6 +323,16 @@ namespace VTM
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btReference_Copy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

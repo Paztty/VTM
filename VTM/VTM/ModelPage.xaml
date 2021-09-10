@@ -505,10 +505,15 @@
                                     </DataGrid>
                                     <Border Grid.Row="1" Margin="5,0,5,5" BorderBrush="#FF0A0A0A" BorderThickness="1" >
                                         <TextBlock  Padding="5" TextWrapping="Wrap"
-                                           Text="Remark Step" Background="#FF323F47" Foreground="White"
-                                           />
+                                           Background="#FF323F47" Foreground="White"
+                                           ><Run Text="Remark Step"/><InlineUIContainer>
+                                            </InlineUIContainer></TextBlock>
                                     </Border>
-
+                                    <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="60" Foreground="#FF43474D" FontWeight="Bold" Height="83" Content="Steps" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1">
+                                        <Label.Effect>
+                                            <DropShadowEffect/>
+                                        </Label.Effect>
+                                    </Label>
                                 </Grid>
                             </Grid>
                         </Border>
@@ -661,12 +666,15 @@
                                                 <Canvas x:Name="Canvas_PCB_Error_Mark"
                                                        MouseLeftButtonDown="imgPCB_Error_Position_MouseLeftButtonDown"
                                                        MouseLeftButtonUp="imgPCB_Error_Position_MouseLeftButtonUp"
-                                                       MouseMove="Canvas_PCB_Error_Mark_MouseMove" Background="#02FFFFFF">
+                                                       MouseMove="Canvas_PCB_Error_Mark_MouseMove" Background="#02FFFFFF"
+                                                       Cursor="{Binding ElementName=btPCB_Error_Position_Add, Path=Cursor}">
+
+
                                                 </Canvas>
                                             </Grid>
 
                                             <TextBox x:Name="tbPCB_Error_Position_Path"  Grid.Row="2" Margin="5" FontWeight="Bold"/>
-                                            <Button x:Name="btPCB_Error_Position_Browser" Content="Changer" Grid.Column="1" Grid.Row="2" Template="{StaticResource ButtonElipse}"
+                                            <Button x:Name="btPCB_Error_Position_Browser" Content="Change" Grid.Column="1" Grid.Row="2" Template="{StaticResource ButtonElipse}"
                                                    Margin="5" Foreground="White" FontWeight="Bold" FontSize="14" Click="btPCB_Error_Position_Browser_Click">
                                                 <Button.Background>
                                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -703,7 +711,7 @@
                                                 </ToggleButton.BorderBrush>
                                             </ToggleButton>
                                             <Button x:Name="btPCB_Error_Position_Delete" Content="Delete" Grid.Column="3" Grid.Row="0" Template="{StaticResource ButtonElipse}"
-                                                   Margin="5" Foreground="White" Click="btPCB_Error_Position_Delete_Click">
+                                                   Margin="5" Foreground="White" Click="btPCB_Error_Position_Delete_Click" >
                                                 <Button.Background>
                                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                                         <GradientStop Color="#FF630101" Offset="1"/>
@@ -715,19 +723,17 @@
 
                                             <DataGrid x:Name="Error_Positions_Table" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"
                                                   AutoGenerateColumns="False" Margin="5" IsReadOnly="True"
-                                                  SelectionMode="Extended"
+                                                  SelectionMode="Extended" ItemsSource="{Binding Path=model.ErrorPositions}"
                                                   Style="{StaticResource VTMDataGrid}"
                                                   ColumnHeaderStyle="{ StaticResource VTMDataGridHeader}"
                                                   SelectionUnit="FullRow" SelectionChanged="Error_Positions_Table_SelectionChanged">
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Binding="{Binding No}"
                                                             Header="No" Width="35"
-                                                             
                                                             CellStyle="{StaticResource VTMDataGridCellHeader}">
                                                     </DataGridTextColumn>
                                                     <DataGridTextColumn Binding="{Binding Position}"
                                                             Header="Informations" Width="1*"
-                                                             
                                                             CellStyle="{StaticResource VTMDataGridCellDataNomal}">
                                                     </DataGridTextColumn>
                                                 </DataGrid.Columns>
@@ -737,18 +743,11 @@
                                     </TabItem>
                                 </TabControl>
                                 <!-- Matrix TAP-->
-                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1" Grid.RowSpan="1" Background="{x:Null}" Margin="5">
-                                    <TabItem Template="{StaticResource TabVTMControl}" Header="7 Segmen Setting" Foreground="White" >
-                                        <Grid Background="#3E4349">
-
-                                        </Grid>
-                                    </TabItem>
-                                </TabControl>
                                 <!-- Barcode TAP-->
-                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" Grid.RowSpan="1" Background="{x:Null}" Margin="5">
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Background="{x:Null}" Margin="5,5,5,10">
                                     <TabItem Template="{StaticResource TabVTMControl}" Header="Barcode Setting" Foreground="White" >
                                         <Border Background="#3E4349" Margin="1">
-                                            <Grid Background="#3E4349" Margin="0" RenderTransformOrigin="0.587,0.448">
+                                            <Grid Background="#3E4349" Margin="0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="33*"/>
                                                     <ColumnDefinition Width="70*"/>
@@ -763,19 +762,19 @@
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="Auto"/>
                                                 </Grid.RowDefinitions>
-                                                <CheckBox Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" Height="15" Margin="20,5" >Use Barcode input</CheckBox>
-                                                <RadioButton Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Background="#FF646464" Foreground="White" Height="14" Margin="0,7">Variable length</RadioButton>
-                                                <RadioButton Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Background="#FF646464" Foreground="White" Height="14" Margin="0,7">Fixed length</RadioButton>
-                                                <CheckBox Grid.Row="2" Grid.Column="1" Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5">Compare model code</CheckBox>
-                                                <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Foreground="White" Height="26" Margin="0,1">Model-code start position</Label>
-                                                <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Foreground="White" Height="26" Margin="0,1">Model-code</Label>
-                                                <Label Grid.Row="5" Grid.Column="2"  Grid.ColumnSpan="2" VerticalAlignment="Center" Foreground="White" Height="26" Margin="0,1">xxxDJ9200265Cxxxxxxxxxxxxxxxx</Label>
+                                                <CheckBox Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" Height="15" Margin="20,5" Content="Use Barcode input" />
+                                                <RadioButton Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Background="#FF646464" Foreground="White" Height="14" Margin="0,7" Content="Variable length"/>
+                                                <RadioButton Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Background="#FF646464" Foreground="White" Height="14" Margin="0,7" Content="Fixed length"/>
+                                                <CheckBox Grid.Row="2" Grid.Column="1" Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" Content="Compare model code"/>
+                                                <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Foreground="White" Height="26" Margin="0,1" Content="Model-code start position"/>
+                                                <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Foreground="White" Height="26" Margin="0,1" Content="Model-code"/>
+                                                <Label Grid.Row="5" Grid.Column="2"  Grid.ColumnSpan="2" VerticalAlignment="Center" Foreground="White" Height="26" Margin="0,1" Content="xxxDJ9200265Cxxxxxxxxxxxxxxxx"/>
                                                 <WindowsFormsHost FontWeight = "Bold"  Grid.Row="1" Margin="2" HorizontalAlignment="Left" Width="87" Grid.Column="3">
                                                     <wf:NumericUpDown Name="nUD_PCBcount" Minimum="1" Value="1" Maximum="100" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
-                                                </WindowsFormsHost >
+                                                </WindowsFormsHost>
                                                 <WindowsFormsHost FontWeight = "Bold"  Grid.Row="3" Margin="2" HorizontalAlignment="Left" Width="87" Grid.Column="2">
                                                     <wf:NumericUpDown Name="nUD_PCBcount" Minimum="1" Value="1" Maximum="100" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
-                                                </WindowsFormsHost >
+                                                </WindowsFormsHost>
                                                 <TextBox Grid.Row="4" Margin="0" HorizontalAlignment="Left"  Width="171" Background="#FFDEDEDE" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="2" VerticalAlignment="Center" Grid.Column="2"/>
 
                                             </Grid>
@@ -783,7 +782,7 @@
                                     </TabItem>
                                 </TabControl>
                                 <!-- Discharge TAP-->
-                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Grid.RowSpan="1" Background="{x:Null}" Margin="5">
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" Background="{x:Null}" Margin="5,10,5,5">
                                     <TabItem Template="{StaticResource TabVTMControl}" Header="Discharge Setting" Foreground="White" >
                                         <Grid Background="#3E4349">
                                             <Grid Background="#3E4349" Margin="0,0,2,0" RenderTransformOrigin="0.587,0.448">
@@ -805,7 +804,7 @@
                                                     <RowDefinition Height="25"/>
                                                     <RowDefinition Height="25"/>
                                                 </Grid.RowDefinitions>
-                                                <CheckBox Foreground="White" Grid.ColumnSpan="2" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" Margin="16,6,20,5" Content="Check the test start" VerticalAlignment="Center" Grid.Column="1" Height="15" Checked="CheckBox_Checked" />
+                                                <CheckBox Foreground="White" Grid.ColumnSpan="2" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" Margin="16,0,20,0" Content="Check the test start" VerticalAlignment="Center" Grid.Column="1" Height="15" Checked="CheckBox_Checked" />
                                                 <Label Grid.Row="1" VerticalAlignment="Center" Foreground="White" Height="25" Margin="39,0,9,0" Content="Before discharge start, delay time" Grid.ColumnSpan="3" HorizontalContentAlignment="Right" Grid.Column="1"/>
                                                 <Label Grid.Row="2" VerticalAlignment="Center" Foreground="White" Height="25" Margin="20,0,10,0" Content="Discharge time" Grid.ColumnSpan="3" HorizontalContentAlignment="Right" Grid.Column="1"/>
                                                 <WindowsFormsHost FontWeight = "Bold"  Grid.Row="1" Margin="5,5,0,5" HorizontalAlignment="Left" Width="87" Grid.Column="4">
@@ -872,16 +871,100 @@
                                     </TabItem>
                                 </TabControl>
                                 <!-- Motor TAP-->
-                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Background="{x:Null}" Margin="5,5,5,114">
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Background="{x:Null}" Margin="5">
                                     <TabItem Template="{StaticResource TabVTMControl}" Header="Motor b/d Offset Setting" Foreground="White" >
                                         <Grid Background="#3E4349">
                                             <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.RowSpan="1" Background="{x:Null}" Margin="10,10,10,35">
                                                 <TabItem Template="{StaticResource TabVTMControl}" Header="Site #1" Foreground="White" >
-                                                    <Grid Background="#3E4349" Margin="0,0,0,-1"/>
+                                                    <Grid Background="#3E4349" Margin="0,0,2,0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="17*"/>
+                                                            <ColumnDefinition Width="118*"/>
+                                                            <ColumnDefinition Width="141*"/>
+                                                            <ColumnDefinition Width="136*"/>
+                                                            <ColumnDefinition Width="10"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="25"/>
+                                                            <RowDefinition Height="25"/>
+                                                            <RowDefinition Height="25"/>
+                                                            <RowDefinition Height="25"/>
+                                                            <RowDefinition Height="25"/>
+                                                            <RowDefinition Height="25"/>
+                                                            <RowDefinition Height="25"/>
+                                                            <RowDefinition Height="25"/>
+                                                            <RowDefinition Height="25"/>
+                                                            <RowDefinition Height="25"/>
+                                                            <RowDefinition Height="25"/>
+                                                            <RowDefinition Height="25"/>
+                                                        </Grid.RowDefinitions>
+                                                        <ComboBox Grid.Row="1" SelectedIndex="0" Margin="0,0,5,0" HorizontalAlignment="Right" Width="80" FontWeight="Bold" Grid.Column="2" VerticalAlignment="Top" Height="20">
+                                                            <ListBoxItem Content="Raito"/>
+                                                            <ListBoxItem Content="Adjust"/>
+                                                        </ComboBox>
+                                                        <ComboBox Grid.Row="1" SelectedIndex="0" Margin="0,0,5,0" HorizontalAlignment="Right" Width="80" FontWeight="Bold" Grid.Column="3" VerticalAlignment="Top" Height="20">
+                                                            <ListBoxItem Content="Raito"/>
+                                                            <ListBoxItem Content="Adjust"/>
+                                                        </ComboBox>
+                                                        <WindowsFormsHost FontWeight = "Bold"  Grid.Row="2" Margin="0,3,5,3" Grid.Column="2">
+                                                            <wf:NumericUpDown Name="nUD_PCBcount" Minimum="1" Value="1" Maximum="100" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                        </WindowsFormsHost>
+                                                        <WindowsFormsHost FontWeight = "Bold"  Grid.Row="2" Margin="4,3" Grid.Column="3">
+                                                            <wf:NumericUpDown Name="nUD_PCBcount" Minimum="1" Value="1" Maximum="100" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                        </WindowsFormsHost>
+                                                        <Label Grid.Column="2" VerticalAlignment="Center" Foreground="White" Height="26" Content="Voltage" HorizontalAlignment="Center" Margin="45,0,48,0" Width="48"/>
+                                                        <Label Grid.Column="3" VerticalAlignment="Center" Foreground="White" Height="26" Content="Current" HorizontalAlignment="Center" Margin="46,0,44,0" Width="46"/>
+                                                        <Label VerticalAlignment="Center" Foreground="White" Content="B/d #1" Margin="10,12,0,15" Grid.Row="1" Grid.RowSpan="2" Height="25" Grid.Column="1"/>
+                                                        <ComboBox Grid.Row="3" SelectedIndex="0" Margin="0,5,5,0" HorizontalAlignment="Right" Width="80" FontWeight="Bold" Grid.Column="2" VerticalAlignment="Top" Height="20">
+                                                            <ListBoxItem Content="Raito"/>
+                                                            <ListBoxItem Content="Adjust"/>
+                                                        </ComboBox>
+                                                        <ComboBox Grid.Row="3" SelectedIndex="0" Margin="0,5,5,0" HorizontalAlignment="Right" Width="80" FontWeight="Bold" Grid.Column="3" VerticalAlignment="Top" Height="20">
+                                                            <ListBoxItem Content="Raito"/>
+                                                            <ListBoxItem Content="Adjust"/>
+                                                        </ComboBox>
+                                                        <WindowsFormsHost FontWeight = "Bold"  Grid.Row="4" Margin="0,4,5,2" Grid.Column="2">
+                                                            <wf:NumericUpDown Name="nUD_PCBcount" Minimum="1" Value="1" Maximum="100" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                        </WindowsFormsHost>
+                                                        <WindowsFormsHost FontWeight = "Bold"  Grid.Row="4" Margin="4,4,4,2" Grid.Column="3">
+                                                            <wf:NumericUpDown Name="nUD_PCBcount" Minimum="1" Value="1" Maximum="100" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                        </WindowsFormsHost>
+                                                        <Label VerticalAlignment="Center" Foreground="White" Content="B/d #2" Margin="9,13,1,14" Grid.Row="3" Grid.RowSpan="2" Height="25" Grid.Column="1"/>
+                                                        <ComboBox Grid.Row="5" SelectedIndex="0" Margin="0,5,5,0" HorizontalAlignment="Right" Width="80" FontWeight="Bold" Grid.Column="2" VerticalAlignment="Top" Height="20">
+                                                            <ListBoxItem Content="Raito"/>
+                                                            <ListBoxItem Content="Adjust"/>
+                                                        </ComboBox>
+                                                        <ComboBox Grid.Row="5" SelectedIndex="0" Margin="0,5,5,0" HorizontalAlignment="Right" Width="80" FontWeight="Bold" Grid.Column="3" VerticalAlignment="Top" Height="20">
+                                                            <ListBoxItem Content="Raito"/>
+                                                            <ListBoxItem Content="Adjust"/>
+                                                        </ComboBox>
+                                                        <WindowsFormsHost FontWeight = "Bold"  Grid.Row="6" Margin="1,4,4,2" Grid.Column="2">
+                                                            <wf:NumericUpDown Name="nUD_PCBcount" Minimum="1" Value="1" Maximum="100" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                        </WindowsFormsHost>
+                                                        <WindowsFormsHost FontWeight = "Bold"  Grid.Row="6" Margin="4,4,4,2" Grid.Column="3">
+                                                            <wf:NumericUpDown Name="nUD_PCBcount" Minimum="1" Value="1" Maximum="100" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                        </WindowsFormsHost>
+                                                        <Label VerticalAlignment="Center" Foreground="White" Content="B/d #3" Margin="10,14,0,13" Grid.Row="5" Grid.RowSpan="2" Height="25" Grid.Column="1"/>
+                                                        <ComboBox Grid.Row="7" SelectedIndex="0" Margin="0,4,5,0" HorizontalAlignment="Right" Width="80" FontWeight="Bold" Grid.Column="2" VerticalAlignment="Top" Height="20">
+                                                            <ListBoxItem Content="Raito"/>
+                                                            <ListBoxItem Content="Adjust"/>
+                                                        </ComboBox>
+                                                        <ComboBox Grid.Row="7" SelectedIndex="0" Margin="0,4,5,0" HorizontalAlignment="Right" Width="80" FontWeight="Bold" Grid.Column="3" VerticalAlignment="Top" Height="20">
+                                                            <ListBoxItem Content="Raito"/>
+                                                            <ListBoxItem Content="Adjust"/>
+                                                        </ComboBox>
+                                                        <WindowsFormsHost FontWeight = "Bold"  Grid.Row="8" Margin="1,3,4,3" Grid.Column="2">
+                                                            <wf:NumericUpDown Name="nUD_PCBcount" Minimum="1" Value="1" Maximum="100" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                        </WindowsFormsHost>
+                                                        <WindowsFormsHost FontWeight = "Bold"  Grid.Row="8" Margin="4,3" Grid.Column="3">
+                                                            <wf:NumericUpDown Name="nUD_PCBcount" Minimum="1" Value="1" Maximum="100" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                        </WindowsFormsHost>
+                                                        <Label VerticalAlignment="Center" Foreground="White" Content="B/d #4" Margin="10,13,0,14" Grid.Row="7" Grid.RowSpan="2" Height="25" Grid.Column="1"/>
+                                                    </Grid>
                                                 </TabItem>
                                             </TabControl>
                                             <Button x:Name="btReference_Copy" Width="78" Height="Auto" Margin="10,0,0,9" HorizontalAlignment="Left" Template="{StaticResource ButtonElipse}" Foreground="White" FontWeight="Bold" FontSize="14"
-                                                Content="Default" VerticalAlignment="Bottom">
+                                                Content="Default" VerticalAlignment="Bottom" Click="btReference_Copy_Click">
                                                 <Button.Background >
                                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                                         <GradientStop Color="#FF326426" Offset="0"/>
@@ -895,13 +978,38 @@
                                     </TabItem>
                                 </TabControl>
                                 <!-- ETC TAP-->
-                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" Background="{x:Null}" Margin="5,131,5,5">
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" Background="{x:Null}" Margin="5,10,5,5">
                                     <TabItem Template="{StaticResource TabVTMControl}" Header="ETC Setting" Foreground="White" >
-                                        <Grid Background="#3E4349"/>
+                                        <Grid Background="#3E4349">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="1*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                                <RowDefinition Height="25"/>
+                                                <RowDefinition Height="25"/>
+                                                <RowDefinition Height="25"/>
+                                                <RowDefinition Height="25"/>
+                                                <RowDefinition Height="25"/>
+                                                <RowDefinition Height="25"/>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <CheckBox Foreground="White" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" Margin="20,0,0,0" Content="Use the Fixture relay B/d" VerticalAlignment="Center" Height="15" Checked="CheckBox_Checked" Grid.Row="1" />
+                                            <CheckBox Foreground="White" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" Margin="20,0,0,0" Content="Use the Pass-mark tool" VerticalAlignment="Center" Checked="CheckBox_Checked" Grid.Row="1" Grid.Column="1" />
+                                            <Label Grid.Row="2" VerticalAlignment="Center" Foreground="White" Height="25" Margin="20,0,0,0" Content="RemoteController Type" HorizontalContentAlignment="Right" HorizontalAlignment="Left" FontWeight="Bold"/>
+                                            <ComboBox Grid.Row="3" SelectedIndex="0" Margin="20,2,32,2" HorizontalAlignment="Left" Width="135" FontWeight="Bold" VerticalAlignment="Center">
+                                                <ListBoxItem Content="Not use"/>
+                                                <ListBoxItem Content="Test"/>
+                                                <ListBoxItem Content="Basic"/>
+                                            </ComboBox>
+                                            <Label Grid.Row="4" VerticalAlignment="Center" Foreground="White" Height="24" Margin="20,0,0,0" Content="JIG use count code" HorizontalContentAlignment="Right" HorizontalAlignment="Left" FontWeight="Bold"/>
+                                            <TextBox Grid.Row="5" Margin="20,5,0,5" HorizontalAlignment="Left"  Width="96" Background="#FFDEDEDE" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        </Grid>
                                     </TabItem>
                                 </TabControl>
                                 <!-- PPS DC Power setting TAP-->
-                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Grid.RowSpan="1" Background="{x:Null}" Margin="5">
+                                <TabControl VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Background="{x:Null}" Margin="5,5,5,0" Height="230">
                                     <TabItem Template="{StaticResource TabVTMControl}" Header="PPS DC Power Setting" Foreground="White" >
                                         <Grid Background="#3E4349">
                                             <DataGrid x:Name="Error_Positions_Table_Copy"
@@ -931,6 +1039,11 @@
                                         </Grid>
                                     </TabItem>
                                 </TabControl>
+                                <Label Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="60" Foreground="#FF43474D" FontWeight="Bold" Height="83" Margin="0" Content="Constructions" Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                    <Label.Effect>
+                                        <DropShadowEffect/>
+                                    </Label.Effect>
+                                </Label>
                             </Grid>
                         </Border>
                     </TabItem>
@@ -947,17 +1060,17 @@
                             </DockPanel>
                         </TabItem.Header>
                         <Border Margin="1" BorderBrush="#898F98" BorderThickness="1">
-                            <Grid Margin="5">
+                            <Grid Margin="5" Background="#3E3E3E">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.8*"/>
-                                    <ColumnDefinition Width="1.3*"/>
-                                    <ColumnDefinition Width="1.3*"/>
-                                    <ColumnDefinition Width="0.8*"/>
+                                    <ColumnDefinition Width="284*"/>
+                                    <ColumnDefinition Width="621*"/>
+                                    <ColumnDefinition Width="401*"/>
+                                    <ColumnDefinition Width="454*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
+                                    <RowDefinition Height="1.8*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="0.8*"/>
                                 </Grid.RowDefinitions>
                                 <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Background="{x:Null}" Margin="5">
                                     <TabItem Template="{StaticResource TabVTMControl}" Header="MUX (-) channels" Foreground="White" >
@@ -979,7 +1092,7 @@
                                                             CellStyle="{StaticResource VTMDataGridCellHeader}">
                                                     </DataGridTextColumn>
                                                     <DataGridTextColumn Binding="{Binding Channel_N_0_48}"
-                                                            Header="Ch-" Width="50"
+                                                            Header="Ch-" Width="*"
                                                             CellStyle="{StaticResource VTMDataGridCellDataNomal}">
                                                     </DataGridTextColumn>
                                                     <DataGridTextColumn Binding="{Binding Channel_P_49_96}"
@@ -987,7 +1100,7 @@
                                                             CellStyle="{StaticResource VTMDataGridCellHeader}">
                                                     </DataGridTextColumn>
                                                     <DataGridTextColumn Binding="{Binding Channel_N_49_96}"
-                                                            Header="Ch-" Width="50"
+                                                            Header="Ch-" Width="*"
                                                             CellStyle="{StaticResource VTMDataGridCellDataNomal}">
                                                     </DataGridTextColumn>
                                                 </DataGrid.Columns>
@@ -996,6 +1109,296 @@
                                         </Grid>
                                     </TabItem>
                                 </TabControl>
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1" Grid.RowSpan="1" Background="{x:Null}" Margin="5">
+                                    <TabItem Template="{StaticResource TabVTMControl}" Header="MUX Digital-IN use channels" Foreground="White" >
+                                        <Grid Margin="0,0,0,0" Background="#3E4349">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="50"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Button Template="{StaticResource ButtonElipse}" Grid.Column="1" FontWeight="Bold" FontSize="14" Margin="5,10" Content="Sellect All">
+                                                <Button.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#FFDADADA" Offset="0.487"/>
+                                                        <GradientStop Color="#FF9B9A9A"/>
+                                                        <GradientStop Color="#FF9B9A9A" Offset="0.977"/>
+                                                    </LinearGradientBrush>
+                                                </Button.Background>
+                                            </Button>
+                                            <Border  Grid.Row="1" Grid.ColumnSpan="3" Background="#FF31353A" Padding="5" Margin="5" BorderThickness="2" BorderBrush="Black">
+                                                <WrapPanel  ItemHeight="20" ItemWidth="70" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+                                                    <CheckBox Content="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="4" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="6" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="7" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="8" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="9" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="11" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="12" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="13" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="14" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="17" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="18" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="19" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="21" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="22" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="23" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="24" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="26" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="27" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="28" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="29" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="31" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="32" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="33" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="34" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="35" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="37" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="38" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="39" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="41" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="42" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="43" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="44" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="45" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="46" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="47" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="48" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="49" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="51" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="52" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="53" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="54" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="55" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="56" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="57" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="58" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="59" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="60" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="61" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="62" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="63" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="64" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="65" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="66" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="67" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="68" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="69" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="70" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="71" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="72" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="73" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="74" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="75" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="76" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="77" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="78" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="79" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="80" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="81" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="82" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="83" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="84" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="85" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="86" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="87" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="88" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="89" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="90" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="91" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="92" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="93" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="94" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="95" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="96" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                </WrapPanel>
+                                            </Border>
+                                            <Button Template="{StaticResource ButtonElipse}" Grid.Column="2" FontWeight="Bold" FontSize="14" Margin="5,10" Content="CLear All">
+                                                <Button.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#FFDADADA" Offset="0.487"/>
+                                                        <GradientStop Color="#FF9B9A9A"/>
+                                                        <GradientStop Color="#FF9B9A9A" Offset="0.977"/>
+                                                    </LinearGradientBrush>
+                                                </Button.Background>
+                                            </Button>
+
+                                        </Grid>
+                                    </TabItem>
+                                </TabControl>
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="2" Background="{x:Null}" Margin="5">
+                                    <TabItem Template="{StaticResource TabVTMControl}" Header="Level use channels" Foreground="White" >
+                                        <Grid Background="#3E4349">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="50"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Button Template="{StaticResource ButtonElipse}" Grid.Column="1" FontWeight="Bold" FontSize="14" Margin="5,10" Content="Sellect All">
+                                                <Button.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#FFDADADA" Offset="0.487"/>
+                                                        <GradientStop Color="#FF9B9A9A"/>
+                                                        <GradientStop Color="#FF9B9A9A" Offset="0.977"/>
+                                                    </LinearGradientBrush>
+                                                </Button.Background>
+                                            </Button>
+                                            <Border  Grid.Row="1" Grid.ColumnSpan="3" Background="#FF31353A" Padding="5" Margin="5" BorderThickness="2" BorderBrush="Black">
+                                                <WrapPanel  ItemHeight="20" ItemWidth="70" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+                                                    <CheckBox Content="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="4" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="6" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="7" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="8" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="9" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="11" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="12" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="13" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="14" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="17" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="18" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="19" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="21" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="22" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="23" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="24" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="26" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="27" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="28" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="29" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="31" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="32" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="33" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="34" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="35" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="36" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="37" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="38" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="39" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="41" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="42" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="43" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="44" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="45" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="46" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="47" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="48" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                </WrapPanel>
+                                            </Border>
+                                            <Button Template="{StaticResource ButtonElipse}" Grid.Column="2" FontWeight="Bold" FontSize="14" Margin="5,10" Content="CLear All">
+                                                <Button.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#FFDADADA" Offset="0.487"/>
+                                                        <GradientStop Color="#FF9B9A9A"/>
+                                                        <GradientStop Color="#FF9B9A9A" Offset="0.977"/>
+                                                    </LinearGradientBrush>
+                                                </Button.Background>
+                                            </Button>
+
+                                        </Grid>
+                                    </TabItem>
+                                </TabControl>
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Background="{x:Null}" Margin="5" Visibility="Hidden">
+                                    <TabItem Template="{StaticResource TabVTMControl}" Header="Level Commond Live use channel" Foreground="White" >
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="50"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Button Template="{StaticResource ButtonElipse}" Grid.Column="1" FontWeight="Bold" FontSize="14" Margin="5,10" Content="Sellect All">
+                                                <Button.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#FFDADADA" Offset="0.487"/>
+                                                        <GradientStop Color="#FF9B9A9A"/>
+                                                        <GradientStop Color="#FF9B9A9A" Offset="0.977"/>
+                                                    </LinearGradientBrush>
+                                                </Button.Background>
+                                            </Button>
+                                            <Border  Grid.Row="1" Grid.ColumnSpan="3" Background="#FF31353A" Padding="20" Margin="5" BorderThickness="2" BorderBrush="Black">
+                                                <WrapPanel  ItemHeight="20" ItemWidth="70" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+                                                    <CheckBox Content="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="4" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="6" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="7" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="8" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="9" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="11" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="12" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="13" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="14" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="17" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="18" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="19" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="21" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="22" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="23" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="24" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                    <CheckBox Content="26" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+                                                </WrapPanel>
+                                            </Border>
+                                            <Button Template="{StaticResource ButtonElipse}" Grid.Column="2" FontWeight="Bold" FontSize="14" Margin="5,10" Content="CLear All">
+                                                <Button.Background>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#FFDADADA" Offset="0.487"/>
+                                                        <GradientStop Color="#FF9B9A9A"/>
+                                                        <GradientStop Color="#FF9B9A9A" Offset="0.977"/>
+                                                    </LinearGradientBrush>
+                                                </Button.Background>
+                                            </Button>
+
+                                        </Grid>
+                                    </TabItem>
+                                </TabControl>
+                                <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="60" Foreground="#FF43474D" FontWeight="Bold" Height="83" Margin="0" Width="612" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                                    <Label.Effect>
+                                        <DropShadowEffect/>
+                                    </Label.Effect> MUX/RELAYs CHANNELS
+                                </Label>
                             </Grid>
                         </Border>
                     </TabItem>
@@ -1011,8 +1414,609 @@
                                 <TextBlock Text="UUT Comm." VerticalAlignment="Center"/>
                             </DockPanel>
                         </TabItem.Header>
-                        <Border Margin="1" BorderBrush="#898F98" BorderThickness="1"/>
+                        <Border Margin="1" BorderBrush="#3E4349" BorderThickness="1" Background="#FF626B76">
+                            <Grid Background="#3E3E3E">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="120"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="400"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{x:Null}" Margin="5">
+                                    <TabItem Template="{StaticResource TabVTMControl}" Header="Port #1 Setting" Foreground="White" >
+                                        <Grid Background="#3E4349">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <CheckBox Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center"
+                                                      Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" 
+                                                      Height="15" Margin="20,5" Content="Use the port" />
+                                            <GroupBox Header="Port properties" Margin="5" Grid.Row="1" Foreground="White" Padding="5" Height ="Auto">
+                                                <Grid Background="#3E4349">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="0.8*"/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Kind" Margin="20,0,0,10" Height="25" HorizontalAlignment="Left"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Baudrate" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="1"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Parity&#xD;&#xA;" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Startbit" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="3"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Stopbit" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="4"/>
+                                                    <ComboBox SelectedIndex="0" Margin="10,0,0,0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center">
+                                                        <ListBoxItem Content="TTL"/>
+                                                        <ListBoxItem Content="RS485"/>
+                                                    </ComboBox>
+                                                    <ComboBox SelectedIndex="3" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Width="100" HorizontalContentAlignment="Center">
+                                                        <ListBoxItem Content="1200"/>
+                                                        <ListBoxItem Content="2400"/>
+                                                        <ListBoxItem Content="4800"/>
+                                                        <ListBoxItem Content="9600"/>
+                                                        <ListBoxItem Content="14400"/>
+                                                        <ListBoxItem Content="19200"/>
+                                                        <ListBoxItem Content="38400"/>
+                                                        <ListBoxItem Content="57600"/>
+                                                        <ListBoxItem Content="115200"/>
+                                                        <ListBoxItem Content="128000"/>
+                                                        <ListBoxItem Content="256000"/>
+
+                                                    </ComboBox>
+                                                    <ComboBox SelectedIndex="0" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Grid.Row="2" Width="100" HorizontalContentAlignment="Center">
+                                                        <ListBoxItem Content="None"/>
+                                                        <ListBoxItem Content="Event"/>
+                                                        <ListBoxItem Content="Odd"/>
+                                                    </ComboBox>
+                                                    <ComboBox SelectedIndex="0" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Grid.Row="3" Width="100" HorizontalContentAlignment="Center">
+                                                        <ListBoxItem Content="8"/>
+                                                        <ListBoxItem Content="7"/>
+                                                    </ComboBox>
+                                                    <ComboBox SelectedIndex="0" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Grid.Row="4" Width="100" HorizontalContentAlignment="Center">
+                                                        <ListBoxItem Content="1"/>
+                                                        <ListBoxItem Content="2"/>
+                                                    </ComboBox>
+                                                </Grid>
+                                            </GroupBox>
+                                            <GroupBox Header="TX Format (PC->UUT)" Margin="5,10" Grid.Row="2" Foreground="White" Padding="5" Height ="Auto">
+                                                <Grid Background="#3E4349">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <CheckBox VerticalAlignment="Center" Foreground="White" Content="Prefix #1 data" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                                                    <CheckBox VerticalAlignment="Center"  Foreground="White" Content="Prefix #1 data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="1"/>
+                                                    <CheckBox VerticalAlignment="Center"  Foreground="White" Content="Suffix data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="2"/>
+                                                    <CheckBox VerticalAlignment="Center"  Foreground="White" Content="Fix Lenght" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="3"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Checksum" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="4"/>
+                                                    <ComboBox SelectedIndex="0" Margin="0,2,63,0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Width="200" HorizontalContentAlignment="Center" Grid.Row="4" Grid.ColumnSpan="2">
+                                                        <ListBoxItem Content="XOR"/>
+                                                        <ListBoxItem Content="RS485"/>
+                                                    </ComboBox>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Checksum Range" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="5"/>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True" Minimum="0" Maximum="4096"  Value="10" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="1" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True"  Minimum="0" Maximum="4096"  Value="10"  BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="2" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True"  Minimum="0" Maximum="4096"  Value="10"  BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="3" Height="20">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,23,2" Width="50" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left">
+                                                        <wf:NumericUpDown  Hexadecimal="True"  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="0,2,0,2" HorizontalAlignment="Left" Width="50" Grid.Column="2" Grid.Row="5">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Pf/Sf Include" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="~" Margin="130,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="1" Width="Auto" HorizontalContentAlignment="Center"/>
+                                                </Grid>
+                                            </GroupBox>
+                                            <GroupBox Header="RX Format (UUT->PC)" Margin="5,10" Grid.Row="3" Foreground="White" Padding="5" Height ="Auto">
+                                                <Grid Background="#3E4349">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <CheckBox VerticalAlignment="Center" Foreground="White" Content="Prefix #1 data" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                                                    <CheckBox VerticalAlignment="Center"  Foreground="White" Content="Prefix #1 data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="1"/>
+                                                    <CheckBox VerticalAlignment="Center"  Foreground="White" Content="Suffix data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="2"/>
+                                                    <RadioButton VerticalAlignment="Center"  Foreground="White" Content="Fix Lenght" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="3"/>
+                                                    <RadioButton VerticalAlignment="Center"  Foreground="White" Content="Get Lenght Loc" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="4"/>
+
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Lenght add byte count" Margin="20,0,0,0" Height="25" HorizontalAlignment="Right" Grid.Row="5" Grid.ColumnSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Rx Clear Timeout" Margin="20,0,0,0" Height="25" HorizontalAlignment="Right" Grid.Row="6"/>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True" Minimum="0" Maximum="4096"  Value="10" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="1" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True"  Minimum="0" Maximum="4096"  Value="10"  BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="2" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True"  Minimum="0" Maximum="4096"  Value="10"  BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="3" Height="20">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,23,2" Width="50" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left">
+                                                        <wf:NumericUpDown  Hexadecimal="True"  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="0,2,0,2" HorizontalAlignment="Left" Width="50" Grid.Column="2" Grid.Row="4">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="0,2,0,2" HorizontalAlignment="Left" Width="50" Grid.Column="2" Grid.Row="5">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="0,2,0,2" HorizontalAlignment="Right" Width="100" Grid.Column="1" Grid.Row="6">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Pf/Sf Include" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="ms" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="~" Margin="130,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="1" Width="Auto" HorizontalContentAlignment="Center"/>
+                                                </Grid>
+                                            </GroupBox>
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem Template="{StaticResource TabVTMControl}" Header="Port #2 Setting" Foreground="White" >
+                                        <Grid Background="#3E4349">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <CheckBox Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center"
+                                                      Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" 
+                                                      Height="15" Margin="20,5" Content="Use the port" />
+                                            <GroupBox Header="Port properties" Margin="5" Grid.Row="1" Foreground="White" Padding="5" Height ="Auto">
+                                                <Grid Background="#3E4349">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="0.8*"/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Kind" Margin="20,0,0,10" Height="25" HorizontalAlignment="Left"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Baudrate" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="1"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Parity&#xD;&#xA;" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Startbit" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="3"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Stopbit" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="4"/>
+                                                    <ComboBox SelectedIndex="0" Margin="10,0,0,0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center">
+                                                        <ListBoxItem Content="TTL"/>
+                                                        <ListBoxItem Content="RS485"/>
+                                                    </ComboBox>
+                                                    <ComboBox SelectedIndex="3" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Grid.Row="1" Width="100" HorizontalContentAlignment="Center">
+                                                        <ListBoxItem Content="1200"/>
+                                                        <ListBoxItem Content="2400"/>
+                                                        <ListBoxItem Content="4800"/>
+                                                        <ListBoxItem Content="9600"/>
+                                                        <ListBoxItem Content="14400"/>
+                                                        <ListBoxItem Content="19200"/>
+                                                        <ListBoxItem Content="38400"/>
+                                                        <ListBoxItem Content="57600"/>
+                                                        <ListBoxItem Content="115200"/>
+                                                        <ListBoxItem Content="128000"/>
+                                                        <ListBoxItem Content="256000"/>
+
+                                                    </ComboBox>
+                                                    <ComboBox SelectedIndex="0" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Grid.Row="2" Width="100" HorizontalContentAlignment="Center">
+                                                        <ListBoxItem Content="None"/>
+                                                        <ListBoxItem Content="Event"/>
+                                                        <ListBoxItem Content="Odd"/>
+                                                    </ComboBox>
+                                                    <ComboBox SelectedIndex="0" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Grid.Row="3" Width="100" HorizontalContentAlignment="Center">
+                                                        <ListBoxItem Content="8"/>
+                                                        <ListBoxItem Content="7"/>
+                                                    </ComboBox>
+                                                    <ComboBox SelectedIndex="0" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Grid.Row="4" Width="100" HorizontalContentAlignment="Center">
+                                                        <ListBoxItem Content="1"/>
+                                                        <ListBoxItem Content="2"/>
+                                                    </ComboBox>
+                                                </Grid>
+                                            </GroupBox>
+                                            <GroupBox Header="TX Format (PC->UUT)" Margin="5,10" Grid.Row="2" Foreground="White" Padding="5" Height ="Auto">
+                                                <Grid Background="#3E4349">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <CheckBox VerticalAlignment="Center" Foreground="White" Content="Prefix #1 data" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                                                    <CheckBox VerticalAlignment="Center"  Foreground="White" Content="Prefix #1 data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="1"/>
+                                                    <CheckBox VerticalAlignment="Center"  Foreground="White" Content="Suffix data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="2"/>
+                                                    <CheckBox VerticalAlignment="Center"  Foreground="White" Content="Fix Lenght" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="3"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Checksum" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="4"/>
+                                                    <ComboBox SelectedIndex="0" Margin="0,2,63,0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Width="200" HorizontalContentAlignment="Center" Grid.Row="4" Grid.ColumnSpan="2">
+                                                        <ListBoxItem Content="XOR"/>
+                                                        <ListBoxItem Content="RS485"/>
+                                                    </ComboBox>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Checksum Range" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="5"/>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True" Minimum="0" Maximum="4096"  Value="10" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="1" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True"  Minimum="0" Maximum="4096"  Value="10"  BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="2" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True"  Minimum="0" Maximum="4096"  Value="10"  BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="3" Height="20">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,23,2" Width="50" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left">
+                                                        <wf:NumericUpDown  Hexadecimal="True"  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="0,2,0,2" HorizontalAlignment="Left" Width="50" Grid.Column="2" Grid.Row="5">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Pf/Sf Include" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="~" Margin="130,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="1" Width="Auto" HorizontalContentAlignment="Center"/>
+                                                </Grid>
+                                            </GroupBox>
+                                            <GroupBox Header="RX Format (UUT->PC)" Margin="5,10" Grid.Row="3" Foreground="White" Padding="5" Height ="Auto">
+                                                <Grid Background="#3E4349">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <CheckBox VerticalAlignment="Center" Foreground="White" Content="Prefix #1 data" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                                                    <CheckBox VerticalAlignment="Center"  Foreground="White" Content="Prefix #1 data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="1"/>
+                                                    <CheckBox VerticalAlignment="Center"  Foreground="White" Content="Suffix data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="2"/>
+                                                    <RadioButton VerticalAlignment="Center"  Foreground="White" Content="Fix Lenght" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="3"/>
+                                                    <RadioButton VerticalAlignment="Center"  Foreground="White" Content="Get Lenght Loc" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="4"/>
+
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Lenght add byte count" Margin="20,0,0,0" Height="25" HorizontalAlignment="Right" Grid.Row="5" Grid.ColumnSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Rx Clear Timeout" Margin="20,0,0,0" Height="25" HorizontalAlignment="Right" Grid.Row="6"/>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True" Minimum="0" Maximum="4096"  Value="10" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="1" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True"  Minimum="0" Maximum="4096"  Value="10"  BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="2" Height="20">
+                                                        <wf:NumericUpDown Hexadecimal="True"  Minimum="0" Maximum="4096"  Value="10"  BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,0,2" HorizontalAlignment="Left" Width="100" Grid.Column="1" Grid.Row="3" Height="20">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="64,2,23,2" Width="50" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left">
+                                                        <wf:NumericUpDown  Hexadecimal="True"  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True"/>
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="0,2,0,2" HorizontalAlignment="Left" Width="50" Grid.Column="2" Grid.Row="4">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="0,2,0,2" HorizontalAlignment="Left" Width="50" Grid.Column="2" Grid.Row="5">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <WindowsFormsHost FontWeight = "Bold" Margin="0,2,0,2" HorizontalAlignment="Right" Width="100" Grid.Column="1" Grid.Row="6">
+                                                        <wf:NumericUpDown  Minimum="1" Value="1" Maximum="1024" BorderStyle="None" BackColor="White" TextAlign="Center" AutoSize="True" />
+                                                    </WindowsFormsHost>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Pf/Sf Include" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="ms" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="2" Grid.RowSpan="2"/>
+                                                    <Label VerticalAlignment="Top" Foreground="White" Content="~" Margin="130,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="1" Width="Auto" HorizontalContentAlignment="Center"/>
+                                                </Grid>
+                                            </GroupBox>
+                                        </Grid>
+                                    </TabItem>
+                                </TabControl>
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5
+                                            " Grid.Column="1" Background="#3E4349">
+                                    <TabItem Template="{StaticResource TabVTMControl}" Header="Tx Data Naming" Foreground="White">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition Height="60"/>
+                                            </Grid.RowDefinitions>
+                                            <DataGrid x:Name="dgTX_data_naming"
+                                                AutoGenerateColumns="False" IsReadOnly="True"
+                                                SelectionMode="Extended"
+                                                Style="{StaticResource VTMDataGrid}"
+                                                ColumnHeaderStyle="{StaticResource VTMDataGridHeader}"
+                                                SelectionUnit="Cell">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Binding="{Binding No}"
+                                                    Header="No" Width="35"     
+                                                    CellStyle="{StaticResource VTMDataGridCellHeader}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Name}"
+                                                    Header="Name" Width="1*"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding ModeLoc}"
+                                                    Header="Mode Loc" Width="70"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding ModeHex}"
+                                                    Header="Mode Hex" Width="70"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Datakind}"
+                                                    Header="Data Kind" Width="140"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding ModeHex}"
+                                                    Header="Mode Hex" Width="70"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding MByte}"
+                                                    Header="M Byte" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding MBit}"
+                                                    Header="M bit" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Lbit}"
+                                                    Header="L bit" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding LByte}"
+                                                    Header="L Byte" Width="70"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding MByte}"
+                                                    Header="M bit" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding MBit}"
+                                                    Header="L bit" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Type}"
+                                                    Header="Type" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Remark}"
+                                                    Header="Remark" Width="*"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <Button Width="Auto" Height="Auto" Margin="250,0,0,0" Grid.Row="1" 
+                                                    Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
+                                                    BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Border BorderThickness="1" BorderBrush="DarkGray" HorizontalAlignment="Left" CornerRadius="20" Width="148" Height="28">
+                                                    <Border.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FF2C2C2C" Offset="1"/>
+                                                            <GradientStop Color="#FF616060" Offset="0.003"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+                                                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Image Width="24" Height="20" Source="img/folder.png" Margin="15,0,0,0"  >
+                                                            <Image.Effect>
+                                                                <DropShadowEffect/>
+                                                            </Image.Effect>
+                                                        </Image>
+                                                        <TextBlock Text="Open Naming File" Foreground="#FFAAAAAA" Margin="5,0,15,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </DockPanel>
+                                                </Border>
+                                            </Button>
+                                            <Button Width="Auto" Height="Auto" Margin="20,0,0,0" Grid.Row="1" 
+                                                    Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
+                                                    BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Border BorderThickness="1" BorderBrush="DarkGray" HorizontalAlignment="Left" CornerRadius="20" Width="180" Height="30" Margin="0,0,0,0" >
+                                                    <Border.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FF2C2C2C" Offset="1"/>
+                                                            <GradientStop Color="#FF616060" Offset="0.003"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+                                                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Image Width="24" Height="20" Source="img/save-as.png" Margin="15,0,0,0"  >
+                                                            <Image.Effect>
+                                                                <DropShadowEffect/>
+                                                            </Image.Effect>
+                                                        </Image>
+                                                        <TextBlock Text="Save as Naming File" Foreground="#FFAAAAAA" Margin="5,0,15,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </DockPanel>
+                                                </Border>
+                                            </Button>
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem Template="{StaticResource TabVTMControl}" Header="Rx Data Naming" Foreground="White">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition Height="60"/>
+                                            </Grid.RowDefinitions>
+                                            <DataGrid x:Name="dgRX_data_naming"
+                                                AutoGenerateColumns="False" IsReadOnly="True"
+                                                SelectionMode="Extended"
+                                                Style="{StaticResource VTMDataGrid}"
+                                                ColumnHeaderStyle="{StaticResource VTMDataGridHeader}"
+                                                SelectionUnit="Cell">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Binding="{Binding No}"
+                                                    Header="No" Width="35"     
+                                                    CellStyle="{StaticResource VTMDataGridCellHeader}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Name}"
+                                                    Header="Name" Width="1*"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding ModeLoc}"
+                                                    Header="Mode Loc" Width="70"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding ModeHex}"
+                                                    Header="Mode Hex" Width="70"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Datakind}"
+                                                    Header="Data Kind" Width="140"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding ModeHex}"
+                                                    Header="Mode Hex" Width="70"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding MByte}"
+                                                    Header="M Byte" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding MBit}"
+                                                    Header="M bit" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Lbit}"
+                                                    Header="L bit" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding LByte}"
+                                                    Header="L Byte" Width="70"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding MByte}"
+                                                    Header="M bit" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding MBit}"
+                                                    Header="L bit" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Type}"
+                                                    Header="Type" Width="80"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Remark}"
+                                                    Header="Remark" Width="*"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <Button Width="Auto" Height="Auto" Margin="250,0,0,0" Grid.Row="1" 
+                                                    Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
+                                                    BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Border BorderThickness="1" BorderBrush="DarkGray" HorizontalAlignment="Left" CornerRadius="20" Width="148" Height="28">
+                                                    <Border.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FF2C2C2C" Offset="1"/>
+                                                            <GradientStop Color="#FF616060" Offset="0.003"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+                                                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Image Width="24" Height="20" Source="img/folder.png" Margin="15,0,0,0"  >
+                                                            <Image.Effect>
+                                                                <DropShadowEffect/>
+                                                            </Image.Effect>
+                                                        </Image>
+                                                        <TextBlock Text="Open Naming File" Foreground="#FFAAAAAA" Margin="5,0,15,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </DockPanel>
+                                                </Border>
+                                            </Button>
+                                            <Button Width="Auto" Height="Auto" Margin="20,0,0,0" Grid.Row="1" 
+                                                    Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
+                                                    BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Border BorderThickness="1" BorderBrush="DarkGray" HorizontalAlignment="Left" CornerRadius="20" Width="180" Height="30" Margin="0,0,0,0" >
+                                                    <Border.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FF2C2C2C" Offset="1"/>
+                                                            <GradientStop Color="#FF616060" Offset="0.003"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+                                                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Image Width="24" Height="20" Source="img/save-as.png" Margin="15,0,0,0"  >
+                                                            <Image.Effect>
+                                                                <DropShadowEffect/>
+                                                            </Image.Effect>
+                                                        </Image>
+                                                        <TextBlock Text="Save as Naming File" Foreground="#FFAAAAAA" Margin="5,0,15,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </DockPanel>
+                                                </Border>
+                                            </Button>
+                                        </Grid>
+                                    </TabItem>
+                                </TabControl>
+                                <Label Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="60" Foreground="#FF43474D" FontWeight="Bold" Height="83" Margin="0" Content="UUT Comm." Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                    <Label.Effect>
+                                        <DropShadowEffect/>
+                                    </Label.Effect>
+                                </Label>
+
+                            </Grid>
+
+                        </Border>
+
                     </TabItem>
+
                     <!--IMQS TAP-->
                     <TabItem Background="#FF43474D" Foreground="#FFE8E8E8" FontFamily="Calibri">
                         <TabItem.Header>
@@ -1025,7 +2029,175 @@
                                 <TextBlock Text="QR_Code" VerticalAlignment="Center" Width="Auto"/>
                             </DockPanel>
                         </TabItem.Header>
-                        <Border Margin="1" BorderBrush="#898F98" BorderThickness="1"/>
+                        <Border Margin="1" BorderBrush="#898F98" BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5" Background="#3E4349">
+                                    <TabItem Template="{StaticResource TabVTMControl}" Header="QR code name code setting" Foreground="White">
+                                        <Grid Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="60"/>
+                                                <RowDefinition/>
+                                                <RowDefinition Height="60"/>
+                                            </Grid.RowDefinitions>
+                                            <DataGrid x:Name="dgQRcodeNameCode" Grid.Row="1"
+                                            AutoGenerateColumns="False" IsReadOnly="True"
+                                            SelectionMode="Extended"
+                                            Style="{StaticResource VTMDataGrid}"
+                                            ColumnHeaderStyle="{StaticResource VTMDataGridHeader}"
+                                            SelectionUnit="Cell">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Binding="{Binding No}"
+                                                    Header="No" Width="35"     
+                                                    CellStyle="{StaticResource VTMDataGridCellHeader}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Contents}"
+                                                    Header="Contents" Width="1*"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Code}"
+                                                    Header="Code" Width="100"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+
+                                            <TextBox HorizontalAlignment="Left"  Width="358" Background="#FFDEDEDE" Foreground="Black" FontWeight="Bold" Height="25" Margin="20,5,0,5" VerticalAlignment="Bottom"/>
+                                            <Button Width="Auto" Height="Auto" Margin="0,0,10,5" Grid.Row="0" 
+                                            Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
+                                            BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                                <Border BorderThickness="1" BorderBrush="DarkGray" HorizontalAlignment="Left" CornerRadius="20" Width="148" Height="25" VerticalAlignment="Bottom">
+                                                    <Border.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FF2C2C2C" Offset="1"/>
+                                                            <GradientStop Color="#FF616060" Offset="0.003"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+                                                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Image Width="24" Height="20" Source="img/folder.png" Margin="15,0,0,0"  >
+                                                            <Image.Effect>
+                                                                <DropShadowEffect/>
+                                                            </Image.Effect>
+                                                        </Image>
+                                                        <TextBlock Text="Open Naming File" Foreground="#FFAAAAAA" Margin="5,0,15,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </DockPanel>
+                                                </Border>
+                                            </Button>
+                                            <Button Width="Auto" Height="Auto" Margin="0,0,20,0" Grid.Row="2" 
+                                            Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
+                                            BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                                <Border BorderThickness="1" BorderBrush="DarkGray" HorizontalAlignment="Left" CornerRadius="20" Width="180" Height="30" Margin="0,0,0,0" >
+                                                    <Border.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FF2C2C2C" Offset="1"/>
+                                                            <GradientStop Color="#FF616060" Offset="0.003"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+                                                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Image Width="24" Height="20" Source="img/save-as.png" Margin="15,0,0,0"  >
+                                                            <Image.Effect>
+                                                                <DropShadowEffect/>
+                                                            </Image.Effect>
+                                                        </Image>
+                                                        <TextBlock Text="Save as Naming File" Foreground="#FFAAAAAA" Margin="5,0,15,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </DockPanel>
+                                                </Border>
+                                            </Button>
+                                            <Label Foreground="White" VerticalContentAlignment="Bottom" FontWeight="Bold" Content="QR-code naming file name" Margin="25,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        </Grid>
+                                    </TabItem>
+
+                                </TabControl>
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="6,5,4,5" Background="#3E4349" Grid.Column="1">
+                                    <TabItem Template="{StaticResource TabVTMControl}" Header="QR-code name code setting" Foreground="White">
+                                        <Grid Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition Height="60"/>
+                                            </Grid.RowDefinitions>
+                                            <DataGrid x:Name="dgQRcodeMapping"
+                                            AutoGenerateColumns="False" IsReadOnly="True"
+                                            SelectionMode="Extended"
+                                            Style="{StaticResource VTMDataGrid}"
+                                            ColumnHeaderStyle="{StaticResource VTMDataGridHeader}"
+                                            SelectionUnit="Cell">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Binding="{Binding Channel}"
+                                                    Header="Ch" Width="35"     
+                                                    CellStyle="{StaticResource VTMDataGridCellHeader}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Contents}"
+                                                    Header="Contents" Width="1*"      
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                    <DataGridTextColumn Binding="{Binding Remark}"
+                                                    Header="Remark" Width="0.6*"     
+                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <Button Width="Auto" Height="Auto" Margin="210,0,0,0" Grid.Row="1" 
+                                            Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
+                                            BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Border BorderThickness="1" BorderBrush="DarkGray" HorizontalAlignment="Left" CornerRadius="20" Width="156" Height="28">
+                                                    <Border.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FF2C2C2C" Offset="1"/>
+                                                            <GradientStop Color="#FF616060" Offset="0.003"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+                                                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Image Width="24" Height="20" Source="img/folder.png" Margin="15,0,0,0"  >
+                                                            <Image.Effect>
+                                                                <DropShadowEffect/>
+                                                            </Image.Effect>
+                                                        </Image>
+                                                        <TextBlock Text="Open mapping file" Foreground="#FFAAAAAA" Margin="5,0,15,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </DockPanel>
+                                                </Border>
+                                            </Button>
+                                            <Button Width="Auto" Height="Auto" Margin="20,0,0,0" Grid.Row="1" 
+                                            Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
+                                            BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <Border BorderThickness="1" BorderBrush="DarkGray" HorizontalAlignment="Left" CornerRadius="20" Width="180" Height="30" Margin="0,0,0,0" >
+                                                    <Border.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FF2C2C2C" Offset="1"/>
+                                                            <GradientStop Color="#FF616060" Offset="0.003"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+                                                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <Image Width="24" Height="20" Source="img/save-as.png" Margin="15,0,0,0"  >
+                                                            <Image.Effect>
+                                                                <DropShadowEffect/>
+                                                            </Image.Effect>
+                                                        </Image>
+                                                        <TextBlock Text="Save as mapping file" Foreground="#FFAAAAAA" Margin="5,0,15,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </DockPanel>
+                                                </Border>
+                                            </Button>
+                                        </Grid>
+                                    </TabItem>
+                                </TabControl>
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,5,5,200" Background="#3E4349" Grid.Column="2">
+                                    <TabItem Template="{StaticResource TabVTMControl}" Header="Model information" Foreground="White">
+                                        <Grid Margin="5">
+                                            <TextBox Background="Black" Foreground="WhiteSmoke" BorderThickness="0"></TextBox>
+                                        </Grid>
+                                    </TabItem>
+                                </TabControl>
+                                <Label HorizontalAlignment="Right" Grid.Column="2" VerticalAlignment="Bottom" FontSize="60" Foreground="#FF43474D" FontWeight="Bold" Height="83" Margin="0" Content="QR-Code" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                    <Label.Effect>
+                                        <DropShadowEffect/>
+                                    </Label.Effect>
+                                </Label>
+                            </Grid>
+                        </Border>
                     </TabItem>
                     <!--Public TAP-->
                     <!--<TabItem Background="#FF43474D" Foreground="#FFE8E8E8" FontFamily="Calibri">
