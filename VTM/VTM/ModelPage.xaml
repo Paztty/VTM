@@ -18,7 +18,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid >
+    <Grid x:Name="ModelPannel">
         <Border BorderThickness="0" BorderBrush="#FF898F98" Margin="5" Background="#FF3E3E3E" >
             <Grid Margin="5" Background="#FF040404">
                 <DockPanel HorizontalAlignment="Right" VerticalAlignment="Top" Background="#3E3E3E" Height="38" Width="1000" Margin="0,0,5,5">
@@ -668,8 +668,6 @@
                                                        MouseLeftButtonUp="imgPCB_Error_Position_MouseLeftButtonUp"
                                                        MouseMove="Canvas_PCB_Error_Mark_MouseMove" Background="#02FFFFFF"
                                                        Cursor="{Binding ElementName=btPCB_Error_Position_Add, Path=Cursor}">
-
-
                                                 </Canvas>
                                             </Grid>
 

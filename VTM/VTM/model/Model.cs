@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 
 namespace VTM
 {
-    public class Model : ICloneable
+    public partial class Model : ICloneable
     {
         public ObservableCollection<Step> Steps = new ObservableCollection<Step>();
 
@@ -26,24 +26,7 @@ namespace VTM
         public string Path { get; set; }
 
         // PCB layout 
-        public class Contruction
-        {
-            public int PCB_Count { get; set; } = 1;
-            public int PCB_X_axis_Count { get; set; } = 1;
-            public enum ArrayPositions
-            {
-                HorizontalTopLeft = 0,
-                HorizontalTopRight = 1,
-                HorizontalBottomLeft = 2,
-                HorizontalBottomRight = 3,
-                VerticalTopLeft = 4,
-                VerticalTopRight = 5,
-                VerticalBottomLeft = 6,
-                VerticalBottomRight = 7,
-            };
-            public ArrayPositions ArrayPosition = ArrayPositions.HorizontalTopLeft;
-        }
-        public Contruction contruction { get; set; } = new Contruction();
+
 
         // Error Positions set
         public class ErrorPosition
@@ -101,7 +84,6 @@ namespace VTM
 
         }
         public List<ErrorPosition> ErrorPositions { get; set; } = new List<ErrorPosition>();
-
 
         // Step test 
         public class Step : INotifyPropertyChanged
@@ -269,8 +251,11 @@ namespace VTM
         public event EventHandler LoadFinish;
         public void Load()
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            openFile.DefaultExt = "model";
+            OpenFileDialog openFile = new OpenFileDialog
+            {
+                DefaultExt = ".model",
+                Title = "Open model",
+            };
             openFile.FileOk += OpenFile_FileOk;
             openFile.ShowDialog();
         }
@@ -348,15 +333,5 @@ namespace VTM
         }
         #endregion
 
-    }
-
-
-    public static class SystemExtension
-    {
-        public static T Clone<T>(this T source)
-        {
-            var serialized = JsonConvert.SerializeObject(source);
-            return JsonConvert.DeserializeObject<T>(serialized);
-        }
     }
 }

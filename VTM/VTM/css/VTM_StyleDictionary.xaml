@@ -18,7 +18,7 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderThickness" TargetName="border" Value="0,0,0,2"/>
+                <Setter Property="BorderThickness" TargetName="border" Value="0,0,0,1"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
@@ -35,23 +35,48 @@
     <Style x:Key="VTMDataGrid" TargetType="{x:Type DataGrid}">
         <Setter Property="HeadersVisibility" Value="Column"/>
         <Setter Property="GridLinesVisibility" Value="All"/>
-        <Setter Property="HorizontalGridLinesBrush" Value="#666666"/>
-        <Setter Property="VerticalGridLinesBrush" Value="#666666"/>
-        <Setter Property="BorderBrush" Value="#666666"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="#918C8C"/>
+        <Setter Property="VerticalGridLinesBrush" Value="#918C8C"/>
+        <Setter Property="BorderBrush" Value="#918C8C"/>
         <Setter Property="FontFamily" Value="Calibri Light"/>
         <Setter Property="Background" Value="Black"/>
         <Setter Property="RowHeight" Value="20"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
-    <Style x:Key="VTMDataGridHeader" TargetType="{x:Type DataGridColumnHeader}">
+    <!--<Style :Key="VTMDataGridHeaderMegerTemplate">
+        <Grid ShowGridLines="True">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Text="{TemplateBinding Name}" FontWeight="Bold"/>
+            <CheckBox Content="Wait" Grid.Row="1" IsChecked="True"/>
+        </Grid>
+
         <Setter Property="Background" Value="#2E3F3F"/>
         <Setter Property="Foreground" Value="#FFC7C7C7"/>
-        <Setter Property="Height" Value="30"/>
         <Setter Property="BorderThickness" Value="0,0,1,1"/>
         <Setter Property="BorderBrush" Value="#666666"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>-->
+    <!--<Setter Property="Background" Value="#2E3F3F"/>
+    <Setter Property="Foreground" Value="#FFC7C7C7"/>
+    <Setter Property="Height" Value="30"/>
+    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+    <Setter Property="BorderBrush" Value="#666666"/>
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>-->
+
+    <Style x:Key="VTMDataGridHeader" TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background" Value="#2E3F3F"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        <Setter Property="BorderBrush" Value="#666666"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
     </Style>
+
 
     <Style x:Key="VTMDataGridCellHeader" TargetType="{x:Type DataGridCell}">
         <Setter Property="FontSize" Value="12"/>
@@ -81,7 +106,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style x:Key="VTMDataGridCellData" TargetType="{x:Type DataGridCell}">
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="BorderBrush" Value="#FF918C8C"/>
@@ -216,6 +241,41 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
+    <ControlTemplate x:Key="ToggleButtonLineHolder" TargetType="{x:Type ToggleButton}">
+        <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter" 
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                              Focusable="False"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"
+                              RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderThickness" TargetName="border" Value="1"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                <Setter Property="BorderThickness" TargetName="border" Value="0,0,0,1"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                <Setter Property="Foreground" Value="#FF838383"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
     <ControlTemplate x:Key="ToggleButtonElipse" TargetType="{x:Type ToggleButton}">
         <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
             <ContentPresenter x:Name="contentPresenter" 
@@ -251,7 +311,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <ControlTemplate x:Key="TabVTMControl" TargetType="{x:Type TabItem}">
-        <Border x:Name="Border" BorderThickness="1,1,1,0" BorderBrush="#FF2C333A" CornerRadius="4,4,0,0" Margin="0">
+        <Border x:Name="Border" BorderThickness="1,1,1,0" MinWidth="50" BorderBrush="#FF2C333A" CornerRadius="4,4,0,0" Margin="0">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFC1B8B8" Offset="0.005"/>
@@ -267,9 +327,13 @@
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter TargetName="Border" Property="Background" Value="#FF898F98" />
+                <Setter TargetName="Border" Property="Margin" Value="0,5,2,0" />
+                <Setter TargetName="Border" Property="Height" Value="25" />
             </Trigger>
             <Trigger Property="IsSelected" Value="False">
                 <Setter TargetName="Border" Property="Background" Value="#FF43474D" />
+                <Setter TargetName="Border" Property="Margin" Value="0,0,2,0" />
+                <Setter TargetName="Border" Property="Height" Value="30" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -285,17 +349,17 @@
                         <BulletDecorator.Bullet>
                             <Border x:Name="Border"
                                        Width="15"
-                                        Height="15"
+                                        Height="14"
                                         Background="{TemplateBinding Background}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                        BorderThickness="1"
                                        ClipToBounds="True">
                                 <Path x:Name="CheckMark"
-                                          Width="10"
+                                          Width="15"
                                           Height="10"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"
-                                          Data="M0,5L4,9 M3,9L10,0"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch"
+                                          Data="M1,5L4,9 M4,9L11,0"
                                           Stretch="None"
                                           Stroke="#55A6DD"
                                           StrokeEndLineCap="Round"
@@ -303,7 +367,7 @@
                                           StrokeThickness="3"></Path>
                             </Border>
                         </BulletDecorator.Bullet>
-                        <ContentPresenter Margin="4,0,0,0"
+                        <ContentPresenter Margin="5,0,0,0"
                                               HorizontalAlignment="Left"
                                               VerticalAlignment="Center"
                                               RecognizesAccessKey="True"></ContentPresenter>

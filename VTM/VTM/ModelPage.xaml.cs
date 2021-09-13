@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace VTM
 {
@@ -64,16 +65,6 @@ namespace VTM
             //await Task.Run(UpdateDataToGrid);
         }
 
-        public void UpdateDataToGrid()
-        {
-            foreach (var item in model.Steps)
-            {
-                Dispatcher.Invoke(new Action(delegate
-                {
-                    TestStepsGrid.Items.Add(item);
-                }));
-            }
-        }
 
 
 
