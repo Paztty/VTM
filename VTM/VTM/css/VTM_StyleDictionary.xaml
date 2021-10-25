@@ -2,36 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:VTM">
 
-    <ControlTemplate x:Key="ButtonControlNonHoverEffect" TargetType="{x:Type Button}">
-        <Border x:Name="border"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-            <ContentPresenter x:Name="contentPresenter" 
-                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                              Content="{TemplateBinding Content}"
-                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                              Focusable="False"
-                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              Margin="{TemplateBinding Padding}"
-                              RecognizesAccessKey="True"
-                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                              Cursor="Hand"/>
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderThickness" TargetName="border" Value="0,0,0,1"/>
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
-                <Setter Property="BorderThickness" TargetName="border" Value="3"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
-                <Setter Property="Foreground" Value="#FF838383"/>
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
 
+    <Style x:Key="ContentLabelStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    
+    <Style x:Key="SliderStyle" TargetType="Slider">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    
     <Style x:Key="VTMDataGrid" TargetType="{x:Type DataGrid}">
         <Setter Property="HeadersVisibility" Value="Column"/>
         <Setter Property="GridLinesVisibility" Value="All"/>
@@ -43,29 +24,7 @@
         <Setter Property="RowHeight" Value="20"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
-
-    <!--<Style :Key="VTMDataGridHeaderMegerTemplate">
-        <Grid ShowGridLines="True">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TextBlock Text="{TemplateBinding Name}" FontWeight="Bold"/>
-            <CheckBox Content="Wait" Grid.Row="1" IsChecked="True"/>
-        </Grid>
-
-        <Setter Property="Background" Value="#2E3F3F"/>
-        <Setter Property="Foreground" Value="#FFC7C7C7"/>
-        <Setter Property="BorderThickness" Value="0,0,1,1"/>
-        <Setter Property="BorderBrush" Value="#666666"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-    </Style>-->
-    <!--<Setter Property="Background" Value="#2E3F3F"/>
-    <Setter Property="Foreground" Value="#FFC7C7C7"/>
-    <Setter Property="Height" Value="30"/>
-    <Setter Property="BorderThickness" Value="0,0,1,1"/>
-    <Setter Property="BorderBrush" Value="#666666"/>
-    <Setter Property="HorizontalContentAlignment" Value="Center"/>-->
+    
 
     <Style x:Key="VTMDataGridHeader" TargetType="{x:Type DataGridColumnHeader}">
         <Setter Property="Background" Value="#2E3F3F"/>
@@ -91,6 +50,13 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="textBlockTrimming" TargetType="TextBlock" BasedOn="{StaticResource ResourceKey=TextBlock}">
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="ToolTip" Value="{Binding Text, 
+                                 RelativeSource={RelativeSource Self}}"/>
+    </Style>
+
     <Style x:Key="VTMDataGridCellDataNomal" TargetType="{x:Type DataGridCell}">
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="BorderBrush" Value="#FF918C8C"/>
@@ -102,7 +68,7 @@
         <Style.Triggers >
             <Trigger Property="IsSelected" Value="True" >
                 <Setter Property="Background" Value="#3261AF"/>
-                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Foreground" Value="White"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -208,7 +174,7 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="ButtonElipse" TargetType="{x:Type Button}">
+    <!--<ControlTemplate x:Key="ButtonElipse" TargetType="{x:Type Button}">
         <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
             <ContentPresenter x:Name="contentPresenter" 
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -240,9 +206,9 @@
                 <Setter Property="Foreground" Value="#FF838383"/>
             </Trigger>
         </ControlTemplate.Triggers>
-    </ControlTemplate>
+    </ControlTemplate>-->
 
-    <ControlTemplate x:Key="ToggleButtonLineHolder" TargetType="{x:Type ToggleButton}">
+    <!--<ControlTemplate x:Key="ToggleButtonLineHolder" TargetType="{x:Type ToggleButton}">
         <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
             <ContentPresenter x:Name="contentPresenter" 
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -275,8 +241,35 @@
                 <Setter Property="Foreground" Value="#FF838383"/>
             </Trigger>
         </ControlTemplate.Triggers>
-    </ControlTemplate>
-    <ControlTemplate x:Key="ToggleButtonElipse" TargetType="{x:Type ToggleButton}">
+    </ControlTemplate>-->
+
+    <Style x:Key="ProgressBarStyle" TargetType="ProgressBar">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Border BorderBrush="#6C6B6B" BorderThickness="1" Background="#202020" CornerRadius="10" Padding="1" Margin="0,0,0,0">
+                        <Grid x:Name="PART_Track" >
+                            <Rectangle x:Name="PART_Indicator" HorizontalAlignment="Left" RadiusX="10" RadiusY="10">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF075B07" Offset="1"/>
+                                        <GradientStop Color="#FF04EE04"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+
+    <!--<ControlTemplate x:Key="ToggleButtonElipse" TargetType="{x:Type ToggleButton}">
         <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
             <ContentPresenter x:Name="contentPresenter" 
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -310,6 +303,78 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
+
+    <ControlTemplate x:Key="ToggleButtonLager" TargetType="{x:Type ToggleButton}">
+        <Border x:Name="border" CornerRadius="8" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter" 
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                              Focusable="False"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"
+                              RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                <Setter Property="Background" TargetName="border" Value="#F0F0F0"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                <Setter Property="Foreground" Value="#FF838383"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ToggleButtonSwitch" TargetType="{x:Type ToggleButton}">
+        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" Background="DarkGray" SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter" 
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                              Focusable="False"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"
+                              RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" TargetName="border" Value="#BEDAF5"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" TargetName="border" Value="#3D92E2"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                <Setter Property="BorderThickness" TargetName="border" Value="1"/>
+                <Setter Property="Background" TargetName="border" Value="#3D92E2"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                <Setter Property="Foreground" Value="#838383"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
     <ControlTemplate x:Key="TabVTMControl" TargetType="{x:Type TabItem}">
         <Border x:Name="Border" BorderThickness="1,1,1,0" MinWidth="50" BorderBrush="#FF2C333A" CornerRadius="4,4,0,0" Margin="0">
             <Border.Background>
@@ -336,7 +401,7 @@
                 <Setter TargetName="Border" Property="Height" Value="30" />
             </Trigger>
         </ControlTemplate.Triggers>
-    </ControlTemplate>
+    </ControlTemplate>-->
     <Style x:Name="checkBoxShadow" TargetType="CheckBox">
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="OverridesDefaultStyle" Value="true" />

@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\Utility.csproj": {}
+  },
+  "projects": {
+    "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\Utility.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\Utility.csproj",
+        "projectName": "Utility",
+        "projectPath": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\Utility.csproj",
+        "packagesPath": "C:\\Users\\This PC\\.nuget\\packages\\",
+        "outputPath": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\This PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net461"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net461": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net461": {
+          "dependencies": {
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

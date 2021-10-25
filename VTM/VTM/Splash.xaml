@@ -13,7 +13,14 @@
                     <DropShadowEffect BlurRadius="20" ShadowDepth="10"/>
                 </Image.Effect>
             </Image>
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60" Foreground="#FF929BA8" FontWeight="Bold" Height="83" Content="Visions Tester Machine " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0">
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60" FontWeight="Bold" Height="83" Content="Visions Tester Machine " HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0" Background="{x:Null}" RenderTransformOrigin="0.501,0.562">
+                <Label.Foreground>
+                    <RadialGradientBrush Center="0.25,0.25">
+                        <GradientStop Color="White" Offset="0.525" />
+                        <GradientStop Color="#0C4CA3" Offset="1"/>
+                        <GradientStop Color="#21B24B"/>
+                    </RadialGradientBrush>
+                </Label.Foreground>
                 <Label.Effect>
                     <DropShadowEffect BlurRadius="20" ShadowDepth="10"/>
                 </Label.Effect>
