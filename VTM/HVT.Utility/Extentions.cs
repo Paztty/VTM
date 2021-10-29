@@ -3,6 +3,11 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Text.Json;
+using Microsoft.Win32;
+using System.Windows.Controls;
+using System.Data;
+using System.Runtime.Serialization;
+using System.Linq;
 
 namespace HVT.Utility
 {
@@ -89,6 +94,74 @@ namespace HVT.Utility
         public static void LogErr(string errMessage)
         {
             File.AppendAllText(LogFile, DateTime.Now.ToString() + " Extension : " + errMessage + Environment.NewLine);
+        }
+
+        public static void DataGrid2CSV(DataGrid comparisonGrid,string Title, string FileExit, string FileType)
+        {
+            SaveFileDialog saveDlg = new SaveFileDialog();
+            saveDlg.Filter = FileType +" (*." + FileExit + "|*." + FileExit;
+            saveDlg.FilterIndex = 0;
+            saveDlg.RestoreDirectory = true;
+            saveDlg.Title = Title;
+            if ((bool)saveDlg.ShowDialog())
+            {
+                string CsvFpath = saveDlg.FileName;
+                System.IO.StreamWriter csvFileWriter = new StreamWriter(CsvFpath, false);
+                string columnHeaderText = "";
+
+                int countColumn = comparisonGrid.Columns.Count - 1;
+                if (countColumn >= 0)
+                {
+                    columnHeaderText = comparisonGrid.Columns[0].Header.ToString();
+                }
+
+                // Writing column headers
+                for (int i = 1; i <= countColumn; i++)
+                {
+                    columnHeaderText = columnHeaderText + ',' + (comparisonGrid.Columns[i].Header).ToString();
+                }
+                csvFileWriter.WriteLine(columnHeaderText);
+
+                // Writing values row by row
+                for (int i = 0; i <= comparisonGrid.Items.Count - 2; i++)
+                {
+                    string dataFromGrid = "";
+                    for (int j = 0; j <= comparisonGrid.Columns.Count - 1; j++)
+                    {
+                        if (j == 0)
+                        {
+                            dataFromGrid = ((DataRowView)comparisonGrid.Items[i]).Row.ItemArray[j].ToString();
+                        }
+                        else
+                        {
+                            dataFromGrid = dataFromGrid + ',' + ((DataRowView)comparisonGrid.Items[i]).Row.ItemArray[j].ToString();
+                        }
+                    }
+                    csvFileWriter.WriteLine(dataFromGrid);
+                }
+                csvFileWriter.Flush();
+                csvFileWriter.Close();
+            }
+        }
+
+        public static string ToEnumString<T>(T type)
+        {
+            var enumType = typeof(T);
+            var name = Enum.GetName(enumType, type);
+            var enumMemberAttribute = ((EnumMemberAttribute[])enumType.GetField(name).GetCustomAttributes(typeof(EnumMemberAttribute), true)).Single();
+            return enumMemberAttribute.Value;
+        }
+
+        public static T ToEnum<T>(string str)
+        {
+            var enumType = typeof(T);
+            foreach (var name in Enum.GetNames(enumType))
+            {
+                var enumMemberAttribute = ((EnumMemberAttribute[])enumType.GetField(name).GetCustomAttributes(typeof(EnumMemberAttribute), true)).Single();
+                if (enumMemberAttribute.Value == str) return (T)Enum.Parse(enumType, name);
+            }
+            //throw exception or whatever handling you want or
+            return default(T);
         }
     }
 }

@@ -51,3 +51,4 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Program\bin\Release\System.Memory.xml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Program\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Program\bin\Release\System.ValueTuple.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Program\obj\Release\HVT.VTM.Program.csproj.CopyComplete

@@ -22,6 +22,7 @@ namespace VTM
         public Splash()
         {
             InitializeComponent();
+            this.Topmost = true;
         }
     }
 }

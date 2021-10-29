@@ -1,23 +1,14 @@
-﻿using AForge.Video;
-using AForge.Video.DirectShow;
+﻿
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using System.Drawing;
 using System.Collections.ObjectModel;
-using AForge.Imaging.Filters;
-using System.Windows.Media.Animation;
 using System.Windows.Controls.Primitives;
-using System.Runtime.InteropServices;
 using HVT.VTM.Program;
 using HVT.StandantLocalUsers;
-using HVT.VTM.Core;
 using HVT.Utility;
-using System.Threading.Tasks;
 
 namespace VTM
 {
@@ -30,8 +21,6 @@ namespace VTM
         // page
         Splash splashScreen = new Splash();
 
-        private ObservableCollection<string[]> ModelProgram = new ObservableCollection<string[]>();
-
         List<System.Windows.Controls.Label> PCB_LABEL = new List<System.Windows.Controls.Label>();
 
         DispatcherTimer DateTimeUpdateTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
@@ -41,121 +30,39 @@ namespace VTM
         {
             splashScreen.Show();
             InitializeComponent();
+        }
+
+        protected override void OnContentRendered(EventArgs e)
+        {
+            splashScreen.Close();
+            this.BringIntoView();
+        }
+
+
+
+        #region Form control
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
             Debug.LogBox = tbProgramLog;
             Debug.dispatcher = this.Dispatcher;
             Console.WriteLine("Window Loaded");
             Debug.Write("Program start.", Debug.ContentType.Notify);
             btPageAuto.IsChecked = true;
-
-            Thread.Sleep(2000);
-
             DateTimeUpdateTimer.Tick += DateTimeUpdateTimer_Tick;
             DateTimeUpdateTimer.Start();
 
-            
             Program.CameraInit(cameraView, imgFNDviewA);
+            Program.CreatMachineFolder();
             Program.ModelInit();
 
             LoadModelPage();
             LoadManualPage();
             VisionPageInit();
-            splashScreen.Close();
-        }
 
+            //Thread.Sleep(5000);
+            //splashScreen.Close();
 
-
-        #region Model Action
-
-        //Event 
-        private void Model_LoadFinish_AutoPage(object sender, EventArgs e)
-        {
-            tbModelName.Text = Program.RootModel.Name;
-            TestStepsGrid.ItemsSource = null;
-            TestStepsGrid.ItemsSource = new ObservableCollection<Model.Step>(Program.RootModel.Steps);
-            ModelName.Text = Program.RootModel.Name;
-            tbModelNamePath.Text = Program.RootModel.Path;
-            TestStepsGridData.ItemsSource = null;
-            TestStepsGridData.ItemsSource = Program.RootModel.Steps;
-            Error_Positions_Table.ItemsSource = Program.RootModel.ErrorPositions;
-        }
-
-        private void Model_StateChange(object sender, EventArgs e)
-        {
-            switch (Program.RootModel.TestState)
-            {
-                case Model.RunTestState.WAIT:
-                    Dispatcher.Invoke(new Action(delegate
-                    {
-                        lbTestResultGood.Visibility = Visibility.Visible;
-                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
-                        if (sb != null) sb.Begin(lbTestResultGood);
-                    }), DispatcherPriority.Send);
-                    break;
-                case Model.RunTestState.TESTTING:
-                    Dispatcher.Invoke(new Action(delegate
-                    {
-                        lbTestResultGood.Visibility = Visibility.Visible;
-                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
-                        if (sb != null) sb.Begin(lbTestResultGood);
-                    }), DispatcherPriority.Send);
-                    break;
-                case Model.RunTestState.Pause:
-                    Dispatcher.Invoke(new Action(delegate
-                    {
-                        lbTestResultGood.Visibility = Visibility.Visible;
-                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
-                        if (sb != null) sb.Begin(lbTestResultGood);
-                    }), DispatcherPriority.Send);
-                    break;
-                case Model.RunTestState.STOP:
-                    Dispatcher.Invoke(new Action(delegate
-                    {
-                        lbTestResultGood.Visibility = Visibility.Visible;
-                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
-                        if (sb != null) sb.Begin(lbTestResultGood);
-                    }), DispatcherPriority.Send);
-                    break;
-                case Model.RunTestState.GOOD:
-                    Dispatcher.Invoke(new Action(delegate
-                    {
-                        lbTestResultGood.Visibility = Visibility.Visible;
-                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
-                        if (sb != null) sb.Begin(lbTestResultGood);
-                    }), DispatcherPriority.Send);
-                    break;
-                case Model.RunTestState.FAIL:
-                    Dispatcher.Invoke(new Action(delegate
-                    {
-                        lbTestResultGood.Visibility = Visibility.Visible;
-                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
-                        if (sb != null) sb.Begin(lbTestResultGood);
-                    }), DispatcherPriority.Send);
-                    break;
-                case Model.RunTestState.BUSY:
-                    Dispatcher.Invoke(new Action(delegate
-                    {
-                        lbTestResultGood.Visibility = Visibility.Visible;
-                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
-                        if (sb != null) sb.Begin(lbTestResultGood);
-                    }), DispatcherPriority.Send);
-                    break;
-                case Model.RunTestState.READY:
-                    Dispatcher.Invoke(new Action(delegate
-                    {
-                        lbTestResultGood.Visibility = Visibility.Visible;
-                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
-                        if (sb != null) sb.Begin(lbTestResultGood);
-                    }), DispatcherPriority.Send);
-                    break;
-                default:
-                    break;
-            }
-        }
-        #endregion
-
-        #region Form control
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
             Program.RootModel.LoadFinish += Model_LoadFinish_AutoPage;
             Program.RootModel.LoadFinish += Model_LoadFinish_ManualPage;
             Program.RootModel.LoadFinish += Model_LoadFinish_ModelPage;
@@ -176,6 +83,7 @@ namespace VTM
 
         private void btCloseWindow_Click(object sender, RoutedEventArgs e)
         {
+            Program.CameraDisponse();
             Console.WriteLine("Close button click");
             Close();
         }

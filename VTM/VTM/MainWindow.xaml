@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xc="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:local="clr-namespace:VTM"
-        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-        xmlns:system="clr-namespace:System;assembly=mscorlib" 
-        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:core="clr-namespace:HVT.VTM.Base;assembly=HVT.VTM.Base"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         x:Class="VTM.MainWindow"
         mc:Ignorable="d"
+    
+    
         Loaded="Window_Loaded" Width="1920" Height="1080" WindowState="Maximized"
         Background="Black" SnapsToDevicePixels="True" WindowStyle="None" MaxHeight="1100" ResizeMode="CanResize"
         Closing="Window_Closing" KeyDown="Window_KeyDown" Title="Daeyoung-VTM System" BorderThickness="0" AllowsTransparency="True">
@@ -24,8 +24,28 @@
                 <ResourceDictionary Source="/css/VTM_Animations.xaml">
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
 
+            <ObjectDataProvider x:Key="rxDataKindEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="core:RxDataKind"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            
+            <ObjectDataProvider x:Key="rxDataTypeEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="core:RxDataType"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+            <ObjectDataProvider x:Key="CommandsEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="core:CMDs"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+        </ResourceDictionary>
     </Window.Resources>
 
     <Grid Margin="6">
@@ -319,7 +339,10 @@
                                     <Grid.Effect>
                                         <DropShadowEffect Color="White" ShadowDepth="0"/>
                                     </Grid.Effect>
-                                    <Image x:Name="cameraView" HorizontalAlignment="Stretch" VerticalAlignment="Top" Source="{Binding CameraImage}" Stretch="UniformToFill" Height="500"/>
+
+                                    <Image x:Name="cameraView" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill" Height="500" Visibility="Hidden"/>
+                                    <!--<Image x:Name="cameraload" gif:ImageBehavior.AnimatedSource="img/CameraLoading.gif" />-->
+
                                 </Grid>
                                 <TextBlock Text="  Progress Informations" Grid.Row="2" Margin="0,0,0,0" Foreground="#FFE8E8E8" FontStyle="Italic" FontWeight="Bold" Height="40" Padding="10" VerticalAlignment="Top" FontSize="18">
                                     <TextBlock.Effect>
@@ -392,6 +415,7 @@
                                     <RowDefinition/>
                                     <RowDefinition Height="289"/>
                                 </Grid.RowDefinitions>
+                                
                                 <TabControl Margin="5,0"  Background="#FF43474D" BorderThickness="1" BorderBrush="#FF898F98">
                                     <TabControl.Effect>
                                         <DropShadowEffect ShadowDepth="3"/>
@@ -404,7 +428,7 @@
                                                         <DropShadowEffect/>
                                                     </Image.Effect>
                                                 </Image>
-                                                <TextBlock Text="IQMS" VerticalAlignment="Center" Width="29"/>
+                                                <TextBlock Text="QR Code" VerticalAlignment="Center" Width="29"/>
                                             </DockPanel>
                                         </TabItem.Header>
                                         <Border Margin="1" BorderBrush="#898F98" BorderThickness="1">
@@ -704,6 +728,15 @@
                                                             >
                                                             <DataGridTextColumn.CellStyle>
                                                                 <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="{x:Type DataGridCell}">
+                                                                    <Setter Property="Template">
+                                                                        <Setter.Value>
+                                                                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                                                <Grid Background="{TemplateBinding Background}">
+                                                                                    <ContentPresenter VerticalAlignment="Center"/>
+                                                                                </Grid>
+                                                                            </ControlTemplate>
+                                                                        </Setter.Value>
+                                                                    </Setter>
                                                                     <Setter Property="Foreground" Value="WhiteSmoke"/>
                                                                     <Setter Property="BorderBrush" Value="#6C6B6B"/>
                                                                     <Setter Property="FontSize" Value="12"/>
@@ -971,6 +1004,30 @@
                                         </Border>
                                     </TabItem>
                                 </TabControl>
+
+                                <Grid x:Name="pnResult" Background="Black" Visibility="Collapsed" d:IsHidden="True">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                </Grid>
+
                                 <Grid Grid.Row="1" Background="#43474D" Margin="0,10,0,5">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
@@ -1227,7 +1284,7 @@
                                                             <Label x:Name="lbEscapTime" Background="#FF17271D" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                                    Foreground="White" Grid.Row="1" Margin="0,0,0,-1" BorderThickness="3" FontWeight="Bold" Padding="5,5,5,0" FontSize="24" >10.0S</Label>
                                                             <Button Background="#FF079B3C" Grid.Row="2" BorderBrush="Black" BorderThickness="3" VerticalContentAlignment="Center" Template="{StaticResource ButtonControlNonHoverEffect}"
-                                                   HorizontalContentAlignment="Center" FontSize="20" Foreground="Black" FontWeight="Bold" Height="52" VerticalAlignment="Top" Click="Button_Click">RUN</Button>
+                                                   HorizontalContentAlignment="Center" FontSize="20" Foreground="Black" FontWeight="Bold" Height="52" VerticalAlignment="Top">RUN</Button>
                                                         </Grid>
 
                                                     </Grid>
@@ -1300,7 +1357,7 @@
                     </Grid>
 
                     <!--Manual Panel-->
-                    <Grid  x:Name="ManualPanel" Grid.Row="1" Visibility="Hidden" Margin="5" Background="#FF5D5D5D" d:IsHidden="True">
+                    <Grid  x:Name="ManualPanel" Grid.Row="1" Visibility="Visible" Margin="5" Background="#FF5D5D5D" d:IsHidden="True">
                         <Grid.Effect>
                             <DropShadowEffect/>
                         </Grid.Effect>
@@ -1688,7 +1745,7 @@
                                             </TextBlock.Effect>
                                         </TextBlock>
                                     </DockPanel>
-                                    <Button Cursor="Hand" FontWeight="Bold" Margin="5,0,5,5"  Template="{StaticResource ButtonElipse}" Content="CH 1" Click="Button_Click_1" Grid.Column="5" Grid.Row="2">
+                                    <Button Cursor="Hand" FontWeight="Bold" Margin="5,0,5,5"  Template="{StaticResource ButtonElipse}" Content="CH 1" Grid.Column="5" Grid.Row="2">
                                         <Button.Background>
                                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                                 <GradientStop Color="#FF979797" Offset="0"/>
@@ -1697,7 +1754,7 @@
                                             </LinearGradientBrush>
                                         </Button.Background>
                                     </Button>
-                                    <Button Cursor="Hand" FontWeight="Bold" Margin="5,3,5,2"  Template="{StaticResource ButtonElipse}" Content="All" Click="Button_Click_1" Grid.Column="5" Grid.Row="3">
+                                    <Button Cursor="Hand" FontWeight="Bold" Margin="5,3,5,2"  Template="{StaticResource ButtonElipse}" Content="All"  Grid.Column="5" Grid.Row="3">
                                         <Button.Background>
                                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                                 <GradientStop Color="#FF979797" Offset="0"/>
@@ -1706,7 +1763,7 @@
                                             </LinearGradientBrush>
                                         </Button.Background>
                                     </Button>
-                                    <Button Cursor="Hand" FontWeight="Bold" Margin="5,5,5,0"  Template="{StaticResource ButtonElipse}" Content="CH 2" Click="Button_Click_1" Grid.Column="5" Grid.Row="4">
+                                    <Button Cursor="Hand" FontWeight="Bold" Margin="5,5,5,0"  Template="{StaticResource ButtonElipse}" Content="CH 2" Grid.Column="5" Grid.Row="4">
                                         <Button.Background>
                                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                                 <GradientStop Color="#FF979797" Offset="0"/>
@@ -2127,7 +2184,7 @@
                                             </Label.Effect>
                                         </Label>
 
-                                        <Button Cursor="Hand" FontWeight="Bold" Margin="3,1,1,3" Background="White"  Template="{StaticResource ButtonElipse}" Content="Change" Grid.Row="3" Click="Button_Click_1"/>
+                                        <Button Cursor="Hand" FontWeight="Bold" Margin="3,1,1,3" Background="White"  Template="{StaticResource ButtonElipse}" Content="Change" Grid.Row="3" />
 
                                         <Label Content="Spect" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Center" FontWeight="Bold"/>
                                         <Label Content="Min" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Center" FontWeight="Bold"/>
@@ -2166,7 +2223,7 @@
                                                 <DataGridComboBoxColumn x:Name="dgtUUT_TX_Naming" CellStyle="{StaticResource VTMDataGridCellHeader}"
                                                                         HeaderStyle="{StaticResource VTMDataGridHeader}"  Width="*" Header="Tx naming"
                                                                      />
-                                                <DataGridTextColumn HeaderStyle="{StaticResource VTMDataGridHeader}" Width="*" Header="Rx Packet"
+                                                <DataGridTextColumn HeaderStyle="{StaticResource VTMDataGridHeader}" Width="*" Header="Tx Packet"
                                                                     CellStyle="{StaticResource VTMDataGridCellHeader}"/>
                                             </DataGrid.Columns>
                                             <DataGrid.Items>
@@ -2208,7 +2265,7 @@
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn HeaderStyle="{StaticResource VTMDataGridHeader}" Width="30" Header="PCB"
                                                                     CellStyle="{StaticResource VTMDataGridCellHeader}"/>
-                                                <DataGridTextColumn HeaderStyle="{StaticResource VTMDataGridHeader}" Width="*" Header="Rx Packet"
+                                                <DataGridTextColumn HeaderStyle="{StaticResource VTMDataGridHeader}" Width="*" Header="Tx Packet"
                                                                     CellStyle="{StaticResource VTMDataGridCellHeader}"/>
                                             </DataGrid.Columns>
                                             <DataGrid.Items>
@@ -2271,7 +2328,7 @@
                     </Grid>
 
                     <!--Model Grid page-->
-                    <Grid x:Name="ModelPanel" Grid.Row="1" Visibility="Visible" Margin="5" Background="#FF5D5D5D" d:IsHidden="True">
+                    <Grid x:Name="ModelPanel" Grid.Row="1" Visibility="Visible" Margin="5" Background="#FF5D5D5D">
                         <Grid.Effect>
                             <DropShadowEffect/>
                         </Grid.Effect>
@@ -2436,22 +2493,21 @@
                                                 </Grid.RowDefinitions>
 
                                                 <!--" after load data -> disable readonly "-->
-                                                <DataGrid x:Name="TestStepsGridData" 
-                                          IsReadOnly="False" AutoGenerateColumns="False" GridLinesVisibility="All"
-                                          SelectionMode="Single"
-                                          Style="{StaticResource VTMDataGrid}"
-                                          ColumnHeaderStyle="{ StaticResource VTMDataGridHeader}" SelectionUnit="Cell">
+                                                <DataGrid x:Name="TestStepsGridData" Margin="5"
+                                                          SelectedCellsChanged="TestStepsGridData_SelectedCellsChanged" ClipboardCopyMode="IncludeHeader"
+                                                      IsReadOnly="False" AutoGenerateColumns="False" GridLinesVisibility="All"
+                                                      Style="{StaticResource VTMDataGrid}" LoadingRow="dgRX_data_naming_LoadingRow"
+                                                      ColumnHeaderStyle="{ StaticResource VTMDataGridHeader}" SelectionUnit="Cell"
+                                                      RowHeaderStyle="{StaticResource VTMDataGridRowHeader}">
                                                     <DataGrid.Columns>
-                                                        <DataGridTextColumn Binding="{Binding No}"
-                                                            Header="No" Width="39"
-                                                            CellStyle="{StaticResource VTMDataGridCellHeader}"/>
                                                         <DataGridTextColumn Binding="{Binding IMQSCode}"
-                                                            Header="IMQS Code" Width="60"
+                                                            Header="QR Code" Width="60"
                                                             CellStyle="{StaticResource VTMDataGridCellHeader}"/>
                                                         <DataGridTextColumn Binding="{Binding TestContent}"
                                                             Header="Test Content" Width="200"
                                                             CellStyle="{StaticResource VTMDataGridCellData}"/>
-                                                        <DataGridTextColumn Binding="{Binding CMD}"
+                                                        <DataGridComboBoxColumn SelectedItemBinding="{Binding SetCMD}"
+                                                            ItemsSource="{Binding Source={StaticResource CommandsEnum}}"
                                                             Header="CMD" Width="60"
                                                             CellStyle="{StaticResource VTMDataGridCellCMD}"/>
                                                         <DataGridTextColumn Binding="{Binding Condition1}"
@@ -2491,14 +2547,24 @@
                                                             Header="Skip" Width="30">
                                                             <DataGridCheckBoxColumn.CellStyle>
                                                                 <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
-                                                                    <Setter Property="Background" Value="Black"/>
+                                                                    <Setter Property="Template">
+                                                                        <Setter.Value>
+                                                                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                                                <Grid Background="{TemplateBinding Background}">
+                                                                                    <ContentPresenter VerticalAlignment="Center"/>
+                                                                                </Grid>
+                                                                            </ControlTemplate>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                    <Setter Property="Background" Value="#2E3F3F"/>
+                                                                    <Setter Property="Foreground" Value="#FFC7C7C7"/>
                                                                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                                                                     <Setter Property="Margin" Value="0"/>
-                                                                    <Setter Property="Height" Value="21"/>
-                                                                    <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                                                                    <Setter Property="BorderThickness" Value="1"/>
+                                                                    <Setter Property="BorderBrush" Value="#FF918C8C"/>
                                                                     <Style.Triggers >
                                                                         <Trigger Property="IsSelected" Value="True" >
-                                                                            <Setter Property="Background" Value="#FF03CFBC"/>
+                                                                            <Setter Property="Background" Value="#3261AF"/>
                                                                             <Setter Property="Foreground" Value="Black"/>
                                                                         </Trigger>
                                                                     </Style.Triggers>
@@ -2641,18 +2707,14 @@
                                                         <RowDefinition Height="Auto"/>
                                                         <RowDefinition/>
                                                     </Grid.RowDefinitions>
-                                                    <DataGrid x:Name="TestStepsGridRemark" 
-                                          IsReadOnly="True" 
-                                          SelectionMode="Extended"
-                                          MaxHeight="53" Margin="5"
-                                          Style="{StaticResource VTMDataGrid}"
-                                          ColumnHeaderStyle="{ StaticResource VTMDataGridHeader}"
-                                          VerticalScrollBarVisibility="Disabled">
+                                                    <DataGrid x:Name="TestStepsGridRemark" HeadersVisibility="All"
+                                                          IsReadOnly="True" LoadingRow="dgRX_data_naming_LoadingRow"
+                                                          SelectionMode="Single" CanUserAddRows="True" SelectionUnit="Cell"
+                                                          MaxHeight="53" Margin="5,5,25,5" AutoGenerateColumns="False"
+                                                          Style="{StaticResource VTMDataGrid}" RowHeaderStyle="{StaticResource VTMDataGridRowHeader}"
+                                                          ColumnHeaderStyle="{ StaticResource VTMDataGridHeader}" ClipboardCopyMode="IncludeHeader"
+                                                          VerticalScrollBarVisibility="Disabled">
                                                         <DataGrid.Columns>
-                                                            <DataGridTextColumn Binding="{Binding No}"
-                                                            Header="No" Width="39"
-                                                              Foreground="#FFE8E8E8"
-                                                            CellStyle="{StaticResource VTMDataGridCellHeader}"/>
                                                             <DataGridTextColumn Binding="{Binding IMQSCode}"
                                                             Header="IMQS Code" Width="60"
                                                              
@@ -2709,33 +2771,17 @@
                                                             Header="E-Loc" Width="40"
                                                              
                                                             CellStyle="{StaticResource VTMDataGridCellData}"/>
-                                                            <DataGridCheckBoxColumn Binding="{Binding Skip}"
+
+                                                            <DataGridTextColumn Binding="{Binding Skip}"
                                                             Header="Skip" Width="30"
-                                                             
-                                                            >
-                                                                <DataGridCheckBoxColumn.CellStyle>
-                                                                    <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
-                                                                        <Setter Property="Background" Value="Black"/>
-                                                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                                                        <Setter Property="Margin" Value="0"/>
-                                                                        <Setter Property="Height" Value="21"/>
-                                                                        <Setter Property="BorderThickness" Value="0"/>
-                                                                        <Style.Triggers >
-                                                                            <Trigger Property="IsSelected" Value="True" >
-                                                                                <Setter Property="Background" Value="#FF03CFBC"/>
-                                                                                <Setter Property="Foreground" Value="Black"/>
-                                                                            </Trigger>
-                                                                        </Style.Triggers>
-                                                                    </Style>
-                                                                </DataGridCheckBoxColumn.CellStyle>
-                                                            </DataGridCheckBoxColumn>
+                                                            CellStyle="{StaticResource VTMDataGridCellData}"/>
+
                                                         </DataGrid.Columns>
                                                     </DataGrid>
                                                     <Border Grid.Row="1" Margin="5,0,5,5" BorderBrush="#FF0A0A0A" BorderThickness="1" >
-                                                        <TextBlock  Padding="5" TextWrapping="Wrap"
-                                           Background="#FF323F47" Foreground="White"
-                                           ><Run Text="Remark Step"/><InlineUIContainer>
-                                            </InlineUIContainer></TextBlock>
+                                                        <TextBlock x:Name="StepDecription"  Padding="5" TextWrapping="Wrap"
+                                                           Background="#FF323F47" Foreground="White" Text="{Binding ElementName=TestStepsGridRemark, Path=SelectedItem.Description}"
+                                                           ></TextBlock>
                                                     </Border>
                                                     <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="60" Foreground="#FF43474D" FontWeight="Bold" Height="83" Content="Steps" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1">
                                                         <Label.Effect>
@@ -4153,38 +4199,36 @@
                                                                 <RowDefinition/>
                                                                 <RowDefinition Height="60"/>
                                                             </Grid.RowDefinitions>
-                                                            <DataGrid x:Name="dgTX_data_naming"
-                                                AutoGenerateColumns="False" IsReadOnly="True"
-                                                SelectionMode="Extended"
-                                                Style="{StaticResource VTMDataGrid}"
-                                                ColumnHeaderStyle="{StaticResource VTMDataGridHeader}"
-                                                SelectionUnit="Cell">
+                                                            <DataGrid x:Name="dgTX_data_naming" SelectionUnit="FullRow"
+                                                                        AutoGenerateColumns="False" IsReadOnly="False"
+                                                                        SelectionMode="Extended" CanUserAddRows="True" CanUserSortColumns="False"
+                                                                        Style="{StaticResource VTMDataGrid}" PreviewKeyDown="dgTX_data_naming_PreviewKeyDown"
+                                                                        ColumnHeaderStyle="{StaticResource VTMDataGridHeader}" ClipboardCopyMode="IncludeHeader"
+                                                                        RowHeaderStyle="{StaticResource VTMDataGridRowHeader}"  LoadingRow="dgRX_data_naming_LoadingRow"
+                                                                        >
                                                                 <DataGrid.Columns>
-                                                                    <DataGridTextColumn Binding="{Binding No}"
-                                                    Header="No" Width="35"     
-                                                    CellStyle="{StaticResource VTMDataGridCellHeader}"/>
-
-                                                                    <DataGridTextColumn Binding="{Binding Name}"
+                                                                   
+                                                                    <DataGridTextColumn Binding="{Binding Path=Name}"
                                                     Header="Name" Width="*"      
                                                     CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
-                                                                    <DataGridTextColumn Binding="{Binding Data}"
-                                                    Header="Data (Hex)" Width="1.2*"      
+                                                                    <DataGridTextColumn Binding="{Binding Path=Data}"
+                                                    Header="Data (Hex)" Width="1.2*" FontWeight="Bold"      
                                                     CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
-                                                                    <DataGridTextColumn Binding="{Binding Blank}"
+                                                                    <DataGridTextColumn Binding="{Binding Path=Blank}"
                                                     Header="Blank (Hex)" Width="70"      
                                                     CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
-                                                                    <DataGridTextColumn Binding="{Binding Remark}"
+                                                                    <DataGridTextColumn Binding="{Binding Path=Remark}"
                                                     Header="Remark" Width="*"      
                                                     CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
                                                                 </DataGrid.Columns>
                                                             </DataGrid>
                                                             <Button Width="Auto" Height="Auto" Margin="250,0,0,0" Grid.Row="1" 
-                                                    Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
-                                                    BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                                Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}"  
+                                                                BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center" Click="btOpenTxNaming_Click">
                                                                 <Border BorderThickness="1" BorderBrush="#898F98" HorizontalAlignment="Left" CornerRadius="20" Width="148" Height="28">
                                                                     <Border.Background>
                                                                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -4202,7 +4246,7 @@
                                                                     </DockPanel>
                                                                 </Border>
                                                             </Button>
-                                                            <Button Width="Auto" Height="Auto" Margin="20,0,0,0" Grid.Row="1" 
+                                                            <Button Width="Auto" Height="Auto" Margin="20,0,0,0" Grid.Row="1" Click="btSaveTxnaming_Click"
                                                     Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
                                                     BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                                                                 <Border BorderThickness="1" BorderBrush="#898F98" HorizontalAlignment="Left" CornerRadius="20" Width="180" Height="30" Margin="0,0,0,0" >
@@ -4230,72 +4274,126 @@
                                                                 <RowDefinition/>
                                                                 <RowDefinition Height="60"/>
                                                             </Grid.RowDefinitions>
-                                                            <DataGrid x:Name="dgRX_data_naming"
-                                                AutoGenerateColumns="False" IsReadOnly="True"
-                                                SelectionMode="Extended"
-                                                Style="{StaticResource VTMDataGrid}"
-                                                ColumnHeaderStyle="{StaticResource VTMDataGridHeader}"
-                                                SelectionUnit="Cell">
+                                                            <DataGrid x:Name="dgRX_data_naming" ClipboardCopyMode="IncludeHeader"
+                                                                AutoGenerateColumns="False" IsReadOnly="False" GridLinesVisibility="All"
+                                                                SelectionMode="Extended" CanUserAddRows="true" CanUserSortColumns="False"
+                                                                Style="{StaticResource VTMDataGrid}" PreviewKeyDown="dgRX_data_naming_PreviewKeyDown"
+                                                                ColumnHeaderStyle="{StaticResource VTMDataGridHeader}"
+                                                                RowHeaderStyle="{StaticResource VTMDataGridRowHeader}"  LoadingRow="dgRX_data_naming_LoadingRow"
+                                                                SelectionUnit="FullRow">
                                                                 <DataGrid.Columns>
-                                                                    <DataGridTextColumn Binding="{Binding No}"
-                                                    Header="No" Width="35"     
-                                                    CellStyle="{StaticResource VTMDataGridCellHeader}"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Name}"
+                                                                        Header="Name" Width="1*"      
+                                                                        CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
-                                                                    <DataGridTextColumn Binding="{Binding Name}"
-                                                    Header="Name" Width="1*"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=ModeLoc}"
+                                                                        Header="Mode Loc" Width="70"      
+                                                                        CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Mode}"
+                                                                        Header="Mode (Hex)" Width="70"      
+                                                                        CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
-                                                                    <DataGridTextColumn Binding="{Binding ModeLoc}"
-                                                    Header="Mode Loc" Width="70"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+                                                                    <DataGridComboBoxColumn 
+                                                                        Header="Data Kind" Width="140"
+                                                                        ItemsSource="{Binding Source = {StaticResource rxDataKindEnum}}"   
+                                                                        SelectedItemBinding ="{Binding Path=dataKind}"
+                                                                        CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
-                                                                    <DataGridTextColumn Binding="{Binding ModeHex}"
-                                                    Header="Mode Hex" Width="70"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=MByte}"
+                                                                        Header="M Byte" Width="80"      
+                                                                        CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
-                                                                    <DataGridTextColumn Binding="{Binding Datakind}"
-                                                    Header="Data Kind" Width="140"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
-
-                                                                    <DataGridTextColumn Binding="{Binding ModeHex}"
-                                                    Header="Mode Hex" Width="70"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
-
-                                                                    <DataGridTextColumn Binding="{Binding MByte}"
-                                                    Header="M Byte" Width="80"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
-
-                                                                    <DataGridTextColumn Binding="{Binding MBit}"
+                                                                    <DataGridTextColumn Binding="{Binding Path=M_Mbit}"
                                                     Header="M bit" Width="80"      
                                                     CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
-                                                                    <DataGridTextColumn Binding="{Binding Lbit}"
-                                                    Header="L bit" Width="80"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=M_Lbit}"
+                                                                        Header="L bit" Width="80">
+                                                                        <DataGridTextColumn.CellStyle>
+                                                                            <Style TargetType="DataGridCell" BasedOn="{StaticResource VTMDataGridCellDataNomal}">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Path=dataKind}" Value="0">
+                                                                                        <Setter Property="Background" Value="Gray"/>
+                                                                                        <Setter Property="Foreground" Value="Black"/>
+                                                                                    </DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding Path=dataKind}" Value="2">
+                                                                                        <Setter Property="Background" Value="Gray"/>
+                                                                                        <Setter Property="Foreground" Value="Black"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>                  
+                                                                            </Style>
+                                                                        </DataGridTextColumn.CellStyle>
+                                                                    </DataGridTextColumn>
 
-                                                                    <DataGridTextColumn Binding="{Binding LByte}"
-                                                    Header="L Byte" Width="70"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=LByte}"
+                                                                    Header="L Byte" Width="70">
+                                                                        <DataGridTextColumn.CellStyle>
+                                                                            <Style TargetType="DataGridCell" BasedOn="{StaticResource VTMDataGridCellDataNomal}">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding Path=dataKind}" Value="0">
+                                                                                        <Setter Property="Background" Value="Gray"/>
+                                                                                        <Setter Property="Foreground" Value="Black"/>
+                                                                                    </DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding Path=dataKind}" Value="1">
+                                                                                        <Setter Property="Background" Value="Gray"/>
+                                                                                        <Setter Property="Foreground" Value="Black"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </DataGridTextColumn.CellStyle>
+                                                                    </DataGridTextColumn>
 
-                                                                    <DataGridTextColumn Binding="{Binding MByte}"
-                                                    Header="M bit" Width="80"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=L_Mbit}"
+                                                                    Header="M bit" Width="80">
+                                                                        <DataGridTextColumn.CellStyle>
+                                                                        <Style TargetType="DataGridCell" BasedOn="{StaticResource VTMDataGridCellDataNomal}">
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding Path=dataKind}" Value="0">
+                                                                                    <Setter Property="Background" Value="Gray"/>
+                                                                                    <Setter Property="Foreground" Value="Black"/>
+                                                                                </DataTrigger>
+                                                                                <DataTrigger Binding="{Binding Path=dataKind}" Value="1">
+                                                                                    <Setter Property="Background" Value="Gray"/>
+                                                                                    <Setter Property="Foreground" Value="Black"/>
+                                                                                </DataTrigger>
+                                                                                <DataTrigger Binding="{Binding Path=dataKind}" Value="2">
+                                                                                    <Setter Property="Background" Value="Gray"/>
+                                                                                    <Setter Property="Foreground" Value="Black"/>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                        </DataGridTextColumn.CellStyle>
+                                                                    </DataGridTextColumn>
 
-                                                                    <DataGridTextColumn Binding="{Binding MBit}"
-                                                    Header="L bit" Width="80"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=L_Lbit}"
+                                                                        Header="L bit" Width="80">
+                                                                        <DataGridTextColumn.CellStyle>
+                                                                        <Style TargetType="DataGridCell" BasedOn="{StaticResource VTMDataGridCellDataNomal}">
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding Path=dataKind}" Value="0">
+                                                                                    <Setter Property="Background" Value="Gray"/>
+                                                                                    <Setter Property="Foreground" Value="Black"/>
+                                                                                </DataTrigger>
+                                                                                <DataTrigger Binding="{Binding Path=dataKind}" Value="1">
+                                                                                    <Setter Property="Background" Value="Gray"/>
+                                                                                    <Setter Property="Foreground" Value="Black"/>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                        </DataGridTextColumn.CellStyle>
+                                                                    </DataGridTextColumn>
 
-                                                                    <DataGridTextColumn Binding="{Binding Type}"
-                                                    Header="Type" Width="80"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+                                                                    <DataGridComboBoxColumn 
+                                                                        Header="Type" Width="140" ItemsSource="{Binding Source={StaticResource rxDataTypeEnum}}"   
+                                                                        SelectedItemBinding="{Binding Path=dataType}" CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
-                                                                    <DataGridTextColumn Binding="{Binding Remark}"
-                                                    Header="Remark" Width="*"      
-                                                    CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Remark}"
+                                                                        Header="Remark" Width="*"      
+                                                                        CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
                                                                 </DataGrid.Columns>
                                                             </DataGrid>
-                                                            <Button Width="Auto" Height="Auto" Margin="250,0,0,0" Grid.Row="1" 
+                                                            <Button Width="Auto" Height="Auto" Margin="250,0,0,0" Grid.Row="1" Click="btOpenRxNaming_Click"
                                                     Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
                                                     BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                                                                 <Border BorderThickness="1" BorderBrush="#898F98" HorizontalAlignment="Left" CornerRadius="20" Width="148" Height="28">
@@ -4315,9 +4413,9 @@
                                                                     </DockPanel>
                                                                 </Border>
                                                             </Button>
-                                                            <Button Width="Auto" Height="Auto" Margin="20,0,0,0" Grid.Row="1" 
-                                                    Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
-                                                    BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                            <Button x:Name="btSaveRxnaming" Width="Auto" Height="Auto" Margin="20,0,0,0" Grid.Row="1" Click="btSaveRxnaming_Click"
+                                                                Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
+                                                                BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center"> 
                                                                 <Border BorderThickness="1" BorderBrush="#898F98" HorizontalAlignment="Left" CornerRadius="20" Width="180" Height="30" Margin="0,0,0,0" >
                                                                     <Border.Background>
                                                                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -4378,31 +4476,29 @@
                                                                 <RowDefinition Height="60"/>
                                                             </Grid.RowDefinitions>
                                                             <DataGrid x:Name="dgQRcodeNameCode" Grid.Row="1"
-                                            AutoGenerateColumns="False" IsReadOnly="True"
-                                            SelectionMode="Extended"
-                                            Style="{StaticResource VTMDataGrid}"
-                                            ColumnHeaderStyle="{StaticResource VTMDataGridHeader}"
-                                            SelectionUnit="Cell">
+                                                                SelectionUnit="FullRow"
+                                                                AutoGenerateColumns="False" IsReadOnly="False"
+                                                                SelectionMode="Extended" CanUserAddRows="True" CanUserSortColumns="False"
+                                                                Style="{StaticResource VTMDataGrid}" PreviewKeyDown="dgQRcodeNameCode_PreviewKeyDown"
+                                                                ColumnHeaderStyle="{StaticResource VTMDataGridHeader}" ClipboardCopyMode="IncludeHeader"
+                                                                RowHeaderStyle="{StaticResource VTMDataGridRowHeader}"  LoadingRow="dgRX_data_naming_LoadingRow"
+                                                                >
                                                                 <DataGrid.Columns>
-                                                                    <DataGridTextColumn Binding="{Binding No}"
-                                                    Header="No" Width="35"     
-                                                    CellStyle="{StaticResource VTMDataGridCellHeader}"/>
-
-                                                                    <DataGridTextColumn Binding="{Binding Contents}"
+                                                                    <DataGridTextColumn Binding="{Binding  Path=Context}"
                                                     Header="Contents" Width="1*"      
                                                     CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
-                                                                    <DataGridTextColumn Binding="{Binding Code}"
+                                                                    <DataGridTextColumn Binding="{Binding  Path=Code}"
                                                     Header="Code" Width="100"      
                                                     CellStyle="{StaticResource VTMDataGridCellDataNomal}"/>
 
                                                                 </DataGrid.Columns>
                                                             </DataGrid>
 
-                                                            <TextBox HorizontalAlignment="Left"  Width="358" Background="#FFDEDEDE" Foreground="Black" FontWeight="Bold" Height="25" Margin="20,5,0,5" VerticalAlignment="Bottom"/>
-                                                            <Button Width="Auto" Height="Auto" Margin="0,0,10,5" Grid.Row="0" 
-                                            Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
-                                            BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                                            <TextBox x:Name="tbQRcodeLink" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left"  Width="358" Background="#FFDEDEDE" Foreground="Black" FontWeight="Bold" Height="25" Margin="20,5,0,5" VerticalAlignment="Bottom"/>
+                                                            <Button Width="Auto" Height="Auto" Margin="0,0,10,5" Grid.Row="0" Click="btOpenQRNaming_Click"
+                                                                Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
+                                                                BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                                                                 <Border BorderThickness="1" BorderBrush="#898F98" HorizontalAlignment="Left" CornerRadius="20" Width="148" Height="25" VerticalAlignment="Bottom">
                                                                     <Border.Background>
                                                                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -4420,9 +4516,9 @@
                                                                     </DockPanel>
                                                                 </Border>
                                                             </Button>
-                                                            <Button Width="Auto" Height="Auto" Margin="0,0,20,0" Grid.Row="2" 
-                                            Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
-                                            BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                                            <Button Width="Auto" Height="Auto" Margin="0,0,20,0" Grid.Row="2" Click="btSaveQRnaming_Click"
+                                                                 Background="{x:Null}" Template="{StaticResource ButtonControlNonHoverEffect}" 
+                                                                BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center">
                                                                 <Border BorderThickness="1" BorderBrush="#898F98" HorizontalAlignment="Left" CornerRadius="20" Width="180" Height="30" Margin="0,0,0,0" >
                                                                     <Border.Background>
                                                                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -4549,7 +4645,7 @@
                     </Grid>
 
                     <!--Vision Grid page-->
-                    <Grid x:Name="VisionPanel"  Grid.Row="1" Visibility="Visible" Margin="5" Background="#FF5D5D5D">
+                    <Grid x:Name="VisionPanel"  Grid.Row="1" Visibility="Hidden" Margin="5" Background="#FF5D5D5D" d:IsHidden="True">
                         <Grid.Effect>
                             <DropShadowEffect/>
                         </Grid.Effect>
@@ -4570,9 +4666,65 @@
                                         <Grid Width="1000" Height="621">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="521"/>
-                                                <RowDefinition Height="61"/>
+                                                <RowDefinition Height="1*"/>
                                             </Grid.RowDefinitions>
                                             <Image Source="{Binding ElementName=cameraView, Path=Source}" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                            <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5" Background="#3E4349" Grid.Row="1">
+                                                <TabItem Template="{StaticResource TabVTMControl}" Header="Action" Foreground="White">
+                                                    <Grid Margin="5" Background="#FF292C30" >
+                                                        <DockPanel LastChildFill="False" HorizontalAlignment="Right" >
+                                                            <Button x:Name="btDraw" Content="Draw" Width="100" Template="{StaticResource ButtonElipse}" Margin="5" FontWeight="Bold" Foreground="White" Click="btDraw_Click" >
+                                                                <Button.Background>
+                                                                    <RadialGradientBrush>
+                                                                        <GradientStop Color="#FF191919" Offset="0"/>
+                                                                        <GradientStop Color="#FF636161" Offset="1"/>
+                                                                    </RadialGradientBrush>
+                                                                </Button.Background>
+                                                            </Button>
+                                                            <Button x:Name="btMove"  Content="Move" Width="100" Template="{StaticResource ButtonElipse}"  Margin="5" FontWeight="Bold" Foreground="White" Click="btMove_Click">
+                                                                <Button.Background>
+                                                                    <RadialGradientBrush>
+                                                                        <GradientStop Color="#FF191919" Offset="0"/>
+                                                                        <GradientStop Color="#FF636161" Offset="1"/>
+                                                                    </RadialGradientBrush>
+                                                                </Button.Background>
+                                                            </Button>
+                                                            <Button x:Name="btSellect"  Content="Sellect" Width="100" Template="{StaticResource ButtonElipse}" Margin="5" FontWeight="Bold" Foreground="White" Click="btSellect_Click">
+                                                                <Button.Background>
+                                                                    <RadialGradientBrush>
+                                                                        <GradientStop Color="#FF191919" Offset="0"/>
+                                                                        <GradientStop Color="#FF636161" Offset="1"/>
+                                                                    </RadialGradientBrush>
+                                                                </Button.Background>
+                                                            </Button>
+                                                            <Button x:Name="btClear"  Content="Clear" Width="100" Template="{StaticResource ButtonElipse}"  Margin="5" FontWeight="Bold" Foreground="White" Click="btClear_Click">
+                                                                <Button.Background>
+                                                                    <RadialGradientBrush>
+                                                                        <GradientStop Color="#FF191919" Offset="0"/>
+                                                                        <GradientStop Color="#FF636161" Offset="1"/>
+                                                                    </RadialGradientBrush>
+                                                                </Button.Background>
+                                                            </Button>
+                                                            <Button x:Name="btEdit" Content="Edit" Width="100" Template="{StaticResource ButtonElipse}"  Margin="5" FontWeight="Bold" Foreground="White" Click="btEdit_Click" >
+                                                                <Button.Background>
+                                                                    <RadialGradientBrush>
+                                                                        <GradientStop Color="#FF191919" Offset="0"/>
+                                                                        <GradientStop Color="#FF636161" Offset="1"/>
+                                                                    </RadialGradientBrush>
+                                                                </Button.Background>
+                                                            </Button>
+                                                            <Button x:Name="btShowListFuncs" Content="Show All" Width="100" Template="{StaticResource ButtonElipse}" Margin="5" FontWeight="Bold" Foreground="White" >
+                                                                <Button.Background>
+                                                                    <RadialGradientBrush>
+                                                                        <GradientStop Color="#FF191919" Offset="0"/>
+                                                                        <GradientStop Color="#FF636161" Offset="1"/>
+                                                                    </RadialGradientBrush>
+                                                                </Button.Background>
+                                                            </Button>
+                                                        </DockPanel>
+                                                    </Grid>
+                                                </TabItem>
+                                            </TabControl>
                                         </Grid>
                                     </TabItem>
                                 </TabControl>
@@ -4652,7 +4804,7 @@
                                     </TabItem>
                                 </TabControl>
 
-                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="5" Background="#3E4349">
+                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1" Margin="5" Background="#3E4349">
                                     <TabItem Template="{StaticResource TabVTMControl}" Header="FND" Foreground="White">
                                         <Grid Margin="5">
                                             <StackPanel Background="Black">
@@ -4693,7 +4845,134 @@
                                     </TabItem>
 
                                 </TabControl>
+                                <Grid Grid.Row="1" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Background="#1D1F22" VerticalAlignment="Stretch"
+                             BorderBrush="#898F98" BorderThickness="0" Margin="5" Grid.Column="0">
+                                        <Grid Margin="5" Background="#FF3E3E3E">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="46"/>
+                                            </Grid.ColumnDefinitions>
+                                            <DockPanel Background="#1D1F22" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Width="90" Grid.ColumnSpan="2">
+                                                <Image Source="img/serial-cable.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3"/>
+                                                <TextBlock Text="UUT-Tx" Foreground="#FCD462" VerticalAlignment="Bottom" Margin="3,-9,3,3" Padding="5" HorizontalAlignment="Stretch" FontWeight="Bold" Height="26" FontSize="14">
+                                                    <TextBlock.Effect>
+                                                        <DropShadowEffect ShadowDepth="2" Color="Black"/>
+                                                    </TextBlock.Effect>
+                                                </TextBlock>
+                                            </DockPanel>
+                                            <DataGrid x:Name="dgtUUT_TX1" IsReadOnly="True" AutoGenerateColumns="False" Grid.Row="1" Margin="5,0,5,0" Grid.ColumnSpan="2" Style="{StaticResource VTMDataGrid}" ColumnHeaderHeight="20" GridLinesVisibility="All">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn HeaderStyle="{StaticResource VTMDataGridHeader}" Binding="{Binding No}" Width="30" Header="PCB"
+                                                    CellStyle="{StaticResource VTMDataGridCellHeader}"/>
+                                                    <DataGridComboBoxColumn x:Name="dgtUUT_TX_Naming1" CellStyle="{StaticResource VTMDataGridCellHeader}"
+                                                    HeaderStyle="{StaticResource VTMDataGridHeader}"  Width="*" Header="Tx naming"
+                                                                     />
+                                                    <DataGridTextColumn HeaderStyle="{StaticResource VTMDataGridHeader}" Width="*" Header="Rx Packet"
+                                                    CellStyle="{StaticResource VTMDataGridCellHeader}"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <Border  Margin="5,0,0,5" Grid.Row="2" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="#918C8C" BorderThickness="1,0,1,1">
+                                                <TextBlock VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Black"
+                                                    Margin="0"/>
+                                            </Border>
 
+                                            <Border Grid.Row="2" Grid.Column="1"  Margin="-1,0,5,0" VerticalAlignment="Top" Background="Black" BorderBrush="#918C8C" BorderThickness="0,0,1,1">
+                                                <TextBlock Text="Full Packet view" FlowDirection="RightToLeft" Margin="0,0,5,0" TextWrapping="Wrap" Foreground="White"
+                                                   />
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                    <Border Background="#1D1F22" VerticalAlignment="Stretch"
+                                     BorderBrush="#898F98" BorderThickness="0" Margin="5" Grid.RowSpan="1" Grid.Row="1" Grid.Column="1">
+                                        <Grid Margin="5" Background="#FF3E3E3E" Grid.ColumnSpan="2">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.15*"/>
+                                                <ColumnDefinition Width="1*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <DockPanel Background="#1D1F22" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="0,0,0,0">
+                                                <Image Source="img/serial-cable.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3"/>
+                                                <TextBlock Text="UUT-Rx" Foreground="#FCD462" VerticalAlignment="Bottom" Margin="3,-9,3,3" Padding="5" HorizontalAlignment="Stretch" FontWeight="Bold" Height="26" FontSize="14">
+                                                    <TextBlock.Effect>
+                                                        <DropShadowEffect ShadowDepth="2" Color="Black"/>
+                                                    </TextBlock.Effect>
+                                                </TextBlock>
+                                            </DockPanel>
+                                            <DataGrid Grid.Row="1" Margin="5,0,5,0" Grid.ColumnSpan="2" Style="{StaticResource VTMDataGrid}" ColumnHeaderHeight="20" GridLinesVisibility="All">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn HeaderStyle="{StaticResource VTMDataGridHeader}" Width="30" Header="PCB"
+                                                    CellStyle="{StaticResource VTMDataGridCellHeader}"/>
+                                                    <DataGridTextColumn HeaderStyle="{StaticResource VTMDataGridHeader}" Width="*" Header="Rx Packet"
+                                                    CellStyle="{StaticResource VTMDataGridCellHeader}"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <Border  Margin="0,0,5,5" Grid.Row="2" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="#918C8C" BorderThickness="1,0,1,1">
+                                                <TextBlock VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Black"
+                                                Margin="0"/>
+                                            </Border>
+                                            <Border Grid.Row="2"  Margin="5,0,-1,0" VerticalAlignment="Top" Background="Black" Height="Auto" BorderBrush="#918C8C" BorderThickness="1,0,0,1">
+                                                <TextBlock Text="Full Packet view"  Margin="5,0,0,0" TextWrapping="Wrap" Foreground="White" Height="Auto" VerticalAlignment="Top"
+                                                   />
+                                            </Border>
+
+                                        </Grid>
+                                    </Border>
+                                    <Border Background="#1D1F22" CornerRadius="6,6,0,0" VerticalAlignment="Bottom" Margin="0,0,0,5"
+                                                BorderBrush="#898F98" BorderThickness="0" Height="35" Grid.Row="1" Grid.Column="0" Width="100" HorizontalAlignment="Center" Grid.ColumnSpan="2">
+                                        <ToggleButton Content="Send" Margin="5" HorizontalAlignment="Stretch" FontWeight="Bold" Grid.Row="1">
+                                            <ToggleButton.Template>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="3,3,0,0" BorderThickness="2" Background="DarkGray" SnapsToDevicePixels="True">
+                                                        <ContentPresenter x:Name="contentPresenter" 
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                      Content="{TemplateBinding Content}"
+                                                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                      Focusable="False"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      Margin="{TemplateBinding Padding}"
+                                                      RecognizesAccessKey="True"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      Cursor="Hand"
+                                                      />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" TargetName="border" Value="#BEDAF5"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="Background" TargetName="border" Value="#3D92E2"/>
+                                                            <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                                                        </Trigger>
+                                                        <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                                            <Setter Property="BorderThickness" TargetName="border" Value="1"/>
+                                                            <Setter Property="Background" TargetName="border" Value="#3D92E2"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                                                            <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                                                            <Setter Property="Foreground" Value="#FF838383"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </ToggleButton.Template>
+                                        </ToggleButton>
+                                    </Border>
+                                </Grid>
                             </Grid>
                         </Border>
                     </Grid>

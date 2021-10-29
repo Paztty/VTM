@@ -14,7 +14,7 @@
     </Style>
     
     <Style x:Key="VTMDataGrid" TargetType="{x:Type DataGrid}">
-        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="HeadersVisibility" Value="All"/>
         <Setter Property="GridLinesVisibility" Value="All"/>
         <Setter Property="HorizontalGridLinesBrush" Value="#918C8C"/>
         <Setter Property="VerticalGridLinesBrush" Value="#918C8C"/>
@@ -27,17 +27,55 @@
     
 
     <Style x:Key="VTMDataGridHeader" TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                        <Border BorderBrush ="#666666" BorderThickness="1,0,1,1">
+                            <Grid Background="{TemplateBinding Background}" >
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Background" Value="#2E3F3F"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="BorderThickness" Value="0,0,1,1"/>
-        <Setter Property="BorderBrush" Value="#666666"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    
+    <Style x:Key="VTMDataGridRowHeader" TargetType="{x:Type DataGridRowHeader}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridRowHeader}">
+                    <Border BorderBrush ="#666666" BorderThickness="1,0,1,1">
+                        <Grid Background="{TemplateBinding Background}" >
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background" Value="#2E3F3F"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="Width" Value="30"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
 
     <Style x:Key="VTMDataGridCellHeader" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="BorderBrush" Value="#FF918C8C"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -46,6 +84,7 @@
         <Setter Property="Foreground" Value="#FFC7C7C7"/>
         <Style.Triggers >
             <Trigger Property="IsSelected" Value="True" >
+                <Setter Property="Background" Value="#5454FF"/>
                 <Setter Property="Foreground" Value="#FFCFCF00"/>
             </Trigger>
         </Style.Triggers>
@@ -58,6 +97,15 @@
     </Style>
 
     <Style x:Key="VTMDataGridCellDataNomal" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="BorderBrush" Value="#FF918C8C"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -67,13 +115,22 @@
         <Setter Property="Height" Value="Auto"/>
         <Style.Triggers >
             <Trigger Property="IsSelected" Value="True" >
-                <Setter Property="Background" Value="#3261AF"/>
+                <Setter Property="Background" Value="#5454FF"/>
                 <Setter Property="Foreground" Value="White"/>
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="VTMDataGridCellData" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="BorderBrush" Value="#FF918C8C"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -93,6 +150,15 @@
         </Style.Triggers>
     </Style>
     <Style x:Key="VTMDataGridCellCMD" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="BorderBrush" Value="#FF918C8C"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -116,6 +182,15 @@
         </Style.Triggers>
     </Style>
     <Style x:Key="VTMDataGridCellCondition" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="BorderBrush" Value="#FF918C8C"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -138,6 +213,15 @@
         </Style.Triggers>
     </Style>
     <Style x:Key="VTMDataGridCellSpect" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="BorderBrush" Value="#FF918C8C"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -156,6 +240,15 @@
         </Style.Triggers>
     </Style>
     <Style x:Key="VTMDataGridCellConstan" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="BorderBrush" Value="#FF918C8C"/>
         <Setter Property="BorderThickness" Value="0"/>

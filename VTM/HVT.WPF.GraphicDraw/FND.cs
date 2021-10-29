@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HVT.Graphics
-{
-    public class FND
+{    public class FND
     {
     }
 }

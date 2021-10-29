@@ -6,7 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
-using HVT.VTM.Core;
+using HVT.VTM.Base;
 using HVT.VTM.Program;
 
 namespace VTM
@@ -29,8 +29,6 @@ namespace VTM
         #region Model Page
         public void LoadModelPage()
         {
-            LoadNamingFile(true);
-
             //PCB panel layout load
             PCB_LABEL.Add(PCB1);
             PCB_LABEL.Add(PCB2);
@@ -41,21 +39,9 @@ namespace VTM
             PCB_LABEL.Add(PCB7);
             PCB_LABEL.Add(PCB8);
 
+            TestStepsGridRemark.ItemsSource = Program.Command.CMD;
             PCB_Ui_Layout_Init();
-
-        }
-
-        // Load NamingFile
-
-        public void LoadNamingFile(bool IsFileDefault)
-        {
-            if (IsFileDefault)
-            {
-                dgTX_data_naming.ItemsSource = Program.RootModel.SerialNaming.TxDatas;
-                dgRX_data_naming.ItemsSource = Program.RootModel.SerialNaming.RxDatas;
-                // load data to dg tx UUT at manual page
-
-            }
+            Program.UUTpageInit(dgTX_data_naming, dgRX_data_naming, dgQRcodeNameCode, tbQRcodeLink);
         }
 
         //PCB align tab
@@ -327,9 +313,88 @@ namespace VTM
 
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
+        #endregion
 
+
+
+
+
+        #region UUT
+        private void btOpenQRNaming_Click(object sender, RoutedEventArgs e)
+        {
+            Program.OpenQRNaming();
+        }
+        private void btOpenTxNaming_Click(object sender, RoutedEventArgs e)
+        {
+            Program.OpenTxNaming();
+        }
+        private void btOpenRxNaming_Click(object sender, RoutedEventArgs e)
+        {
+            Program.OpenRxNaming();
+        }
+
+        private void btSaveQRnaming_Click(object sender, RoutedEventArgs e)
+        {
+            Program.SaveQRNaming();
+        }
+        private void btSaveRxnaming_Click(object sender, RoutedEventArgs e)
+        {
+            Program.SaveRxNaming();
+        }
+        private void btSaveTxnaming_Click(object sender, RoutedEventArgs e)
+        {
+            Program.SaveTxNaming();
+        }
+        private void dgRX_data_naming_LoadingRow(object sender, System.Windows.Controls.DataGridRowEventArgs e)
+        {
+            e.Row.Header = e.Row.GetIndex().ToString();
+        }
+
+        private void dgTX_data_naming_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.V && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                e.Handled = true;
+                int location = dgTX_data_naming.SelectedIndex;
+                string valueToPaste = System.Windows.Clipboard.GetText();
+                Console.WriteLine(valueToPaste);
+                if (location > -1)
+                {
+                    Console.WriteLine("paste location" + location);
+                    Program.pasteTxNamingFromClipBoard(location, valueToPaste);
+                }
+            }
+        }
+        private void dgRX_data_naming_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.V && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                e.Handled = true;
+                int location = dgRX_data_naming.SelectedIndex;
+                string valueToPaste = System.Windows.Clipboard.GetText();
+                Console.WriteLine(valueToPaste);
+                if (location > -1)
+                {
+                    Console.WriteLine("paste location" + location);
+                    Program.pasteRxNamingFromClipBoard(location, valueToPaste);
+                }
+            }
+        }
+
+        private void dgQRcodeNameCode_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.V && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                e.Handled = true;
+                int location = dgQRcodeNameCode.SelectedIndex;
+                string valueToPaste = System.Windows.Clipboard.GetText();
+                Console.WriteLine(valueToPaste);
+                if (location > -1)
+                {
+                    Console.WriteLine("paste location" + location);
+                    Program.pasteQrNamingFromClipBoard(location, valueToPaste);
+                }
+            }
         }
         #endregion
     }

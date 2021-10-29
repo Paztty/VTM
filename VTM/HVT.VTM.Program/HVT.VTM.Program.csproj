@@ -31,7 +31,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,16 +49,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProgramCamera.cs" />
+    <Compile Include="ProgramDataNaming.cs" />
+    <Compile Include="ProgramDirectory.cs" />
     <Compile Include="ProgramUserLogin.cs" />
     <Compile Include="ProgramModelLogic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\0 HVT\HVT.Devices\Camera\WPFCameraOpenCV\WPFCameraOpenCV.csproj">
-      <Project>{5f5a8b54-e4fd-42d9-856b-09011104a580}</Project>
-      <Name>WPFCameraOpenCV</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\0 HVT\HVT\Resource\HVT.Resource.csproj">
       <Project>{4cb5ff9c-b45f-40ad-88dc-3299a4b4825f}</Project>
       <Name>HVT.Resource</Name>
@@ -67,21 +69,9 @@
       <Project>{1f26009d-c483-4dbf-af0e-f3274c32d21a}</Project>
       <Name>Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HVT.VTM.AppSetting\HVT.VTM.AppSetting.csproj">
-      <Project>{48c804e3-fee6-4021-9555-9e58d82c06d2}</Project>
-      <Name>HVT.VTM.AppSetting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HVT.VTM.Directorys\HVT.VTM.Directorys.csproj">
-      <Project>{e3fa849c-5f9f-4c85-87d8-53c08c560398}</Project>
-      <Name>HVT.VTM.Directorys</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HVT.VTM.Model\HVT.VTM.Core.csproj">
+    <ProjectReference Include="..\HVT.VTM.Model\HVT.VTM.Base.csproj">
       <Project>{1634e2ca-c43c-4749-91c8-540e38d808cc}</Project>
-      <Name>HVT.VTM.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HVT.WPF.GraphicDraw\Graphics.csproj">
-      <Project>{cb138c05-4749-478e-9919-bffc42ba028a}</Project>
-      <Name>Graphics</Name>
+      <Name>HVT.VTM.Base</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

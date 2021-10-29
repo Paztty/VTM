@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
-using HVT.VTM.Directorys;
-using HVT.VTM.AppSetting;
-using HVT.Devices;
+using HVT.VTM.Base;
 using HVT.Utility;
 
 namespace HVT.VTM.Program

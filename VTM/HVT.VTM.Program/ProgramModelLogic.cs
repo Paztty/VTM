@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using HVT.VTM.Directorys;
-using HVT.VTM.AppSetting;
-using HVT.VTM.Core;
+using HVT.VTM.Base;
 using System.Threading;
 
 namespace HVT.VTM.Program
@@ -36,10 +34,12 @@ namespace HVT.VTM.Program
             get { return EditAbleModel; }
             set
             {
-                    EditAbleModel = value;
-                    NoticeOfChange();
+                EditAbleModel = value;
+                NoticeOfChange();
             }
         }
+
+        public Command Command = new Command();
         #endregion
 
 

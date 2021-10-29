@@ -2,7 +2,7 @@
 using System;
 using System.Windows;
 using HVT.VTM.Program;
-using HVT.VTM.Core;
+using HVT.VTM.Base;
 
 namespace VTM
 {

@@ -5,7 +5,9 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using HVT.VTM.Program;
 using HVT.Utility;
-using HVT.VTM.Core;
+using HVT.VTM.Base;
+using System.Windows.Media.Animation;
+using System.Collections.ObjectModel;
 
 namespace VTM
 {
@@ -112,6 +114,94 @@ namespace VTM
 
         #endregion
 
+        #endregion
+        #region Model Action
+
+        //Event 
+        private void Model_LoadFinish_AutoPage(object sender, EventArgs e)
+        {
+            tbModelName.Text = Program.RootModel.Name;
+            TestStepsGrid.ItemsSource = null;
+            TestStepsGrid.ItemsSource = new ObservableCollection<Model.Step>(Program.RootModel.Steps);
+            ModelName.Text = Program.RootModel.Name;
+            tbModelNamePath.Text = Program.RootModel.Path;
+            TestStepsGridData.ItemsSource = null;
+            TestStepsGridData.ItemsSource = Program.RootModel.Steps;
+            Error_Positions_Table.ItemsSource = Program.RootModel.ErrorPositions;
+        }
+
+        private void Model_StateChange(object sender, EventArgs e)
+        {
+            switch (Program.RootModel.TestState)
+            {
+                case Model.RunTestState.WAIT:
+                    Dispatcher.Invoke(new Action(delegate
+                    {
+                        lbTestResultGood.Visibility = Visibility.Visible;
+                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
+                        if (sb != null) sb.Begin(lbTestResultGood);
+                    }), DispatcherPriority.Send);
+                    break;
+                case Model.RunTestState.TESTTING:
+                    Dispatcher.Invoke(new Action(delegate
+                    {
+                        lbTestResultGood.Visibility = Visibility.Visible;
+                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
+                        if (sb != null) sb.Begin(lbTestResultGood);
+                    }), DispatcherPriority.Send);
+                    break;
+                case Model.RunTestState.Pause:
+                    Dispatcher.Invoke(new Action(delegate
+                    {
+                        lbTestResultGood.Visibility = Visibility.Visible;
+                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
+                        if (sb != null) sb.Begin(lbTestResultGood);
+                    }), DispatcherPriority.Send);
+                    break;
+                case Model.RunTestState.STOP:
+                    Dispatcher.Invoke(new Action(delegate
+                    {
+                        lbTestResultGood.Visibility = Visibility.Visible;
+                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
+                        if (sb != null) sb.Begin(lbTestResultGood);
+                    }), DispatcherPriority.Send);
+                    break;
+                case Model.RunTestState.GOOD:
+                    Dispatcher.Invoke(new Action(delegate
+                    {
+                        lbTestResultGood.Visibility = Visibility.Visible;
+                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
+                        if (sb != null) sb.Begin(lbTestResultGood);
+                    }), DispatcherPriority.Send);
+                    break;
+                case Model.RunTestState.FAIL:
+                    Dispatcher.Invoke(new Action(delegate
+                    {
+                        lbTestResultGood.Visibility = Visibility.Visible;
+                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
+                        if (sb != null) sb.Begin(lbTestResultGood);
+                    }), DispatcherPriority.Send);
+                    break;
+                case Model.RunTestState.BUSY:
+                    Dispatcher.Invoke(new Action(delegate
+                    {
+                        lbTestResultGood.Visibility = Visibility.Visible;
+                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
+                        if (sb != null) sb.Begin(lbTestResultGood);
+                    }), DispatcherPriority.Send);
+                    break;
+                case Model.RunTestState.READY:
+                    Dispatcher.Invoke(new Action(delegate
+                    {
+                        lbTestResultGood.Visibility = Visibility.Visible;
+                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
+                        if (sb != null) sb.Begin(lbTestResultGood);
+                    }), DispatcherPriority.Send);
+                    break;
+                default:
+                    break;
+            }
+        }
         #endregion
 
     }
