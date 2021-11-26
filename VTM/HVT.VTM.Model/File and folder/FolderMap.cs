@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HVT.VTM.Base
 {
     public class FolderMap
     {
-        private string rootFolder;
-        public string RootFolder
+        private static string rootFolder;
+        public static string RootFolder
         {
             get { return rootFolder; }
-            set {
+            set
+            {
                 rootFolder = value;
             }
         }
@@ -35,6 +32,5 @@ namespace HVT.VTM.Base
             if (!Directory.Exists(RootFolder + PCBFolder)) Directory.CreateDirectory(RootFolder + PCBFolder);
         }
 
-        
     }
 }

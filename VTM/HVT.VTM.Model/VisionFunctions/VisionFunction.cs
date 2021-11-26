@@ -1,18 +1,13 @@
 ﻿using OpenCvSharp;
 using OpenCvSharp.Extensions;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tesseract;
 
 
 namespace HVT.VTM.Base
 {
     public enum VisionFunctionCode
-    { 
+    {
         LED,
         GLED,
         FND,
@@ -40,7 +35,6 @@ namespace HVT.VTM.Base
                     break;
             }
             return "";
-
         }
 
         private string GLED(Bitmap b)
@@ -55,6 +49,7 @@ namespace HVT.VTM.Base
             }
             return res;
         }
+
 
         private string FND(Bitmap b)
         {

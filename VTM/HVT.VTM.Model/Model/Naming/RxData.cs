@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HVT.Utility;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using HVT.Utility;
 
 namespace HVT.VTM.Base
 {
@@ -62,12 +59,13 @@ namespace HVT.VTM.Base
         public string L_Mbit { get; set; }
         public string L_Lbit { get; set; }
 
-        public string Type {
+        public string Type
+        {
             get { return dataType.ToString(); }
-            set {
+            set
+            {
 
-                RxDataType outvalue = RxDataType.DEC;
-
+                RxDataType outvalue;
                 if (Enum.TryParse<RxDataType>(value, out outvalue)) dataType = outvalue;
             }
         }
@@ -75,7 +73,7 @@ namespace HVT.VTM.Base
 
         public override string ToString()
         {
-            string strReturn = No + "," + Name + "," + ModeLoc + "," + Mode + "," + DataKind + "," + MByte + "," + M_Mbit + "," + M_Lbit + "," + LByte + "," + L_Mbit + "," + L_Lbit + "," + Type +"," + Remark;
+            string strReturn = No + "," + Name + "," + ModeLoc + "," + Mode + "," + DataKind + "," + MByte + "," + M_Mbit + "," + M_Lbit + "," + LByte + "," + L_Mbit + "," + L_Lbit + "," + Type + "," + Remark;
             return strReturn;
         }
     }

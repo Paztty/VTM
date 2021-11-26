@@ -14,13 +14,19 @@ namespace HVT.Utility
 
         public void BlinkTX()
         {
-            TX.Fill = blinkTX == true ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.DarkOrange);
+            TX?.Dispatcher.Invoke(new System.Action(delegate
+            {
+                TX.Fill = blinkTX == true ? new SolidColorBrush(Colors.DarkRed) : new SolidColorBrush(Colors.Red);
+            }));
             blinkTX = !blinkTX;
         }
 
         public void BlinkRX()
         {
-            RX.Fill = blinkRX == true ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.DarkGreen);
+            RX?.Dispatcher.Invoke(new System.Action(delegate
+            {
+                RX.Fill = blinkRX == true ? new SolidColorBrush(Colors.DarkGreen) : new SolidColorBrush(Colors.LightGreen);
+            }));
             blinkRX = !blinkRX;
         }
 
@@ -28,7 +34,10 @@ namespace HVT.Utility
         {
             if (IsOpenRect != null)
             {
-                IsOpenRect.Fill = IsOpen ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Gray);
+                IsOpenRect.Dispatcher.BeginInvoke(new System.Action(delegate
+                 {
+                     IsOpenRect.Fill = IsOpen ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Gray);
+                 }));
             }
         }
     }

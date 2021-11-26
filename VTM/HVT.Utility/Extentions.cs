@@ -1,13 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Windows;
-using System.Text.Json;
-using Microsoft.Win32;
-using System.Windows.Controls;
+﻿using Microsoft.Win32;
+using System;
 using System.Data;
-using System.Runtime.Serialization;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Text.Json;
+using System.Windows.Controls;
 
 namespace HVT.Utility
 {
@@ -25,6 +24,7 @@ namespace HVT.Utility
             Console.WriteLine(serialized);
             return JsonSerializer.Deserialize<T>(serialized);
         }
+
 
         // JSON convert opject to String
         public static string ConvertToJson<T>(this T source)
@@ -64,7 +64,7 @@ namespace HVT.Utility
 
                 }
                 catch (Exception err)
-                { 
+                {
                     File.AppendAllText(LogFile, DateTime.Now.ToString() + "Extension : Open from file FAIL - " + FileName + err.Message + Environment.NewLine);
                 }
             }
@@ -80,8 +80,9 @@ namespace HVT.Utility
             try
             {
                 var strToSave = JsonSerializer.Serialize(source);
+                Console.WriteLine(strToSave);
                 strToSave = Encoder(strToSave, Encoding.UTF7);
-                File.WriteAllText(FileName,strToSave);
+                File.WriteAllText(FileName, strToSave);
                 return true;
             }
             catch (Exception err)
@@ -96,10 +97,10 @@ namespace HVT.Utility
             File.AppendAllText(LogFile, DateTime.Now.ToString() + " Extension : " + errMessage + Environment.NewLine);
         }
 
-        public static void DataGrid2CSV(DataGrid comparisonGrid,string Title, string FileExit, string FileType)
+        public static void DataGrid2CSV(DataGrid comparisonGrid, string Title, string FileExit, string FileType)
         {
             SaveFileDialog saveDlg = new SaveFileDialog();
-            saveDlg.Filter = FileType +" (*." + FileExit + "|*." + FileExit;
+            saveDlg.Filter = FileType + " (*." + FileExit + "|*." + FileExit;
             saveDlg.FilterIndex = 0;
             saveDlg.RestoreDirectory = true;
             saveDlg.Title = Title;

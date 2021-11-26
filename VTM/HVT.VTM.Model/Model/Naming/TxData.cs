@@ -1,18 +1,72 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace HVT.VTM.Base
 {
-    public class TxData
+    public class TxData : INotifyPropertyChanged
     {
-        public int No { get; set; }
-        public string Name { get; set; }
-        public string Data { get; set; }
-        public string Blank { get; set; }
-        public string Remark { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public int no { get; set; } = 0;
+        public string name { get; set; } = "ABC";
+        public string data { get; set; } = "00";
+        public string blank { get; set; } = "00";
+        public string remark { get; set; } = "Remark data";
+
+        public int No{get; set; }
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (value != name)
+                {
+                    name = value;
+                    NotifyPropertyChanged(nameof(Name));
+                }
+            }
+        }
+        public string Data
+        {
+            get { return data; }
+            set
+            {
+                if (data!= value)
+                {
+                    data = value;
+                    NotifyPropertyChanged(nameof(Data));
+                }
+            }
+        }
+        public string Blank {
+            get { return blank; }
+            set
+            {
+                if (blank != value)
+                {
+                    blank = value;
+                    NotifyPropertyChanged(nameof(Blank));
+                }
+            }
+        }
+        public string Remark {
+            get { return remark; }
+            set
+            {
+                if (remark != value)
+                {
+                    remark = value;
+                    NotifyPropertyChanged(nameof(Remark));
+                }
+            }
+        }
+
+        public TxData() { }
 
         public override string ToString()
         {
@@ -21,5 +75,5 @@ namespace HVT.VTM.Base
         }
     }
 
-    
+
 }

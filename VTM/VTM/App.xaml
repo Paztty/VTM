@@ -4,13 +4,6 @@
              xmlns:local="clr-namespace:VTM"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style x:Key="FocusControlNoneEffect" TargetType="{x:Type Control}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <FontFamily x:Key="sevenSegement">pack://application:,,,/Fonts/#Seven Segment</FontFamily>
     </Application.Resources>
 </Application>

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Threading;
-
+﻿using HVT.Utility;
 using HVT.VTM.Base;
-using HVT.Utility;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace HVT.VTM.Program
 {
@@ -16,9 +14,13 @@ namespace HVT.VTM.Program
         public event EventHandler Camstarted;
         public event EventHandler Camstopped;
 
+
         public CameraStreaming cameraStreaming;
-        public void CameraInit(System.Windows.Controls.Image cameraHolder, System.Windows.Controls.Image cameraCrop)
-        {
+
+        public void CameraInit(
+            System.Windows.Controls.Image cameraHolder,
+            System.Windows.Controls.Image cameraCrop)
+        { 
             SetCamera(cameraHolder, cameraCrop);
         }
 
@@ -26,6 +28,11 @@ namespace HVT.VTM.Program
         {
             Debug.Write("Camera initting....", Debug.ContentType.Notify);
             var cameras = CameraDevicesEnumerator.GetAllConnectedCameras();
+            if (cameras.Count < 1)
+            {
+                Debug.Write("No camare found.", Debug.ContentType.Error);
+                return;
+            }
             var selectedCameraDeviceId = cameras[0].OpenCvId;
             if (cameraStreaming == null || cameraStreaming.CameraDeviceId != selectedCameraDeviceId)
             {
@@ -34,9 +41,10 @@ namespace HVT.VTM.Program
                 cameraStreaming = new CameraStreaming(
                     imageControlForRendering: cameraHolder,
                     imageControlForCrop: cameraCrop,
-                    frameWidth: 1280,
-                    frameHeight: 1720,
+                    frameWidth: 1920,
+                    frameHeight: 1080,
                     cameraDeviceId: cameras[0].OpenCvId);
+                cameraStreaming.ImageUpdate += CameraStreaming_ImageUpdate;
             }
 
             try

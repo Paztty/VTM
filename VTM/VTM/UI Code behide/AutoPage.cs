@@ -1,13 +1,13 @@
-﻿using System;
+﻿using HVT.Utility;
+using HVT.VTM.Base;
+using HVT.VTM.Program;
+using System;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
-using HVT.VTM.Program;
-using HVT.Utility;
-using HVT.VTM.Base;
 using System.Windows.Media.Animation;
-using System.Collections.ObjectModel;
+using System.Windows.Threading;
 
 namespace VTM
 {
@@ -17,8 +17,15 @@ namespace VTM
     public partial class MainWindow : Window
     {
         #region AutoPage
-
-
+        public void LoadAutopage()
+        {
+            Program.RootModel.contruction.PCB_resultGrid = pnResult;
+            Program.RootModel.contruction._resultGrid.Add(pnResultA);
+            Program.RootModel.contruction._resultGrid.Add(pnResultB);
+            Program.RootModel.contruction._resultGrid.Add(pnResultC);
+            Program.RootModel.contruction._resultGrid.Add(pnResultD);
+        }
+        #endregion
 
         #region Button Event
         private void btClearLog_Click(object sender, RoutedEventArgs e)
@@ -37,7 +44,7 @@ namespace VTM
             {
                 btTestManual.IsChecked = false;
             }
-            Program.RootModel.TestState = Model.RunTestState.STOP;
+            Program.TestState = Model.RunTestState.STOP;
             EscapTimer.Stop();
         }
         #endregion
@@ -60,18 +67,19 @@ namespace VTM
                     item.ValueGet2 = "";
                     item.ValueGet3 = "";
                     item.ValueGet4 = "";
-                    item.Result1 = "";
-                    item.Result2 = "";
-                    item.Result3 = "";
-                    item.Result4 = "";
+                    item.Result1 = Step.DontCare;
+                    item.Result2 = Step.DontCare;
+                    item.Result3 = Step.DontCare;
+                    item.Result4 = Step.DontCare;
                 }
                 TestStepsGrid.Items.Refresh();
-                Program.RootModel.StepTesting = 0;
-                Program.RootModel.IsTestting = false;
-                Program.RootModel.TestState = Model.RunTestState.TESTTING;
+                Program.StepTesting = 0;
+                Program.IsTestting = false;
+                Program.TestState = Model.RunTestState.TESTTING;
                 EscapTimer.Elapsed -= EscapTimer_Elapsed;
                 EscapTimer.Elapsed += EscapTimer_Elapsed;
                 EscapTimer.Start();
+                Program.RUN_TEST();
             }
         }
         private void EscapTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -83,12 +91,13 @@ namespace VTM
         }
         private void Model_StepTestChangeAsync(object sender, EventArgs e)
         {
-            if (Program.RootModel.StepTesting >= 0)
+            if (Program.StepTesting >= 0)
             {
                 this.Dispatcher.Invoke(new Action(delegate
                 {
                     TestStepsGrid.SelectedItem = Program.RootModel.Steps[(int)sender];
                     TestStepsGrid.ScrollIntoView(TestStepsGrid.SelectedItem);
+                    TestStepsGridManual.SelectedItem = Program.RootModel.Steps[(int)sender];
                     TestStepsGridManual.ScrollIntoView(TestStepsGrid.SelectedItem);
 
                 }), DispatcherPriority.DataBind);
@@ -106,15 +115,14 @@ namespace VTM
         }
         private void TestStepsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Program.RootModel.IsTestting)
+            if (Program.IsTestting)
             {
-                ProgressTestSlider.Value = (int)((double)Program.RootModel.StepTesting / (Program.RootModel.Steps.Count - 2) * 100);
+                ProgressTestSlider.Value = (int)((double)Program.StepTesting / (Program.RootModel.Steps.Count - 2) * 100);
             }
         }
 
         #endregion
-
-        #endregion
+        
         #region Model Action
 
         //Event 
@@ -122,7 +130,8 @@ namespace VTM
         {
             tbModelName.Text = Program.RootModel.Name;
             TestStepsGrid.ItemsSource = null;
-            TestStepsGrid.ItemsSource = new ObservableCollection<Model.Step>(Program.RootModel.Steps);
+            TestStepsGrid.ItemsSource = new ObservableCollection<Step>(Program.RootModel.Steps);
+
             ModelName.Text = Program.RootModel.Name;
             tbModelNamePath.Text = Program.RootModel.Path;
             TestStepsGridData.ItemsSource = null;

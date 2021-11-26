@@ -39,6 +39,8 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,10 +52,12 @@
   <ItemGroup>
     <Compile Include="ProgramCamera.cs" />
     <Compile Include="ProgramDataNaming.cs" />
+    <Compile Include="ProgramDevices.cs" />
     <Compile Include="ProgramDirectory.cs" />
     <Compile Include="ProgramUserLogin.cs" />
     <Compile Include="ProgramModelLogic.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProgramVisionFuntions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

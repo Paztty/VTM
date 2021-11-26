@@ -1,30 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HVT.VTM.Base;
+using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using HVT.VTM.Base;
 using System.Windows.Controls;
-using System.Windows;
 
 namespace HVT.VTM.Program
 {
     public partial class Program
     {
-        public static Naming Naming = new Naming();
+        public Naming testtingNaming;
+
+        private Naming naming = new Naming();
+        public Naming Naming
+        { 
+            get { return naming; }
+            set {
+                naming = value;
+                if (testtingNaming == null)
+                {
+                    testtingNaming = value;
+                }
+            } 
+        }
 
         public DataGrid TxGrid, RxGrid, QRGrid;
         public TextBox QRlink;
 
-        public void UUTpageInit(DataGrid gridTx, DataGrid gridRx,DataGrid gridQR, TextBox textBoxQRlink)
+        public void UUTpageInit(DataGrid gridTx, DataGrid gridRx, DataGrid gridQR, TextBox textBoxQRlink)
         {
             TxGrid = gridTx;
             RxGrid = gridRx;
             QRGrid = gridQR;
             QRlink = textBoxQRlink;
-            gridTx.ItemsSource = Naming.TxDatas;
-            gridRx.ItemsSource = Naming.RxDatas;
-            gridQR.ItemsSource = Naming.QRDatas;
+
+            Naming.TxDatas.Add(new TxData());
+
+            RxGrid.ItemsSource = Naming.RxDatas;
+            QRGrid.ItemsSource = Naming.QRDatas;
+            TxGrid.ItemsSource = Naming.TxDatas;
+            
         }
 
         public async void OpenQRNaming()
@@ -42,6 +56,9 @@ namespace HVT.VTM.Program
                         if (QRlink != null)
                         {
                             QRlink.Text = Naming.OpenQRNamingFile();
+                            CommandDescriptions.QRnaming = Naming.QRDatas.Select(o => o.Context).ToList();
+                            Command.UpdateCommand();
+                            RootModel.Naming = Naming;
                         }
                     }
                     ));
@@ -57,13 +74,16 @@ namespace HVT.VTM.Program
             }
             await Task.Run(() =>
             {
-                    _ = RxGrid.Dispatcher.BeginInvoke
-                    (new Action(
-                        delegate
-                        {
-                            Naming.OpenRxNamingFile();
-                        }
-                        ));
+                _ = RxGrid.Dispatcher.BeginInvoke
+                (new Action(
+                    delegate
+                    {
+                        Naming.OpenRxNamingFile();
+                        CommandDescriptions.RXnaming = Naming.RxDatas.Select(o => o.Name).ToList();
+                        Command.UpdateCommand();
+                        RootModel.Naming = Naming;
+                    }
+                    ));
 
                 return Task.CompletedTask;
             });
@@ -76,13 +96,16 @@ namespace HVT.VTM.Program
             }
             await Task.Run(() =>
             {
-              _ = TxGrid.Dispatcher.BeginInvoke
-                    (new Action(
-                        delegate
-                        {
-                            Naming.OpenTxNamingFile();
-                        }
-                        ));
+                _ = TxGrid.Dispatcher.BeginInvoke
+                      (new Action(
+                          delegate
+                          {
+                              Naming.OpenTxNamingFile();
+                              CommandDescriptions.TXnaming = Naming.TxDatas.Select(o => o.Name).ToList();
+                              Command.UpdateCommand();
+                              RootModel.Naming = Naming;
+                          }
+                          ));
                 return Task.CompletedTask;
             });
         }
@@ -99,6 +122,9 @@ namespace HVT.VTM.Program
                    delegate
                    {
                        Naming.SaveQRNamingFile(QRGrid);
+                       CommandDescriptions.QRnaming = Naming.QRDatas.Select(o => o.Context).ToList();
+                       Command.UpdateCommand();
+                       RootModel.Naming = Naming;
                    }
                    ));
                 return Task.CompletedTask;
@@ -117,6 +143,9 @@ namespace HVT.VTM.Program
                    delegate
                    {
                        Naming.SaveTxNamingFile(TxGrid);
+                       CommandDescriptions.TXnaming = Naming.TxDatas.Select(o => o.Name).ToList();
+                       Command.UpdateCommand();
+                       RootModel.Naming = Naming;
                    }
                    ));
                 return Task.CompletedTask;
@@ -135,6 +164,9 @@ namespace HVT.VTM.Program
                    delegate
                    {
                        Naming.SaveRxNamingFile(RxGrid);
+                       CommandDescriptions.RXnaming = Naming.RxDatas.Select(o => o.Name).ToList();
+                       Command.UpdateCommand();
+                       RootModel.Naming = Naming;
                    }
                    ));
                 return Task.CompletedTask;
@@ -207,7 +239,7 @@ namespace HVT.VTM.Program
                 {
                     Naming.RxDatas[i].No = i + 1;
                 }
-                RxGrid.Dispatcher.BeginInvoke(new Action(delegate { RxGrid.Items.Refresh();}));
+                RxGrid.Dispatcher.BeginInvoke(new Action(delegate { RxGrid.Items.Refresh(); }));
             }
         }
         public void pasteQrNamingFromClipBoard(int pasteLocation, String pasteValue)
@@ -222,8 +254,7 @@ namespace HVT.VTM.Program
                     var dataItem = item.Split('\t');
                     if (dataItem.Length == QRGrid.Columns.Count)
                     {
-
-                       Naming.QRDatas.Insert(location, new QRData()
+                        Naming.QRDatas.Insert(location, new QRData()
                         {
                             Context = dataItem[0],
                             Code = dataItem[1],
@@ -238,6 +269,24 @@ namespace HVT.VTM.Program
                 QRGrid.Dispatcher.BeginInvoke(new Action(delegate { QRGrid.Items.Refresh(); }));
             }
         }
-    }
 
+
+        // after load new model file, load naming to resource, update naming datagrids 
+        public void LoadNamingFromModel()
+        {
+            if (RootModel.Naming != null)
+            {
+                Naming = RootModel.Naming;
+                CommandDescriptions.TXnaming = RootModel.Naming == null ? null : RootModel.Naming.TxDatas.Select(o => o.Name).ToList();
+                CommandDescriptions.RXnaming = RootModel.Naming == null ? null : RootModel.Naming.RxDatas.Select(o => o.Name).ToList();
+                CommandDescriptions.QRnaming = RootModel.Naming == null ? null : RootModel.Naming.QRDatas.Select(o => o.Context).ToList();
+                Command.UpdateCommand();
+                TxGrid.ItemsSource = Naming.TxDatas;
+                RxGrid.ItemsSource = Naming.RxDatas;
+                QRGrid.ItemsSource = Naming.QRDatas;
+            }
+        }
+
+
+    }
 }

@@ -1,7 +1,6 @@
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\bin\x64\Release\HVT.Utility.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\bin\x64\Release\HVT.Utility.pdb
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\bin\x64\Release\Microsoft.Bcl.AsyncInterfaces.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\bin\x64\Release\Newtonsoft.Json.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\bin\x64\Release\System.Buffers.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\bin\x64\Release\System.Memory.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\bin\x64\Release\System.Numerics.Vectors.dll
@@ -11,7 +10,6 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Uti
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\bin\x64\Release\System.Threading.Tasks.Extensions.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\bin\x64\Release\System.ValueTuple.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\x64\Release\Utility.csproj.CoreCompileInputs.cache
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\x64\Release\Utility.csproj.CopyComplete
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\x64\Release\HVT.Utility.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\x64\Release\HVT.Utility.pdb
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\x64\Release\Utility.csproj.AssemblyReference.cache
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\x64\Release\Utility.csproj.CopyComplete

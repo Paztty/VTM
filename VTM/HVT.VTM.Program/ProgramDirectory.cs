@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using HVT.VTM.Base;
 using System.Threading.Tasks;
-using HVT.VTM.Base;
 
 namespace HVT.VTM.Program
 {
@@ -15,7 +11,7 @@ namespace HVT.VTM.Program
         public static FolderMap MachineFolder = new FolderMap();
         public async void CreatMachineFolder()
         {
-           await Task.Run(() => { MachineFolder.TryCreatFolderMap();});
+            await Task.Run(() => { MachineFolder.TryCreatFolderMap(); });
         }
     }
 }

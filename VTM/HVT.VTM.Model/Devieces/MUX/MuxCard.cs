@@ -1,0 +1,236 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HVT.VTM.Base
+{
+    public class MuxCard
+    {
+        public static ObservableCollection<MuxChannel> Chanels { get; set; } = new ObservableCollection<MuxChannel>()
+        {
+            new MuxChannel { Channel_P = 1, Channel_N = 48 },
+            new MuxChannel { Channel_P = 2, Channel_N = 48 },
+            new MuxChannel { Channel_P = 3, Channel_N = 48 },
+            new MuxChannel { Channel_P = 4, Channel_N = 48 },
+            new MuxChannel { Channel_P = 5, Channel_N = 48 },
+            new MuxChannel { Channel_P = 6, Channel_N = 48 },
+            new MuxChannel { Channel_P = 7, Channel_N = 48 },
+            new MuxChannel { Channel_P = 8, Channel_N = 48 },
+            new MuxChannel { Channel_P = 9, Channel_N = 48 },
+            new MuxChannel { Channel_P = 10, Channel_N = 48 },
+            new MuxChannel { Channel_P = 11, Channel_N = 48 },
+            new MuxChannel { Channel_P = 12, Channel_N = 48 },
+            new MuxChannel { Channel_P = 13, Channel_N = 48 },
+            new MuxChannel { Channel_P = 14, Channel_N = 48 },
+            new MuxChannel { Channel_P = 15, Channel_N = 48 },
+            new MuxChannel { Channel_P = 16, Channel_N = 48 },
+            new MuxChannel { Channel_P = 17, Channel_N = 48 },
+            new MuxChannel { Channel_P = 18, Channel_N = 48 },
+            new MuxChannel { Channel_P = 19, Channel_N = 48 },
+            new MuxChannel { Channel_P = 20, Channel_N = 48 },
+            new MuxChannel { Channel_P = 21, Channel_N = 48 },
+            new MuxChannel { Channel_P = 22, Channel_N = 48 },
+            new MuxChannel { Channel_P = 23, Channel_N = 48 },
+            new MuxChannel { Channel_P = 24, Channel_N = 48 },
+            new MuxChannel { Channel_P = 25, Channel_N = 48 },
+            new MuxChannel { Channel_P = 26, Channel_N = 48 },
+            new MuxChannel { Channel_P = 27, Channel_N = 48 },
+            new MuxChannel { Channel_P = 28, Channel_N = 48 },
+            new MuxChannel { Channel_P = 29, Channel_N = 48 },
+            new MuxChannel { Channel_P = 30, Channel_N = 48 },
+            new MuxChannel { Channel_P = 31, Channel_N = 48 },
+            new MuxChannel { Channel_P = 32, Channel_N = 48 },
+            new MuxChannel { Channel_P = 33, Channel_N = 48 },
+            new MuxChannel { Channel_P = 34, Channel_N = 48 },
+            new MuxChannel { Channel_P = 35, Channel_N = 48 },
+            new MuxChannel { Channel_P = 36, Channel_N = 48 },
+            new MuxChannel { Channel_P = 37, Channel_N = 48 },
+            new MuxChannel { Channel_P = 38, Channel_N = 48 },
+            new MuxChannel { Channel_P = 39, Channel_N = 48 },
+            new MuxChannel { Channel_P = 40, Channel_N = 48 },
+            new MuxChannel { Channel_P = 41, Channel_N = 48 },
+            new MuxChannel { Channel_P = 42, Channel_N = 48 },
+            new MuxChannel { Channel_P = 43, Channel_N = 48 },
+            new MuxChannel { Channel_P = 44, Channel_N = 48 },
+            new MuxChannel { Channel_P = 45, Channel_N = 48 },
+            new MuxChannel { Channel_P = 46, Channel_N = 48 },
+            new MuxChannel { Channel_P = 47, Channel_N = 48 },
+            new MuxChannel { Channel_P = 48, Channel_N = 48 },
+            new MuxChannel { Channel_P = 49, Channel_N = 96 },
+            new MuxChannel { Channel_P = 50, Channel_N = 96 },
+            new MuxChannel { Channel_P = 51, Channel_N = 96 },
+            new MuxChannel { Channel_P = 52, Channel_N = 96 },
+            new MuxChannel { Channel_P = 53, Channel_N = 96 },
+            new MuxChannel { Channel_P = 54, Channel_N = 96 },
+            new MuxChannel { Channel_P = 55, Channel_N = 96 },
+            new MuxChannel { Channel_P = 56, Channel_N = 96 },
+            new MuxChannel { Channel_P = 57, Channel_N = 96 },
+            new MuxChannel { Channel_P = 58, Channel_N = 96 },
+            new MuxChannel { Channel_P = 59, Channel_N = 96 },
+            new MuxChannel { Channel_P = 60, Channel_N = 96 },
+            new MuxChannel { Channel_P = 61, Channel_N = 96 },
+            new MuxChannel { Channel_P = 62, Channel_N = 96 },
+            new MuxChannel { Channel_P = 63, Channel_N = 96 },
+            new MuxChannel { Channel_P = 64, Channel_N = 96 },
+            new MuxChannel { Channel_P = 65, Channel_N = 96 },
+            new MuxChannel { Channel_P = 66, Channel_N = 96 },
+            new MuxChannel { Channel_P = 67, Channel_N = 96 },
+            new MuxChannel { Channel_P = 68, Channel_N = 96 },
+            new MuxChannel { Channel_P = 69, Channel_N = 96 },
+            new MuxChannel { Channel_P = 70, Channel_N = 96 },
+            new MuxChannel { Channel_P = 71, Channel_N = 96 },
+            new MuxChannel { Channel_P = 72, Channel_N = 96 },
+            new MuxChannel { Channel_P = 73, Channel_N = 96 },
+            new MuxChannel { Channel_P = 74, Channel_N = 96 },
+            new MuxChannel { Channel_P = 75, Channel_N = 96 },
+            new MuxChannel { Channel_P = 76, Channel_N = 96 },
+            new MuxChannel { Channel_P = 77, Channel_N = 96 },
+            new MuxChannel { Channel_P = 78, Channel_N = 96 },
+            new MuxChannel { Channel_P = 79, Channel_N = 96 },
+            new MuxChannel { Channel_P = 80, Channel_N = 96 },
+            new MuxChannel { Channel_P = 81, Channel_N = 96 },
+            new MuxChannel { Channel_P = 82, Channel_N = 96 },
+            new MuxChannel { Channel_P = 83, Channel_N = 96 },
+            new MuxChannel { Channel_P = 84, Channel_N = 96 },
+            new MuxChannel { Channel_P = 85, Channel_N = 96 },
+            new MuxChannel { Channel_P = 86, Channel_N = 96 },
+            new MuxChannel { Channel_P = 87, Channel_N = 96 },
+            new MuxChannel { Channel_P = 88, Channel_N = 96 },
+            new MuxChannel { Channel_P = 89, Channel_N = 96 },
+            new MuxChannel { Channel_P = 90, Channel_N = 96 },
+            new MuxChannel { Channel_P = 91, Channel_N = 96 },
+            new MuxChannel { Channel_P = 92, Channel_N = 96 },
+            new MuxChannel { Channel_P = 93, Channel_N = 96 },
+            new MuxChannel { Channel_P = 94, Channel_N = 96 },
+            new MuxChannel { Channel_P = 95, Channel_N = 96 },
+            new MuxChannel { Channel_P = 96, Channel_N = 96 }
+        };
+
+        public ObservableCollection<MuxChannel> ChanelsEdittingPart1
+        {
+            get;
+            set;
+        } = new ObservableCollection<MuxChannel>()
+        {
+            new MuxChannel { Channel_P = 1, Channel_N = 48 },
+            new MuxChannel { Channel_P = 2, Channel_N = 48 },
+            new MuxChannel { Channel_P = 3, Channel_N = 48 },
+            new MuxChannel { Channel_P = 4, Channel_N = 48 },
+            new MuxChannel { Channel_P = 5, Channel_N = 48 },
+            new MuxChannel { Channel_P = 6, Channel_N = 48 },
+            new MuxChannel { Channel_P = 7, Channel_N = 48 },
+            new MuxChannel { Channel_P = 8, Channel_N = 48 },
+            new MuxChannel { Channel_P = 9, Channel_N = 48 },
+            new MuxChannel { Channel_P = 10, Channel_N = 48 },
+            new MuxChannel { Channel_P = 11, Channel_N = 48 },
+            new MuxChannel { Channel_P = 12, Channel_N = 48 },
+            new MuxChannel { Channel_P = 13, Channel_N = 48 },
+            new MuxChannel { Channel_P = 14, Channel_N = 48 },
+            new MuxChannel { Channel_P = 15, Channel_N = 48 },
+            new MuxChannel { Channel_P = 16, Channel_N = 48 },
+            new MuxChannel { Channel_P = 17, Channel_N = 48 },
+            new MuxChannel { Channel_P = 18, Channel_N = 48 },
+            new MuxChannel { Channel_P = 19, Channel_N = 48 },
+            new MuxChannel { Channel_P = 20, Channel_N = 48 },
+            new MuxChannel { Channel_P = 21, Channel_N = 48 },
+            new MuxChannel { Channel_P = 22, Channel_N = 48 },
+            new MuxChannel { Channel_P = 23, Channel_N = 48 },
+            new MuxChannel { Channel_P = 24, Channel_N = 48 },
+            new MuxChannel { Channel_P = 25, Channel_N = 48 },
+            new MuxChannel { Channel_P = 26, Channel_N = 48 },
+            new MuxChannel { Channel_P = 27, Channel_N = 48 },
+            new MuxChannel { Channel_P = 28, Channel_N = 48 },
+            new MuxChannel { Channel_P = 29, Channel_N = 48 },
+            new MuxChannel { Channel_P = 30, Channel_N = 48 },
+            new MuxChannel { Channel_P = 31, Channel_N = 48 },
+            new MuxChannel { Channel_P = 32, Channel_N = 48 },
+            new MuxChannel { Channel_P = 33, Channel_N = 48 },
+            new MuxChannel { Channel_P = 34, Channel_N = 48 },
+            new MuxChannel { Channel_P = 35, Channel_N = 48 },
+            new MuxChannel { Channel_P = 36, Channel_N = 48 },
+            new MuxChannel { Channel_P = 37, Channel_N = 48 },
+            new MuxChannel { Channel_P = 38, Channel_N = 48 },
+            new MuxChannel { Channel_P = 39, Channel_N = 48 },
+            new MuxChannel { Channel_P = 40, Channel_N = 48 },
+            new MuxChannel { Channel_P = 41, Channel_N = 48 },
+            new MuxChannel { Channel_P = 42, Channel_N = 48 },
+            new MuxChannel { Channel_P = 43, Channel_N = 48 },
+            new MuxChannel { Channel_P = 44, Channel_N = 48 },
+            new MuxChannel { Channel_P = 45, Channel_N = 48 },
+            new MuxChannel { Channel_P = 46, Channel_N = 48 },
+            new MuxChannel { Channel_P = 47, Channel_N = 48 },
+            new MuxChannel { Channel_P = 48, Channel_N = 48 }
+        };
+        public ObservableCollection<MuxChannel> ChanelsEdittingPart2
+        { 
+            get;
+            set;
+        } = new ObservableCollection<MuxChannel>()
+        {
+            new MuxChannel { Channel_P = 49, Channel_N = 96 },
+            new MuxChannel { Channel_P = 50, Channel_N = 96 },
+            new MuxChannel { Channel_P = 51, Channel_N = 96 },
+            new MuxChannel { Channel_P = 52, Channel_N = 96 },
+            new MuxChannel { Channel_P = 53, Channel_N = 96 },
+            new MuxChannel { Channel_P = 54, Channel_N = 96 },
+            new MuxChannel { Channel_P = 55, Channel_N = 96 },
+            new MuxChannel { Channel_P = 56, Channel_N = 96 },
+            new MuxChannel { Channel_P = 57, Channel_N = 96 },
+            new MuxChannel { Channel_P = 58, Channel_N = 96 },
+            new MuxChannel { Channel_P = 59, Channel_N = 96 },
+            new MuxChannel { Channel_P = 60, Channel_N = 96 },
+            new MuxChannel { Channel_P = 61, Channel_N = 96 },
+            new MuxChannel { Channel_P = 62, Channel_N = 96 },
+            new MuxChannel { Channel_P = 63, Channel_N = 96 },
+            new MuxChannel { Channel_P = 64, Channel_N = 96 },
+            new MuxChannel { Channel_P = 65, Channel_N = 96 },
+            new MuxChannel { Channel_P = 66, Channel_N = 96 },
+            new MuxChannel { Channel_P = 67, Channel_N = 96 },
+            new MuxChannel { Channel_P = 68, Channel_N = 96 },
+            new MuxChannel { Channel_P = 69, Channel_N = 96 },
+            new MuxChannel { Channel_P = 70, Channel_N = 96 },
+            new MuxChannel { Channel_P = 71, Channel_N = 96 },
+            new MuxChannel { Channel_P = 72, Channel_N = 96 },
+            new MuxChannel { Channel_P = 73, Channel_N = 96 },
+            new MuxChannel { Channel_P = 74, Channel_N = 96 },
+            new MuxChannel { Channel_P = 75, Channel_N = 96 },
+            new MuxChannel { Channel_P = 76, Channel_N = 96 },
+            new MuxChannel { Channel_P = 77, Channel_N = 96 },
+            new MuxChannel { Channel_P = 78, Channel_N = 96 },
+            new MuxChannel { Channel_P = 79, Channel_N = 96 },
+            new MuxChannel { Channel_P = 80, Channel_N = 96 },
+            new MuxChannel { Channel_P = 81, Channel_N = 96 },
+            new MuxChannel { Channel_P = 82, Channel_N = 96 },
+            new MuxChannel { Channel_P = 83, Channel_N = 96 },
+            new MuxChannel { Channel_P = 84, Channel_N = 96 },
+            new MuxChannel { Channel_P = 85, Channel_N = 96 },
+            new MuxChannel { Channel_P = 86, Channel_N = 96 },
+            new MuxChannel { Channel_P = 87, Channel_N = 96 },
+            new MuxChannel { Channel_P = 88, Channel_N = 96 },
+            new MuxChannel { Channel_P = 89, Channel_N = 96 },
+            new MuxChannel { Channel_P = 90, Channel_N = 96 },
+            new MuxChannel { Channel_P = 91, Channel_N = 96 },
+            new MuxChannel { Channel_P = 92, Channel_N = 96 },
+            new MuxChannel { Channel_P = 93, Channel_N = 96 },
+            new MuxChannel { Channel_P = 94, Channel_N = 96 },
+            new MuxChannel { Channel_P = 95, Channel_N = 96 },
+            new MuxChannel { Channel_P = 96, Channel_N = 96 },
+        };
+
+        public void UpdateMainMuxChannels()
+        {
+            Chanels.Clear();
+            foreach (var item in ChanelsEdittingPart1)
+            {
+                Chanels.Add(item);
+            }
+            foreach (var item in ChanelsEdittingPart2)
+            {
+                Chanels.Add(item);
+            }
+        }
+    }
+}

@@ -1,26 +1,21 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
-using HVT.Utility;
-using System.Collections.ObjectModel;
 
 namespace HVT.VTM.Base
 {
     public class Naming
     {
-        public ObservableCollection<TxData> TxDatas = new ObservableCollection<TxData>();
+        public ObservableCollection<TxData> TxDatas { get; set; } = new ObservableCollection<TxData>();
 
-        public ObservableCollection<RxData> RxDatas = new ObservableCollection<RxData>();
+        public ObservableCollection<RxData> RxDatas { get; set; } = new ObservableCollection<RxData>();
 
-        public ObservableCollection<QRData> QRDatas = new ObservableCollection<QRData>();
+        public ObservableCollection<QRData> QRDatas { get; set; } = new ObservableCollection<QRData>();
 
-        public Naming()
-        { }
         public string OpenQRNamingFile()
         {
             OpenFileDialog openFile = new OpenFileDialog
@@ -129,10 +124,10 @@ namespace HVT.VTM.Base
             }
         }
 
-        public void SaveTxNamingFile( DataGrid Grid)
+        public void SaveTxNamingFile(DataGrid Grid)
         {
             SaveFileDialog saveDlg = new SaveFileDialog();
-            saveDlg.Filter ="VTM TxNaming File (*.CTN)|*.CTN";
+            saveDlg.Filter = "VTM TxNaming File (*.CTN)|*.CTN";
             saveDlg.FilterIndex = 0;
             saveDlg.RestoreDirectory = true;
             saveDlg.Title = "Save TxNaming File";
