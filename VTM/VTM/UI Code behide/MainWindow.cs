@@ -160,7 +160,11 @@ namespace VTM
         #region Page select
         private void BtOpenModel_Click(object sender, RoutedEventArgs e)
         {
-            Program.RootModel.Load();
+            Program.LoadModel();
+
+            Program.RootModel.LoadFinish += Model_LoadFinish_AutoPage;
+            Program.RootModel.LoadFinish += Model_LoadFinish_ManualPage;
+            Program.RootModel.LoadFinish += Model_LoadFinish_ModelPage;
         }
 
         private void btPanelControl_Switch(object sender, RoutedEventArgs e)

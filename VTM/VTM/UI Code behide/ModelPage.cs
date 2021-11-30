@@ -71,9 +71,9 @@ namespace VTM
             Program.RootModel.LoadFinish += Model_LoadFinish_ManualPage;
             Program.RootModel.LoadFinish += Model_LoadFinish_ModelPage;
 
-            Program.RootModel.StepTestChange += Model_StepTestChangeAsync;
-            Program.RootModel.TestRunFinish += Model_TestRunFinish;
-            Program.RootModel.StateChange += Model_StateChange;
+            //Program.RootModel.StepTestChange += Model_StepTestChangeAsync;
+            //Program.RootModel.TestRunFinish += Model_TestRunFinish;
+            //Program.RootModel.StateChange += Model_StateChange;
 
             Program.RootModel.LoadFinishEvent();
         }

@@ -44,7 +44,7 @@ namespace VTM
             {
                 btTestManual.IsChecked = false;
             }
-            Program.TestState = Model.RunTestState.STOP;
+            Program.TestState = Program.RunTestState.STOP;
             EscapTimer.Stop();
         }
         #endregion
@@ -58,7 +58,7 @@ namespace VTM
 
         public void Runtest()
         {
-            if (Program.RootModel.TestState == Model.RunTestState.READY)
+            if (Program.TestState == Program.RunTestState.READY)
             {
                 EscapTime = DateTime.Now;
                 foreach (var item in Program.RootModel.Steps)
@@ -75,7 +75,7 @@ namespace VTM
                 TestStepsGrid.Items.Refresh();
                 Program.StepTesting = 0;
                 Program.IsTestting = false;
-                Program.TestState = Model.RunTestState.TESTTING;
+                Program.TestState = Program.RunTestState.TESTTING;
                 EscapTimer.Elapsed -= EscapTimer_Elapsed;
                 EscapTimer.Elapsed += EscapTimer_Elapsed;
                 EscapTimer.Start();
@@ -141,9 +141,9 @@ namespace VTM
 
         private void Model_StateChange(object sender, EventArgs e)
         {
-            switch (Program.RootModel.TestState)
+            switch (Program.TestState)
             {
-                case Model.RunTestState.WAIT:
+                case Program.RunTestState.WAIT:
                     Dispatcher.Invoke(new Action(delegate
                     {
                         lbTestResultGood.Visibility = Visibility.Visible;
@@ -151,7 +151,7 @@ namespace VTM
                         if (sb != null) sb.Begin(lbTestResultGood);
                     }), DispatcherPriority.Send);
                     break;
-                case Model.RunTestState.TESTTING:
+                case Program.RunTestState.TESTTING:
                     Dispatcher.Invoke(new Action(delegate
                     {
                         lbTestResultGood.Visibility = Visibility.Visible;
@@ -159,7 +159,7 @@ namespace VTM
                         if (sb != null) sb.Begin(lbTestResultGood);
                     }), DispatcherPriority.Send);
                     break;
-                case Model.RunTestState.Pause:
+                case Program.RunTestState.Pause:
                     Dispatcher.Invoke(new Action(delegate
                     {
                         lbTestResultGood.Visibility = Visibility.Visible;
@@ -167,7 +167,7 @@ namespace VTM
                         if (sb != null) sb.Begin(lbTestResultGood);
                     }), DispatcherPriority.Send);
                     break;
-                case Model.RunTestState.STOP:
+                case Program.RunTestState.STOP:
                     Dispatcher.Invoke(new Action(delegate
                     {
                         lbTestResultGood.Visibility = Visibility.Visible;
@@ -175,7 +175,7 @@ namespace VTM
                         if (sb != null) sb.Begin(lbTestResultGood);
                     }), DispatcherPriority.Send);
                     break;
-                case Model.RunTestState.GOOD:
+                case Program.RunTestState.GOOD:
                     Dispatcher.Invoke(new Action(delegate
                     {
                         lbTestResultGood.Visibility = Visibility.Visible;
@@ -183,7 +183,7 @@ namespace VTM
                         if (sb != null) sb.Begin(lbTestResultGood);
                     }), DispatcherPriority.Send);
                     break;
-                case Model.RunTestState.FAIL:
+                case Program.RunTestState.FAIL:
                     Dispatcher.Invoke(new Action(delegate
                     {
                         lbTestResultGood.Visibility = Visibility.Visible;
@@ -191,7 +191,7 @@ namespace VTM
                         if (sb != null) sb.Begin(lbTestResultGood);
                     }), DispatcherPriority.Send);
                     break;
-                case Model.RunTestState.BUSY:
+                case Program.RunTestState.BUSY:
                     Dispatcher.Invoke(new Action(delegate
                     {
                         lbTestResultGood.Visibility = Visibility.Visible;
@@ -199,7 +199,7 @@ namespace VTM
                         if (sb != null) sb.Begin(lbTestResultGood);
                     }), DispatcherPriority.Send);
                     break;
-                case Model.RunTestState.READY:
+                case Program.RunTestState.READY:
                     Dispatcher.Invoke(new Action(delegate
                     {
                         lbTestResultGood.Visibility = Visibility.Visible;

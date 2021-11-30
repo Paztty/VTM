@@ -69,7 +69,7 @@ namespace VTM
             else
             {
                 EscapTime = DateTime.Now;
-                Program.TestState = Model.RunTestState.TESTTING;
+                Program.TestState = Program.RunTestState.TESTTING;
                 foreach (var item in Program.RootModel.Steps)
                 {
                     item.ValueGet1 = "";
@@ -93,7 +93,7 @@ namespace VTM
         {
             if (Program.IsTestting)
             {
-                Program.TestState = Model.RunTestState.Pause;
+                Program.TestState = Program.RunTestState.Pause;
                 EscapTimer.Stop();
             }
         }

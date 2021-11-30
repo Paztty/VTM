@@ -17,7 +17,19 @@ namespace HVT.VTM.Program
         private void ModelChange()
         {
             ModelChangeEvent?.Invoke(this, EventArgs.Empty);
-            RootModel.TestState = Model.RunTestState.READY;
+        }
+
+        // Enum and constance
+        public enum RunTestState
+        {
+            WAIT,
+            READY,
+            TESTTING,
+            STOP,
+            Pause,
+            GOOD,
+            FAIL,
+            BUSY
         }
 
 
@@ -65,7 +77,7 @@ namespace HVT.VTM.Program
         // Model init 
         public void ModelInit()
         {
-            RootModel.TestState = Model.RunTestState.READY;
+            TestState = Program.RunTestState.READY;
             //Task.Run(new Action(delegate { RootModel.RunTest(); }));
         }
 
@@ -79,7 +91,7 @@ namespace HVT.VTM.Program
                 saveFile.Title = "Save VTM model file.";
                 if (saveFile.ShowDialog() == true)
                 {
-                    RootModel.Name = saveFile.FileName.Split('\\').Last().Replace(".vmdl","");
+                    RootModel.Name = saveFile.FileName.Split('\\').Last().Replace(".vmdl", "");
                     RootModel.Path = saveFile.FileName;
                     HVT.Utility.Extensions.SaveToFile(RootModel, saveFile.FileName);
                 }
@@ -133,6 +145,8 @@ namespace HVT.VTM.Program
         public void UpdateDataAfterLoad()
         {
             LoadNamingFromModel();
+            RootModel.ReplaceComponent(DrawingCanvas, DisplayCanvas);
+            Console.WriteLine("Load model done");
         }
 
 
@@ -212,10 +226,10 @@ namespace HVT.VTM.Program
                             Console.WriteLine(StepTesting + ":" + Steps[StepTesting].CMD + " " + Steps[StepTesting].Min_Max);
                             var stepTest = Steps[StepTesting];
                             if (stepTest != null)
-                            { 
+                            {
                                 RUN_FUNCTION_TEST(stepTest);
                             }
-                           
+
                             StepTesting++;
 
                             if (StepTesting == Steps.Count)
@@ -317,19 +331,19 @@ namespace HVT.VTM.Program
                 case CMDs.CAL:
                     break;
                 case CMDs.GLED:
-                    step.ValueGet1 = GLEDs[0].CalculatorOutputString;
-                    step.ValueGet2 = GLEDs[1].CalculatorOutputString;
-                    step.ValueGet3 = GLEDs[2].CalculatorOutputString;
-                    step.ValueGet4 = GLEDs[3].CalculatorOutputString;
+                    step.ValueGet1 = RootModel.GLEDs[0].CalculatorOutputString;
+                    step.ValueGet2 = RootModel.GLEDs[1].CalculatorOutputString;
+                    step.ValueGet3 = RootModel.GLEDs[2].CalculatorOutputString;
+                    step.ValueGet4 = RootModel.GLEDs[3].CalculatorOutputString;
                     break;
                 case CMDs.FND:
                     ReadFND(step);
                     break;
                 case CMDs.LED:
-                    step.ValueGet1 = LEDs[0].CalculatorOutputString;
-                    step.ValueGet2 = LEDs[1].CalculatorOutputString;
-                    step.ValueGet3 = LEDs[2].CalculatorOutputString;
-                    step.ValueGet4 = LEDs[3].CalculatorOutputString;
+                    step.ValueGet1 = RootModel.LEDs[0].CalculatorOutputString;
+                    step.ValueGet2 = RootModel.LEDs[1].CalculatorOutputString;
+                    step.ValueGet3 = RootModel.LEDs[2].CalculatorOutputString;
+                    step.ValueGet4 = RootModel.LEDs[3].CalculatorOutputString;
                     break;
                 case CMDs.LCD:
                     ReadLCD(step);
@@ -342,7 +356,7 @@ namespace HVT.VTM.Program
             }
 
 
- 
+
 
 
         }
@@ -361,10 +375,10 @@ namespace HVT.VTM.Program
                 DateTime start = DateTime.Now;
                 while (DateTime.Now.Subtract(start).TotalMilliseconds < scanTime)
                 {
-                    step.ValueGet1 = step.Result1 != Step.Ok ? LCDs[0].Data : step.ValueGet1;
-                    step.ValueGet2 = step.Result2 != Step.Ok ? LCDs[1].Data : step.ValueGet1;
-                    step.ValueGet3 = step.Result3 != Step.Ok ? LCDs[2].Data : step.ValueGet1;
-                    step.ValueGet4 = step.Result4 != Step.Ok ? LCDs[3].Data : step.ValueGet1;
+                    step.ValueGet1 = step.Result1 != Step.Ok ? RootModel.LCDs[0].Data : step.ValueGet1;
+                    step.ValueGet2 = step.Result2 != Step.Ok ? RootModel.LCDs[1].Data : step.ValueGet1;
+                    step.ValueGet3 = step.Result3 != Step.Ok ? RootModel.LCDs[2].Data : step.ValueGet1;
+                    step.ValueGet4 = step.Result4 != Step.Ok ? RootModel.LCDs[3].Data : step.ValueGet1;
 
                     step.Result1 = step.ValueGet1 == step.Oper ? Step.Ok : Step.Ng;
                     step.Result2 = step.ValueGet2 == step.Oper ? Step.Ok : Step.Ng;
@@ -382,10 +396,10 @@ namespace HVT.VTM.Program
             }
             else
             {
-                step.ValueGet1 = LCDs[0].Data;
-                step.ValueGet2 = LCDs[1].Data;
-                step.ValueGet3 = LCDs[2].Data;
-                step.ValueGet4 = LCDs[3].Data;
+                step.ValueGet1 = RootModel.LCDs[0].Data;
+                step.ValueGet2 = RootModel.LCDs[1].Data;
+                step.ValueGet3 = RootModel.LCDs[2].Data;
+                step.ValueGet4 = RootModel.LCDs[3].Data;
 
                 step.Result1 = step.ValueGet1 == step.Oper ? Step.Ok : Step.Ng;
                 step.Result2 = step.ValueGet2 == step.Oper ? Step.Ok : Step.Ng;
@@ -408,10 +422,10 @@ namespace HVT.VTM.Program
                 DateTime start = DateTime.Now;
                 while (DateTime.Now.Subtract(start).TotalMilliseconds < scanTime)
                 {
-                    step.ValueGet1 = step.Result1 != Step.Ok ? FNDs[0].Data : step.ValueGet1;
-                    step.ValueGet2 = step.Result2 != Step.Ok ? FNDs[1].Data : step.ValueGet1;
-                    step.ValueGet3 = step.Result3 != Step.Ok ? FNDs[2].Data : step.ValueGet1;
-                    step.ValueGet4 = step.Result4 != Step.Ok ? FNDs[3].Data : step.ValueGet1;
+                    step.ValueGet1 = step.Result1 != Step.Ok ? RootModel.FNDs[0].Data : step.ValueGet1;
+                    step.ValueGet2 = step.Result2 != Step.Ok ? RootModel.FNDs[1].Data : step.ValueGet1;
+                    step.ValueGet3 = step.Result3 != Step.Ok ? RootModel.FNDs[2].Data : step.ValueGet1;
+                    step.ValueGet4 = step.Result4 != Step.Ok ? RootModel.FNDs[3].Data : step.ValueGet1;
 
                     step.Result1 = step.ValueGet1 == step.Oper ? Step.Ok : Step.Ng;
                     step.Result2 = step.ValueGet2 == step.Oper ? Step.Ok : Step.Ng;
@@ -427,10 +441,10 @@ namespace HVT.VTM.Program
             }
             else
             {
-                step.ValueGet1 = FNDs[0].Data;
-                step.ValueGet2 = FNDs[1].Data;
-                step.ValueGet3 = FNDs[2].Data;
-                step.ValueGet4 = FNDs[3].Data;
+                step.ValueGet1 = RootModel.FNDs[0].Data;
+                step.ValueGet2 = RootModel.FNDs[1].Data;
+                step.ValueGet3 = RootModel.FNDs[2].Data;
+                step.ValueGet4 = RootModel.FNDs[3].Data;
 
                 step.Result1 = step.ValueGet1 == step.Oper ? Step.Ok : Step.Ng;
                 step.Result2 = step.ValueGet2 == step.Oper ? Step.Ok : Step.Ng;

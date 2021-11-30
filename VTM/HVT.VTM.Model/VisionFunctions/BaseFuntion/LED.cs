@@ -64,9 +64,11 @@ namespace HVT.VTM.Base.VisionFunctions
             }
         }
 
-        public ObservableCollection<SingleLED> LEDs { get; private set; } = new ObservableCollection<SingleLED>();
+        public ObservableCollection<SingleLED> LEDs { get; set; } = new ObservableCollection<SingleLED>();
 
-        public LED(Canvas displayCanvas,Canvas placeCanvas, int index)
+        public LED() { }
+
+        public LED(Canvas displayCanvas, Canvas placeCanvas, int index)
         {
             for (int i = 0; i < 32; i++)
             {
@@ -102,13 +104,55 @@ namespace HVT.VTM.Base.VisionFunctions
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        private Canvas parent;
+        private Canvas Parent
+        {
+            get { return parent; }
+            set
+            {
+                parent = value;
+                parentSize = new Rect()
+                {
+                    X = 0,
+                    Y = 0,
+                    Width = value.ActualWidth,
+                    Height = value.ActualHeight
+                };
+            }
+        }
 
-
-        private Canvas Parent = new Canvas();
-
-        private Canvas Display = new Canvas() { Width = 10, Height = 10, };
-
+        private Canvas display;
+        private Canvas Display
+        {
+            get { return display; }
+            set
+            {
+                display = value;
+                displaySize = new Rect()
+                {
+                    X = 0,
+                    Y = 0,
+                    Width = value.ActualWidth,
+                    Height = value.ActualHeight
+                };
+            }
+        }
         private Bitmap bitmap = null;
+
+        private Rect displaySize;
+        public Rect DisplaySize
+        {
+            get { return displaySize; }
+            set { displaySize = value; }
+        }
+
+        private Rect parentSize;
+        public Rect ParentSize
+        {
+            get { return parentSize; }
+            set { parentSize = value; }
+        }
+
 
         public int Index { get; set; }
         public int X { get; set; }
@@ -118,7 +162,7 @@ namespace HVT.VTM.Base.VisionFunctions
         public int ON { get; set; } = 250;
         public int OFF { get; set; } = 10;
 
-        private int dir= 10;
+        private int dir = 10;
         public int Dir
         {
             get { return dir; }
@@ -126,10 +170,10 @@ namespace HVT.VTM.Base.VisionFunctions
             {
                 dir = value;
                 elip.Width = value - 2;
-                elip.Height = value - 2 ;
+                elip.Height = value - 2;
 
-                elipDisplay.Width = value * (Display.ActualWidth / Parent.ActualWidth) - 2 ;
-                elipDisplay.Height = value * (Display.ActualHeight / Parent.ActualHeight) - 2;
+                elipDisplay.Width = value * (displaySize.Width / parentSize.Width) - 2;
+                elipDisplay.Height = value * (displaySize.Width / parentSize.Width) - 2;
 
                 Rect recNew = Rect;
                 recNew.Width = value;
@@ -161,59 +205,59 @@ namespace HVT.VTM.Base.VisionFunctions
                 intens = value;
                 Context.Dispatcher.BeginInvoke(new Action(() => Context.Foreground = new SolidColorBrush(Colors.Yellow)));
                 ContextDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Yellow)));
-                if (value >= Thresh)
+                if (use)
                 {
-                    Label.Dispatcher.BeginInvoke(new Action(delegate
+                    if (value >= Thresh)
                     {
-                        elipDisplay.Fill = new SolidColorBrush(Colors.Green);
-                        elip.Fill = new SolidColorBrush(Colors.Green);
-                        
-                    }));
-                }
-                else
-                {
-                    Label.Dispatcher.BeginInvoke(new Action(delegate
-                    {
-                        elipDisplay.Fill = new SolidColorBrush(Colors.Red);
-                        elip.Fill = new SolidColorBrush(Colors.Red);
-                    }));
-                }
-            }
-        }
+                        Label.Dispatcher.BeginInvoke(new Action(delegate
+                        {
+                            elipDisplay.Fill = new SolidColorBrush(Colors.Green);
+                            elip.Fill = new SolidColorBrush(Colors.Green);
 
-
-        private bool use;
-        public bool Use
-        {
-            get { return use; }
-            set
-            {
-                if (use != value)
-                {
-                    use = value;
-                    NotifyPropertyChanged(nameof(Use));
-                    if (use)
+                        }));
+                    }
+                    else
                     {
-                        Visibility = Visibility.Visible;
-                        Context.Dispatcher.BeginInvoke(new Action(() => Context.Foreground = new SolidColorBrush(Colors.Yellow)));
-                        ContextDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Yellow)));
                         Label.Dispatcher.BeginInvoke(new Action(delegate
                         {
                             elipDisplay.Fill = new SolidColorBrush(Colors.Red);
                             elip.Fill = new SolidColorBrush(Colors.Red);
                         }));
                     }
-                    else
+                }
+            }
+        }
+
+
+        private bool use = false;
+        public bool Use
+        {
+            get { return use; }
+            set
+            {
+                use = value;
+                NotifyPropertyChanged(nameof(Use));
+                if (use)
+                {
+                    Visibility = Visibility.Visible;
+                    Context.Dispatcher.BeginInvoke(new Action(() => Context.Foreground = new SolidColorBrush(Colors.Yellow)));
+                    ContextDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Yellow)));
+                    Label.Dispatcher.BeginInvoke(new Action(delegate
                     {
-                        Visibility = Visibility.Hidden;
-                        Context.Dispatcher.BeginInvoke(new Action(() => Context.Foreground = new SolidColorBrush(Colors.Red)));
-                        ContextDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Red)));
-                        Label.Dispatcher.BeginInvoke(new Action(delegate
-                        {
-                            elipDisplay.Fill = new SolidColorBrush(Colors.Yellow);
-                            elip.Fill = new SolidColorBrush(Colors.Yellow);
-                        }));
-                    }
+                        elipDisplay.Fill = new SolidColorBrush(Colors.Red);
+                        elip.Fill = new SolidColorBrush(Colors.Red);
+                    }));
+                }
+                else
+                {
+                    Visibility = Visibility.Hidden;
+                    Context.Dispatcher.BeginInvoke(new Action(() => Context.Foreground = new SolidColorBrush(Colors.Red)));
+                    ContextDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Red)));
+                    Label.Dispatcher.BeginInvoke(new Action(delegate
+                    {
+                        elipDisplay.Fill = new SolidColorBrush(Colors.Yellow);
+                        elip.Fill = new SolidColorBrush(Colors.Yellow);
+                    }));
                 }
             }
         }
@@ -280,7 +324,23 @@ namespace HVT.VTM.Base.VisionFunctions
             }
         }
 
-        public Label Label { get; set; } = new Label()
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (name != value)
+                {
+                    name = value;
+                    Context.Content = name;
+                    ContextDisplay.Content = name;
+                    NotifyPropertyChanged(nameof(Name));
+                }
+            }
+        }
+
+        public Label Label = new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.Red),
@@ -305,9 +365,9 @@ namespace HVT.VTM.Base.VisionFunctions
             Width = 10,
             Height = 10,
             Fill = new SolidColorBrush(Colors.Yellow),
-            
+
         };
-        public Label Context { get; set; } = new Label()
+        public Label Context = new Label()
         {
             Foreground = new SolidColorBrush(Colors.Red),
             Padding = new Thickness(0),
@@ -318,7 +378,7 @@ namespace HVT.VTM.Base.VisionFunctions
         };
 
 
-        public Label LabelDisplay { get; set; } = new Label()
+        public Label LabelDisplay = new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.Red),
@@ -342,7 +402,7 @@ namespace HVT.VTM.Base.VisionFunctions
             Fill = new SolidColorBrush(Colors.Yellow),
 
         };
-        public Label ContextDisplay { get; set; } = new Label()
+        public Label ContextDisplay = new Label()
         {
             Foreground = new SolidColorBrush(Colors.Red),
             Padding = new Thickness(0),
@@ -376,37 +436,37 @@ namespace HVT.VTM.Base.VisionFunctions
             {
                 if (rect != value)
                 {
-                    if (value.X > 0 && value.X < Parent?.ActualWidth - value.Width)
-                    {   
+                    if (value.X > 0 && value.X < parentSize.Width - value.Width)
+                    {
                         elip.Width = value.Width;
-                        elipDisplay.Width = value.Width * (Display.ActualWidth / Parent.ActualWidth);
+                        elipDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
+
                         rect.X = value.X;
-                        rectDisplay.X = value.X * (Display.ActualWidth / Parent.ActualWidth);
+                        rectDisplay.X = value.X * (displaySize.Width / parentSize.Width);
                         rect.Width = value.Width;
-                        rectDisplay.Width = value.Width * (Display.ActualWidth / Parent.ActualWidth);
-                        Label.Width = value.Width + 4;
-                        LabelDisplay.Width = value.Width * (Display.ActualWidth / Parent.ActualWidth) + 4;
+                        rectDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
+                        Label.Width = value.Width;
+                        LabelDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
                     }
 
-                    if (value.Y > 0 && value.Y < Parent?.ActualHeight - value.Height)
+                    if (value.Y > 0 && value.Y < parentSize.Height - value.Height)
                     {
                         elip.Height = value.Height;
-                        elipDisplay.Height = value.Height * (Display.ActualHeight / Parent.ActualHeight);
+                        elipDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
 
                         rect.Y = value.Y;
-                        rectDisplay.Y = value.Y * (Display.ActualHeight / Parent.ActualHeight);
+                        rectDisplay.Y = value.Y * (displaySize.Height / parentSize.Height);
                         rect.Height = value.Height;
-                        rectDisplay.Height = value.Height * (Display.ActualHeight / Parent.ActualHeight);
-                        Label.Height = value.Height + 4;
-                        LabelDisplay.Height = value.Height * (Display.ActualHeight / Parent.ActualHeight) + 4;
+                        rectDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
+                        Label.Height = value.Height;
+                        LabelDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
                     }
                     Area = new Int32Rect((int)(rect.X * raito[0]), (int)(rect.Y * raito[1]), (int)(rect.Width * raito[0]), (int)(rect.Height * raito[1]));
-
-                    
-                    
                 }
             }
         }
+
+        public SingleLED() { }
 
         public SingleLED(int index, int yIndex, Canvas parent, Canvas Display)
         {
@@ -421,9 +481,7 @@ namespace HVT.VTM.Base.VisionFunctions
                 Height = 15,
             };
             dir = 15;
-
-            Context.Content = index;
-            ContextDisplay.Content = index;
+            Name = index.ToString();
 
             grid.Children.Add(elip);
             grid.Children.Add(Context);
@@ -432,7 +490,7 @@ namespace HVT.VTM.Base.VisionFunctions
             gridDisplay.Children.Add(ContextDisplay);
 
             LabelDisplay.Content = gridDisplay;
-            Label.Content = grid; 
+            Label.Content = grid;
 
             Label.GotKeyboardFocus += Label_GotKeyboardFocus;
             Label.LostKeyboardFocus += Label_LostKeyboardFocus;
@@ -441,7 +499,30 @@ namespace HVT.VTM.Base.VisionFunctions
             Label.MouseMove += Label_MouseMove;
             Label.KeyDown += Label_KeyDown;
 
-           Visibility = Use ? Visibility.Visible : Visibility.Collapsed;
+            Visibility = Use ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public void ReInit(Canvas parent, Canvas Display)
+        {
+            this.Parent = parent;
+            this.Display = Display;
+            grid.Children.Add(elip);
+            grid.Children.Add(Context);
+
+            gridDisplay.Children.Add(elipDisplay);
+            gridDisplay.Children.Add(ContextDisplay);
+
+            LabelDisplay.Content = gridDisplay;
+            Label.Content = grid;
+
+            Label.GotKeyboardFocus += Label_GotKeyboardFocus;
+            Label.LostKeyboardFocus += Label_LostKeyboardFocus;
+
+            Label.MouseDown += Label_MouseDown;
+            Label.MouseMove += Label_MouseMove;
+            Label.KeyDown += Label_KeyDown;
+
+            Visibility = Use ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void Label_KeyDown(object sender, KeyEventArgs e)

@@ -100,15 +100,122 @@ namespace HVT.VTM.Base
         public ObservableCollection<string> BarcodesWaitting = new ObservableCollection<string>() { "", "", "", "" };
         //Serial naming
         public Naming Naming { get; set; }
+
+
+        //Vision test 
+
+        private List<VisionFunctions.FND> fNDs;
+        private List<VisionFunctions.LCD> lCDs;
+        private List<VisionFunctions.GLED> gLEDs;
+        private List<VisionFunctions.LED> lEDs;
+
+        public List<VisionFunctions.FND> FNDs { get; set ; }
+        public List<VisionFunctions.LCD> LCDs { get; set; }
+        public List<VisionFunctions.GLED> GLEDs { get; set; }
+        public List<VisionFunctions.LED> LEDs { get; set; }
+
+        public void VisionTestInit(Canvas DrawingCanvas, Canvas DisplayFunction)
+        {
+             FNDs = new List<Base.VisionFunctions.FND>()
+                    {
+                    new Base.VisionFunctions.FND(1, "FND A", DrawingCanvas, DisplayFunction),
+                    new Base.VisionFunctions.FND(2, "FND B", DrawingCanvas, DisplayFunction),
+                    new Base.VisionFunctions.FND(3, "FND C", DrawingCanvas, DisplayFunction),
+                    new Base.VisionFunctions.FND(4, "FND D", DrawingCanvas, DisplayFunction),
+                    };
+
+             LCDs = new List<Base.VisionFunctions.LCD>()
+                    {
+                    new Base.VisionFunctions.LCD(1, "LCD A", DrawingCanvas, DisplayFunction),
+                    new Base.VisionFunctions.LCD(2, "LCD B", DrawingCanvas, DisplayFunction),
+                    new Base.VisionFunctions.LCD(3, "LCD C", DrawingCanvas, DisplayFunction),
+                    new Base.VisionFunctions.LCD(4, "LCD D", DrawingCanvas, DisplayFunction),
+                    };
+
+             GLEDs = new List<Base.VisionFunctions.GLED>()
+            {
+                new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 0),
+                new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 1),
+                new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 2),
+                new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 3),
+            };
+
+             LEDs = new List<Base.VisionFunctions.LED>()
+            {
+                new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 0),
+                new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 1),
+                new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 2),
+                new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 3),
+            };
+
+
+            foreach (var item in  FNDs)
+            {
+                item.PlaceIn(DrawingCanvas, DisplayFunction);
+            }
+            foreach (var item in  LCDs)
+            {
+                item.PlaceIn(DrawingCanvas, DisplayFunction);
+            }
+            foreach (var item in  GLEDs)
+            {
+                foreach (var led in item.GLEDs)
+                {
+                    led.PlaceIn(DrawingCanvas, DisplayFunction);
+                }
+            }
+            foreach (var item in  LEDs)
+            {
+                foreach (var led in item.LEDs)
+                {
+                    led.PlaceIn(DrawingCanvas, DisplayFunction);
+                }
+            }
+
+        }
+
+        public void ReplaceComponent(Canvas DrawingCanvas, Canvas DisplayFunction)
+        {
+            DrawingCanvas.Children.Clear();
+            DisplayFunction.Children.Clear();
+
+            foreach (var item in FNDs)
+            {
+                item.ReInit(DrawingCanvas, DisplayFunction);
+                item.PlaceIn(DrawingCanvas, DisplayFunction);
+                
+            }
+            foreach (var item in LCDs)
+            {
+                item.ReInit(DrawingCanvas, DisplayFunction);
+                item.PlaceIn(DrawingCanvas, DisplayFunction);
+            }
+            foreach (var item in GLEDs)
+            {
+                foreach (var led in item.GLEDs)
+                {
+
+                    led.ReInit(DrawingCanvas, DisplayFunction);
+                    led.PlaceIn(DrawingCanvas, DisplayFunction);
+                }
+            }
+            foreach (var item in LEDs)
+            {
+                foreach (var led in item.LEDs)
+                {
+
+                    led.ReInit(DrawingCanvas, DisplayFunction);
+                    led.PlaceIn(DrawingCanvas, DisplayFunction);
+                }
+            }
+
+        }
+
         //Event
         public event EventHandler LoadFinish;
-        public event EventHandler StepTestChange;
-        public event EventHandler TestRunFinish;
-        public event EventHandler StateChange;
 
         public void LoadFinishEvent()
         {
-            this.TestState = RunTestState.READY;
             LoadFinish?.Invoke(null, null);
         }
 
@@ -117,31 +224,6 @@ namespace HVT.VTM.Base
         public void Init()
         {
 
-        }
-
-        public enum RunTestState
-        {
-            WAIT = 0,
-            TESTTING = 1,
-            Pause = 2,
-            STOP = 3,
-            GOOD = 4,
-            FAIL = 5,
-            BUSY = 6,
-            READY = 7,
-        }
-        private RunTestState testState;
-        public RunTestState TestState
-        {
-            get { return testState; }
-            set
-            {
-                if (value != testState)
-                {
-                    testState = value;
-                    StateChange?.Invoke(value, null);
-                }
-            }
         }
 
         public void Load()

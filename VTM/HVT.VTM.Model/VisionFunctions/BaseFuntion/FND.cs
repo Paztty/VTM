@@ -17,9 +17,54 @@ namespace HVT.VTM.Base.VisionFunctions
 {
     public class FND
     {
-        private Canvas Parent = new Canvas() { Width = 10, Height = 10, };
-        private Canvas Display = new Canvas() { Width = 10, Height = 10, };
+        private Canvas parent;
+        private Canvas Parent
+        {
+            get { return parent; }
+            set
+            {
+                parent = value;
+                parentSize = new Rect()
+                {
+                    X = 0,
+                    Y = 0,
+                    Width = value.ActualWidth,
+                    Height = value.ActualHeight
+                };
+            }
+        }
+
+        private Canvas display;
+        private Canvas Display
+        {
+            get { return display; }
+            set
+            {
+                display = value;
+                displaySize = new Rect()
+                {
+                    X = 0,
+                    Y = 0,
+                    Width = value.ActualWidth,
+                    Height = value.ActualHeight
+                };
+            }
+        }
         private Bitmap bitmap = null;
+
+        private Rect displaySize;
+        public Rect DisplaySize
+        {
+            get { return displaySize; }
+            set { displaySize = value; }
+        }
+
+        private Rect parentSize;
+        public Rect ParentSize
+        {
+            get { return parentSize; }
+            set { parentSize = value; }
+        }
 
         private double[] rt = new double[2] { 1, 1 };
         public double[] raito
@@ -53,7 +98,9 @@ namespace HVT.VTM.Base.VisionFunctions
             private set { data = value; }
         }
 
-        public double Threshold { get; set; }
+        private double threshold;
+        public double Threshold
+        { get { return threshold; } set { threshold = value; } }
 
         private Visibility visibility;
         public Visibility Visibility {
@@ -78,7 +125,7 @@ namespace HVT.VTM.Base.VisionFunctions
                 }
             }
         }
-        public Label LabelDisplay { get; set; } = new Label()
+        public Label LabelDisplay = new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.Red),
@@ -90,7 +137,7 @@ namespace HVT.VTM.Base.VisionFunctions
             HorizontalContentAlignment = HorizontalAlignment.Left,
         };
 
-        public Label Label { get; set; } = new Label()
+        public Label Label  = new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.Red),
@@ -101,7 +148,7 @@ namespace HVT.VTM.Base.VisionFunctions
             VerticalContentAlignment = VerticalAlignment.Top,
             HorizontalContentAlignment = HorizontalAlignment.Left,
         };
-        public Label LabelTopLeft { get; set; } = new Label()
+        public Label LabelTopLeft= new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.White),
@@ -112,7 +159,7 @@ namespace HVT.VTM.Base.VisionFunctions
             Cursor = Cursors.SizeNWSE,
             Focusable = true,
         };
-        public Label LabelTopMid { get; set; } = new Label()
+        public Label LabelTopMid= new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.White),
@@ -123,7 +170,7 @@ namespace HVT.VTM.Base.VisionFunctions
             Cursor = Cursors.SizeNS,
             Focusable = true,
         };
-        public Label LabelTopRight { get; set; } = new Label()
+        public Label LabelTopRight= new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.White),
@@ -134,7 +181,7 @@ namespace HVT.VTM.Base.VisionFunctions
             Cursor = Cursors.SizeNESW,
             Focusable = true,
         };
-        public Label LabelMidLeft { get; set; } = new Label()
+        public Label LabelMidLeft= new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.White),
@@ -145,7 +192,7 @@ namespace HVT.VTM.Base.VisionFunctions
             Cursor = Cursors.SizeWE,
             Focusable = true,
         };
-        public Label LabelMidRight { get; set; } = new Label()
+        public Label LabelMidRight= new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.White),
@@ -156,7 +203,7 @@ namespace HVT.VTM.Base.VisionFunctions
             Cursor = Cursors.SizeWE,
             Focusable = true,
         };
-        public Label LabelBotLeft { get; set; } = new Label()
+        public Label LabelBotLeft= new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.White),
@@ -167,7 +214,7 @@ namespace HVT.VTM.Base.VisionFunctions
             Cursor = Cursors.SizeNESW,
             Focusable = true,
         };
-        public Label LabelBotMid { get; set; } = new Label()
+        public Label LabelBotMid= new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.White),
@@ -178,7 +225,7 @@ namespace HVT.VTM.Base.VisionFunctions
             Cursor = Cursors.SizeNS,
             Focusable = true,
         };
-        public Label LabelBotRight { get; set; } = new Label()
+        public Label LabelBotRight= new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)),
             Foreground = new SolidColorBrush(Colors.White),
@@ -192,60 +239,75 @@ namespace HVT.VTM.Base.VisionFunctions
 
         private Rect OfsetMove = new Rect();
 
-        private Rect rect = new Rect()
+        public Rect rect = new Rect()
         {
             Location = new Point(0, 0),
             Size = new System.Windows.Size(10, 10)
         };
 
-        private Rect rectDisplay = new Rect()
+        public Rect rectDisplay = new Rect()
         {
             Location = new Point(0, 0),
             Size = new System.Windows.Size(10, 10)
         };
+
+
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (name != value)
+                {
+                    name = value;
+                    Label.Content = name;
+                }
+            }
+        }
 
         public Rect Rect
         {
             get { return rect; }
             set
             {
-                
                 if (rect != value)
                 {
-                    if (value.X > 0 && value.X < Parent?.ActualWidth - value.Width)
+                    if (value.X > 0 && value.X < parentSize.Width - value.Width)
                     {
                         rect.X = value.X;
-                        rectDisplay.X = value.X * (Display.ActualWidth/ Parent.ActualWidth);
+                        rectDisplay.X = value.X * (displaySize.Width / parentSize.Width);
                         rect.Width = value.Width;
-                        rectDisplay.Width = value.Width * (Display.ActualWidth / Parent.ActualWidth);
+                        rectDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
                         Label.Width = value.Width;
-                        LabelDisplay.Width = value.Width * (Display.ActualWidth / Parent.ActualWidth);
+                        LabelDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
                     }
 
-                    if (value.Y > 0 && value.Y < Parent?.ActualHeight - value.Height)
+                    if (value.Y > 0 && value.Y < parentSize.Height - value.Height)
                     {
                         rect.Y = value.Y;
-                        rectDisplay.Y = value.Y * (Display.ActualHeight/ Parent.ActualHeight);
+                        rectDisplay.Y = value.Y * (displaySize.Height / parentSize.Height);
                         rect.Height = value.Height;
-                        rectDisplay.Height = value.Height * (Display.ActualHeight / Parent.ActualHeight);
+                        rectDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
                         Label.Height = value.Height;
-                        LabelDisplay.Height = value.Height * (Display.ActualHeight / Parent.ActualHeight);
+                        LabelDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
                     }
                     Area = new Int32Rect((int)(value.X * raito[0]), (int)(value.Y * raito[1]), (int)(value.Width * raito[0]), (int)(value.Height * raito[1]));
                 }
             }
         }
 
+        public FND() { }
+
         public FND(int index, string context, Canvas parent, Canvas Display)
         {
             this.Parent = parent;
             this.Display = Display;
-
-            Label.Content = context;
+            Name = context;
             this.Rect = new Rect()
             {
-                X = parent.ActualWidth/2 - 50,
-                Y = parent.ActualHeight/8 * (2 * index - 1) - 25,
+                X = parent.ActualWidth / 2 - 50,
+                Y = parent.ActualHeight / 8 * (2 * index - 1) - 25,
                 Width = 100,
                 Height = 50,
             };
@@ -295,7 +357,7 @@ namespace HVT.VTM.Base.VisionFunctions
             LabelTopMid.LostKeyboardFocus += Label_LostKeyboardFocus;
             LabelTopRight.LostKeyboardFocus += Label_LostKeyboardFocus;
 
-            
+
             LabelBotLeft.GotKeyboardFocus += Label_GotKeyboardFocus;
             LabelBotMid.GotKeyboardFocus += Label_GotKeyboardFocus;
             LabelBotRight.GotKeyboardFocus += Label_GotKeyboardFocus;
@@ -304,6 +366,68 @@ namespace HVT.VTM.Base.VisionFunctions
             LabelTopLeft.GotKeyboardFocus += Label_GotKeyboardFocus;
             LabelTopMid.GotKeyboardFocus += Label_GotKeyboardFocus;
             LabelTopRight.GotKeyboardFocus += Label_GotKeyboardFocus;
+        }
+
+        public void ReInit(Canvas parent, Canvas Display)
+        {
+            this.Parent = parent;
+            this.Display = Display;
+
+            Label.GotKeyboardFocus += Label_GotKeyboardFocus;
+            Label.LostKeyboardFocus += Label_LostKeyboardFocus;
+
+            Label.KeyDown += Label_KeyDown;
+
+            Label.MouseDown += Label_MouseDown;
+            Label.MouseMove += Label_MouseMove;
+            Label.MouseUp += Label_MouseUp;
+
+            LabelBotLeft.Visibility = Visibility.Hidden;
+            LabelBotMid.Visibility = Visibility.Hidden;
+            LabelBotRight.Visibility = Visibility.Hidden;
+            LabelMidLeft.Visibility = Visibility.Hidden;
+            LabelMidRight.Visibility = Visibility.Hidden;
+            LabelTopLeft.Visibility = Visibility.Hidden;
+            LabelTopMid.Visibility = Visibility.Hidden;
+            LabelTopRight.Visibility = Visibility.Hidden;
+
+            LabelBotLeft.MouseMove += LabelBotLeft_MouseMove;
+            LabelBotMid.MouseMove += LabelBotMid_MouseMove;
+            LabelBotRight.MouseMove += LabelBotRight_MouseMove;
+            LabelMidLeft.MouseMove += LabelMidLeft_MouseMove;
+            LabelMidRight.MouseMove += LabelMidRight_MouseMove;
+            LabelTopLeft.MouseMove += LabelTopLeft_MouseMove;
+            LabelTopMid.MouseMove += LabelTopMid_MouseMove;
+            LabelTopRight.MouseMove += LabelTopRight_MouseMove;
+
+            LabelBotLeft.MouseDown += LabelResize_MouseDown;
+            LabelBotMid.MouseDown += LabelResize_MouseDown;
+            LabelBotRight.MouseDown += LabelResize_MouseDown;
+            LabelMidLeft.MouseDown += LabelResize_MouseDown;
+            LabelMidRight.MouseDown += LabelResize_MouseDown;
+            LabelTopLeft.MouseDown += LabelResize_MouseDown;
+            LabelTopMid.MouseDown += LabelResize_MouseDown;
+            LabelTopRight.MouseDown += LabelResize_MouseDown;
+
+            LabelBotLeft.LostKeyboardFocus += Label_LostKeyboardFocus;
+            LabelBotMid.LostKeyboardFocus += Label_LostKeyboardFocus;
+            LabelBotRight.LostKeyboardFocus += Label_LostKeyboardFocus;
+            LabelMidLeft.LostKeyboardFocus += Label_LostKeyboardFocus;
+            LabelMidRight.LostKeyboardFocus += Label_LostKeyboardFocus;
+            LabelTopLeft.LostKeyboardFocus += Label_LostKeyboardFocus;
+            LabelTopMid.LostKeyboardFocus += Label_LostKeyboardFocus;
+            LabelTopRight.LostKeyboardFocus += Label_LostKeyboardFocus;
+
+
+            LabelBotLeft.GotKeyboardFocus += Label_GotKeyboardFocus;
+            LabelBotMid.GotKeyboardFocus += Label_GotKeyboardFocus;
+            LabelBotRight.GotKeyboardFocus += Label_GotKeyboardFocus;
+            LabelMidLeft.GotKeyboardFocus += Label_GotKeyboardFocus;
+            LabelMidRight.GotKeyboardFocus += Label_GotKeyboardFocus;
+            LabelTopLeft.GotKeyboardFocus += Label_GotKeyboardFocus;
+            LabelTopMid.GotKeyboardFocus += Label_GotKeyboardFocus;
+            LabelTopRight.GotKeyboardFocus += Label_GotKeyboardFocus;
+
         }
 
         private void Label_KeyDown(object sender, KeyEventArgs e)

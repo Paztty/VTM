@@ -57,10 +57,15 @@ namespace HVT.Utility
             {
                 try
                 {
+                    JsonSerializerOptions options = new JsonSerializerOptions()
+                    {
+                        MaxDepth = 1024,
+                    };
+
                     var serialized = File.ReadAllText(FileName);
                     serialized = Decoder(serialized, Encoding.UTF7);
                     File.AppendAllText(LogFile, DateTime.Now.ToString() + "Extension : Open from file SUCCESS " + FileName + Environment.NewLine + serialized + Environment.NewLine);
-                    return JsonSerializer.Deserialize<T>(serialized);
+                    return JsonSerializer.Deserialize<T>(serialized, options);
 
                 }
                 catch (Exception err)
@@ -79,7 +84,15 @@ namespace HVT.Utility
         {
             try
             {
-                var strToSave = JsonSerializer.Serialize(source);
+                JsonSerializerOptions options = new JsonSerializerOptions()
+                {
+                    MaxDepth = 1024,
+                };
+                    
+                var strToSave = JsonSerializer.Serialize(source, options);
+
+                File.WriteAllText("modelText.txt", strToSave);
+
                 Console.WriteLine(strToSave);
                 strToSave = Encoder(strToSave, Encoding.UTF7);
                 File.WriteAllText(FileName, strToSave);

@@ -90,8 +90,8 @@ namespace VTM
             Program.BoardSelected selected;
             Enum.TryParse<Program.BoardSelected>(((RadioButton)sender).Content.ToString(), out selected);
             Program.boardSelected = selected;
-            foreach (var item in Program.GLEDs)item.Visibility = Visibility.Collapsed;
-            foreach (var item in Program.FNDs) item.Visibility = Visibility.Collapsed;
+            //foreach (var item in Program.RootModel.GLEDs)item.Visibility = Visibility.Collapsed;
+            //foreach (var item in Program.RootModel.FNDs) item.Visibility = Visibility.Collapsed;
 
             GLEDsData.ItemsSource = null;
             GLEDsData.Items.Clear();
@@ -105,7 +105,7 @@ namespace VTM
             {
                 case Program.BoardSelected.All:
                     GLEDsData.IsReadOnly = true;
-                    foreach (var item in Program.GLEDs)
+                    foreach (var item in Program.RootModel.GLEDs)
                     {
                         item.Visibility = Visibility.Visible;
                         foreach (var item2 in item.GLEDs)
@@ -114,7 +114,7 @@ namespace VTM
                         }
                     }
                     LEDsData.IsReadOnly = true;
-                    foreach (var item in Program.LEDs)
+                    foreach (var item in Program.RootModel.LEDs)
                     {
                         item.Visibility = Visibility.Visible;
                         foreach (var item2 in item.LEDs)
@@ -122,44 +122,44 @@ namespace VTM
                             LEDsData.Items.Add(item2);
                         }
                     }
-                    foreach (var item in Program.FNDs) item.Visibility = Visibility.Visible;
+                    foreach (var item in Program.RootModel.FNDs) item.Visibility = Visibility.Visible;
 
                     break;
                 case Program.BoardSelected.A:
-                    GLEDsData.ItemsSource = Program.GLEDs[0].GLEDs;
-                    Program.GLEDs[0].Visibility = Visibility.Visible;
+                    GLEDsData.ItemsSource = Program.RootModel.GLEDs[0].GLEDs;
+                    //Program.RootModel.GLEDs[0].Visibility = Visibility.Visible;
 
-                    LEDsData.ItemsSource = Program.LEDs[0].LEDs;
-                    Program.LEDs[0].Visibility = Visibility.Visible;
+                    LEDsData.ItemsSource = Program.RootModel.LEDs[0].LEDs;
+                    //Program.RootModel.LEDs[0].Visibility = Visibility.Visible;
 
-                    Program.FNDs[0].Visibility = Visibility.Visible;
+                    //Program.RootModel.FNDs[0].Visibility = Visibility.Visible;
                     break;
                 case Program.BoardSelected.B:
-                    GLEDsData.ItemsSource = Program.GLEDs[1].GLEDs;
-                    Program.GLEDs[1].Visibility = Visibility.Visible;
+                    GLEDsData.ItemsSource = Program.RootModel.GLEDs[1].GLEDs;
+                    //Program.RootModel.GLEDs[1].Visibility = Visibility.Visible;
 
-                    LEDsData.ItemsSource = Program.LEDs[1].LEDs;
-                    Program.LEDs[1].Visibility = Visibility.Visible;
+                    LEDsData.ItemsSource = Program.RootModel.LEDs[1].LEDs;
+                    //Program.RootModel.LEDs[1].Visibility = Visibility.Visible;
 
-                    Program.FNDs[1].Visibility = Visibility.Visible;
+                    //Program.RootModel.FNDs[1].Visibility = Visibility.Visible;
                     break;
                 case Program.BoardSelected.C:
-                    GLEDsData.ItemsSource = Program.GLEDs[2].GLEDs;
-                    Program.GLEDs[2].Visibility = Visibility.Visible;
+                    GLEDsData.ItemsSource = Program.RootModel.GLEDs[2].GLEDs;
+                    //Program.RootModel.GLEDs[2].Visibility = Visibility.Visible;
 
-                    LEDsData.ItemsSource = Program.LEDs[2].LEDs;
-                    Program.LEDs[2].Visibility = Visibility.Visible;
+                    LEDsData.ItemsSource = Program.RootModel.LEDs[2].LEDs;
+                    //Program.RootModel.LEDs[2].Visibility = Visibility.Visible;
 
-                    Program.FNDs[2].Visibility = Visibility.Visible;
+                    //Program.RootModel.FNDs[2].Visibility = Visibility.Visible;
                     break;
                 case Program.BoardSelected.D:
-                    GLEDsData.ItemsSource = Program.GLEDs[3].GLEDs;
-                    Program.GLEDs[3].Visibility = Visibility.Visible;
+                    GLEDsData.ItemsSource = Program.RootModel.GLEDs[3].GLEDs;
+                    //Program.RootModel.GLEDs[3].Visibility = Visibility.Visible;
 
-                    LEDsData.ItemsSource = Program.LEDs[3].LEDs;
-                    Program.LEDs[3].Visibility = Visibility.Visible;
+                    LEDsData.ItemsSource = Program.RootModel.LEDs[3].LEDs;
+                    //Program.RootModel.LEDs[3].Visibility = Visibility.Visible;
 
-                    Program.FNDs[3].Visibility = Visibility.Visible;
+                    //Program.RootModel.FNDs[3].Visibility = Visibility.Visible;
                     break;
                 default:
                     break;
@@ -173,16 +173,16 @@ namespace VTM
             switch (ctr)
             {
                 case "sldFNDA":
-                    Program.FNDs[0].Threshold = e.NewValue;
+                    Program.RootModel.FNDs[0].Threshold = e.NewValue;
                     break;
                 case "sldFNDB":
-                    Program.FNDs[1].Threshold = e.NewValue;
+                    Program.RootModel.FNDs[1].Threshold = e.NewValue;
                     break;
                 case "sldFNDC":
-                    Program.FNDs[2].Threshold = e.NewValue;
+                    Program.RootModel.FNDs[2].Threshold = e.NewValue;
                     break;
                 case "sldFNDD":
-                    Program.FNDs[3].Threshold = e.NewValue;
+                    Program.RootModel.FNDs[3].Threshold = e.NewValue;
                     break;
                 default:
                     break;
@@ -195,16 +195,16 @@ namespace VTM
             switch (ctr)
             {
                 case "sldLCDA":
-                    Program.LCDs[0].Threshold = e.NewValue;
+                    Program.RootModel.LCDs[0].Threshold = e.NewValue;
                     break;
                 case "sldLCDB":
-                    Program.LCDs[1].Threshold = e.NewValue;
+                    Program.RootModel.LCDs[1].Threshold = e.NewValue;
                     break;
                 case "sldLCDC":
-                    Program.LCDs[2].Threshold = e.NewValue;
+                    Program.RootModel.LCDs[2].Threshold = e.NewValue;
                     break;
                 case "sldLCDD":
-                    Program.LCDs[3].Threshold = e.NewValue;
+                    Program.RootModel.LCDs[3].Threshold = e.NewValue;
                     break;
                 default:
                     break;

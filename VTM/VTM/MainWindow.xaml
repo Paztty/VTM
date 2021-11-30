@@ -1395,7 +1395,7 @@
                             </Grid>
                         </Grid>
                     </Grid>
-                    
+
 
                     <!--Manual Panel-->
                     <Grid  x:Name="ManualPanel" Grid.Row="1" Visibility="Visible" Margin="5" Background="#FF5D5D5D" d:IsHidden="True">
@@ -2565,7 +2565,7 @@
                                                         <DataGridTextColumn Binding="{Binding No}"
                                                             Header="No" Width="40" IsReadOnly="True"
                                                             CellStyle="{StaticResource VTMDataGridCellHeader}"/>
-                                                        
+
                                                         <DataGridTextColumn Binding="{Binding IMQSCode}"
                                                             Header="QR Code" Width="60" IsReadOnly="True"
                                                             CellStyle="{StaticResource VTMDataGridCellHeader}"/>
@@ -4285,7 +4285,7 @@
                                                                     <Label VerticalAlignment="Top" Foreground="White" Content="Kind" Margin="20,0,0,10" Height="25" HorizontalAlignment="Left"/>
                                                                     <Label VerticalAlignment="Top" Foreground="White" Content="Baudrate" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="1"/>
                                                                     <Label VerticalAlignment="Top" Foreground="White" Content="Parity&#xD;&#xA;" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="2"/>
-                                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Startbit" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="3"/>
+                                                                    <Label VerticalAlignment="Top" Foreground="White" Content="Data bit" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="3"/>
                                                                     <Label VerticalAlignment="Top" Foreground="White" Content="Stopbit" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="4"/>
                                                                     <ComboBox SelectedIndex="0" Margin="10,0,0,0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center">
                                                                         <ListBoxItem Content="TTL"/>
@@ -4381,8 +4381,16 @@
 
 
                                                                     <ComboBox SelectedIndex="0" Margin="0,2,63,0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Width="200" HorizontalContentAlignment="Center" Grid.Row="4" Grid.ColumnSpan="2">
-                                                                        <ListBoxItem Content="XOR"/>
-                                                                        <ListBoxItem Content="RS485"/>
+                                                                        <ComboBoxItem Content="XOR"/>
+                                                                        <ComboBoxItem Content="CRC 16"/>
+                                                                        <ComboBoxItem Content="CRC 16 CCITT"/>
+                                                                        <ComboBoxItem Content="MODBUS CRC 16"/>
+                                                                        <ComboBoxItem Content="CRC 8"/>
+                                                                        <ComboBoxItem Content="CRC 32"/>
+                                                                        <ComboBoxItem Content="CRC 8 REVERSED"/>
+                                                                        <ComboBoxItem Content="REVERSED"/>
+                                                                        <ComboBoxItem Content="SUM"/>
+
                                                                     </ComboBox>
                                                                     <Label VerticalAlignment="Top" Foreground="White" Content="Checksum Range" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="5"/>
                                                                     <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Column="2" Grid.RowSpan="2"/>
@@ -4490,12 +4498,12 @@
                                                             <GroupBox Header="Port properties" Margin="5" Grid.Row="1" Foreground="White" Padding="5" Height ="Auto">
                                                                 <Grid Background="#3E4349">
                                                                     <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="25"/>
                                                                         <RowDefinition Height="Auto"/>
                                                                         <RowDefinition Height="Auto"/>
                                                                         <RowDefinition Height="Auto"/>
                                                                         <RowDefinition Height="Auto"/>
-                                                                        <RowDefinition Height="Auto"/>
-                                                                        <RowDefinition/>
+                                                                        <RowDefinition Height="0*"/>
                                                                     </Grid.RowDefinitions>
                                                                     <Grid.ColumnDefinitions>
                                                                         <ColumnDefinition Width="0.8*"/>
@@ -4563,8 +4571,15 @@
                                                                     <CheckBox VerticalAlignment="Center"  Foreground="White" Content="Fix Lenght" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="3"/>
                                                                     <Label VerticalAlignment="Top" Foreground="White" Content="Checksum" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="4"/>
                                                                     <ComboBox SelectedIndex="0" Margin="0,2,63,0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Top" Width="200" HorizontalContentAlignment="Center" Grid.Row="4" Grid.ColumnSpan="2">
-                                                                        <ListBoxItem Content="XOR"/>
-                                                                        <ListBoxItem Content="RS485"/>
+                                                                        <ComboBoxItem Content="XOR"/>
+                                                                        <ComboBoxItem Content="CRC 16"/>
+                                                                        <ComboBoxItem Content="CRC 16 CCITT"/>
+                                                                        <ComboBoxItem Content="MODBUS CRC 16"/>
+                                                                        <ComboBoxItem Content="CRC 8"/>
+                                                                        <ComboBoxItem Content="CRC 32"/>
+                                                                        <ComboBoxItem Content="CRC 8 REVERSED"/>
+                                                                        <ComboBoxItem Content="REVERSED"/>
+                                                                        <ComboBoxItem Content="SUM"/>
                                                                     </ComboBox>
                                                                     <Label VerticalAlignment="Top" Foreground="White" Content="Checksum Range" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="5"/>
                                                                     <Label VerticalAlignment="Top" Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Column="2" Grid.RowSpan="2"/>
@@ -5524,10 +5539,10 @@
                                                     <DataGridCheckBoxColumn Header="Use" Width="1*"  CellStyle="{StaticResource VTMDataGridCellLed}" Binding="{Binding Path=Use, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridCheckBoxColumn>
 
                                                 </DataGrid.Columns>
-                                                
+
                                             </DataGrid>
-                                    
-                                                    <Button Template="{StaticResource ButtonControlNonHoverEffect}" Content="Get GLEDs data" 
+
+                                            <Button Template="{StaticResource ButtonControlNonHoverEffect}" Content="Get GLEDs data" 
                                                     Margin="5" Grid.Row="1" Height="30" Width="Auto"/>
                                         </Grid>
                                     </TabItem>
