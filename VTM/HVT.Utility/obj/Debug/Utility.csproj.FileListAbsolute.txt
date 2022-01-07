@@ -13,3 +13,4 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Uti
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\bin\Debug\System.Threading.Tasks.Extensions.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\bin\Debug\System.ValueTuple.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\Debug\Utility.csproj.AssemblyReference.cache
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\Debug\Utility.csproj.CopyComplete

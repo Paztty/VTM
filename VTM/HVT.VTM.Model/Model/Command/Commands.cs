@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -45,6 +46,8 @@ namespace HVT.VTM.Base
             IsListCondition1 = true,
             Condition1List = CommandDescriptions.CommandMode_PowerKIND,
             Oper = "STATUS",
+            IsListOper = true,
+            OperList = new List<string> { "ON", "OFF"},
             Description = "Selected application of power ON/OFF"
             },
 
@@ -76,6 +79,10 @@ namespace HVT.VTM.Base
             CMD = CMDs.RLY,
             Condition1 = "CH",
             Oper = "STATUS",
+            IsListOper = true,
+            OperList = new List<string> { "ON", "OFF"},
+            Condition2 = "Time ON",
+            Count = "Delay time",
             Description = "Changes the condition of Channel which relay B/d is designated.\r"
                         + "The case which will use Channel at multiple, '/', '~' With divides. (ex. 3/6/10~12)\r"
                         + "The status uses ON/OFF or ON time(ms).\r"
@@ -240,6 +247,8 @@ namespace HVT.VTM.Base
             OperList= CommandDescriptions.CommandMode_UUT_Port,
             Condition2 = "LIMIT TIME",
             Spect = "BUFFER",
+            IsListSpect = true,
+            SpectList = new List<string> { "NONE", "RX BUF"},
             Min = "TRY COUNT",
             Mode = "MODE",
             IsListMode = true,
@@ -263,6 +272,8 @@ namespace HVT.VTM.Base
             OperList= CommandDescriptions.CommandMode_UUT_Port,
             Condition2 = "LIMIT TIME",
             Spect = "BUFFER",
+            IsListSpect = true,
+            SpectList = new List<string> { "NONE", "RX BUF"},
             Min = "TRY COUNT",
             Mode = "MODE",
             IsListMode = true,
@@ -286,9 +297,9 @@ namespace HVT.VTM.Base
             Oper = "PORT",
             IsListOper = true,
             OperList = CommandDescriptions.CommandMode_UUT_Port,
-            Condition2 = "TX DATA NAME",
-            IsListCondition2 = true,
-            Condition2List= CommandDescriptions.TXnaming,
+            //Condition2 = "TX DATA NAME",
+            //IsListCondition2 = true,
+            //Condition2List= CommandDescriptions.TXnaming,
             Spect = "SPEC",
             Min = "MIN",
             Max = "MAX",
@@ -376,7 +387,7 @@ namespace HVT.VTM.Base
             Condition1 = "CALCULATION",
             Oper = "MODE",
             IsListOper = true,
-            OperList= new List<string>(){"REAL", "HEX" },
+            OperList= new List<string>(){"REAL", "HEX"},
             Spect = "SPEC",
             Min = "MIN",
             Max = "MAX",
@@ -426,6 +437,19 @@ namespace HVT.VTM.Base
                             "ex) 1/2/3/4 or 1/2"
 
             },
+
+            new CommandDescriptions()
+            {
+            CMD = CMDs.CAM,
+            Condition1 = "Property",
+            IsListCondition1 = true,
+            Condition1List = Enum.GetNames(typeof(CameraStreaming.VideoProperties)).ToList(),
+            Oper = "Value", 
+            Description ="Command is for test only the selected PCB.\r\n"+
+                            "select PCB : You can use any combination of 1, 2, 3, 4 PCB.\r\n"+
+                            "ex) 1/2/3/4 or 1/2"
+
+            },
         };
 
         public static void UpdateCommand()
@@ -433,6 +457,7 @@ namespace HVT.VTM.Base
             foreach (var item in Commands)
             {
                 item.TestContentsList = CommandDescriptions.QRnaming;
+
                 if (item.Condition1 =="NAMING")
                 {
                     item.Condition1List = CommandDescriptions.TXnaming;

@@ -10,6 +10,15 @@ namespace HVT.VTM.Base
 {
     public class Contruction
     {
+        public event EventHandler<EventArgs> ContructionChanged;
+        private void ContructionChange()
+        {
+            ContructionChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+
+
+        //Contruction layout
         public Grid PCBlayout;
         public List<Label> PCB_label = new List<Label>();
 
@@ -26,7 +35,24 @@ namespace HVT.VTM.Base
         public Grid PCB_resultGrid;
         public List<Grid> _resultGrid = new List<Grid>();
 
-        public int PCB_Count { get; set; } = 4;
+        private int pcb_Count = 4;
+        public int PCB_Count
+        {
+            get { return pcb_Count; }
+            set
+            {
+                if (pcb_Count != value)
+                {
+                    pcb_Count = value;
+                    for (int i = 0; i < PBAs.Count; i++)
+                    {
+                        PBAs[i].Visibility = pcb_Count > i ? Visibility.Visible : Visibility.Hidden;
+                        PBAs[i].IsWaiting = i < pcb_Count;
+                    }
+                    ContructionChange();
+                }
+            }
+        }
         public int PCB_X_axis_Count { get; set; } = 2;
         public enum ArrayPositions
         {
@@ -40,6 +66,15 @@ namespace HVT.VTM.Base
             VerticalBottomRight = 7,
         };
         public ArrayPositions ArrayPosition { get; set; } = ArrayPositions.HorizontalBottomRight;
+
+        public List<PBA> PBAs = new List<PBA>(4)
+        {
+            new PBA(){ SiteName = "A"},
+            new PBA(){ SiteName = "B"},
+            new PBA(){ SiteName = "C"},
+            new PBA(){ SiteName = "D"},
+        };
+
 
         /// <summary>
         /// Check PCB layout element are enought for display or not
@@ -134,6 +169,7 @@ namespace HVT.VTM.Base
                     }
                 }
             }
+            AlignResult();
         }
 
         /// <summary>
@@ -144,7 +180,7 @@ namespace HVT.VTM.Base
             if (PCB_resultGrid != null && _resultGrid.Count >= PCB_Count)
             {
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     PCB_resultGrid.ColumnDefinitions[i].Width = new GridLength(0, GridUnitType.Star);
                     PCB_resultGrid.RowDefinitions[i].Height = new GridLength(0, GridUnitType.Star);

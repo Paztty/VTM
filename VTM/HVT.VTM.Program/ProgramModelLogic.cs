@@ -1,6 +1,7 @@
 ﻿using HVT.VTM.Base;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -12,26 +13,17 @@ namespace HVT.VTM.Program
 {
     public partial class Program
     {
-        //event 
-        public event EventHandler ModelChangeEvent;
-        private void ModelChange()
-        {
-            ModelChangeEvent?.Invoke(this, EventArgs.Empty);
-        }
-
-        // Enum and constance
         public enum RunTestState
         {
             WAIT,
             READY,
             TESTTING,
             STOP,
-            Pause,
+            PAUSE,
             GOOD,
             FAIL,
             BUSY
         }
-
 
         #region Varialble
         // Load new model and clone to application model edit.
@@ -45,6 +37,7 @@ namespace HVT.VTM.Program
                 if (editAbleModel == null)
                 {
                     EditAbleModel = (Model)value.Clone();
+
                 }
             }
         }
@@ -64,13 +57,18 @@ namespace HVT.VTM.Program
         public Command Command = new Command();
         #endregion
 
-
         #region Event
         // Event model actions
         public event EventHandler EditAbleModel_Change;
         private void NoticeOfChange()
         {
             EditAbleModel_Change?.Invoke(null, null);
+        }
+
+        public event EventHandler ModelChangeEvent;
+        private void ModelChange()
+        {
+            ModelChangeEvent?.Invoke(this, EventArgs.Empty);
         }
         #endregion
 
@@ -84,6 +82,8 @@ namespace HVT.VTM.Program
         //save
         public void SaveModel()
         {
+            RootModel.CameraSetting = cameraStreaming?.GetParammeter();
+
             if (RootModel.Path == null || RootModel.Name == null)
             {
                 SaveFileDialog saveFile = new SaveFileDialog();
@@ -104,6 +104,8 @@ namespace HVT.VTM.Program
 
         public void SaveModelAs()
         {
+            RootModel.CameraSetting = cameraStreaming.GetParammeter();
+
             SaveFileDialog saveFile = new SaveFileDialog();
             saveFile.Filter = "VTM model files (*.vmdl)|*.vmdl";
             saveFile.Title = "Save VTM model file.";
@@ -127,28 +129,35 @@ namespace HVT.VTM.Program
             {
                 //var fileInfor = new FileInfo(openFile.FileName);
                 string modelStr = System.IO.File.ReadAllText(openFile.FileName);
+
                 string modelString = HVT.Utility.Extensions.Decoder(modelStr, System.Text.Encoding.UTF7);
+
                 RootModel = HVT.Utility.Extensions.ConvertFromJson<Model>(modelString);
-                //RootModel.Steps.Clear();
-                //foreach (var step in modelLoaded.Steps)
-                //{
-                //    RootModel.Steps.Add(HVT.Utility.Extensions.Clone(step));
-                //}
-                //RootModel.Naming = modelLoaded.Naming;
-                //RootModel.Path = modelLoaded.Path;
-                //RootModel.Name = modelLoaded.Name;
-                ModelChange();
+                RootModel = HVT.Utility.Extensions.ConvertFromJson<Model>(modelString);
+
                 UpdateDataAfterLoad();
             }
         }
 
-        public void UpdateDataAfterLoad()
+        public void ImportModel()
         {
+            RootModel.Load();
             LoadNamingFromModel();
-            RootModel.ReplaceComponent(DrawingCanvas, DisplayCanvas);
-            Console.WriteLine("Load model done");
+            RootModel.CleanSteps();
+            ModelChange();
         }
 
+        public void UpdateDataAfterLoad()
+        {
+            ModelChange();
+            RootModel.CleanSteps();
+            RootModel.LoadFinishEvent();
+            LoadNamingFromModel();
+            RootModel.ReplaceComponent(DrawingCanvas, DisplayCanvas, ManualDisplayCanvas);
+
+
+            Console.WriteLine("Load model done");
+        }
 
         public event EventHandler StepTestChange;
         public event EventHandler TestRunFinish;
@@ -170,24 +179,16 @@ namespace HVT.VTM.Program
                 }
             }
         }
-        Task RUNTEST;
 
-        public void RUN_TEST()
+        public async void RUN_TEST()
         {
-            if (RUNTEST == null)
+            if (!IsTestting)
             {
-                RUNTEST = new Task(RunTest);
-                RUNTEST.Start();
-            }
-            else if (RUNTEST.Status != TaskStatus.Running)
-            {
-                RUNTEST = new Task(RunTest);
-                RUNTEST.Start();
+                await Task.Run(RunTest);
             }
         }
 
-
-        public void RunTest()
+        public async void RunTest()
         {
             foreach (var item in RootModel.Steps)
             {
@@ -195,16 +196,19 @@ namespace HVT.VTM.Program
                 item.ValueGet2 = "";
                 item.ValueGet3 = "";
                 item.ValueGet4 = "";
-                item.Result1 = Step.DontCare;
-                item.Result2 = Step.DontCare;
-                item.Result3 = Step.DontCare;
-                item.Result4 = Step.DontCare;
+                item.Result1 = "";
+                item.Result2 = "";
+                item.Result3 = "";
+                item.Result4 = "";
             }
+
+            if (RootModel.contruction.PBAs[0].IsWaiting) UUTs[0].OpenPort();
+            if (RootModel.contruction.PBAs[1].IsWaiting) UUTs[1].OpenPort();
+            if (RootModel.contruction.PBAs[2].IsWaiting) UUTs[2].OpenPort();
+            if (RootModel.contruction.PBAs[3].IsWaiting) UUTs[3].OpenPort();
 
             StepTesting = 0;
             IsTestting = true;
-            IsTestting = true;
-            var rand = new Random(100);
             StepTesting = 0;
             var Steps = RootModel.Steps;
             while (true)
@@ -215,69 +219,88 @@ namespace HVT.VTM.Program
                         TestState = RunTestState.READY;
                         break;
                     case RunTestState.TESTTING:
-                        if (StepTesting == Steps.Count)
+                        if (StepTesting >= Steps.Count)
                         {
+                            //RootModel.contruction.IsOK[0] = RootModel.contruction.PCB_Count >= 1 ? !RootModel.Steps.Select(o => o.Result1).ToList().Contains("Ng") : true;
+                            //RootModel.contruction.IsOK[1] = RootModel.contruction.PCB_Count >= 2 ? !RootModel.Steps.Select(o => o.Result2).ToList().Contains("Ng") : true;
+                            //RootModel.contruction.IsOK[2] = RootModel.contruction.PCB_Count >= 3 ? !RootModel.Steps.Select(o => o.Result3).ToList().Contains("Ng") : true;
+                            //RootModel.contruction.IsOK[3] = RootModel.contruction.PCB_Count >= 4 ? !RootModel.Steps.Select(o => o.Result4).ToList().Contains("Ng") : true;
+
                             TestState = RunTestState.GOOD;
                         }
                         else
                         {
-                            IsTestting = true;
-                            StepTestChange?.Invoke(StepTesting, null);
-                            Console.WriteLine(StepTesting + ":" + Steps[StepTesting].CMD + " " + Steps[StepTesting].Min_Max);
+
                             var stepTest = Steps[StepTesting];
                             if (stepTest != null)
                             {
-                                RUN_FUNCTION_TEST(stepTest);
-                            }
 
+                                if (stepTest.cmd != CMDs.NON || !stepTest.Skip)
+                                {
+                                    StepTestChange?.Invoke(StepTesting, null);
+                                    RUN_FUNCTION_TEST(stepTest);
+                                    await Task.Delay(5); // delay for data binding
+                                }
+                            }
                             StepTesting++;
-
-                            if (StepTesting == Steps.Count)
-                            {
-                                TestState = RunTestState.GOOD;
-                            }
                         }
                         break;
-                    case RunTestState.Pause:
+                    case RunTestState.PAUSE:
+                        Task.Delay(500).Wait();
                         break;
                     case RunTestState.STOP:
                         IsTestting = false;
                         StepTesting = 0;
                         StepTestChange?.Invoke(StepTesting, null);
-                        TestState = RunTestState.Pause;
+                        TestState = RunTestState.PAUSE;
                         break;
                     case RunTestState.GOOD:
                         IsTestting = false;
                         TestRunFinish?.Invoke("Good", null);
-                        Thread.Sleep(rand.Next(1000));
-                        TestState = RunTestState.READY;
-                        break;
+                        goto Finish;
                     case RunTestState.FAIL:
                         IsTestting = false;
                         TestRunFinish?.Invoke("Fail", null);
-                        Thread.Sleep(rand.Next(1000));
-                        TestState = RunTestState.READY;
-                        break;
+                        goto Finish;
                     case RunTestState.READY:
                         goto Finish;
                     default:
                         break;
                 }
             }
-        Finish: IsTestting = false;
+
+        Finish:
+            if (RootModel.contruction.PBAs[0].IsWaiting) UUTs[0].ClosePort();
+            if (RootModel.contruction.PBAs[1].IsWaiting) UUTs[1].ClosePort();
+            if (RootModel.contruction.PBAs[2].IsWaiting) UUTs[2].ClosePort();
+            if (RootModel.contruction.PBAs[3].IsWaiting) UUTs[3].ClosePort();
+
+            Print_Test(appSetting.QR);
+            IsTestting = false;
+
+            UpdateBarcodeList();
+
+            TestRunFinish?.Invoke("", null);
         }
 
         public void RUN_FUNCTION_TEST(Step step)
         {
-            step.ValueGet1 = "exe";
-            step.ValueGet2 = "exe";
-            step.ValueGet3 = "exe";
-            step.ValueGet4 = "exe";
+            if (RootModel.contruction.PBAs[0].IsWaiting) step.ValueGet1 = "exe";
+            if (RootModel.contruction.PBAs[1].IsWaiting) step.ValueGet2 = "exe";
+            if (RootModel.contruction.PBAs[2].IsWaiting) step.ValueGet3 = "exe";
+            if (RootModel.contruction.PBAs[3].IsWaiting) step.ValueGet4 = "exe";
 
             step.Result1 = Step.DontCare;
             step.Result2 = Step.DontCare;
             step.Result3 = Step.DontCare;
             step.Result4 = Step.DontCare;
+
+            var PCB_SKIP_CHECK = RootModel.contruction.PBAs;
+
+            if (step.Skip)
+            {
+                return;
+            }
             switch (step.cmd)
             {
                 case CMDs.NON:
@@ -287,7 +310,7 @@ namespace HVT.VTM.Program
                 case CMDs.DLY:
                     if (int.TryParse(step.Oper, out int delayTime))
                     {
-                        Thread.Sleep(delayTime);
+                        Task.Delay(delayTime).Wait();
                     }
                     break;
                 case CMDs.GEN:
@@ -303,20 +326,28 @@ namespace HVT.VTM.Program
                 case CMDs.END:
                     break;
                 case CMDs.ACV:
+                    DMM_Read(step, PCB_SKIP_CHECK);
                     break;
                 case CMDs.DCV:
+                    DMM_Read(step, PCB_SKIP_CHECK);
                     break;
                 case CMDs.FRQ:
+                    DMM_Read(step, PCB_SKIP_CHECK);
                     break;
                 case CMDs.RES:
+                    DMM_Read(step, PCB_SKIP_CHECK);
                     break;
                 case CMDs.URD:
+                    URD(step, PCB_SKIP_CHECK);
                     break;
                 case CMDs.UTN:
+                    UTN(step, PCB_SKIP_CHECK);
                     break;
                 case CMDs.UTX:
+                    UTX(step, PCB_SKIP_CHECK);
                     break;
                 case CMDs.UCN:
+                    UCN(step, PCB_SKIP_CHECK);
                     break;
                 case CMDs.UCP:
                     break;
@@ -331,42 +362,579 @@ namespace HVT.VTM.Program
                 case CMDs.CAL:
                     break;
                 case CMDs.GLED:
-                    step.ValueGet1 = RootModel.GLEDs[0].CalculatorOutputString;
-                    step.ValueGet2 = RootModel.GLEDs[1].CalculatorOutputString;
-                    step.ValueGet3 = RootModel.GLEDs[2].CalculatorOutputString;
-                    step.ValueGet4 = RootModel.GLEDs[3].CalculatorOutputString;
+                    step.ValueGet1 = PCB_SKIP_CHECK[0].IsWaiting ? RootModel.GLEDs[0].CalculatorOutputString : "";
+                    step.ValueGet2 = PCB_SKIP_CHECK[1].IsWaiting ? RootModel.GLEDs[1].CalculatorOutputString : "";
+                    step.ValueGet3 = PCB_SKIP_CHECK[2].IsWaiting ? RootModel.GLEDs[2].CalculatorOutputString : "";
+                    step.ValueGet4 = PCB_SKIP_CHECK[3].IsWaiting ? RootModel.GLEDs[3].CalculatorOutputString : "";
                     break;
                 case CMDs.FND:
-                    ReadFND(step);
+                    ReadFND(step, PCB_SKIP_CHECK);
                     break;
                 case CMDs.LED:
-                    step.ValueGet1 = RootModel.LEDs[0].CalculatorOutputString;
-                    step.ValueGet2 = RootModel.LEDs[1].CalculatorOutputString;
-                    step.ValueGet3 = RootModel.LEDs[2].CalculatorOutputString;
-                    step.ValueGet4 = RootModel.LEDs[3].CalculatorOutputString;
+                    step.ValueGet1 = PCB_SKIP_CHECK[0].IsWaiting ? RootModel.LEDs[0].CalculatorOutputString : "";
+                    step.ValueGet2 = PCB_SKIP_CHECK[1].IsWaiting ? RootModel.LEDs[1].CalculatorOutputString : "";
+                    step.ValueGet3 = PCB_SKIP_CHECK[2].IsWaiting ? RootModel.LEDs[2].CalculatorOutputString : "";
+                    step.ValueGet4 = PCB_SKIP_CHECK[3].IsWaiting ? RootModel.LEDs[3].CalculatorOutputString : "";
                     break;
                 case CMDs.LCD:
-                    ReadLCD(step);
+                    ReadLCD(step, PCB_SKIP_CHECK);
                     break;
                 case CMDs.PCB:
                     break;
+                case CMDs.CAM:
+                    CAM(step);
+                    break;
                 default:
+                    break;
+            }
+        }
 
+        #region Functions Code
+
+        // DMM read 
+        public async void DMM_Read(Step step, List<PBA> PBAs)
+        {
+            var start = DateTime.Now;
+            switch (step.cmd)
+            {
+                case CMDs.ACV:
+                    DMM_Rate modeAC = (DMM_Rate)Enum.Parse(typeof(DMM_Rate), step.Condition2, true);
+                    MUX_CARD.SetChannels(step.Condition1);
+                    switch (modeAC)
+                    {
+                        case DMM_Rate.NONE:
+                            break;
+                        case DMM_Rate.SLOW:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_slow_ACVFRQ).Wait();
+                            break;
+                        case DMM_Rate.MID:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_Mid_ACVFRQ).Wait();
+                            break;
+                        case DMM_Rate.FAST:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_Fast_ACVFRQ).Wait();
+                            break;
+                        default:
+                            break;
+                    }
+                    DMM1.ChangeRate(modeAC);
+                    DMM2.ChangeRate(modeAC);
+                    DMM1.SetMode(DMM_Mode.ACV).Wait();
+                    DMM2.SetMode(DMM_Mode.ACV).Wait();
+                    break;
+                case CMDs.DCV:
+                    MUX_CARD.SetChannels(step.Condition1);
+                    DMM_Rate modeDC = (DMM_Rate)Enum.Parse(typeof(DMM_Rate), step.Condition2, true);
+                    switch (modeDC)
+                    {
+                        case DMM_Rate.NONE:
+                            break;
+                        case DMM_Rate.SLOW:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_slow_DCV).Wait();
+                            break;
+                        case DMM_Rate.MID:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_Mid_DCV).Wait();
+                            break;
+                        case DMM_Rate.FAST:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_Fast_DCV).Wait();
+                            break;
+                        default:
+                            break;
+                    }
+                    DMM1.ChangeRate(modeDC);
+                    DMM2.ChangeRate(modeDC);
+                    DMM1.SetMode(DMM_Mode.DCV).Wait();
+                    DMM2.SetMode(DMM_Mode.DCV).Wait();
+                    break;
+                case CMDs.FRQ:
+                    MUX_CARD.SetChannels(step.Condition1);
+                    DMM_Rate modeFQR = (DMM_Rate)Enum.Parse(typeof(DMM_Rate), step.Condition2, true);
+                    switch (modeFQR)
+                    {
+                        case DMM_Rate.NONE:
+                            break;
+                        case DMM_Rate.SLOW:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_slow_ACVFRQ).Wait();
+                            break;
+                        case DMM_Rate.MID:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_Mid_ACVFRQ).Wait();
+                            break;
+                        case DMM_Rate.FAST:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_Fast_ACVFRQ).Wait();
+                            break;
+                        default:
+                            break;
+                    }
+                    DMM1.ChangeRate(modeFQR);
+                    DMM2.ChangeRate(modeFQR);
+                    DMM1.SetMode(DMM_Mode.FREQ).Wait();
+                    DMM2.SetMode(DMM_Mode.FREQ).Wait();
+                    break;
+                case CMDs.RES:
+                    MUX_CARD.SetChannels(step.Condition1);
+                    DMM_Rate modeRES = (DMM_Rate)Enum.Parse(typeof(DMM_Rate), step.Condition2, true);
+                    switch (modeRES)
+                    {
+                        case DMM_Rate.NONE:
+                            break;
+                        case DMM_Rate.SLOW:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_slow_RES).Wait();
+                            break;
+                        case DMM_Rate.MID:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_Mid_RES).Wait();
+                            break;
+                        case DMM_Rate.FAST:
+                            Task.Delay(appSetting.ETCSetting.MUXdelay_Fast_RES).Wait();
+                            break;
+                        default:
+                            break;
+                    }
+                    DMM1.ChangeRate(modeRES);
+                    DMM2.ChangeRate(modeRES);
+                    DMM1.SetMode(DMM_Mode.RES).Wait();
+                    DMM2.SetMode(DMM_Mode.RES).Wait();
                     break;
             }
 
+            step.ValueGet1 = (await DMM1.GetValue(true)).ToString();
+            step.ValueGet2 = (await DMM2.GetValue(true)).ToString();
 
 
 
-
+            Console.WriteLine(DateTime.Now.Subtract(start).TotalMilliseconds);
         }
 
 
 
+        public void URD(Step step, List<PBA> PBAs)
+        {
+            if (PBAs[0].IsWaiting) step.Result1 = UUTs[0].OpenPort() ? Step.Ok : Step.Ng;
+            if (PBAs[1].IsWaiting) step.Result2 = UUTs[1].OpenPort() ? Step.Ok : Step.Ng;
+            if (PBAs[2].IsWaiting) step.Result3 = UUTs[2].OpenPort() ? Step.Ok : Step.Ng;
+            if (PBAs[3].IsWaiting) step.Result4 = UUTs[3].OpenPort() ? Step.Ok : Step.Ng;
 
-        #region Functions Code
+            if (PBAs[0].IsWaiting) step.ValueGet1 = step.Result1 == Step.Ok ? Step.Ok : "Sys";
+            if (PBAs[1].IsWaiting) step.ValueGet2 = step.Result2 == Step.Ok ? Step.Ok : "Sys";
+            if (PBAs[2].IsWaiting) step.ValueGet3 = step.Result3 == Step.Ok ? Step.Ok : "Sys";
+            if (PBAs[3].IsWaiting) step.ValueGet4 = step.Result4 == Step.Ok ? Step.Ok : "Sys";
 
-        public void ReadLCD(Step step)
+            bool isOk = true;
+
+            if (PBAs[0].IsWaiting) isOk = isOk && step.Result1 == Step.Ok;
+            if (PBAs[1].IsWaiting) isOk = isOk && step.Result2 == Step.Ok;
+            if (PBAs[2].IsWaiting) isOk = isOk && step.Result3 == Step.Ok;
+            if (PBAs[3].IsWaiting) isOk = isOk && step.Result4 == Step.Ok;
+        }
+
+        public void CAM(Step step)
+        {
+            CameraStreaming.VideoProperties properties;
+            Enum.TryParse<CameraStreaming.VideoProperties>(step.Condition1, out properties);
+            if (properties == CameraStreaming.VideoProperties.Reset)
+            {
+                cameraStreaming.SetParammeter(RootModel.CameraSetting);
+                return;
+            }
+
+            int value = 0;
+            Int32.TryParse(step.Oper, out value);
+            cameraStreaming.SetParammeter(properties, value, true);
+        }
+
+        public void UTN(Step step, List<PBA> PBAs)
+        {
+            TxData txData = new TxData();
+            txData = RootModel.Naming.TxDatas.Where(x => x.Name == step.Condition1).DefaultIfEmpty(null).FirstOrDefault();
+
+            foreach (var item in UUTs)
+            {
+                if (step.Oper == "P1") item.Config = RootModel.P1_Config;
+                else if (step.Oper == "P2") item.Config = RootModel.P2_Config;
+            }
+
+            var startTime = DateTime.Now;
+            Int32 delay = 10;
+            Int32 limittime = 10;
+            int tryCount = 1;
+            Int32.TryParse(step.Count, out delay);
+            Int32.TryParse(step.Condition2, out limittime);
+            Int32.TryParse(step.Min, out tryCount);
+            if (txData == null)
+            {
+                if (PBAs[0].IsWaiting) step.ValueGet1 = "Naming";
+                if (PBAs[1].IsWaiting) step.ValueGet2 = "Naming";
+                if (PBAs[2].IsWaiting) step.ValueGet3 = "Naming";
+                if (PBAs[3].IsWaiting) step.ValueGet4 = "Naming";
+
+                if (PBAs[0].IsWaiting) step.Result1 = step.ValueGet1 == Step.Ok ? Step.Ok : Step.Ng;
+                if (PBAs[1].IsWaiting) step.Result2 = step.ValueGet2 == Step.Ok ? Step.Ok : Step.Ng;
+                if (PBAs[2].IsWaiting) step.Result3 = step.ValueGet3 == Step.Ok ? Step.Ok : Step.Ng;
+                if (PBAs[3].IsWaiting) step.Result4 = step.ValueGet4 == Step.Ok ? Step.Ok : Step.Ng;
+
+                return;
+            }
+            for (int i = 0; i <= tryCount; i++)
+            {
+                switch (step.Mode)
+                {
+                    case "NORMAL":
+                        if (PBAs[0].IsWaiting) step.Result1 = UUTs[0].Send(txData) ? Step.Ok : Step.Ng;
+                        if (PBAs[1].IsWaiting) step.Result2 = UUTs[1].Send(txData) ? Step.Ok : Step.Ng;
+                        if (PBAs[2].IsWaiting) step.Result3 = UUTs[2].Send(txData) ? Step.Ok : Step.Ng;
+                        if (PBAs[3].IsWaiting) step.Result4 = UUTs[3].Send(txData) ? Step.Ok : Step.Ng;
+
+                        if (PBAs[0].IsWaiting) step.ValueGet1 = step.Result1 == Step.Ok ? Step.Ok : "Tx";
+                        if (PBAs[1].IsWaiting) step.ValueGet2 = step.Result2 == Step.Ok ? Step.Ok : "Tx";
+                        if (PBAs[2].IsWaiting) step.ValueGet3 = step.Result3 == Step.Ok ? Step.Ok : "Tx";
+                        if (PBAs[3].IsWaiting) step.ValueGet4 = step.Result4 == Step.Ok ? Step.Ok : "Tx";
+
+                        bool isOk = true;
+
+                        if (PBAs[0].IsWaiting) isOk = isOk && step.Result1 == Step.Ok;
+                        if (PBAs[1].IsWaiting) isOk = isOk && step.Result2 == Step.Ok;
+                        if (PBAs[2].IsWaiting) isOk = isOk && step.Result3 == Step.Ok;
+                        if (PBAs[3].IsWaiting) isOk = isOk && step.Result4 == Step.Ok;
+
+                        if (isOk)
+                        {
+                            goto Finish;
+                        }
+                        break;
+
+                    case "R_WAIT":
+                        if (step.Condition1 != null)
+                        {
+                            if (PBAs[0].IsWaiting) step.ValueGet1 = UUTs[0].Send(txData) ? Step.Ok : "Tx";
+                            if (PBAs[1].IsWaiting) step.ValueGet2 = UUTs[1].Send(txData) ? Step.Ok : "Tx";
+                            if (PBAs[2].IsWaiting) step.ValueGet3 = UUTs[2].Send(txData) ? Step.Ok : "Tx";
+                            if (PBAs[3].IsWaiting) step.ValueGet4 = UUTs[3].Send(txData) ? Step.Ok : "Tx";
+
+                            step.Result = true;
+                            if (PBAs[0].IsWaiting) step.Result = step.Result || (step.Result1 == Step.Ok);
+                            if (PBAs[1].IsWaiting) step.Result = step.Result || (step.Result2 == Step.Ok);
+                            if (PBAs[2].IsWaiting) step.Result = step.Result || (step.Result3 == Step.Ok);
+                            if (PBAs[3].IsWaiting) step.Result = step.Result || (step.Result4 == Step.Ok);
+                            if (step.Result) break;
+
+                            Console.WriteLine();
+                            bool areadyHaveBuffer = true;
+                            var startWaitRx = DateTime.Now;
+                            while (DateTime.Now.Subtract(startWaitRx).TotalMilliseconds < limittime)
+                            {
+                                for (int pcb = 0; pcb < RootModel.contruction.PCB_Count; pcb++)
+                                {
+                                    areadyHaveBuffer = areadyHaveBuffer ? UUTs[pcb].HaveBuffer() : false;
+                                }
+
+                                if (areadyHaveBuffer)
+                                {
+                                    if (PBAs[0].IsWaiting) step.ValueGet1 = Step.Ok;
+                                    if (PBAs[1].IsWaiting) step.ValueGet2 = Step.Ok;
+                                    if (PBAs[2].IsWaiting) step.ValueGet3 = Step.Ok;
+                                    if (PBAs[3].IsWaiting) step.ValueGet4 = Step.Ok;
+                                    break;
+                                }
+                                else
+                                {
+                                    if (PBAs[0].IsWaiting && step.ValueGet1 != "Tx") step.ValueGet1 = UUTs[0].HaveBuffer() ? Step.Ok : "Rx";
+                                    if (PBAs[1].IsWaiting && step.ValueGet2 != "Tx") step.ValueGet2 = UUTs[1].HaveBuffer() ? Step.Ok : "Rx";
+                                    if (PBAs[2].IsWaiting && step.ValueGet3 != "Tx") step.ValueGet3 = UUTs[2].HaveBuffer() ? Step.Ok : "Rx";
+                                    if (PBAs[3].IsWaiting && step.ValueGet4 != "Tx") step.ValueGet4 = UUTs[3].HaveBuffer() ? Step.Ok : "Rx";
+                                }
+                            }
+                            if (areadyHaveBuffer) goto Finish;
+                        }
+                        break;
+                    case "SEND_R":
+                        if (step.Condition1 != null)
+                        {
+                            Console.WriteLine();
+                            bool areadyHaveBuffer = true;
+
+                            if (PBAs[0].IsWaiting) step.ValueGet1 = UUTs[0].Send(txData) ? Step.Ok : "Tx";
+                            if (PBAs[1].IsWaiting) step.ValueGet2 = UUTs[1].Send(txData) ? Step.Ok : "Tx";
+                            if (PBAs[2].IsWaiting) step.ValueGet3 = UUTs[2].Send(txData) ? Step.Ok : "Tx";
+                            if (PBAs[3].IsWaiting) step.ValueGet4 = UUTs[3].Send(txData) ? Step.Ok : "Tx";
+
+                            Task.Delay(delay).Wait();
+
+                            for (int pcb = 0; pcb < RootModel.contruction.PCB_Count; pcb++)
+                            {
+                                areadyHaveBuffer = areadyHaveBuffer && UUTs[pcb].HaveBuffer();
+                            }
+
+                            if (areadyHaveBuffer)
+                            {
+                                if (PBAs[0].IsWaiting) step.ValueGet1 = Step.Ok;
+                                if (PBAs[1].IsWaiting) step.ValueGet2 = Step.Ok;
+                                if (PBAs[2].IsWaiting) step.ValueGet3 = Step.Ok;
+                                if (PBAs[3].IsWaiting) step.ValueGet4 = Step.Ok;
+                            }
+                            else
+                            {
+                                if (PBAs[0].IsWaiting && step.ValueGet1 != "Tx") step.ValueGet1 = UUTs[0].HaveBuffer() ? Step.Ok : "Rx";
+                                if (PBAs[1].IsWaiting && step.ValueGet2 != "Tx") step.ValueGet2 = UUTs[1].HaveBuffer() ? Step.Ok : "Rx";
+                                if (PBAs[2].IsWaiting && step.ValueGet3 != "Tx") step.ValueGet3 = UUTs[2].HaveBuffer() ? Step.Ok : "Rx";
+                                if (PBAs[3].IsWaiting && step.ValueGet4 != "Tx") step.ValueGet4 = UUTs[3].HaveBuffer() ? Step.Ok : "Rx";
+                            }
+
+                            if (areadyHaveBuffer) goto Finish;
+                            if (DateTime.Now.Subtract(startTime).TotalMilliseconds > delay) goto Finish;
+                        }
+                        break;
+                    case "SEND-R":
+                        if (step.Condition1 != null)
+                        {
+                            Console.WriteLine();
+                            bool areadyHaveBuffer = true;
+
+                            if (PBAs[0].IsWaiting) step.ValueGet1 = UUTs[0].Send(txData) ? Step.Ok : "Tx";
+                            if (PBAs[1].IsWaiting) step.ValueGet2 = UUTs[1].Send(txData) ? Step.Ok : "Tx";
+                            if (PBAs[2].IsWaiting) step.ValueGet3 = UUTs[2].Send(txData) ? Step.Ok : "Tx";
+                            if (PBAs[3].IsWaiting) step.ValueGet4 = UUTs[3].Send(txData) ? Step.Ok : "Tx";
+
+                            step.Result = true;
+
+                            if (PBAs[0].IsWaiting) step.Result = step.Result || (step.Result1 == Step.Ok);
+                            if (PBAs[1].IsWaiting) step.Result = step.Result || (step.Result2 == Step.Ok);
+                            if (PBAs[2].IsWaiting) step.Result = step.Result || (step.Result3 == Step.Ok);
+                            if (PBAs[3].IsWaiting) step.Result = step.Result || (step.Result4 == Step.Ok);
+
+                            if (!step.Result) break;
+                            var startCheck = DateTime.Now;
+                            while (DateTime.Now.Subtract(startCheck).TotalMilliseconds < delay)
+                            {
+                                for (int pcb = 0; pcb < RootModel.contruction.PCB_Count; pcb++)
+                                {
+                                    areadyHaveBuffer = areadyHaveBuffer && UUTs[pcb].HaveBuffer();
+                                }
+
+                                if (areadyHaveBuffer)
+                                {
+                                    if (PBAs[0].IsWaiting) step.ValueGet1 = Step.Ok;
+                                    if (PBAs[1].IsWaiting) step.ValueGet2 = Step.Ok;
+                                    if (PBAs[2].IsWaiting) step.ValueGet3 = Step.Ok;
+                                    if (PBAs[3].IsWaiting) step.ValueGet4 = Step.Ok;
+                                }
+                                else
+                                {
+                                    if (PBAs[0].IsWaiting && step.ValueGet1 != "Tx") step.ValueGet1 = UUTs[0].HaveBuffer() ? Step.Ok : "Rx";
+                                    if (PBAs[1].IsWaiting && step.ValueGet2 != "Tx") step.ValueGet2 = UUTs[1].HaveBuffer() ? Step.Ok : "Rx";
+                                    if (PBAs[2].IsWaiting && step.ValueGet3 != "Tx") step.ValueGet3 = UUTs[2].HaveBuffer() ? Step.Ok : "Rx";
+                                    if (PBAs[3].IsWaiting && step.ValueGet4 != "Tx") step.ValueGet4 = UUTs[3].HaveBuffer() ? Step.Ok : "Rx";
+                                }
+
+                                if (areadyHaveBuffer) goto Finish;
+                                if (DateTime.Now.Subtract(startTime).TotalMilliseconds > limittime) goto Finish;
+                            }
+                           }
+                        break;
+                    case "TIMER":
+
+
+
+                        break;
+                    default:
+                        break;
+                }
+                Console.WriteLine("Try count" + i.ToString());
+            }
+
+        Finish:
+            if (PBAs[0].IsWaiting) step.Result1 = step.ValueGet1 == Step.Ok ? Step.Ok : Step.Ng;
+            if (PBAs[1].IsWaiting) step.Result2 = step.ValueGet2 == Step.Ok ? Step.Ok : Step.Ng;
+            if (PBAs[2].IsWaiting) step.Result3 = step.ValueGet3 == Step.Ok ? Step.Ok : Step.Ng;
+            if (PBAs[3].IsWaiting) step.Result4 = step.ValueGet4 == Step.Ok ? Step.Ok : Step.Ng;
+
+            Console.WriteLine("UTN time: " + DateTime.Now.Subtract(startTime).TotalMilliseconds);
+            //Task.Delay(delay).Wait();
+
+        }
+
+        public void UTX(Step step, List<PBA> PBAs)
+        {
+            foreach (var item in UUTs)
+            {
+                if (step.Oper == "P1") item.Config = RootModel.P1_Config;
+                else if (step.Oper == "P2") item.Config = RootModel.P2_Config;
+            }
+
+            var startTime = DateTime.Now;
+            Int32 delay = 10;
+            Int32 limittime = 10;
+            int tryCount = 1;
+            Int32.TryParse(step.Count, out delay);
+            Int32.TryParse(step.Condition2, out limittime);
+            Int32.TryParse(step.Min, out tryCount);
+
+            for (int i = 0; i <= tryCount; i++)
+            {
+                switch (step.Mode)
+                {
+                    case "NORMAL":
+                        if (step.Condition1 != null)
+                        {
+                            if (PBAs[0].IsWaiting) step.Result1 = UUTs[0].Send(step.Condition1) ? Step.Ok : Step.Ng;
+                            if (PBAs[1].IsWaiting) step.Result2 = UUTs[1].Send(step.Condition1) ? Step.Ok : Step.Ng;
+                            if (PBAs[2].IsWaiting) step.Result3 = UUTs[2].Send(step.Condition1) ? Step.Ok : Step.Ng;
+                            if (PBAs[3].IsWaiting) step.Result4 = UUTs[3].Send(step.Condition1) ? Step.Ok : Step.Ng;
+
+                            if (PBAs[0].IsWaiting) step.ValueGet1 = step.Result1 == Step.Ok ? Step.Ok : "Tx";
+                            if (PBAs[1].IsWaiting) step.ValueGet2 = step.Result2 == Step.Ok ? Step.Ok : "Tx";
+                            if (PBAs[2].IsWaiting) step.ValueGet3 = step.Result3 == Step.Ok ? Step.Ok : "Tx";
+                            if (PBAs[3].IsWaiting) step.ValueGet4 = step.Result4 == Step.Ok ? Step.Ok : "Tx";
+                        }
+                        bool isOk = true;
+                        if (PBAs[0].IsWaiting) isOk = isOk && step.Result1 == Step.Ok;
+                        if (PBAs[1].IsWaiting) isOk = isOk && step.Result2 == Step.Ok;
+                        if (PBAs[2].IsWaiting) isOk = isOk && step.Result3 == Step.Ok;
+                        if (PBAs[3].IsWaiting) isOk = isOk && step.Result4 == Step.Ok;
+
+                        if (isOk)
+                        {
+                            goto Finish;
+                        }
+                        break;
+
+                    case "R_WAIT":
+                        if (step.Condition1 != null)
+                        {
+                            if (PBAs[0].IsWaiting) step.ValueGet1 = UUTs[0].Send(step.Condition1) ? Step.Ok : "Tx";
+                            if (PBAs[1].IsWaiting) step.ValueGet2 = UUTs[1].Send(step.Condition1) ? Step.Ok : "Tx";
+                            if (PBAs[2].IsWaiting) step.ValueGet3 = UUTs[2].Send(step.Condition1) ? Step.Ok : "Tx";
+                            if (PBAs[3].IsWaiting) step.ValueGet4 = UUTs[3].Send(step.Condition1) ? Step.Ok : "Tx";
+
+                            step.Result = true;
+                            if (PBAs[0].IsWaiting) step.Result = step.Result || (step.Result1 == Step.Ok);
+                            if (PBAs[1].IsWaiting) step.Result = step.Result || (step.Result2 == Step.Ok);
+                            if (PBAs[2].IsWaiting) step.Result = step.Result || (step.Result3 == Step.Ok);
+                            if (PBAs[3].IsWaiting) step.Result = step.Result || (step.Result4 == Step.Ok);
+                            if (step.Result) break;
+
+                            Console.WriteLine();
+                            bool areadyHaveBuffer = true;
+                            var startWaitRx = DateTime.Now;
+                            while (DateTime.Now.Subtract(startWaitRx).TotalMilliseconds < limittime)
+                            {
+                                for (int pcb = 0; pcb < RootModel.contruction.PCB_Count; pcb++)
+                                {
+                                    areadyHaveBuffer = areadyHaveBuffer ? UUTs[pcb].HaveBuffer() : false;
+                                }
+
+                                if (areadyHaveBuffer)
+                                {
+                                    if (PBAs[0].IsWaiting) step.ValueGet1 = Step.Ok;
+                                    if (PBAs[1].IsWaiting) step.ValueGet2 = Step.Ok;
+                                    if (PBAs[2].IsWaiting) step.ValueGet3 = Step.Ok;
+                                    if (PBAs[3].IsWaiting) step.ValueGet4 = Step.Ok;
+                                    break;
+                                }
+                                else
+                                {
+
+                                    if (PBAs[0].IsWaiting) step.ValueGet1 = UUTs[0].HaveBuffer() ? Step.Ok : "Rx";
+                                    if (PBAs[1].IsWaiting) step.ValueGet2 = UUTs[1].HaveBuffer() ? Step.Ok : "Rx";
+                                    if (PBAs[2].IsWaiting) step.ValueGet3 = UUTs[2].HaveBuffer() ? Step.Ok : "Rx";
+                                    if (PBAs[3].IsWaiting) step.ValueGet4 = UUTs[3].HaveBuffer() ? Step.Ok : "Rx";
+                                }
+                                Task.Delay(50).Wait();
+                            }
+                            if (areadyHaveBuffer) goto Finish;
+
+                        }
+                        break;
+                    case "SEND_R":
+                        if (step.Condition1 != null)
+                        {
+                            Console.WriteLine();
+                            bool areadyHaveBuffer = true;
+
+                            if (PBAs[0].IsWaiting) step.ValueGet1 = UUTs[0].Send(step.Condition1) ? Step.Ok : "Tx";
+                            if (PBAs[1].IsWaiting) step.ValueGet2 = UUTs[1].Send(step.Condition1) ? Step.Ok : "Tx";
+                            if (PBAs[2].IsWaiting) step.ValueGet3 = UUTs[2].Send(step.Condition1) ? Step.Ok : "Tx";
+                            if (PBAs[3].IsWaiting) step.ValueGet4 = UUTs[3].Send(step.Condition1) ? Step.Ok : "Tx";
+
+                            step.Result = true;
+                            if (PBAs[0].IsWaiting) step.Result = step.Result || (step.Result1 == Step.Ok);
+                            if (PBAs[1].IsWaiting) step.Result = step.Result || (step.Result2 == Step.Ok);
+                            if (PBAs[2].IsWaiting) step.Result = step.Result || (step.Result3 == Step.Ok);
+                            if (PBAs[3].IsWaiting) step.Result = step.Result || (step.Result4 == Step.Ok);
+                            if (step.Result) break;
+
+                            Task.Delay(delay).Wait();
+
+                            for (int pcb = 0; pcb < RootModel.contruction.PCB_Count; pcb++)
+                            {
+                                areadyHaveBuffer = areadyHaveBuffer && UUTs[pcb].HaveBuffer();
+                            }
+
+                            if (areadyHaveBuffer)
+                            {
+                                if (PBAs[0].IsWaiting) step.ValueGet1 = Step.Ok;
+                                if (PBAs[1].IsWaiting) step.ValueGet2 = Step.Ok;
+                                if (PBAs[2].IsWaiting) step.ValueGet3 = Step.Ok;
+                                if (PBAs[3].IsWaiting) step.ValueGet4 = Step.Ok;
+                            }
+                            else
+                            {
+                                if (PBAs[0].IsWaiting) step.ValueGet1 = UUTs[0].HaveBuffer() ? Step.Ok : "Rx";
+                                if (PBAs[1].IsWaiting) step.ValueGet2 = UUTs[1].HaveBuffer() ? Step.Ok : "Rx";
+                                if (PBAs[2].IsWaiting) step.ValueGet3 = UUTs[2].HaveBuffer() ? Step.Ok : "Rx";
+                                if (PBAs[3].IsWaiting) step.ValueGet4 = UUTs[3].HaveBuffer() ? Step.Ok : "Rx";
+                            }
+
+                            if (areadyHaveBuffer) goto Finish;
+                            if (DateTime.Now.Subtract(startTime).TotalMilliseconds > limittime) goto Finish;
+                        }
+                        break;
+                    case "TIMER":
+
+
+
+                        break;
+                    default:
+                        break;
+                }
+                Console.WriteLine("Try count" + i.ToString());
+            }
+
+        Finish:
+            if (PBAs[0].IsWaiting) step.Result1 = step.ValueGet1 == Step.Ok ? Step.Ok : Step.Ng;
+            if (PBAs[1].IsWaiting) step.Result2 = step.ValueGet2 == Step.Ok ? Step.Ok : Step.Ng;
+            if (PBAs[2].IsWaiting) step.Result3 = step.ValueGet3 == Step.Ok ? Step.Ok : Step.Ng;
+            if (PBAs[3].IsWaiting) step.Result4 = step.ValueGet4 == Step.Ok ? Step.Ok : Step.Ng;
+
+            //Task.Delay(delay).Wait();
+        }
+
+        public void UCN(Step step, List<PBA> PBAs)
+        {
+            RxData rxData = new RxData();
+            rxData = RootModel.Naming.RxDatas.Where(x => x.Name == step.Condition1).DefaultIfEmpty(null).FirstOrDefault();
+
+            if (rxData != null)
+            {
+                if (PBAs[0].IsWaiting) step.ValueGet1 = UUTs[0].CheckBufferString(rxData);
+                if (PBAs[1].IsWaiting) step.ValueGet2 = UUTs[1].CheckBufferString(rxData);
+                if (PBAs[2].IsWaiting) step.ValueGet3 = UUTs[2].CheckBufferString(rxData);
+                if (PBAs[3].IsWaiting) step.ValueGet4 = UUTs[3].CheckBufferString(rxData);
+
+                if (PBAs[0].IsWaiting) step.Result1 = step.ValueGet1 == step.Spect ? Step.Ok : Step.Ng;
+                if (PBAs[1].IsWaiting) step.Result2 = step.ValueGet2 == step.Spect ? Step.Ok : Step.Ng;
+                if (PBAs[2].IsWaiting) step.Result3 = step.ValueGet3 == step.Spect ? Step.Ok : Step.Ng;
+                if (PBAs[3].IsWaiting) step.Result4 = step.ValueGet4 == step.Spect ? Step.Ok : Step.Ng;
+            }
+            else
+            {
+                if (PBAs[0].IsWaiting) step.Result1 = Step.Ng;
+                if (PBAs[1].IsWaiting) step.Result2 = Step.Ng;
+                if (PBAs[2].IsWaiting) step.Result3 = Step.Ng;
+                if (PBAs[3].IsWaiting) step.Result4 = Step.Ng;
+            }
+
+
+        }
+
+        public void ReadLCD(Step step, List<PBA> PBAs)
         {
             step.Result = false;
             StartUpdateLCD();
@@ -375,46 +943,49 @@ namespace HVT.VTM.Program
                 DateTime start = DateTime.Now;
                 while (DateTime.Now.Subtract(start).TotalMilliseconds < scanTime)
                 {
-                    step.ValueGet1 = step.Result1 != Step.Ok ? RootModel.LCDs[0].Data : step.ValueGet1;
-                    step.ValueGet2 = step.Result2 != Step.Ok ? RootModel.LCDs[1].Data : step.ValueGet1;
-                    step.ValueGet3 = step.Result3 != Step.Ok ? RootModel.LCDs[2].Data : step.ValueGet1;
-                    step.ValueGet4 = step.Result4 != Step.Ok ? RootModel.LCDs[3].Data : step.ValueGet1;
+                    if (PBAs[0].IsWaiting) step.ValueGet1 = step.Result1 != Step.Ok ? RootModel.LCDs[0].Data : step.ValueGet1;
+                    if (PBAs[1].IsWaiting) step.ValueGet2 = step.Result2 != Step.Ok ? RootModel.LCDs[1].Data : step.ValueGet1;
+                    if (PBAs[2].IsWaiting) step.ValueGet3 = step.Result3 != Step.Ok ? RootModel.LCDs[2].Data : step.ValueGet1;
+                    if (PBAs[3].IsWaiting) step.ValueGet4 = step.Result4 != Step.Ok ? RootModel.LCDs[3].Data : step.ValueGet1;
 
-                    step.Result1 = step.ValueGet1 == step.Oper ? Step.Ok : Step.Ng;
-                    step.Result2 = step.ValueGet2 == step.Oper ? Step.Ok : Step.Ng;
-                    step.Result3 = step.ValueGet3 == step.Oper ? Step.Ok : Step.Ng;
-                    step.Result4 = step.ValueGet4 == step.Oper ? Step.Ok : Step.Ng;
+                    if (PBAs[0].IsWaiting) step.Result1 = step.ValueGet1 == step.Oper ? Step.Ok : Step.Ng;
+                    if (PBAs[1].IsWaiting) step.Result2 = step.ValueGet2 == step.Oper ? Step.Ok : Step.Ng;
+                    if (PBAs[2].IsWaiting) step.Result3 = step.ValueGet3 == step.Oper ? Step.Ok : Step.Ng;
+                    if (PBAs[3].IsWaiting) step.Result4 = step.ValueGet4 == step.Oper ? Step.Ok : Step.Ng;
 
-                    if (step.Result1 == Step.Ok && step.Result2 == Step.Ok && step.Result3 == Step.Ok && step.Result4 == Step.Ok)
-                    {
-                        step.Result = true;
-                        break;
-                    }
+                    step.Result = true;
+                    if (PBAs[0].IsWaiting) step.Result = step.Result || (step.Result1 == Step.Ok);
+                    if (PBAs[1].IsWaiting) step.Result = step.Result || (step.Result2 == Step.Ok);
+                    if (PBAs[2].IsWaiting) step.Result = step.Result || (step.Result3 == Step.Ok);
+                    if (PBAs[3].IsWaiting) step.Result = step.Result || (step.Result4 == Step.Ok);
+                    if (step.Result) break;
+
                     Task.Delay(scanTime / 3);
                     StartUpdateLCD();
                 }
             }
             else
             {
-                step.ValueGet1 = RootModel.LCDs[0].Data;
-                step.ValueGet2 = RootModel.LCDs[1].Data;
-                step.ValueGet3 = RootModel.LCDs[2].Data;
-                step.ValueGet4 = RootModel.LCDs[3].Data;
+                if (PBAs[0].IsWaiting) step.ValueGet1 = RootModel.LCDs[0].Data;
+                if (PBAs[1].IsWaiting) step.ValueGet2 = RootModel.LCDs[1].Data;
+                if (PBAs[2].IsWaiting) step.ValueGet3 = RootModel.LCDs[2].Data;
+                if (PBAs[3].IsWaiting) step.ValueGet4 = RootModel.LCDs[3].Data;
 
-                step.Result1 = step.ValueGet1 == step.Oper ? Step.Ok : Step.Ng;
-                step.Result2 = step.ValueGet2 == step.Oper ? Step.Ok : Step.Ng;
-                step.Result3 = step.ValueGet3 == step.Oper ? Step.Ok : Step.Ng;
-                step.Result4 = step.ValueGet4 == step.Oper ? Step.Ok : Step.Ng;
+                if (PBAs[0].IsWaiting) step.Result1 = step.ValueGet1 == step.Oper ? Step.Ok : Step.Ng;
+                if (PBAs[1].IsWaiting) step.Result2 = step.ValueGet2 == step.Oper ? Step.Ok : Step.Ng;
+                if (PBAs[2].IsWaiting) step.Result3 = step.ValueGet3 == step.Oper ? Step.Ok : Step.Ng;
+                if (PBAs[3].IsWaiting) step.Result4 = step.ValueGet4 == step.Oper ? Step.Ok : Step.Ng;
 
-                if (step.Result1 == Step.Ok && step.Result2 == Step.Ok && step.Result3 == Step.Ok && step.Result4 == Step.Ok)
-                {
-                    step.Result = true;
-                }
+                step.Result = true;
+                if (PBAs[0].IsWaiting) step.Result = step.Result || (step.Result1 == Step.Ok);
+                if (PBAs[1].IsWaiting) step.Result = step.Result || (step.Result2 == Step.Ok);
+                if (PBAs[2].IsWaiting) step.Result = step.Result || (step.Result3 == Step.Ok);
+                if (PBAs[3].IsWaiting) step.Result = step.Result || (step.Result4 == Step.Ok);
             }
 
         }
 
-        public void ReadFND(Step step)
+        public void ReadFND(Step step, List<PBA> PBAs)
         {
             step.Result = false;
             if (int.TryParse(step.Condition2, out int scanTime))
@@ -432,11 +1003,12 @@ namespace HVT.VTM.Program
                     step.Result3 = step.ValueGet3 == step.Oper ? Step.Ok : Step.Ng;
                     step.Result4 = step.ValueGet4 == step.Oper ? Step.Ok : Step.Ng;
 
-                    if (step.Result1 == Step.Ok && step.Result2 == Step.Ok && step.Result3 == Step.Ok && step.Result4 == Step.Ok)
-                    {
-                        step.Result = true;
-                        break;
-                    }
+                    step.Result = true;
+                    if (PBAs[0].IsWaiting) step.Result = step.Result || (step.Result1 == Step.Ok);
+                    if (PBAs[1].IsWaiting) step.Result = step.Result || (step.Result2 == Step.Ok);
+                    if (PBAs[2].IsWaiting) step.Result = step.Result || (step.Result3 == Step.Ok);
+                    if (PBAs[3].IsWaiting) step.Result = step.Result || (step.Result4 == Step.Ok);
+                    if (step.Result) break;
                 }
             }
             else
@@ -451,10 +1023,11 @@ namespace HVT.VTM.Program
                 step.Result3 = step.ValueGet3 == step.Oper ? Step.Ok : Step.Ng;
                 step.Result4 = step.ValueGet4 == step.Oper ? Step.Ok : Step.Ng;
 
-                if (step.Result1 == Step.Ok && step.Result2 == Step.Ok && step.Result3 == Step.Ok && step.Result4 == Step.Ok)
-                {
-                    step.Result = true;
-                }
+                step.Result = true;
+                if (PBAs[0].IsWaiting) step.Result = step.Result || (step.Result1 == Step.Ok);
+                if (PBAs[1].IsWaiting) step.Result = step.Result || (step.Result2 == Step.Ok);
+                if (PBAs[2].IsWaiting) step.Result = step.Result || (step.Result3 == Step.Ok);
+                if (PBAs[3].IsWaiting) step.Result = step.Result || (step.Result4 == Step.Ok);
             }
 
         }

@@ -18,7 +18,8 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderThickness" TargetName="border" Value="0,0,0,1"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
+                <Setter Property="BorderThickness" TargetName="border" Value="1"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
@@ -236,7 +237,35 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
+    
+    <ControlTemplate x:Key="TabVTMControlRight" TargetType="{x:Type TabItem}">
+        <Border x:Name="Border" BorderThickness="0,1,1,1" BorderBrush="#FF2C333A" CornerRadius="0,4,4,0" Margin="0">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFC1B8B8" Offset="0.005"/>
+                    <GradientStop Color="#FF615A5A" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <ContentPresenter x:Name="ContentSite"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            ContentSource="Header"
+                            Margin="10,2"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter TargetName="Border" Property="Background" Value="#FF898F98" />
+                <Setter TargetName="Border" Property="Margin" Value="0,0,2,0" />
+                <Setter TargetName="Border" Property="Width" Value="48" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="False">
+                <Setter TargetName="Border" Property="Background" Value="#FF43474D" />
+                <Setter TargetName="Border" Property="Margin" Value="0,0,0,0" />
+                <Setter TargetName="Border" Property="Width" Value="50" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
     <ControlTemplate x:Key="NumberRickUpDown" TargetType="ScrollBar">
         <Grid x:Name="MainGrid" Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>

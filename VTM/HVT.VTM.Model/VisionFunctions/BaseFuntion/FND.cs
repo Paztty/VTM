@@ -50,7 +50,27 @@ namespace HVT.VTM.Base.VisionFunctions
                 };
             }
         }
+
+        private Canvas manualDisplay;
+        private Canvas ManualDisplay
+        {
+            get { return manualDisplay; }
+            set
+            {
+                ManualDisplaySize = new Rect()
+                {
+                    X = 0,
+                    Y = 0,
+                    Width = value.ActualWidth,
+                    Height = value.ActualHeight
+                };
+                manualDisplay = value;
+            }
+        }
+
         private Bitmap bitmap = null;
+        public string DetectString = "";
+        public BitmapSource DetectedImage;
 
         private Rect displaySize;
         public Rect DisplaySize
@@ -65,6 +85,14 @@ namespace HVT.VTM.Base.VisionFunctions
             get { return parentSize; }
             set { parentSize = value; }
         }
+        private Rect manualdisplaySize;
+        public Rect ManualDisplaySize
+        {
+            get { return manualdisplaySize; }
+            set { manualdisplaySize = value; }
+        }
+
+
 
         private double[] rt = new double[2] { 1, 1 };
         public double[] raito
@@ -109,7 +137,8 @@ namespace HVT.VTM.Base.VisionFunctions
             {
                 visibility = value;
                 Label.Visibility = value;
-
+                LabelDisplay.Visibility = value;
+                ManualLabelDisplay.Visibility = value;  
                 //LabelBotLeft.Visibility = value;
                 //LabelBotMid.Visibility = value;
                 //LabelBotRight.Visibility = value;
@@ -125,6 +154,18 @@ namespace HVT.VTM.Base.VisionFunctions
                 }
             }
         }
+
+        public Label ManualLabelDisplay = new Label()
+        {
+            Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0)),
+            Foreground = new SolidColorBrush(Colors.Red),
+            BorderBrush = new SolidColorBrush(Colors.Red),
+            BorderThickness = new Thickness(1),
+            Focusable = true,
+            VerticalContentAlignment = VerticalAlignment.Top,
+            HorizontalContentAlignment = HorizontalAlignment.Left,
+        };
+
         public Label LabelDisplay = new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0)),
@@ -132,7 +173,6 @@ namespace HVT.VTM.Base.VisionFunctions
             BorderBrush = new SolidColorBrush(Colors.Red),
             BorderThickness = new Thickness(1),
             Focusable = true,
-            Cursor = Cursors.SizeAll,
             VerticalContentAlignment = VerticalAlignment.Top,
             HorizontalContentAlignment = HorizontalAlignment.Left,
         };
@@ -251,6 +291,12 @@ namespace HVT.VTM.Base.VisionFunctions
             Size = new System.Windows.Size(10, 10)
         };
 
+        public Rect manualRectDisplay = new Rect()
+        {
+            Location = new Point(0, 0),
+            Size = new System.Windows.Size(10, 10)
+        };
+
 
         private string name;
         public string Name
@@ -277,20 +323,28 @@ namespace HVT.VTM.Base.VisionFunctions
                     {
                         rect.X = value.X;
                         rectDisplay.X = value.X * (displaySize.Width / parentSize.Width);
+                        manualRectDisplay.X = value.X * (ManualDisplaySize.Width / parentSize.Width);
                         rect.Width = value.Width;
                         rectDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
+                        manualRectDisplay.Width = value.Width * (ManualDisplaySize.Width / parentSize.Width);
                         Label.Width = value.Width;
                         LabelDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
+                        ManualLabelDisplay.Width = value.Width * (ManualDisplaySize.Width / parentSize.Width);
                     }
 
                     if (value.Y > 0 && value.Y < parentSize.Height - value.Height)
                     {
                         rect.Y = value.Y;
                         rectDisplay.Y = value.Y * (displaySize.Height / parentSize.Height);
+                        manualRectDisplay.Y = value.Y * (ManualDisplaySize.Height / parentSize.Height);
+
                         rect.Height = value.Height;
                         rectDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
+                        manualRectDisplay.Height = value.Height * (ManualDisplaySize.Height / parentSize.Height);
+
                         Label.Height = value.Height;
                         LabelDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
+                        ManualLabelDisplay.Height = value.Height * (ManualDisplaySize.Height / parentSize.Height);
                     }
                     Area = new Int32Rect((int)(value.X * raito[0]), (int)(value.Y * raito[1]), (int)(value.Width * raito[0]), (int)(value.Height * raito[1]));
                 }
@@ -299,15 +353,17 @@ namespace HVT.VTM.Base.VisionFunctions
 
         public FND() { }
 
-        public FND(int index, string context, Canvas parent, Canvas Display)
+        public FND(int index, string context, Canvas parent, Canvas Display, Canvas ManualDisplay)
         {
             this.Parent = parent;
             this.Display = Display;
+            this.ManualDisplay = ManualDisplay;
+
             Name = context;
             this.Rect = new Rect()
             {
-                X = parent.ActualWidth / 2 - 50,
-                Y = parent.ActualHeight / 8 * (2 * index - 1) - 25,
+                X = parent.ActualWidth - 110,
+                Y = 50 * index - 40,
                 Width = 100,
                 Height = 50,
             };
@@ -368,10 +424,11 @@ namespace HVT.VTM.Base.VisionFunctions
             LabelTopRight.GotKeyboardFocus += Label_GotKeyboardFocus;
         }
 
-        public void ReInit(Canvas parent, Canvas Display)
+        public void ReInit(Canvas parent, Canvas Display, Canvas manualDisplay)
         {
             this.Parent = parent;
             this.Display = Display;
+            this.ManualDisplay = manualDisplay;
 
             Label.GotKeyboardFocus += Label_GotKeyboardFocus;
             Label.LostKeyboardFocus += Label_LostKeyboardFocus;
@@ -673,10 +730,11 @@ namespace HVT.VTM.Base.VisionFunctions
             LabelTopRight.Visibility = Visibility.Visible;
         }
 
-        public void PlaceIn(Canvas placeCanvas, Canvas displayCanvas)
+        public void PlaceIn(Canvas placeCanvas, Canvas displayCanvas, Canvas manualCanvasDisplay)
         {
             Parent = placeCanvas;
             Display = displayCanvas;
+            ManualDisplay = manualCanvasDisplay;
 
             Canvas.SetTop(this.LabelDisplay, rectDisplay.Y);
             Canvas.SetLeft(this.LabelDisplay, rectDisplay.X);
@@ -710,6 +768,10 @@ namespace HVT.VTM.Base.VisionFunctions
 
             displayCanvas.Children.Add(LabelDisplay);
 
+            manualCanvasDisplay.Children.Add(ManualLabelDisplay);
+            Canvas.SetTop(this.ManualLabelDisplay, manualRectDisplay.Y);
+            Canvas.SetLeft(this.ManualLabelDisplay, manualRectDisplay.X);
+
             placeCanvas.Children.Add(Label);
 
             placeCanvas.Children.Add(LabelTopLeft);
@@ -730,6 +792,9 @@ namespace HVT.VTM.Base.VisionFunctions
 
             Canvas.SetTop(this.LabelDisplay, rectDisplay.Y);
             Canvas.SetLeft(this.LabelDisplay, rectDisplay.X);
+
+            Canvas.SetTop(this.ManualLabelDisplay, manualRectDisplay.Y);
+            Canvas.SetLeft(this.ManualLabelDisplay, manualRectDisplay.X);
 
             Canvas.SetTop(this.Label, rect.Y);
             Canvas.SetLeft(this.Label, rect.X);
@@ -763,20 +828,32 @@ namespace HVT.VTM.Base.VisionFunctions
             if (source != null)
             {
                 this.bitmap = VisionWorker.GetBitmap(source);
+                string str = "";
+                var result = VisionWorker.SeventSegmentDetect(bitmap, Threshold, out str);
+                var imageSource = VisionWorker.Convert(result);
+                this.DetectString = str;
+                this.DetectedImage = imageSource;
             }
         }
         public void SetImage(System.Windows.Controls.Image control, Label detectedResultlabel)
         {
-            if (bitmap != null && control != null)
+            if (DetectedImage != null && control != null)
+            {
+                control.Dispatcher.BeginInvoke(new Action(() => control.Source = DetectedImage));
+                detectedResultlabel.Content = DetectString;
+            }
+        }
+
+        public void GetValue()
+        {
+            if (bitmap != null )
             {
                 string str = "";
                 var result = VisionWorker.SeventSegmentDetect(bitmap, Threshold, out str);
                 var imageSource = VisionWorker.Convert(result);
-                Data = str;
-                control.Dispatcher.BeginInvoke(new Action(() => control.Source = imageSource));
-                detectedResultlabel.Content = str;
+                this.DetectString = str;
+                this.DetectedImage = imageSource;
             }
-
         }
     }
 }

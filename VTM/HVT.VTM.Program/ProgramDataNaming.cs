@@ -56,6 +56,7 @@ namespace HVT.VTM.Program
                         if (QRlink != null)
                         {
                             QRlink.Text = Naming.OpenQRNamingFile();
+
                             CommandDescriptions.QRnaming = Naming.QRDatas.Select(o => o.Context).ToList();
                             Command.UpdateCommand();
                             RootModel.Naming = Naming;

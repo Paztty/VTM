@@ -11,8 +11,8 @@ using System.Windows.Media.Imaging;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
-using Tesseract;
 using Rect = System.Windows.Rect;
+using Tesseract;
 
 namespace HVT.VTM.Base.VisionFunctions
 {
@@ -285,29 +285,36 @@ namespace HVT.VTM.Base.VisionFunctions
 
         #endregion
 
-
         #region Character Detect
-        public static TesseractEngine engine = new TesseractEngine(@"./TessData", "eng", EngineMode.TesseractAndLstm);
 
-        public static Bitmap DetectString(Bitmap bitmap, out string str)
+        static double map(float s, double a1, double a2, double b1, double b2)
         {
-            Bitmap output = (Bitmap)bitmap.Clone();
+            return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+        }
 
+        public static TesseractEngine engine = new TesseractEngine(@"./TessData", "eng", EngineMode.TesseractAndCube);
+
+        public static Bitmap DetectString(Bitmap bitmap, int Threshold, out string str)
+        {
+            DateTime now = DateTime.Now;
             Mat mat = bitmap.ToMat();
-            Mat matInv = new Mat();
-            Cv2.BitwiseNot(mat, matInv);
-            matInv = matInv.Threshold(175, 255, ThresholdTypes.Binary);
-            output = matInv.ToBitmap();
+            var Mat_Light = new Mat();
+            mat.ConvertTo(Mat_Light, mat.Type(), map(Threshold, 0,255 ,0.04 ,25) , 10);
+            var Mat_Gray = Mat_Light.CvtColor(ColorConversionCodes.RGB2GRAY);
+
+            Cv2.BitwiseNot(Mat_Gray, Mat_Gray);
+            Mat_Gray = Mat_Gray.CvtColor(ColorConversionCodes.GRAY2RGB);
+            Bitmap output = BitmapConverter.ToBitmap(Mat_Gray, PixelFormat.Format24bppRgb);
 
             var ocrtext = string.Empty;
             try
             {
                 using (var img = PixConverter.ToPix(output))
                 {
-                    using (var page = engine.Process(img))
+                    using (var page = engine.Process(img, PageSegMode.SingleBlock))
                     {
                         ocrtext = page.GetText();
-                        var rects = page.GetSegmentedRegions(PageIteratorLevel.Word);
+                        var rects = page.GetSegmentedRegions(PageIteratorLevel.Block);
                         Graphics g = Graphics.FromImage(output);
                         foreach (var r in rects)
                             g.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Blue), r);
@@ -320,36 +327,9 @@ namespace HVT.VTM.Base.VisionFunctions
             }
 
             str = ocrtext;
+            Console.WriteLine("detec string time = " + DateTime.Now.Subtract(now).TotalMilliseconds.ToString());
             return output;
         }
-
-
-        //        Bitmap output = (Bitmap)bitmap.Clone();
-        //        var ocrtext = string.Empty;
-        //            try
-        //            {
-        //                using (var engine = new TesseractEngine(@"./TessData", "eng", EngineMode.Default))
-        //                {
-        //                    using (var img = PixConverter.ToPix(bitmap))
-        //                    {
-        //                        using (var page = engine.Process(img))
-        //                        {
-        //                            ocrtext = page.GetText();
-        //                            var rects = page.GetSegmentedRegions(PageIteratorLevel.Block);
-        //        Graphics g = Graphics.FromImage(output);
-        //                            foreach (var r in rects)
-        //                                g.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Blue), r);
-        //                        }
-        //}
-        //                }
-        //            }
-        //            catch (Exception err)
-        //{
-        //    Console.WriteLine(err.Message);
-        //}
-
-        //str = ocrtext;
-        //return output;
         #endregion
     }
 }

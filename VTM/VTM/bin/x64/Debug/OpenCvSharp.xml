@@ -6576,6 +6576,21 @@
             <param name="scalar">scalar</param>
             <returns></returns>
         </member>
+        <member name="M:OpenCvSharp.ResourcesTracker.NewUMat">
+            <summary>
+            Create a new UMat instance, and trace it
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OpenCvSharp.ResourcesTracker.NewUMat(OpenCvSharp.Size,OpenCvSharp.MatType,OpenCvSharp.Scalar)">
+            <summary>
+             Create a new UMat instance, and trace it
+            </summary>
+            <param name="size">size</param>
+            <param name="matType">matType</param>
+            <param name="scalar">scalar</param>
+            <returns></returns>
+        </member>
         <member name="M:OpenCvSharp.ResourcesTracker.Dispose">
             <summary>
             Dispose all traced objects
@@ -6627,6 +6642,12 @@
         <member name="M:OpenCvSharp.Internal.NativeMethods.IsMono">
             <summary>
             Returns whether the runtime is Mono or not
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OpenCvSharp.Internal.NativeMethods.IsWasm">
+            <summary>
+            Returns whether the architecture is Wasm or not
             </summary>
             <returns></returns>
         </member>
@@ -6802,6 +6823,14 @@
         <member name="M:OpenCvSharp.Internal.Util.ArrayAddress2`1.GetDim2Lengths">
             <summary> 
             </summary>
+        </member>
+        <member name="M:OpenCvSharp.Internal.Util.EnumerableExtensions.CastOrToArray``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            enumerable as T[] ?? enumerable.ToArray()
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="enumerable"></param>
+            <returns></returns>
         </member>
         <member name="T:OpenCvSharp.Internal.Util.PInvokeHelper">
             <summary>
@@ -28146,6 +28175,117 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:OpenCvSharp.Segmentation.IntelligentScissorsMB">
+            <summary>
+            Intelligent Scissors image segmentation
+            
+            This class is used to find the path (contour) between two points
+            which can be used for image segmentation.
+            
+            Usage example:
+            @snippet snippets/imgproc_segmentation.cpp usage_example_intelligent_scissors
+            
+            Reference: Intelligent Scissors for Image Composition http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.138.3811&amp;rep=rep1&amp;type=pdf
+            algorithm designed by Eric N. Mortensen and William A. Barrett, Brigham Young University
+            @cite Mortensen95intelligentscissors
+            </summary>
+        </member>
+        <member name="M:OpenCvSharp.Segmentation.IntelligentScissorsMB.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:OpenCvSharp.Segmentation.IntelligentScissorsMB.DisposeUnmanaged">
+            <summary>
+            Releases unmanaged resources
+            </summary>
+        </member>
+        <member name="M:OpenCvSharp.Segmentation.IntelligentScissorsMB.SetWeights(System.Single,System.Single,System.Single)">
+            <summary>
+            Specify weights of feature functions
+            
+            Consider keeping weights normalized (sum of weights equals to 1.0)
+            Discrete dynamic programming (DP) goal is minimization of costs between pixels.
+            </summary>
+            <param name="weightNonEdge">Specify cost of non-edge pixels (default: 0.43f)</param>
+            <param name="weightGradientDirection">Specify cost of gradient direction function (default: 0.43f)</param>
+            <param name="weightGradientMagnitude">Specify cost of gradient magnitude function (default: 0.14f)</param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenCvSharp.Segmentation.IntelligentScissorsMB.SetGradientMagnitudeMaxLimit(System.Single)">
+            <summary>
+            Specify gradient magnitude max value threshold
+            
+            Zero limit value is used to disable gradient magnitude thresholding (default behavior, as described in original article).
+            Otherwize pixels with `gradient magnitude >= threshold` have zero cost.
+            
+            @note Thresholding should be used for images with irregular regions (to avoid stuck on parameters from high-contract areas, like embedded logos).
+            </summary>
+            <param name="gradientMagnitudeThresholdMax">Specify gradient magnitude max value threshold (default: 0, disabled)</param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenCvSharp.Segmentation.IntelligentScissorsMB.SetEdgeFeatureZeroCrossingParameters(System.Single)">
+            <summary>
+            Switch to "Laplacian Zero-Crossing" edge feature extractor and specify its parameters
+            
+            This feature extractor is used by default according to article.
+            
+            Implementation has additional filtering for regions with low-amplitude noise.
+            This filtering is enabled through parameter of minimal gradient amplitude (use some small value 4, 8, 16).
+            
+            @note Current implementation of this feature extractor is based on processing of grayscale images (color image is converted to grayscale image first).
+            
+            @note Canny edge detector is a bit slower, but provides better results (especially on color images): use setEdgeFeatureCannyParameters().
+            </summary>
+            <param name="gradientMagnitudeMinValue">Minimal gradient magnitude value for edge pixels (default: 0, check is disabled)</param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenCvSharp.Segmentation.IntelligentScissorsMB.SetEdgeFeatureCannyParameters(System.Double,System.Double,System.Int32,System.Boolean)">
+            <summary>
+            Switch edge feature extractor to use Canny edge detector
+            Note: "Laplacian Zero-Crossing" feature extractor is used by default (following to original article)
+            </summary>
+            <param name="threshold1"></param>
+            <param name="threshold2"></param>
+            <param name="apertureSize"></param>
+            <param name="l2gradient"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenCvSharp.Segmentation.IntelligentScissorsMB.ApplyImage(OpenCvSharp.InputArray)">
+            <summary>
+            Specify input image and extract image features
+            </summary>
+            <param name="image">input image. Type is #CV_8UC1 / #CV_8UC3</param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenCvSharp.Segmentation.IntelligentScissorsMB.ApplyImageFeatures(OpenCvSharp.InputArray,OpenCvSharp.InputArray,OpenCvSharp.InputArray,OpenCvSharp.InputArray)">
+            <summary>
+            Specify custom features of imput image
+            Customized advanced variant of applyImage() call.
+            </summary>
+            <param name="nonEdge">Specify cost of non-edge pixels. Type is CV_8UC1. Expected values are `{0, 1}`.</param>
+            <param name="gradientDirection">Specify gradient direction feature. Type is CV_32FC2. Values are expected to be normalized: `x^2 + y^2 == 1`</param>
+            <param name="gradientMagnitude">Specify cost of gradient magnitude function: Type is CV_32FC1. Values should be in range `[0, 1]`.</param>
+            <param name="image">Optional parameter. Must be specified if subset of features is specified (non-specified features are calculated internally)</param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenCvSharp.Segmentation.IntelligentScissorsMB.BuildMap(OpenCvSharp.Point)">
+            <summary>
+            Prepares a map of optimal paths for the given source point on the image
+            Note: applyImage() / applyImageFeatures() must be called before this call
+            </summary>
+            <param name="sourcePt">The source point used to find the paths</param>
+        </member>
+        <member name="M:OpenCvSharp.Segmentation.IntelligentScissorsMB.GetContour(OpenCvSharp.Point,OpenCvSharp.OutputArray,System.Boolean)">
+            <summary>
+            Extracts optimal contour for the given target point on the image
+            Note: buildMap() must be called before this call
+            </summary>
+            <param name="targetPt">The target point</param>
+            <param name="contour">contour The list of pixels which contains optimal path between the source and the target points of the image. 
+            Type is CV_32SC2 (compatible with `std::vector&lt;Point&gt;`)</param>
+            <param name="backward">Flag to indicate reverse order of retrived pixels (use "true" value to fetch points from the target to the source point)</param>
+        </member>
         <member name="T:OpenCvSharp.LineIterator">
             <summary>
             Contrast Limited Adaptive Histogram Equalization
@@ -30737,12 +30877,6 @@
             Type of a %SVM kernel. See SVM::KernelTypes. Default value is SVM::RBF.
             </summary>
         </member>
-        <member name="M:OpenCvSharp.ML.SVM.SetCustomKernel(OpenCvSharp.ML.SVM.Kernel)">
-            <summary>
-            Initialize with custom kernel.
-            </summary>
-            <param name="kernel"></param>
-        </member>
         <member name="M:OpenCvSharp.ML.SVM.TrainAuto(OpenCvSharp.ML.TrainData,System.Int32,System.Nullable{OpenCvSharp.ML.ParamGrid},System.Nullable{OpenCvSharp.ML.ParamGrid},System.Nullable{OpenCvSharp.ML.ParamGrid},System.Nullable{OpenCvSharp.ML.ParamGrid},System.Nullable{OpenCvSharp.ML.ParamGrid},System.Nullable{OpenCvSharp.ML.ParamGrid},System.Boolean)">
             <summary>
             Trains an %SVM with optimal parameters.
@@ -30791,16 +30925,6 @@
             <param name="paramId">SVM parameters IDs that must be one of the SVM::ParamTypes. 
             The grid is generated for the parameter with this ID.</param>
             <returns></returns>
-        </member>
-        <member name="T:OpenCvSharp.ML.SVM.Kernel">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:OpenCvSharp.ML.SVM.Kernel.#ctor">
-            <summary>
-            
-            </summary>
         </member>
         <member name="T:OpenCvSharp.ML.SVM.Types">
             <summary>

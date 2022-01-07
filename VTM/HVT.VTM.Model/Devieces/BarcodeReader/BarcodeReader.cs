@@ -12,12 +12,12 @@ namespace HVT.VTM.Base
         public SerialPort serialPort =
             new SerialPort()
             {
-                PortName = "COM4",
+                PortName = "COM1",
                 BaudRate = 115200,
                 Parity = Parity.None,
                 StopBits = StopBits.One,
             };
-        public string PortName { get; set; } = "COM4";
+        public string PortName { get; set; } = "COM1";
         public HVT.Utility.SerialDisplay SerialDisplay = new HVT.Utility.SerialDisplay();
         //event
         public event EventHandler OnReciverData;

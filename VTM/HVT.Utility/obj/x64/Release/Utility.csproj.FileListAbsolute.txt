@@ -13,3 +13,4 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Uti
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\x64\Release\HVT.Utility.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\x64\Release\HVT.Utility.pdb
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\x64\Release\Utility.csproj.CopyComplete
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.Utility\obj\x64\Release\Utility.csproj.AssemblyReference.cache

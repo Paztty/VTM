@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
 namespace HVT.VTM.Base
@@ -26,31 +27,62 @@ namespace HVT.VTM.Base
         ASCII,
     }
 
-    public class RxData
+    public class RxData : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
-        public RxDataKind dataKind { get; set; } = RxDataKind.bit;
         public RxDataType dataType { get; set; } = RxDataType.DEC;
-        public int No { get; set; }
+
+        private int no;
+        public int No
+        {
+            get { return no; }
+            set
+            {
+                if (no != value)
+                {
+                    no = value;
+                    NotifyPropertyChanged(nameof(No));
+                }
+            }
+        }
         public string Name { get; set; }
         public string ModeLoc { get; set; }
         public string Mode { get; set; }
         public string DataKind
         {
-            get => Extensions.ToEnumString(dataKind);
+            get => Extensions.ToEnumString(_dataKind);
             set
             {
                 if (value.Contains(')'))
                 {
-                    dataKind = Extensions.ToEnum<RxDataKind>(value);
+                    _dataKind = Extensions.ToEnum<RxDataKind>(value);
                 }
                 else
                 {
                     RxDataKind outvalue = dataKind;
-                    if (Enum.TryParse<RxDataKind>(value, out outvalue)) dataKind = outvalue;
+                    if (Enum.TryParse<RxDataKind>(value, out outvalue))
+                        _dataKind = outvalue;
                 }
             }
         }
+        public RxDataKind dataKind
+        {
+            get { return _dataKind; }
+            set
+            {
+                if (_dataKind != value)
+                {
+                    _dataKind = value;
+                    NotifyPropertyChanged(nameof(dataKind));
+                }
+            }
+        }
+        private RxDataKind _dataKind = RxDataKind.bit;
 
         public string MByte { get; set; }
         public string M_Mbit { get; set; }
@@ -74,6 +106,24 @@ namespace HVT.VTM.Base
         public override string ToString()
         {
             string strReturn = No + "," + Name + "," + ModeLoc + "," + Mode + "," + DataKind + "," + MByte + "," + M_Mbit + "," + M_Lbit + "," + LByte + "," + L_Mbit + "," + L_Lbit + "," + Type + "," + Remark;
+            return strReturn;
+        }
+
+        public string ToTooltipString()
+        {
+            string strReturn =
+                "No:\t\t" + No + Environment.NewLine +
+                "Name:\t\t" + Name + Environment.NewLine +
+                "Mode loc:\t" + ModeLoc +  Environment.NewLine +
+                "Mode:\t\t" + Mode + Environment.NewLine +
+                "Data kind:\t" + DataKind  + Environment.NewLine +
+                "M Byte:\t\t" + MByte+ Environment.NewLine +
+                "    |M bit:\t\t" + M_Mbit + Environment.NewLine +
+                "    |L bit:\t\t" + M_Lbit + Environment.NewLine +
+                "L Byte:\t\t" + LByte  + Environment.NewLine +
+                "    |M bit:\t\t" + L_Mbit  + Environment.NewLine +
+                "    |L bit:\t\t" + L_Lbit  + Environment.NewLine +
+                "Type:\t\t" + Type;
             return strReturn;
         }
     }

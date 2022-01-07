@@ -27,12 +27,31 @@ namespace HVT.VTM.Program
         private async void SetCamera(System.Windows.Controls.Image cameraHolder, System.Windows.Controls.Image cameraCrop)
         {
             Debug.Write("Camera initting....", Debug.ContentType.Notify);
-            var cameras = CameraDevicesEnumerator.GetAllConnectedCameras();
+            List<CameraDevice> cameras = new List<CameraDevice>();
+            try
+            {
+                cameras = CameraDevicesEnumerator.GetAllConnectedCameras();
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+                Debug.Write("No camare found: " + err.Message, Debug.ContentType.Error);
+                return;
+            }
             if (cameras.Count < 1)
             {
                 Debug.Write("No camare found.", Debug.ContentType.Error);
                 return;
             }
+            else
+            {
+                if (cameras[0].Name.ToLower().Contains("virtual"))
+                {
+                    Debug.Write("No camare found.", Debug.ContentType.Error);
+                    return;
+                }
+            }
+
             var selectedCameraDeviceId = cameras[0].OpenCvId;
             if (cameraStreaming == null || cameraStreaming.CameraDeviceId != selectedCameraDeviceId)
             {

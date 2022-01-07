@@ -10,11 +10,56 @@ namespace HVT.VTM.Base
 {
     public class Naming
     {
-        public ObservableCollection<TxData> TxDatas { get; set; } = new ObservableCollection<TxData>();
+        public static ObservableCollection<TxData> txDatas { get; set; } = new ObservableCollection<TxData>();
 
-        public ObservableCollection<RxData> RxDatas { get; set; } = new ObservableCollection<RxData>();
+        public static ObservableCollection<RxData> rxDatas { get; set; } = new ObservableCollection<RxData>();
 
-        public ObservableCollection<QRData> QRDatas { get; set; } = new ObservableCollection<QRData>();
+        public static ObservableCollection<QRData> qrDatas { get; set; } = new ObservableCollection<QRData>();
+
+        private ObservableCollection<TxData> _TxDatas { get; set; } = new ObservableCollection<TxData>();
+
+        private ObservableCollection<RxData> _RxDatas { get; set; } = new ObservableCollection<RxData>();
+
+        private ObservableCollection<QRData> _QRDatas { get; set; } = new ObservableCollection<QRData>();
+
+        public ObservableCollection<TxData> TxDatas {
+            get { return _TxDatas; }
+            set {
+                if (value != null)
+                {
+                    _TxDatas = value;
+                    txDatas.Clear();
+                    txDatas = value;
+                }
+            }
+        }
+
+        public ObservableCollection<RxData> RxDatas
+        {
+            get { return _RxDatas; }
+            set
+            {
+                if (value != null)
+                {
+                    _RxDatas = value;
+                    rxDatas.Clear();
+                    rxDatas = value;
+                }
+            }
+        }
+        public ObservableCollection<QRData> QRDatas
+        {
+            get { return _QRDatas; }
+            set
+            {
+                if (value != null)
+                {
+                    _QRDatas = value;
+                    qrDatas.Clear();
+                    qrDatas = value;
+                }
+            }
+        }
 
         public string OpenQRNamingFile()
         {

@@ -12,11 +12,9 @@ namespace HVT.VTM.Base
     // Step test 
     public class Step : INotifyPropertyChanged
     {
-        public const string DontCare = "0";
-        public const string Ok= "Ok";
+        public const string DontCare = "exe";
+        public const string Ok = "Ok";
         public const string Ng = "Ng";
-
-
 
         public int No { get; set; }
         public string IMQSCode { get; set; }
@@ -27,12 +25,20 @@ namespace HVT.VTM.Base
             get { return testContent; }
             set
             {
-                if (testContent != value && value.Length > 0)
+                if (testContent != value)
                 {
                     testContent = value;
                     NotifyPropertyChanged(nameof(TestContent));
-                    //IMQSCode = Naming.QRDatas.Where(x => x.Context == value).Select(x => x.Code).DefaultIfEmpty("").First();
-                    NotifyPropertyChanged(nameof(IMQSCode));
+                    if (testContent != null)
+                    {
+                        IMQSCode = Naming.qrDatas.Where(x => x.Context == value).Select(x => x.Code).DefaultIfEmpty("").First();
+                        NotifyPropertyChanged(nameof(IMQSCode));
+                    }
+                    else
+                    {
+                        IMQSCode = "";
+                        NotifyPropertyChanged(nameof(IMQSCode));
+                    }
                 }
             }
         }
@@ -63,13 +69,10 @@ namespace HVT.VTM.Base
             get { return cmd; }
             set
             {
-                if (cmd != value)
-                {
-                    cmd = value;
-                    NotifyPropertyChanged("CMD");
-                    CommandDescriptions = Command.Commands.SingleOrDefault(x => x.CMD == cmd);
-                    NotifyPropertyChanged("CommandDescriptions");
-                }
+                cmd = value;
+                NotifyPropertyChanged("CMD");
+                CommandDescriptions = Command.Commands.SingleOrDefault(x => x.CMD == cmd);
+                NotifyPropertyChanged("CommandDescriptions");
             }
         }
 
@@ -82,22 +85,96 @@ namespace HVT.VTM.Base
                 if (value != this.commandDescriptions)
                 {
                     this.commandDescriptions = value;
+                    NotifyPropertyChanged("CommandDescriptions");
                 }
             }
         }
 
-        public string Condition1 { get; set; }
+        private string _condition1;
+        public string Condition1Tooltip { get; set; } = "";
+        public string Condition1
+        {
+            get {
+                if (CommandDescriptions.Condition1 == "NAMING")
+                {
+                    var selected = Naming.txDatas.Where(o => o.Name == _condition1).FirstOrDefault();
+                    if (selected != null)
+                        Condition1Tooltip = selected.Data;
+                }
+
+                if (CommandDescriptions.Condition1 == "RX DATA NAME")
+                {
+                    var selected = Naming.rxDatas.Where(o => o.Name == _condition1).FirstOrDefault();
+                    if (selected != null)
+                    {
+                        Condition1Tooltip = selected.ToTooltipString();
+                    }
+                }
+                return _condition1;
+            }
+            set
+            {
+                _condition1 = value;
+                NotifyPropertyChanged(nameof(Condition1));
+            }
+        }
         public string Oper { get; set; }
 
         public string Condition2 { get; set; }
         public string Spect { get; set; }
-        public string Min_Max { get; set; }
-        public string Min { get; set; }
-        public string Max { get; set; }
+
+        private string min_max;
+        public string Min_Max {
+            get {
+                if (cmd == CMDs.UTN)
+                {
+                    return mode;
+                }
+                if (CommandDescriptions.Min == "MIN" && CommandDescriptions.Max == "MAX")
+                {
+                    return min + "~" + max;
+                }
+                else
+                {
+                    return Spect;
+                }
+            }
+            set { min_max = value; }
+        }
+
+        private string min;
+        public string Min
+        {
+            get { return min; }
+            set
+            {
+                if (value != min)
+                {
+                    min = value;
+                    NotifyPropertyChanged(nameof(Min));
+                }
+            }
+        }
+        private string max;
+        public string Max
+        {
+            get { return max; }
+            set
+            {
+                if (value != max)
+                {
+                    max = value;
+                    Min_Max = min + "~" + max;
+                    NotifyPropertyChanged(nameof(Max));
+                }
+            }
+        }
+
         public string ValueGet1data { get; set; }
         public string ValueGet2data { get; set; }
         public string ValueGet3data { get; set; }
         public string ValueGet4data { get; set; }
+
         public string Result1data { get; set; } = "";
         public string Result2data { get; set; } = "";
         public string Result3data { get; set; } = "";
@@ -113,13 +190,14 @@ namespace HVT.VTM.Base
             }
             set
             {
-               mode = value;
+                mode = value;
                 NotifyPropertyChanged("Mode");
             }
         }
 
         private int count;
-        public string Count {
+        public string Count
+        {
             get { return count.ToString(); }
             set
             {
@@ -146,7 +224,7 @@ namespace HVT.VTM.Base
                 if (value != this.ValueGet1data)
                 {
                     this.ValueGet1data = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(ValueGet1));
                 }
             }
         }
@@ -158,7 +236,7 @@ namespace HVT.VTM.Base
                 if (value != this.ValueGet2data)
                 {
                     this.ValueGet2data = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(ValueGet2));
                 }
             }
         }
@@ -170,7 +248,7 @@ namespace HVT.VTM.Base
                 if (value != this.ValueGet3data)
                 {
                     this.ValueGet3data = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(ValueGet3));
                 }
             }
         }
@@ -182,7 +260,7 @@ namespace HVT.VTM.Base
                 if (value != this.ValueGet4data)
                 {
                     this.ValueGet4data = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(ValueGet4));
                 }
             }
         }
@@ -211,7 +289,7 @@ namespace HVT.VTM.Base
             }
         }
         public string Result3
-        {  
+        {
             get { return Result3data; }
             set
             {

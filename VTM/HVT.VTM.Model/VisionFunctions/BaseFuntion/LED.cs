@@ -68,11 +68,11 @@ namespace HVT.VTM.Base.VisionFunctions
 
         public LED() { }
 
-        public LED(Canvas displayCanvas, Canvas placeCanvas, int index)
+        public LED(Canvas Manual, Canvas displayCanvas, Canvas placeCanvas, int index)
         {
             for (int i = 0; i < 32; i++)
             {
-                LEDs.Add(new SingleLED(i, index, placeCanvas, displayCanvas));
+                LEDs.Add(new SingleLED(i, index, placeCanvas, displayCanvas, Manual));
             }
         }
 
@@ -137,6 +137,34 @@ namespace HVT.VTM.Base.VisionFunctions
                 };
             }
         }
+
+        private Canvas manualDisplay;
+        private Canvas ManualDisplay
+        {
+            get { return manualDisplay; }
+            set
+            {
+                ManualDisplaySize = new Rect()
+                {
+                    X = 0,
+                    Y = 0,
+                    Width = value.ActualWidth,
+                    Height = value.ActualHeight
+                };
+                manualDisplay = value;
+            }
+        }
+
+
+
+
+        private Rect manualdisplaySize;
+        public Rect ManualDisplaySize
+        {
+            get { return manualdisplaySize; }
+            set { manualdisplaySize = value; }
+        }
+
         private Bitmap bitmap = null;
 
         private Rect displaySize;
@@ -175,6 +203,9 @@ namespace HVT.VTM.Base.VisionFunctions
                 elipDisplay.Width = value * (displaySize.Width / parentSize.Width) - 2;
                 elipDisplay.Height = value * (displaySize.Width / parentSize.Width) - 2;
 
+                elipManualDisplay.Width = value * (ManualDisplaySize.Width / parentSize.Width) - 2;
+                elipManualDisplay.Height = value * (ManualDisplaySize.Width / parentSize.Width) - 2;
+
                 Rect recNew = Rect;
                 recNew.Width = value;
                 recNew.Height = value;
@@ -205,21 +236,23 @@ namespace HVT.VTM.Base.VisionFunctions
                 intens = value;
                 Context.Dispatcher.BeginInvoke(new Action(() => Context.Foreground = new SolidColorBrush(Colors.Yellow)));
                 ContextDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Yellow)));
+                ContextManualDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Yellow)));
                 if (use)
                 {
                     if (value >= Thresh)
                     {
                         Label.Dispatcher.BeginInvoke(new Action(delegate
                         {
+                            elipManualDisplay.Fill = new SolidColorBrush(Colors.Green);
                             elipDisplay.Fill = new SolidColorBrush(Colors.Green);
                             elip.Fill = new SolidColorBrush(Colors.Green);
-
                         }));
                     }
                     else
                     {
                         Label.Dispatcher.BeginInvoke(new Action(delegate
                         {
+                            elipManualDisplay.Fill = new SolidColorBrush(Colors.Red);
                             elipDisplay.Fill = new SolidColorBrush(Colors.Red);
                             elip.Fill = new SolidColorBrush(Colors.Red);
                         }));
@@ -242,8 +275,10 @@ namespace HVT.VTM.Base.VisionFunctions
                     Visibility = Visibility.Visible;
                     Context.Dispatcher.BeginInvoke(new Action(() => Context.Foreground = new SolidColorBrush(Colors.Yellow)));
                     ContextDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Yellow)));
+                    ContextManualDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Yellow)));
                     Label.Dispatcher.BeginInvoke(new Action(delegate
                     {
+                        elipManualDisplay.Fill = new SolidColorBrush(Colors.Red);
                         elipDisplay.Fill = new SolidColorBrush(Colors.Red);
                         elip.Fill = new SolidColorBrush(Colors.Red);
                     }));
@@ -253,8 +288,10 @@ namespace HVT.VTM.Base.VisionFunctions
                     Visibility = Visibility.Hidden;
                     Context.Dispatcher.BeginInvoke(new Action(() => Context.Foreground = new SolidColorBrush(Colors.Red)));
                     ContextDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Red)));
+                    ContextManualDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Red)));
                     Label.Dispatcher.BeginInvoke(new Action(delegate
                     {
+                        elipManualDisplay.Fill = new SolidColorBrush(Colors.Yellow);
                         elipDisplay.Fill = new SolidColorBrush(Colors.Yellow);
                         elip.Fill = new SolidColorBrush(Colors.Yellow);
                     }));
@@ -311,14 +348,17 @@ namespace HVT.VTM.Base.VisionFunctions
             set
             {
                 visibility = value;
+                Label.Visibility = value;
                 if (value == Visibility.Visible)
                 {
                     LabelDisplay.Visibility = use ? Visibility.Visible : Visibility.Collapsed;
+                    LabelManualDisplay.Visibility = use ? Visibility.Visible : Visibility.Collapsed;
                 }
 
                 if (value != Visibility.Visible)
                 {
                     LabelDisplay.Visibility = value;
+                    LabelManualDisplay.Visibility = use ? Visibility.Visible : Visibility.Collapsed;
                     Keyboard.ClearFocus();
                 }
             }
@@ -340,6 +380,7 @@ namespace HVT.VTM.Base.VisionFunctions
             }
         }
 
+
         public Label Label = new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0)),
@@ -357,7 +398,6 @@ namespace HVT.VTM.Base.VisionFunctions
             Background = null,
             VerticalAlignment = VerticalAlignment.Stretch,
             HorizontalAlignment = HorizontalAlignment.Stretch
-
         };
 
         public Ellipse elip = new Ellipse()
@@ -402,6 +442,7 @@ namespace HVT.VTM.Base.VisionFunctions
             Fill = new SolidColorBrush(Colors.Yellow),
 
         };
+
         public Label ContextDisplay = new Label()
         {
             Foreground = new SolidColorBrush(Colors.Red),
@@ -411,6 +452,42 @@ namespace HVT.VTM.Base.VisionFunctions
             VerticalContentAlignment = VerticalAlignment.Center,
             HorizontalContentAlignment = HorizontalAlignment.Center,
         };
+
+        public Label LabelManualDisplay = new Label()
+        {
+            Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0)),
+            Foreground = new SolidColorBrush(Colors.Red),
+            Padding = new Thickness(0),
+            FontSize = 9,
+            Focusable = true,
+            VerticalContentAlignment = VerticalAlignment.Center,
+            HorizontalContentAlignment = HorizontalAlignment.Center,
+        };
+        public Grid gridManualDisplay = new Grid()
+        {
+            Background = null,
+            VerticalAlignment = VerticalAlignment.Stretch,
+            HorizontalAlignment = HorizontalAlignment.Stretch
+
+        };
+        public Ellipse elipManualDisplay = new Ellipse()
+        {
+            Width = 10,
+            Height = 10,
+            Fill = new SolidColorBrush(Colors.Yellow),
+
+        };
+
+        public Label ContextManualDisplay = new Label()
+        {
+            Foreground = new SolidColorBrush(Colors.Red),
+            Padding = new Thickness(0),
+            FontSize = 9,
+            Focusable = true,
+            VerticalContentAlignment = VerticalAlignment.Center,
+            HorizontalContentAlignment = HorizontalAlignment.Center,
+        };
+
 
         private Rect OfsetMove = new Rect();
 
@@ -428,6 +505,11 @@ namespace HVT.VTM.Base.VisionFunctions
         };
 
 
+        public Rect manualRectDisplay = new Rect()
+        {
+            Location = new System.Windows.Point(0, 0),
+            Size = new System.Windows.Size(10, 10)
+        };
 
         public Rect Rect
         {
@@ -440,26 +522,38 @@ namespace HVT.VTM.Base.VisionFunctions
                     {
                         elip.Width = value.Width;
                         elipDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
+                        elipManualDisplay.Width = value.Width * (ManualDisplaySize.Width / parentSize.Width);
 
                         rect.X = value.X;
                         rectDisplay.X = value.X * (displaySize.Width / parentSize.Width);
+                        manualRectDisplay.X = value.X * (ManualDisplaySize.Width / parentSize.Width);
+
                         rect.Width = value.Width;
                         rectDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
+                        manualRectDisplay.Width = value.Width * (ManualDisplaySize.Width / parentSize.Width);
+
                         Label.Width = value.Width;
                         LabelDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
+                        LabelManualDisplay.Width = value.Width * (ManualDisplaySize.Width / parentSize.Width);
                     }
 
                     if (value.Y > 0 && value.Y < parentSize.Height - value.Height)
                     {
                         elip.Height = value.Height;
                         elipDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
+                        elipManualDisplay.Height = value.Height * (ManualDisplaySize.Height / parentSize.Height);
 
                         rect.Y = value.Y;
                         rectDisplay.Y = value.Y * (displaySize.Height / parentSize.Height);
+                        manualRectDisplay.Y = value.Y * (ManualDisplaySize.Height / parentSize.Height);
+
                         rect.Height = value.Height;
                         rectDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
+                        manualRectDisplay.Height = value.Height * (ManualDisplaySize.Height / parentSize.Height);
+
                         Label.Height = value.Height;
                         LabelDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
+                        LabelManualDisplay.Height = value.Height * (ManualDisplaySize.Height / parentSize.Height);
                     }
                     Area = new Int32Rect((int)(rect.X * raito[0]), (int)(rect.Y * raito[1]), (int)(rect.Width * raito[0]), (int)(rect.Height * raito[1]));
                 }
@@ -468,18 +562,20 @@ namespace HVT.VTM.Base.VisionFunctions
 
         public SingleLED() { }
 
-        public SingleLED(int index, int yIndex, Canvas parent, Canvas Display)
+        public SingleLED(int index, int yIndex, Canvas parent, Canvas Display, Canvas Manual)
         {
             this.Parent = parent;
             this.Display = Display;
+            this.ManualDisplay = Manual;
             Index = index;
             this.Rect = new Rect()
             {
                 X = index * 20 + 2,
-                Y = parent.ActualHeight / 4 * yIndex + 2 + 25,
+                Y = yIndex < 2 ? parent.ActualHeight / 10 * yIndex + 2 + 25 : parent.ActualHeight - (parent.ActualHeight / 10 * (4 - yIndex) + 2) + 25,
                 Width = 15,
                 Height = 15,
             };
+
             dir = 15;
             Name = index.ToString();
 
@@ -489,8 +585,12 @@ namespace HVT.VTM.Base.VisionFunctions
             gridDisplay.Children.Add(elipDisplay);
             gridDisplay.Children.Add(ContextDisplay);
 
+            gridManualDisplay.Children.Add(elipManualDisplay);
+            gridManualDisplay.Children.Add(ContextManualDisplay);
+
             LabelDisplay.Content = gridDisplay;
             Label.Content = grid;
+            LabelManualDisplay.Content = gridManualDisplay;
 
             Label.GotKeyboardFocus += Label_GotKeyboardFocus;
             Label.LostKeyboardFocus += Label_LostKeyboardFocus;
@@ -502,18 +602,24 @@ namespace HVT.VTM.Base.VisionFunctions
             Visibility = Use ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        public void ReInit(Canvas parent, Canvas Display)
+        public void ReInit(Canvas parent, Canvas Display, Canvas Manual)
         {
             this.Parent = parent;
             this.Display = Display;
+            this.ManualDisplay = Manual;
+
             grid.Children.Add(elip);
             grid.Children.Add(Context);
 
             gridDisplay.Children.Add(elipDisplay);
             gridDisplay.Children.Add(ContextDisplay);
 
+            gridManualDisplay.Children.Add(elipManualDisplay);
+            gridManualDisplay.Children.Add(ContextManualDisplay);
+
             LabelDisplay.Content = gridDisplay;
             Label.Content = grid;
+            LabelManualDisplay.Content = gridManualDisplay;
 
             Label.GotKeyboardFocus += Label_GotKeyboardFocus;
             Label.LostKeyboardFocus += Label_LostKeyboardFocus;
@@ -608,20 +714,26 @@ namespace HVT.VTM.Base.VisionFunctions
             Label.BorderThickness = new Thickness(2);
         }
 
-        public void PlaceIn(Canvas placeCanvas, Canvas displayCanvas)
+        public void PlaceIn(Canvas placeCanvas, Canvas displayCanvas, Canvas Manual)
         {
             Parent = placeCanvas;
             Display = displayCanvas;
+            ManualDisplay = Manual;
 
             Canvas.SetTop(this.LabelDisplay, rectDisplay.Y);
             Canvas.SetLeft(this.LabelDisplay, rectDisplay.X);
 
-            displayCanvas.Children.Add(LabelDisplay);
-
-            placeCanvas.Children.Add(Label);
-
             Canvas.SetTop(this.Label, rect.Y);
             Canvas.SetLeft(this.Label, rect.X);
+
+            Canvas.SetTop(this.LabelDisplay, manualRectDisplay.Y);
+            Canvas.SetLeft(this.LabelDisplay, manualRectDisplay.X);
+
+            Manual.Children.Add(this.LabelManualDisplay);
+            displayCanvas.Children.Add(LabelDisplay);
+            placeCanvas.Children.Add(Label);
+
+
         }
         public void SetPosition()
         {
@@ -632,6 +744,9 @@ namespace HVT.VTM.Base.VisionFunctions
 
             Canvas.SetTop(this.Label, rect.Y);
             Canvas.SetLeft(this.Label, rect.X);
+
+            Canvas.SetTop(this.LabelManualDisplay, manualRectDisplay.Y);
+            Canvas.SetLeft(this.LabelManualDisplay, manualRectDisplay.X);
 
         }
         public string GetImage(BitmapSource source)

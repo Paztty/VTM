@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HVT.Utility
@@ -29,12 +30,22 @@ namespace HVT.Utility
         // JSON convert opject to String
         public static string ConvertToJson<T>(this T source)
         {
-            return JsonSerializer.Serialize(source);
+            JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                MaxDepth = 1024,
+                WriteIndented = true
+            };
+            return JsonSerializer.Serialize(source, options);
         }
 
         public static T ConvertFromJson<T>(string jsonStr)
         {
-            return JsonSerializer.Deserialize<T>(jsonStr);
+            JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                MaxDepth = 1024,
+                WriteIndented = true
+            };
+            return JsonSerializer.Deserialize<T>(jsonStr, options);
         }
 
         //Encoder string
@@ -60,16 +71,19 @@ namespace HVT.Utility
                     JsonSerializerOptions options = new JsonSerializerOptions()
                     {
                         MaxDepth = 1024,
+                        WriteIndented = true
                     };
 
                     var serialized = File.ReadAllText(FileName);
                     serialized = Decoder(serialized, Encoding.UTF7);
+                    Console.WriteLine(serialized);
                     File.AppendAllText(LogFile, DateTime.Now.ToString() + "Extension : Open from file SUCCESS " + FileName + Environment.NewLine + serialized + Environment.NewLine);
                     return JsonSerializer.Deserialize<T>(serialized, options);
 
                 }
                 catch (Exception err)
                 {
+                    MessageBox.Show(err.StackTrace);
                     File.AppendAllText(LogFile, DateTime.Now.ToString() + "Extension : Open from file FAIL - " + FileName + err.Message + Environment.NewLine);
                 }
             }
@@ -77,7 +91,7 @@ namespace HVT.Utility
             {
                 //MessageBox.Show( Resource.ProgramContext_en_US.FileNotFound + ": " + FileName);
             }
-            return default(T);
+            return default;
         }
 
         public static bool SaveToFile<T>(this T source, string FileName)
@@ -87,8 +101,9 @@ namespace HVT.Utility
                 JsonSerializerOptions options = new JsonSerializerOptions()
                 {
                     MaxDepth = 1024,
+                    WriteIndented = true
                 };
-                    
+
                 var strToSave = JsonSerializer.Serialize(source, options);
 
                 File.WriteAllText("modelText.txt", strToSave);

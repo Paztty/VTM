@@ -17,14 +17,16 @@ namespace HVT.VTM.Base
 {
     public partial class Model : ICloneable
     {
+
         public string Name { get; set; }
         public string Path { get; set; }
 
-        // PCB 
+        #region PCB layout
         public Contruction contruction { get; set; } = new Contruction();
 
+        #endregion
 
-        // Error Positions set
+        #region Error Positions set
         public class ErrorPosition
         {
             public readonly System.Windows.Controls.Label rect = new System.Windows.Controls.Label()
@@ -76,12 +78,37 @@ namespace HVT.VTM.Base
             public string Position { get; set; }
         }
         public List<ErrorPosition> ErrorPositions { get; set; } = new List<ErrorPosition>();
+        #endregion
 
-        // Step test 
+        #region Step test 
         public ObservableCollection<Step> Steps { get; set; } = new ObservableCollection<Step>();
 
+        public void CleanSteps()
+        {
+            foreach (var step in Steps)
+            {
+                step.Result1 = "";
+                step.Result2 = "";
+                step.Result3 = "";
+                step.Result4 = "";
 
-        //Barcode settup
+                step.ValueGet1 = "";
+                step.ValueGet2 = "";
+                step.ValueGet3 = "";
+                step.ValueGet4 = "";
+            }
+        }
+
+        public void UpdateCommand()
+        {
+            foreach (var step in Steps)
+            {
+                step.CommandDescriptions = Command.Commands.SingleOrDefault(x => x.CMD == step.cmd);
+            }
+        }
+        #endregion
+
+        #region Barcode settup
         public class Barcode
         {
             public int No { get; set; }
@@ -97,106 +124,128 @@ namespace HVT.VTM.Base
          new Barcode(){No = 2, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
          new Barcode(){No = 3, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
         };
-        public ObservableCollection<string> BarcodesWaitting = new ObservableCollection<string>() { "", "", "", "" };
+        public ObservableCollection<Barcode> BarcodesWaitting = new ObservableCollection<Barcode>()
+        {
+         new Barcode(){No = 0, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
+         new Barcode(){No = 1, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
+         new Barcode(){No = 2, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
+         new Barcode(){No = 3, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
+        };
+        #endregion
+
+        #region Naming
         //Serial naming
-        public Naming Naming { get; set; }
+        private Naming _naming = new Naming();
+        public Naming Naming
+        {
+            get { return _naming; }
+            set
+            {
+                _naming = value;
+            }
+        }
+        #endregion
 
+        #region Camera setting
+        public bool HaveApplyCamsetting = false;
+        private CameraSetting _cameraSetting = new CameraSetting();
+        public CameraSetting CameraSetting
+        {
+            get { return _cameraSetting; }
+            set { _cameraSetting = value; }
+        }
+        #endregion
 
-        //Vision test 
+        #region Vision test 
 
-        private List<VisionFunctions.FND> fNDs;
-        private List<VisionFunctions.LCD> lCDs;
-        private List<VisionFunctions.GLED> gLEDs;
-        private List<VisionFunctions.LED> lEDs;
-
-        public List<VisionFunctions.FND> FNDs { get; set ; }
+        public List<VisionFunctions.FND> FNDs { get; set; }
         public List<VisionFunctions.LCD> LCDs { get; set; }
         public List<VisionFunctions.GLED> GLEDs { get; set; }
         public List<VisionFunctions.LED> LEDs { get; set; }
 
-        public void VisionTestInit(Canvas DrawingCanvas, Canvas DisplayFunction)
+        public void VisionTestInit(Canvas DrawingCanvas, Canvas DisplayFunction, Canvas ManualDisplayCanvas)
         {
-             FNDs = new List<Base.VisionFunctions.FND>()
+            FNDs = new List<Base.VisionFunctions.FND>()
                     {
-                    new Base.VisionFunctions.FND(1, "FND A", DrawingCanvas, DisplayFunction),
-                    new Base.VisionFunctions.FND(2, "FND B", DrawingCanvas, DisplayFunction),
-                    new Base.VisionFunctions.FND(3, "FND C", DrawingCanvas, DisplayFunction),
-                    new Base.VisionFunctions.FND(4, "FND D", DrawingCanvas, DisplayFunction),
+                    new Base.VisionFunctions.FND(1, "FND A", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
+                    new Base.VisionFunctions.FND(2, "FND B", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
+                    new Base.VisionFunctions.FND(3, "FND C", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
+                    new Base.VisionFunctions.FND(4, "FND D", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
                     };
 
-             LCDs = new List<Base.VisionFunctions.LCD>()
+            LCDs = new List<Base.VisionFunctions.LCD>()
                     {
-                    new Base.VisionFunctions.LCD(1, "LCD A", DrawingCanvas, DisplayFunction),
-                    new Base.VisionFunctions.LCD(2, "LCD B", DrawingCanvas, DisplayFunction),
-                    new Base.VisionFunctions.LCD(3, "LCD C", DrawingCanvas, DisplayFunction),
-                    new Base.VisionFunctions.LCD(4, "LCD D", DrawingCanvas, DisplayFunction),
+                    new Base.VisionFunctions.LCD(1, "LCD A", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
+                    new Base.VisionFunctions.LCD(2, "LCD B", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
+                    new Base.VisionFunctions.LCD(3, "LCD C", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
+                    new Base.VisionFunctions.LCD(4, "LCD D", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
                     };
 
-             GLEDs = new List<Base.VisionFunctions.GLED>()
+            GLEDs = new List<Base.VisionFunctions.GLED>()
             {
-                new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 0),
-                new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 1),
-                new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 2),
-                new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 3),
+                new Base.VisionFunctions.GLED(ManualDisplayCanvas, DisplayFunction, DrawingCanvas, 0),
+                new Base.VisionFunctions.GLED(ManualDisplayCanvas, DisplayFunction, DrawingCanvas, 1),
+                new Base.VisionFunctions.GLED(ManualDisplayCanvas, DisplayFunction, DrawingCanvas, 2),
+                new Base.VisionFunctions.GLED(ManualDisplayCanvas, DisplayFunction, DrawingCanvas, 3),
             };
 
-             LEDs = new List<Base.VisionFunctions.LED>()
+            LEDs = new List<Base.VisionFunctions.LED>()
             {
-                new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 0),
-                new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 1),
-                new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 2),
-                new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 3),
+                new Base.VisionFunctions.LED(ManualDisplayCanvas, DisplayFunction, DrawingCanvas, 0),
+                new Base.VisionFunctions.LED(ManualDisplayCanvas, DisplayFunction, DrawingCanvas, 1),
+                new Base.VisionFunctions.LED(ManualDisplayCanvas, DisplayFunction, DrawingCanvas, 2),
+                new Base.VisionFunctions.LED(ManualDisplayCanvas, DisplayFunction, DrawingCanvas, 3),
             };
 
 
-            foreach (var item in  FNDs)
+            foreach (var item in FNDs)
             {
-                item.PlaceIn(DrawingCanvas, DisplayFunction);
+                item.PlaceIn(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
             }
-            foreach (var item in  LCDs)
+            foreach (var item in LCDs)
             {
-                item.PlaceIn(DrawingCanvas, DisplayFunction);
+                item.PlaceIn(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
             }
-            foreach (var item in  GLEDs)
+            foreach (var item in GLEDs)
             {
                 foreach (var led in item.GLEDs)
                 {
-                    led.PlaceIn(DrawingCanvas, DisplayFunction);
+                    led.PlaceIn(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
                 }
             }
-            foreach (var item in  LEDs)
+            foreach (var item in LEDs)
             {
                 foreach (var led in item.LEDs)
                 {
-                    led.PlaceIn(DrawingCanvas, DisplayFunction);
+                    led.PlaceIn(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
                 }
             }
 
         }
 
-        public void ReplaceComponent(Canvas DrawingCanvas, Canvas DisplayFunction)
+        public void ReplaceComponent(Canvas DrawingCanvas, Canvas DisplayFunction, Canvas ManualDisplayCanvas)
         {
             DrawingCanvas.Children.Clear();
             DisplayFunction.Children.Clear();
+            ManualDisplayCanvas.Children.Clear();
 
             foreach (var item in FNDs)
             {
-                item.ReInit(DrawingCanvas, DisplayFunction);
-                item.PlaceIn(DrawingCanvas, DisplayFunction);
-                
+                item.ReInit(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
+                item.PlaceIn(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
             }
             foreach (var item in LCDs)
             {
-                item.ReInit(DrawingCanvas, DisplayFunction);
-                item.PlaceIn(DrawingCanvas, DisplayFunction);
+                item.ReInit(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
+                item.PlaceIn(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
             }
             foreach (var item in GLEDs)
             {
                 foreach (var led in item.GLEDs)
                 {
 
-                    led.ReInit(DrawingCanvas, DisplayFunction);
-                    led.PlaceIn(DrawingCanvas, DisplayFunction);
+                    led.ReInit(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
+                    led.PlaceIn(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
                 }
             }
             foreach (var item in LEDs)
@@ -204,34 +253,81 @@ namespace HVT.VTM.Base
                 foreach (var led in item.LEDs)
                 {
 
-                    led.ReInit(DrawingCanvas, DisplayFunction);
-                    led.PlaceIn(DrawingCanvas, DisplayFunction);
+                    led.ReInit(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
+                    led.PlaceIn(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
                 }
             }
 
         }
 
-        //Event
+        #endregion
+
+        #region UUT config
+
+        private UUT_Config p1_Config = new UUT_Config();
+        private UUT_Config p2_Config = new UUT_Config();
+
+        public UUT_Config P1_Config
+        {
+            get { return p1_Config; }
+            set
+            {
+                if (p1_Config != value)
+                {
+                    p1_Config = value;
+                }
+            }
+        }
+        public UUT_Config P2_Config
+        {
+            get { return p2_Config; }
+            set
+            {
+                if (p2_Config != value)
+                {
+                    p2_Config = value;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Event
         public event EventHandler LoadFinish;
+
+        #endregion
+
 
         public void LoadFinishEvent()
         {
+            foreach (var item in Barcodes) item.BarcodeData = "";
             LoadFinish?.Invoke(null, null);
         }
 
-        public Model() { }
-
-        public void Init()
+        public void Contruction_ContructionChanged()
         {
+            Barcodes = new ObservableCollection<Barcode> { };
+            BarcodesWaitting = new ObservableCollection<Barcode> { };
 
+            for (int i = 0; i < contruction.PCB_Count; i++)
+            {
+                Barcodes.Add(new Barcode() { No = i + 1, BarcodeData = "", Lenght = 23, StartModelCodePosition = 3, ModelCode = "" });
+                BarcodesWaitting.Add(new Barcode() { No = i + 1, BarcodeData = "", Lenght = 23, StartModelCodePosition = 3, ModelCode = "" });
+            }
+        }
+
+        public Model() {
+            Steps.Add(new Step()
+            {
+                No = 1,
+            });
         }
 
         public void Load()
         {
             OpenFileDialog openFile = new OpenFileDialog
             {
-                DefaultExt = ".model",
-                Title = "Open model",
+                Title = "Import from FPT model",
             };
             openFile.FileOk += OpenFile_FileOk;
             openFile.Filter = "VTM model files (*.fdmdl)|*.fdmdl";
@@ -247,6 +343,11 @@ namespace HVT.VTM.Base
             //Support.WriteLine("Load model : " + Name + Environment.NewLine + Path);
             string[] lines = System.IO.File.ReadAllLines((sender as OpenFileDialog).FileName);
             Steps = new ObservableCollection<Step>();
+
+            Naming.TxDatas = new ObservableCollection<TxData>();
+            Naming.RxDatas = new ObservableCollection<RxData>();
+            Naming.QRDatas = new ObservableCollection<QRData>();
+
             foreach (string line in lines)
             {
                 if (line.Contains("TEST STEP="))
@@ -271,6 +372,44 @@ namespace HVT.VTM.Base
                     step.Skip = datas[12] == "Y" ? true : false;
                     Steps.Add(step);
                 }
+
+                else if (line.Contains("PCB TOTAL="))
+                {
+                    var data = line.Replace("PCB TOTAL=", "");
+                    contruction.PCB_Count = int.Parse(data);
+                }
+                else if (line.Contains("UUT TX NAMING="))
+                {
+                    var dataItem = line.Replace("UUT TX NAMING=", "").Split('|');
+                    Naming.TxDatas.Add(new TxData()
+                    {
+                        No = Naming.TxDatas.Count,
+                        Name = dataItem[0],
+                        Data = dataItem[1],
+                        Blank = dataItem[2],
+                        Remark = dataItem[3]
+                    });
+                }
+                else if (line.Contains("UUT RX NAMING="))
+                {
+                    var dataItem = line.Replace("UUT RX NAMING=", "").Split('|');
+                    Naming.RxDatas.Add(new RxData()
+                    {
+                        No = Naming.RxDatas.Count,
+                        Name = dataItem[0],
+                        ModeLoc = dataItem[1],
+                        Mode = dataItem[2],
+                        DataKind = dataItem[3],
+                        MByte = dataItem[4],
+                        M_Mbit = dataItem[5],
+                        M_Lbit = dataItem[6],
+                        LByte = dataItem[7],
+                        L_Mbit = dataItem[8],
+                        L_Lbit = dataItem[9],
+                        Type = dataItem[10],
+                        Remark = dataItem[11]
+                    });
+                }
             }
             LoadFinish?.Invoke(null, e);
         }
@@ -279,6 +418,5 @@ namespace HVT.VTM.Base
         {
             return Extensions.Clone(this);
         }
-
     }
 }

@@ -22,7 +22,7 @@ namespace HVT.VTM.Program
             D
         }
         public BoardSelected boardSelected;
-        public Canvas DrawingCanvas, DisplayCanvas;
+        public Canvas DrawingCanvas, DisplayCanvas, ManualDisplayCanvas;
 
         public System.Windows.Controls.Image FND1, FND2, FND3, FND4;
         public System.Windows.Controls.Image LCD1, LCD2, LCD3, LCD4;
@@ -31,31 +31,34 @@ namespace HVT.VTM.Program
 
         public System.Windows.Controls.Label lbLCD1, lbLCD2, lbLCD3, lbLCD4;
 
-        public void VisionInit(Canvas DrawingFunction,
-            Canvas DisplayFunction,
-            System.Windows.Controls.Image FND1,
-            System.Windows.Controls.Image FND2,
-            System.Windows.Controls.Image FND3,
-            System.Windows.Controls.Image FND4,
+        public void VisionInit(
+                                Canvas DrawingFunction,
+                                Canvas DisplayFunction,
+                                Canvas ManualDisplayFunction,
 
-            System.Windows.Controls.Image LCD1,
-            System.Windows.Controls.Image LCD2,
-            System.Windows.Controls.Image LCD3,
-            System.Windows.Controls.Image LCD4,
+                                System.Windows.Controls.Image FND1,
+                                System.Windows.Controls.Image FND2,
+                                System.Windows.Controls.Image FND3,
+                                System.Windows.Controls.Image FND4,
 
-            Label FNDdetected1,
-            Label FNDdetected2,
-            Label FNDdetected3,
-            Label FNDdetected4,
+                                System.Windows.Controls.Image LCD1,
+                                System.Windows.Controls.Image LCD2,
+                                System.Windows.Controls.Image LCD3,
+                                System.Windows.Controls.Image LCD4,
 
-            Label LCDdetected1,
-            Label LCDdetected2,
-            Label LCDdetected3,
-            Label LCDdetected4,
+                                Label FNDdetected1,
+                                Label FNDdetected2,
+                                Label FNDdetected3,
+                                Label FNDdetected4,
 
-            Label GLEDsValue,
-            Label LEDsValue
-            )
+                                Label LCDdetected1,
+                                Label LCDdetected2,
+                                Label LCDdetected3,
+                                Label LCDdetected4,
+
+                                Label GLEDsValue,
+                                Label LEDsValue
+                                )
         {
             this.FND1 = FND1;
             this.FND2 = FND2;
@@ -88,64 +91,10 @@ namespace HVT.VTM.Program
             DrawingCanvas.MouseUp += DrawingCanvas_MouseUp;
 
             DisplayCanvas = DisplayFunction;
+            ManualDisplayCanvas = ManualDisplayFunction;
 
-            RootModel.VisionTestInit(DrawingCanvas, DisplayCanvas);
+            RootModel.VisionTestInit(DrawingCanvas, DisplayCanvas, ManualDisplayCanvas);
 
-            //RootModel.FNDs = new List<Base.VisionFunctions.FND>()
-            //        {
-            //        new Base.VisionFunctions.FND(1, "A", DrawingCanvas, DisplayFunction),
-            //        new Base.VisionFunctions.FND(2, "B", DrawingCanvas, DisplayFunction),
-            //        new Base.VisionFunctions.FND(3, "C", DrawingCanvas, DisplayFunction),
-            //        new Base.VisionFunctions.FND(4, "D", DrawingCanvas, DisplayFunction),
-            //        };
-
-            //RootModel.LCDs = new List<Base.VisionFunctions.LCD>()
-            //        {
-            //        new Base.VisionFunctions.LCD(1, "A", DrawingCanvas, DisplayFunction),
-            //        new Base.VisionFunctions.LCD(2, "B", DrawingCanvas, DisplayFunction),
-            //        new Base.VisionFunctions.LCD(3, "C", DrawingCanvas, DisplayFunction),
-            //        new Base.VisionFunctions.LCD(4, "D", DrawingCanvas, DisplayFunction),
-            //        };
-
-            //RootModel.GLEDs = new List<Base.VisionFunctions.GLED>()
-            //{
-            //    new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 0),
-            //    new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 1),
-            //    new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 2),
-            //    new Base.VisionFunctions.GLED(DisplayFunction, DrawingCanvas, 3),
-            //};
-
-            //RootModel.LEDs = new List<Base.VisionFunctions.LED>()
-            //{
-            //    new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 0),
-            //    new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 1),
-            //    new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 2),
-            //    new Base.VisionFunctions.LED(DisplayFunction,DrawingCanvas, 3),
-            //};
-
-
-            //foreach (var item in RootModel.FNDs)
-            //{
-            //    item.PlaceIn(DrawingCanvas, DisplayFunction);
-            //}
-            //foreach (var item in RootModel.LCDs)
-            //{
-            //    item.PlaceIn(DrawingCanvas, DisplayFunction);
-            //}
-            //foreach (var item in RootModel.GLEDs)
-            //{
-            //    foreach ( var led in item.GLEDs)
-            //    {
-            //        led.PlaceIn(DrawingCanvas, DisplayFunction);
-            //    }
-            //}
-            //foreach (var item in RootModel.LEDs)
-            //{
-            //    foreach (var led in item.LEDs)
-            //    {
-            //        led.PlaceIn(DrawingCanvas, DisplayFunction);
-            //    }
-            //}
         }
 
         private void DrawingCanvas_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -160,7 +109,7 @@ namespace HVT.VTM.Program
                 if (e.LeftButton == MouseButtonState.Pressed)
                 {
                     var focusElement = Keyboard.FocusedElement;
-                    if (focusElement != null && focusElement.GetType() == typeof(Label) && (e.Source as FrameworkElement) == DrawingCanvas )
+                    if (focusElement != null && focusElement.GetType() == typeof(Label) && (e.Source as FrameworkElement) == DrawingCanvas)
                     {
                         Console.WriteLine(sender.ToString() + " + " + focusElement.ToString());
                         focusElement.RaiseEvent(e);
@@ -170,7 +119,7 @@ namespace HVT.VTM.Program
                     }
                 }
             }
-            
+
         }
 
         private void DrawingCanvas_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -189,9 +138,18 @@ namespace HVT.VTM.Program
 
         private double[] GetConvertRaito(BitmapSource image, Canvas placeHolder)
         {
-            return new double[] {
+            if (placeHolder != null)
+            {
+                return new double[] {
                 image.Width/placeHolder.ActualWidth, image.Height/placeHolder.ActualHeight,
             };
+            }
+            else
+            {
+                return new double[] { 0, 0 };
+            }
+
+
         }
 
 
@@ -227,6 +185,8 @@ namespace HVT.VTM.Program
         private Task updateGLEDDataTask;
         private Task updateLEDDataTask;
 
+        public bool IsVisionWorking = false;
+
         public void StartUpdateLCD()
         {
             if (updateLCDDataTask == null)
@@ -241,6 +201,20 @@ namespace HVT.VTM.Program
             }
         }
 
+        public void StartUpdateFND()
+        {
+            if (updateFNDDataTask == null)
+            {
+                updateFNDDataTask = new Task(new Action(delegate { UpdateFNDData(cameraStreaming.LastFrame); }));
+                updateFNDDataTask.Start();
+            }
+            else if (updateFNDDataTask.IsCompleted)
+            {
+                updateFNDDataTask = new Task(new Action(delegate { UpdateFNDData(cameraStreaming.LastFrame); }));
+                updateFNDDataTask.Start();
+            }
+        }
+
         public void UpdateLCDData(BitmapSource source)
         {
             if (source != null)
@@ -251,148 +225,259 @@ namespace HVT.VTM.Program
                 {
                     item.raito = raito;
                 }
-                switch (boardSelected)
+                if (IsVisionWorking)
                 {
-                    case BoardSelected.All:
-                        LCD1.Dispatcher.Invoke(() =>
-                        {
-                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[0].Area);
-                            RootModel.LCDs[0].GetImage(croppedBitmap);
-                            RootModel.LCDs[0].SetImage(LCD1, lbLCD1);
-                        });
+                    switch (boardSelected)
+                    {
+                        case BoardSelected.All:
+                            RootModel.LCDs[0].GetImage(newimage);
+                            LCD1.Dispatcher.Invoke(() =>
+                            {
+                                LCD1.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
+                                    new Action(delegate {
+                                        LCD1.Source = RootModel.LCDs[0].DetectedImage;
+                                    }));
 
-                        LCD2.Dispatcher.Invoke(() =>
-                        {
-                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[1].Area);
-                            RootModel.LCDs[1].GetImage(croppedBitmap);
-                            RootModel.LCDs[1].SetImage(LCD2, lbLCD2);
-                        });
+                                lbLCD1.Content = RootModel.LCDs[0].DetectString;
+                            });
 
-                        LCD3.Dispatcher.Invoke(() =>
-                        {
-                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[2].Area);
-                            RootModel.LCDs[2].GetImage(croppedBitmap);
-                            RootModel.LCDs[2].SetImage(LCD3, lbLCD3);
-                        });
+                            RootModel.LCDs[1].GetImage(newimage);
+                            LCD2.Dispatcher.Invoke(() =>
+                            {
+                                LCD2.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
+                                    new Action(delegate {
+                                        LCD2.Source = RootModel.LCDs[1].DetectedImage;
+                                    }));
+                                lbLCD2.Content = RootModel.LCDs[1].DetectString;
+                            });
 
-                        LCD4.Dispatcher.Invoke(() =>
-                        {
-                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[3].Area);
-                            RootModel.LCDs[3].GetImage(croppedBitmap);
+                            RootModel.LCDs[2].GetImage(newimage);
+                            LCD3.Dispatcher.Invoke(() =>
+                            {
+                                LCD3.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
+                                    new Action(delegate {
+                                        LCD3.Source = RootModel.LCDs[2].DetectedImage;
+                                    }));
+                                lbLCD3.Content = RootModel.LCDs[2].DetectString;
+                            });
+
+                            RootModel.LCDs[3].GetImage(newimage);
+                            LCD4.Dispatcher.Invoke(() =>
+                            {
+                                LCD4.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
+                                    new Action(delegate {
+                                        LCD4.Source = RootModel.LCDs[3].DetectedImage;
+                                    }));
+                                lbLCD4.Content = RootModel.LCDs[3].DetectString;
+                            });
+
+                            //CroppedBitmap croppedBitmap1 = new CroppedBitmap(newimage, RootModel.LCDs[0].Area);
+                            //RootModel.LCDs[0].GetImage(croppedBitmap1);
+                            //RootModel.LCDs[0].SetImage(LCD1, lbLCD1);
+
+                            //LCD2.Dispatcher.Invoke(() =>
+                            //{
+                            //    CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[1].Area);
+                            //    RootModel.LCDs[1].GetImage(croppedBitmap);
+                            //    RootModel.LCDs[1].SetImage(LCD2, lbLCD2);
+                            //});
+
+                            //LCD3.Dispatcher.Invoke(() =>
+                            //{
+                            //    CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[2].Area);
+                            //    RootModel.LCDs[2].GetImage(croppedBitmap);
+                            //    RootModel.LCDs[2].SetImage(LCD3, lbLCD3);
+                            //});
+
+                            //LCD4.Dispatcher.Invoke(() =>
+                            //{
+                            //    CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[3].Area);
+                            //    RootModel.LCDs[3].GetImage(croppedBitmap);
+                            //    RootModel.LCDs[3].SetImage(LCD4, lbLCD4);
+                            //});
+                            break;
+                        case BoardSelected.A:
+                            LCD1.Dispatcher.Invoke(() =>
+                            {
+                                CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[0].Area);
+                                RootModel.LCDs[0].GetImage(croppedBitmap);
+                                RootModel.LCDs[0].SetImage(LCD1, lbLCD1);
+                            });
+                            break;
+                        case BoardSelected.B:
+                            LCD2.Dispatcher.Invoke(() =>
+                            {
+                                CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[1].Area);
+                                RootModel.LCDs[1].GetImage(croppedBitmap);
+                                RootModel.LCDs[1].SetImage(LCD2, lbLCD2);
+                            });
+                            break;
+                        case BoardSelected.C:
+                            LCD3.Dispatcher.Invoke(() =>
+                            {
+                                CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[2].Area);
+                                RootModel.LCDs[2].GetImage(croppedBitmap);
+                                RootModel.LCDs[2].SetImage(LCD3, lbLCD3);
+                            });
+                            break;
+                        case BoardSelected.D:
+                            LCD4.Dispatcher.Invoke(() =>
+                            {
+                                CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[3].Area);
+                                RootModel.LCDs[3].GetImage(croppedBitmap);
+                            });
                             RootModel.LCDs[3].SetImage(LCD4, lbLCD4);
-                        });
-                        break;
-                    case BoardSelected.A:
-                        LCD1.Dispatcher.Invoke(() =>
-                        {
-                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[0].Area);
-                            RootModel.LCDs[0].GetImage(croppedBitmap);
-                            RootModel.LCDs[0].SetImage(LCD1, lbLCD1);
-                        });
-                        break;
-                    case BoardSelected.B:
-                        LCD2.Dispatcher.Invoke(() =>
-                        {
-                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[1].Area);
-                            RootModel.LCDs[1].GetImage(croppedBitmap);
-                            RootModel.LCDs[1].SetImage(LCD2, lbLCD2);
-                        });
-                        break;
-                    case BoardSelected.C:
-                        LCD3.Dispatcher.Invoke(() =>
-                        {
-                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[2].Area);
-                            RootModel.LCDs[2].GetImage(croppedBitmap);
-                            RootModel.LCDs[2].SetImage(LCD3, lbLCD3);
-                        });
-                        break;
-                    case BoardSelected.D:
-                        LCD4.Dispatcher.Invoke(() =>
-                        {
-                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[3].Area);
-                            RootModel.LCDs[3].GetImage(croppedBitmap);
-                        });
-                        RootModel.LCDs[3].SetImage(LCD4, lbLCD4);
-                        break;
-                    default:
-                        break;
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                else
+                {
+
+                    LCD1.Dispatcher.Invoke(() =>
+                    {
+                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[0].Area);
+                        RootModel.LCDs[0].GetImage(croppedBitmap);
+                    });
+                    RootModel.LCDs[0].GetValue();
+                    LCD2.Dispatcher.Invoke(() =>
+                    {
+                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[1].Area);
+                        RootModel.LCDs[1].GetImage(croppedBitmap);
+                    });
+                    RootModel.LCDs[1].GetValue();
+                    LCD3.Dispatcher.Invoke(() =>
+                    {
+                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[2].Area);
+                        RootModel.LCDs[2].GetImage(croppedBitmap);
+                    });
+                    RootModel.LCDs[2].GetValue();
+
+                    LCD4.Dispatcher.Invoke(() =>
+                    {
+                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.LCDs[3].Area);
+                        RootModel.LCDs[3].GetImage(croppedBitmap);
+                    });
+                    RootModel.LCDs[3].GetValue();
+                }
+
             }
         }
-        private void UpdateFNDData( BitmapSource source)
+        private void UpdateFNDData(BitmapSource source)
         {
+            if (source == null)
+            {
+                return;
+            }
             var newimage = source;
             var raito = GetConvertRaito(newimage, DrawingCanvas);
             foreach (var item in RootModel.FNDs)
             {
                 item.raito = raito;
             }
-            switch (boardSelected)
+
+            if (IsVisionWorking)
             {
-                case BoardSelected.All:
-                    FND1.Dispatcher.Invoke(() =>
-                    {
-                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[0].Area);
-                        RootModel.FNDs[0].GetImage(croppedBitmap);
-                        RootModel.FNDs[0].SetImage(FND1, lbFND1);
-                    });
+                switch (boardSelected)
+                {
+                    case BoardSelected.All:
+                        FND1.Dispatcher.Invoke(() =>
+                        {
+                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[0].Area);
+                            RootModel.FNDs[0].GetImage(croppedBitmap);
+                            RootModel.FNDs[0].SetImage(FND1, lbFND1);
+                        });
 
-                    FND2.Dispatcher.Invoke(() =>
-                    {
-                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[1].Area);
-                        RootModel.FNDs[1].GetImage(croppedBitmap);
-                        RootModel.FNDs[1].SetImage(FND2, lbFND2);
-                    });
+                        FND2.Dispatcher.Invoke(() =>
+                        {
+                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[1].Area);
+                            RootModel.FNDs[1].GetImage(croppedBitmap);
+                            RootModel.FNDs[1].SetImage(FND2, lbFND2);
+                        });
 
-                    FND3.Dispatcher.Invoke(() =>
-                    {
-                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[2].Area);
-                        RootModel.FNDs[2].GetImage(croppedBitmap);
-                        RootModel.FNDs[2].SetImage(FND3, lbFND3);
-                    });
+                        FND3.Dispatcher.Invoke(() =>
+                        {
+                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[2].Area);
+                            RootModel.FNDs[2].GetImage(croppedBitmap);
+                            RootModel.FNDs[2].SetImage(FND3, lbFND3);
+                        });
 
-                    FND4.Dispatcher.Invoke(() =>
-                    {
-                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[3].Area);
-                        RootModel.FNDs[3].GetImage(croppedBitmap);
-                        RootModel.FNDs[3].SetImage(FND4, lbFND4);
-                    });
-                    break;
-                case BoardSelected.A:
-                    FND1.Dispatcher.Invoke(() =>
-                    {
-                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[0].Area);
-                        RootModel.FNDs[0].GetImage(croppedBitmap);
-                        RootModel.FNDs[0].SetImage(FND1, lbFND1);
-                    });
-                    break;
-                case BoardSelected.B:
-                    FND2.Dispatcher.Invoke(() =>
-                    {
-                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[1].Area);
-                        RootModel.FNDs[1].GetImage(croppedBitmap);
-                        RootModel.FNDs[1].SetImage(FND2, lbFND2);
-                    });
-                    break;
-                case BoardSelected.C:
-                    FND3.Dispatcher.Invoke(() =>
-                    {
-                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[2].Area);
-                        RootModel.FNDs[2].GetImage(croppedBitmap);
-                        RootModel.FNDs[2].SetImage(FND3, lbFND3);
-                    });
-                    break;
-                case BoardSelected.D:
-                    FND4.Dispatcher.Invoke(() =>
-                    {
-                        CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[3].Area);
-                        RootModel.FNDs[3].GetImage(croppedBitmap);
-                        RootModel.FNDs[3].SetImage(FND4, lbFND4);
-                    });
-                    break;
-                default:
-                    break;
+                        FND4.Dispatcher.Invoke(() =>
+                        {
+                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[3].Area);
+                            RootModel.FNDs[3].GetImage(croppedBitmap);
+                            RootModel.FNDs[3].SetImage(FND4, lbFND4);
+                        });
+                        break;
+                    case BoardSelected.A:
+                        FND1.Dispatcher.Invoke(() =>
+                        {
+                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[0].Area);
+                            RootModel.FNDs[0].GetImage(croppedBitmap);
+                            RootModel.FNDs[0].SetImage(FND1, lbFND1);
+                        });
+                        break;
+                    case BoardSelected.B:
+                        FND2.Dispatcher.Invoke(() =>
+                        {
+                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[1].Area);
+                            RootModel.FNDs[1].GetImage(croppedBitmap);
+                            RootModel.FNDs[1].SetImage(FND2, lbFND2);
+                        });
+                        break;
+                    case BoardSelected.C:
+                        FND3.Dispatcher.Invoke(() =>
+                        {
+                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[2].Area);
+                            RootModel.FNDs[2].GetImage(croppedBitmap);
+                            RootModel.FNDs[2].SetImage(FND3, lbFND3);
+                        });
+                        break;
+                    case BoardSelected.D:
+                        FND4.Dispatcher.Invoke(() =>
+                        {
+                            CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[3].Area);
+                            RootModel.FNDs[3].GetImage(croppedBitmap);
+                            RootModel.FNDs[3].SetImage(FND4, lbFND4);
+                        });
+                        break;
+                    default:
+                        break;
+                }
             }
+            else
+            {
+                FND1.Dispatcher.Invoke(() =>
+                {
+                    CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[0].Area);
+                    RootModel.FNDs[0].GetImage(croppedBitmap);
+                });
+                RootModel.FNDs[0].GetValue();
+
+                FND2.Dispatcher.Invoke(() =>
+                {
+                    CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[1].Area);
+                    RootModel.FNDs[1].GetImage(croppedBitmap);
+                });
+                RootModel.FNDs[1].GetValue();
+
+                FND3.Dispatcher.Invoke(() =>
+                {
+                    CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[2].Area);
+                    RootModel.FNDs[2].GetImage(croppedBitmap);
+                });
+                RootModel.FNDs[2].GetValue();
+
+                FND4.Dispatcher.Invoke(() =>
+                {
+                    CroppedBitmap croppedBitmap = new CroppedBitmap(newimage, RootModel.FNDs[3].Area);
+                    RootModel.FNDs[3].GetImage(croppedBitmap);
+                });
+                RootModel.FNDs[3].GetValue();
+
+            }
+
         }
         private void UpdateGLEDData(BitmapSource source)
         {
@@ -401,7 +486,7 @@ namespace HVT.VTM.Program
             foreach (var item in RootModel.GLEDs)
             {
                 foreach (var item2 in item.GLEDs)
-                 item2.raito = raito;
+                    item2.raito = raito;
             }
             switch (boardSelected)
             {
@@ -450,8 +535,8 @@ namespace HVT.VTM.Program
             var raito = GetConvertRaito(newimage, DrawingCanvas);
             foreach (var item in RootModel.LEDs)
             {
-                foreach(var value in item.LEDs)
-                value.raito = raito;
+                foreach (var value in item.LEDs)
+                    value.raito = raito;
             }
             switch (boardSelected)
             {
@@ -472,7 +557,7 @@ namespace HVT.VTM.Program
                     RootModel.LEDs[1].GetValue(newimage, raito);
                     LEDsValue.Dispatcher.Invoke(() =>
                     {
-                      LEDsValue.Content = RootModel.LEDs[1].CalculatorOutputString;
+                        LEDsValue.Content = RootModel.LEDs[1].CalculatorOutputString;
                     });
                     break;
                 case BoardSelected.C:
@@ -494,18 +579,32 @@ namespace HVT.VTM.Program
                     break;
             }
         }
+
+        public event EventHandler CameraPropertiesChange;
+        public void CameraPropertiesChanged()
+        {
+            CameraPropertiesChange?.Invoke(this, EventArgs.Empty);
+        }
+
         private void CameraStreaming_ImageUpdate(object sender, EventArgs e)
         {
-            //if (updateLCDDataTask == null)
-            //{
-            //    updateLCDDataTask = new Task(new Action(delegate { UpdateLCDData(sender as BitmapSource); }));
-            //    updateLCDDataTask.Start();
-            //}
-            //else if (updateLCDDataTask.IsCompleted)
-            //{
-            //    updateLCDDataTask = new Task(new Action(delegate { UpdateLCDData(sender as BitmapSource); }));
-            //    updateLCDDataTask.Start();
-            //}
+            if (!RootModel.HaveApplyCamsetting)
+            {
+                cameraStreaming.SetParammeter(RootModel.CameraSetting);
+                CameraPropertiesChanged();
+                RootModel.HaveApplyCamsetting = true;
+            }
+
+            if (updateLCDDataTask == null)
+            {
+                updateLCDDataTask = new Task(new Action(delegate { UpdateLCDData(sender as BitmapSource); }));
+                updateLCDDataTask.Start();
+            }
+            else if (updateLCDDataTask.IsCompleted)
+            {
+                updateLCDDataTask = new Task(new Action(delegate { UpdateLCDData(sender as BitmapSource); }));
+                updateLCDDataTask.Start();
+            }
 
             if (updateFNDDataTask == null)
             {

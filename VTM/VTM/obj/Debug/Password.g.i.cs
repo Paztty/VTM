@@ -9,6 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using ScottPlot;
 using System;
 using System.Diagnostics;
 using System.Windows;

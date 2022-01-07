@@ -11,9 +11,5 @@ namespace HVT.VTM.Program
             return users.Password[(int)permisssions] == PasswordInput;
         }
 
-
-
-
-
     }
 }

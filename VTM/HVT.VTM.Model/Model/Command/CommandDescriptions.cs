@@ -26,6 +26,7 @@ namespace HVT.VTM.Base
         MAK,
         //MSG,
         //RCO,
+        CAM,
         DIS,
         END,
         ACV,
@@ -151,6 +152,12 @@ namespace HVT.VTM.Base
         {
             "P1",
             "P2"
+        };
+
+        public static List<string> CommandMode_UUT_Buffer = new List<String>()
+        {
+            "NONE",
+            "Rx buffer"
         };
 
         public static List<string> TXnaming = new List<string>();

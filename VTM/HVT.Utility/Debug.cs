@@ -52,7 +52,6 @@ namespace HVT.Utility
                         LogBox.ScrollToEnd();
                     }), DispatcherPriority.Normal);
                 }
-
             }
         }
 

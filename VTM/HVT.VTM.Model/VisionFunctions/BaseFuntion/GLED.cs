@@ -39,6 +39,8 @@ namespace HVT.VTM.Base.VisionFunctions
             }
         }
 
+        public Bitmap bitmap;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -66,11 +68,11 @@ namespace HVT.VTM.Base.VisionFunctions
 
         public GLED() { }
 
-        public GLED(Canvas displayCanvas, Canvas placeCanvas, int index)
+        public GLED(Canvas manual, Canvas displayCanvas, Canvas placeCanvas, int index)
         {
             for (int i = 0; i < 32; i++)
             {
-                GLEDs.Add(new SingleGLED(i, index, placeCanvas, displayCanvas));
+                GLEDs.Add(new SingleGLED(i, index, placeCanvas, displayCanvas, manual));
             }
         }
 
@@ -137,6 +139,24 @@ namespace HVT.VTM.Base.VisionFunctions
                 };
             }
         }
+
+        private Canvas manualDisplay;
+        private Canvas ManualDisplay
+        {
+            get { return manualDisplay; }
+            set
+            {
+                ManualDisplaySize = new Rect()
+                {
+                    X = 0,
+                    Y = 0,
+                    Width = value.ActualWidth,
+                    Height = value.ActualHeight
+                };
+                manualDisplay = value;
+            }
+        }
+
         private Bitmap bitmap = null;
 
         private Rect displaySize;
@@ -152,6 +172,13 @@ namespace HVT.VTM.Base.VisionFunctions
             get { return parentSize; }
             set { parentSize = value; }
         }
+        private Rect manualdisplaySize;
+        public Rect ManualDisplaySize
+        {
+            get { return manualdisplaySize; }
+            set { manualdisplaySize = value; }
+        }
+
 
         public int Index { get; set; }
         public int X { get; set; }
@@ -286,14 +313,16 @@ namespace HVT.VTM.Base.VisionFunctions
             set
             {
                 visibility = value;
+                Label.Visibility = value;
                 if (value == Visibility.Visible)
                 {
                     LabelDisplay.Visibility = use ? Visibility.Visible : Visibility.Collapsed;
+                    ManualLabelDisplay.Visibility = use ? Visibility.Visible : Visibility.Collapsed;
                 }
-
-                if (value != Visibility.Visible)
+                else if (value != Visibility.Visible)
                 {
                     LabelDisplay.Visibility = value;
+                    ManualLabelDisplay.Visibility = value;
                     Keyboard.ClearFocus();
                 }
             }
@@ -313,6 +342,17 @@ namespace HVT.VTM.Base.VisionFunctions
                 }
             }
         }
+
+        public Label ManualLabelDisplay = new Label()
+        {
+            Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0)),
+            Foreground = new SolidColorBrush(Colors.Red),
+            BorderBrush = new SolidColorBrush(Colors.Red),
+            BorderThickness = new Thickness(1),
+            Focusable = true,
+            VerticalContentAlignment = VerticalAlignment.Top,
+            HorizontalContentAlignment = HorizontalAlignment.Left,
+        };
 
         public Label LabelDisplay = new Label()
         {
@@ -430,6 +470,11 @@ namespace HVT.VTM.Base.VisionFunctions
             Location = new System.Windows.Point(0, 0),
             Size = new System.Windows.Size(10, 10)
         };
+        public Rect manualRectDisplay = new Rect()
+        {
+            Location = new System.Windows.Point(0, 0),
+            Size = new System.Windows.Size(10, 10)
+        };
 
         public Rect Rect
         {
@@ -442,20 +487,28 @@ namespace HVT.VTM.Base.VisionFunctions
                     {
                         rect.X = value.X;
                         rectDisplay.X = value.X * (displaySize.Width / parentSize.Width);
+                        manualRectDisplay.X = value.X * (ManualDisplaySize.Width / parentSize.Width);
                         rect.Width = value.Width;
                         rectDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
+                        manualRectDisplay.Width = value.Width * (ManualDisplaySize.Width / parentSize.Width);
                         Label.Width = value.Width;
                         LabelDisplay.Width = value.Width * (displaySize.Width / parentSize.Width);
+                        ManualLabelDisplay.Width = value.Width * (ManualDisplaySize.Width / parentSize.Width);
                     }
 
                     if (value.Y > 0 && value.Y < parentSize.Height - value.Height)
                     {
                         rect.Y = value.Y;
                         rectDisplay.Y = value.Y * (displaySize.Height / parentSize.Height);
+                        manualRectDisplay.Y = value.Y * (ManualDisplaySize.Height / parentSize.Height);
+
                         rect.Height = value.Height;
                         rectDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
+                        manualRectDisplay.Height = value.Height * (ManualDisplaySize.Height / parentSize.Height);
+
                         Label.Height = value.Height;
                         LabelDisplay.Height = value.Height * (displaySize.Height / parentSize.Height);
+                        ManualLabelDisplay.Height = value.Height * (ManualDisplaySize.Height / parentSize.Height);
                     }
                     Area = new Int32Rect((int)(rect.X * raito[0]), (int)(rect.Y * raito[1]), (int)(rect.Width * raito[0]), (int)(rect.Height * raito[1]));
                 }
@@ -463,10 +516,11 @@ namespace HVT.VTM.Base.VisionFunctions
         }
 
         public SingleGLED() { }
-        public SingleGLED(int index, int yIndex, Canvas parent, Canvas Display)
+        public SingleGLED(int index, int yIndex, Canvas parent, Canvas Display, Canvas ManualDisplay)
         {
             this.Parent = parent;
             this.Display = Display;
+            this.ManualDisplay = ManualDisplay;
 
             Name =  index.ToString();
             
@@ -474,7 +528,7 @@ namespace HVT.VTM.Base.VisionFunctions
             this.Rect = new Rect()
             {
                 X = index * 20 + 2,
-                Y = parent.ActualHeight / 4 * yIndex + 2,
+                Y = yIndex < 2 ? parent.ActualHeight / 10 * yIndex + 2 : parent.ActualHeight - (parent.ActualHeight / 10 * (4 - yIndex) + 2),
                 Width = 20,
                 Height = 20,
             };
@@ -487,6 +541,8 @@ namespace HVT.VTM.Base.VisionFunctions
             Label.MouseUp += Label_MouseUp;
 
             Label.KeyDown += Label_KeyDown;
+
+            Use = false;
 
             Visibility = Use ? Visibility.Visible : Visibility.Collapsed;
 
@@ -537,10 +593,11 @@ namespace HVT.VTM.Base.VisionFunctions
             LabelTopRight.GotKeyboardFocus += Label_GotKeyboardFocus;
         }
 
-        public void ReInit(Canvas parent, Canvas Display)
+        public void ReInit(Canvas parent, Canvas Display, Canvas manualDisplay)
         {
             this.Parent = parent;
             this.Display = Display;
+            this.ManualDisplay = manualDisplay;
 
             Label.GotKeyboardFocus += Label_GotKeyboardFocus;
             Label.LostKeyboardFocus += Label_LostKeyboardFocus;
@@ -843,10 +900,16 @@ namespace HVT.VTM.Base.VisionFunctions
             LabelTopRight.Visibility = Visibility.Visible;
         }
 
-        public void PlaceIn(Canvas placeCanvas, Canvas displayCanvas)
+        public void PlaceIn(Canvas placeCanvas, Canvas displayCanvas, Canvas manualCanvasDisplay)
         {
             Parent = placeCanvas;
             Display = displayCanvas;
+            ManualDisplay = manualCanvasDisplay;
+
+
+            manualCanvasDisplay.Children.Add(ManualLabelDisplay);
+            Canvas.SetTop(this.ManualLabelDisplay, manualRectDisplay.Y);
+            Canvas.SetLeft(this.ManualLabelDisplay, manualRectDisplay.X);
 
             Canvas.SetTop(this.LabelDisplay, rectDisplay.Y);
             Canvas.SetLeft(this.LabelDisplay, rectDisplay.X);
@@ -901,6 +964,9 @@ namespace HVT.VTM.Base.VisionFunctions
 
             Canvas.SetTop(this.LabelDisplay, rectDisplay.Y);
             Canvas.SetLeft(this.LabelDisplay, rectDisplay.X);
+
+            Canvas.SetTop(this.ManualLabelDisplay, manualRectDisplay.Y);
+            Canvas.SetLeft(this.ManualLabelDisplay, manualRectDisplay.X);
 
             Canvas.SetTop(this.Label, rect.Y);
             Canvas.SetLeft(this.Label, rect.X);

@@ -212,22 +212,24 @@ namespace HVT.VTM.Base
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             OnRecive?.Invoke(null, null);
-            try
+            if (serialPort.IsOpen)
             {
-                while (serialPort.BytesToRead > 0)
+                try
                 {
-                    comData = serialPort.ReadLine();
-                    serialPort.DiscardInBuffer();
-                    OnConnected?.Invoke(true, null);
-                    break;
+                    while (serialPort.BytesToRead > 0)
+                    {
+                        if (serialPort.IsOpen) comData = serialPort.ReadLine();
+                        serialPort.DiscardInBuffer();
+                        OnConnected?.Invoke(true, null);
+                        break;
+                    }
+                }
+                catch (Exception err)
+                {
+                    Extensions.LogErr("PPS serial reciver: " + err.Message);
+                    OnConnected?.Invoke(false, null);
                 }
             }
-            catch (Exception err)
-            {
-                Extensions.LogErr("PPS serial reciver: " + err.Message);
-                OnConnected?.Invoke(false, null);
-            }
-
             OnRecive?.Invoke(null, null);
         }
 

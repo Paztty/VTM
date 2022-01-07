@@ -1,6 +1,7 @@
 ﻿
 using HVT.VTM.Base;
 using HVT.VTM.Program;
+using ScottPlot;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,20 +25,95 @@ namespace VTM
             dgtUUT_TX.ItemsSource = Program.Naming.TxDatas;
             dgtUUT_TX_Naming.ItemsSource = Program.Naming.TxDatas;
 
-            Program.PPS_Init(ST1_CH1_V, ST1_CH2_V, ST2_CH1_V, ST2_CH2_V, ST1_CH1_A, ST1_CH2_A, ST2_CH1_A, ST2_CH2_A,
-                RX_RECT_COM5, TX_RECT_COM5, CONNECTED_RECT_COM5, RX_RECT_COM6, TX_RECT_COM6, CONNECTED_RECT_COM6);
+            //Program.PPS_Init(ST1_CH1_V, ST1_CH2_V, ST2_CH1_V, ST2_CH2_V, ST1_CH1_A, ST1_CH2_A, ST2_CH1_A, ST2_CH2_A,
+            //    RX_RECT_COM5, TX_RECT_COM5, CONNECTED_RECT_COM5, RX_RECT_COM6, TX_RECT_COM6, CONNECTED_RECT_COM6);
 
             Program.DMM_UI_Init(MinVal_DMM1, MaxVal_DMM1, Arg_DMM1, Val_DMM1, MinVal_DMM2, MaxVal_DMM2, Arg_DMM2, Val_DMM2,
-                RX_RECT_COM3, TX_RECT_COM3, CONNECTED_RECT_COM3, RX_RECT_COM4, TX_RECT_COM4, CONNECTED_RECT_COM4);
+                RX_RECT_COM7, TX_RECT_COM7, CONNECTED_RECT_COM7, RX_RECT_COM15, TX_RECT_COM15, CONNECTED_RECT_COM15);
 
-            Program.ConnectCheck();
+            //Program.ConnectCheck();
 
+            Program.DMM1.OnModeChange += DMM_OnModeChange;
             DMM_Mode_DC.IsChecked = true;
             Program.DMM_ChangeMode(HVT.VTM.Base.DMM_Mode.DCV);
             var _enumval = Enum.GetValues(typeof(HVT.VTM.Base.DMM_DCV_Range)).Cast<HVT.VTM.Base.DMM_DCV_Range>();
             cbbDMM_range.ItemsSource = _enumval;
             cbbDMM_range.SelectedIndex = 3;
             btDMMslowRate.IsChecked = true;
+
+            double[] dataX = new double[] { 1, 2, 3, 4, 5 };
+            double[] dataY = new double[] { 0.6, 0.6, 1.4, 1.4, 0.6 };
+
+            double[] dataX1 = new double[] { 1, 2, 2, 3, 4, 5 };
+            double[] dataY1 = new double[] { 2.6, 2.6, 3.4, 3.4, 2.6, 3.4 };
+
+            Grap.Plot.Style(ScottPlot.Style.Black);
+            Grap.Plot.XAxis.MajorGrid(color: System.Drawing.Color.FromArgb(20, System.Drawing.Color.Black));
+            Grap.Plot.XAxis.MinorGrid(enable: true, color: System.Drawing.Color.FromArgb(100, System.Drawing.Color.Black));
+            Grap.Plot.YAxis.MajorGrid(lineWidth: 1, lineStyle: LineStyle.Dash, color: System.Drawing.Color.Magenta);
+            Grap.Plot.AddScatter(dataX, dataY, System.Drawing.Color.Red);
+            Grap.Plot.AddScatter(dataX1, dataY1, System.Drawing.Color.Green);
+            Grap.Refresh();
+        }
+
+        private void DMM_OnModeChange(object sender, EventArgs e)
+        {
+            Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(() =>
+                {
+                    DMM_Mode_DC.IsChecked = false;
+                    DMM_Mode_AC.IsChecked = false;
+                    DMM_Mode_FRQ.IsChecked = false;
+                    DMM_Mode_RES.IsChecked = false;
+                    DMM_Mode_DIODE.IsChecked = false;
+                    switch (Program.DMM1.Mode)
+                    {
+                        case DMM_Mode.NONE:
+                            break;
+                        case DMM_Mode.DCV:
+                            DMM_Mode_DC.IsChecked = true;
+                            cbbDMM_range.SelectedIndex = (int)Program.DMM1.DCV_Range;
+                            break;
+                        case DMM_Mode.ACV:
+                            DMM_Mode_DC.IsChecked = true;
+                            cbbDMM_range.SelectedIndex = (int)Program.DMM1.ACV_Range;
+                            break;
+                        case DMM_Mode.FREQ:
+                            DMM_Mode_FRQ.IsChecked = true;
+                            cbbDMM_range.SelectedIndex = (int)Program.DMM1.ACV_Range;
+                            break;
+                        case DMM_Mode.RES:
+                            DMM_Mode_RES.IsChecked = true;
+                            cbbDMM_range.SelectedIndex = (int)Program.DMM1.RES_Range;
+                            break;
+                        case DMM_Mode.DIODE:
+                            DMM_Mode_DIODE.IsChecked = true;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    btDMMmidRate.IsChecked = false;
+                    btDMMfastRate.IsChecked = false;
+                    btDMMslowRate.IsChecked = false;
+
+                    switch (Program.DMM1.Rate)
+                    {
+                        case DMM_Rate.NONE:
+                            break;
+                        case DMM_Rate.SLOW:
+                            btDMMslowRate.IsChecked = true;
+                            break;
+                        case DMM_Rate.MID:
+                            btDMMmidRate.IsChecked = true;
+                            break;
+                        case DMM_Rate.FAST:
+                            btDMMfastRate.IsChecked = true;
+                            break;
+                        default:
+                            break;
+                    }
+                }));
         }
 
         #region Model Action
@@ -45,22 +121,26 @@ namespace VTM
         //Event 
         private void Model_LoadFinish_ManualPage(object sender, EventArgs e)
         {
-            //TestStepsGridManual.ItemsSource = null;
+            pnManualBoardSellect.Children.Clear();
+            foreach (var item in Program.RootModel.contruction.PBAs)
+            {
+                pnManualBoardSellect.Children.Add(item.btManualSelect);
+            }
+        }
+
+        private void Manual_UpdateLayout(HVT.VTM.Base.Contruction contruction)
+        {
 
         }
 
-
         #endregion
-
-
-
 
 
         private void btTestManual_Checked(object sender, RoutedEventArgs e)
         {
             if (!Program.IsTestting)
             {
-                EscapTime = DateTime.Now;
+                EscapTime = 0;
                 EscapTimer.Elapsed -= EscapTimer_Elapsed;
                 EscapTimer.Elapsed += EscapTimer_Elapsed;
                 EscapTimer.Start();
@@ -68,7 +148,7 @@ namespace VTM
             }
             else
             {
-                EscapTime = DateTime.Now;
+                EscapTime = 0;
                 Program.TestState = Program.RunTestState.TESTTING;
                 foreach (var item in Program.RootModel.Steps)
                 {
@@ -82,18 +162,14 @@ namespace VTM
                     item.Result4 = Step.DontCare;
                 }
                 TestStepsGrid.Items.Refresh();
-                Program.StepTesting = 0;
-                Program.IsTestting = false;
                 EscapTimer.Start();
             }
-
         }
-
         private void btTestManual_Unchecked(object sender, RoutedEventArgs e)
         {
             if (Program.IsTestting)
             {
-                Program.TestState = Program.RunTestState.Pause;
+                Program.TestState = Program.RunTestState.PAUSE;
                 EscapTimer.Stop();
             }
         }
@@ -205,7 +281,7 @@ namespace VTM
             }
         }
 
-        private void btMeasureCH2_Click(object sender, RoutedEventArgs e)
+        private async void btMeasureCH2_Click(object sender, RoutedEventArgs e)
         {
             if ((bool)cbDMM_AutoRead.IsChecked)
             {
@@ -213,7 +289,7 @@ namespace VTM
             }
             else
             {
-                Task.Run(async () =>
+                await Task.Run(async () =>
                 {
                     Program.DMM2.GetValue();
                 });

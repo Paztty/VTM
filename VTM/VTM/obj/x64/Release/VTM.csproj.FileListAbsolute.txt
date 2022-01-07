@@ -8,8 +8,6 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\VTM.exe.config
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\VTM.exe
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\VTM.pdb
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\System.Runtime.InteropServices.RuntimeInformation.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\System.Drawing.Primitives.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\System.ValueTuple.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\HVT.StandantLocalUsers.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\HVT.Utility.dll
@@ -72,10 +70,6 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\dll\x86\opencv_videoio_ffmpeg453.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\dll\x64\OpenCvSharpExtern.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\dll\x64\opencv_videoio_ffmpeg453_64.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\x86\leptonica-1.80.0.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\x86\tesseract41.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\x64\leptonica-1.80.0.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\x64\tesseract41.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\x64\Release\VTM.csproj.AssemblyReference.cache
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\TessData\eng.traineddata
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\HVT.VTM.Base.dll
@@ -89,3 +83,36 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\System.Runtime.WindowsRuntime.UI.Xaml.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\System.Runtime.WindowsRuntime.xml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\System.Runtime.WindowsRuntime.UI.Xaml.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\x64\Release\Comunication viewer.g.cs
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\x64\Release\SettingWindow.g.cs
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\x86\liblept1753.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\x86\libtesseract3052.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\x64\liblept1753.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\x64\libtesseract3052.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\tessdata\eng.cube.bigrams
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\tessdata\eng.cube.fold
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\tessdata\eng.cube.lm
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\tessdata\eng.cube.nn
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\tessdata\eng.cube.params
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\tessdata\eng.cube.size
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\tessdata\eng.cube.word-freq
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\tessdata\eng.tesseract_cube.nn
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\ScottPlot.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\ScottPlot.WPF.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\System.Drawing.Common.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\ScottPlot.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\System.ValueTuple.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\x64\Release\Comunication viewer.baml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\x64\Release\SettingWindow.baml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\SciChart.Charting.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\SciChart.Core.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\SciChart.Data.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\SciChart.Drawing.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\VTM_Report.exe
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\VTM_Report.pdb
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\VTM_Report.exe.config
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\SciChart.Charting.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\SciChart.Core.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\SciChart.Data.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\bin\x64\Release\SciChart.Drawing.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM\obj\x64\Release\VTM.csproj.SuggestedBindingRedirects.cache

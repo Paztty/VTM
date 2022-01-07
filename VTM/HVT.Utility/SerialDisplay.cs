@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Timers;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace HVT.Utility
@@ -9,25 +10,47 @@ namespace HVT.Utility
         public Rectangle TX;
         public Rectangle RX;
 
-        private bool blinkRX = true;
-        private bool blinkTX = true;
+        Timer timer = new Timer()
+        {
+            Interval = 50,
+        };
+
+        public SerialDisplay()
+        {
+            timer.Elapsed += Timer_Elapsed;
+            timer.Enabled = true;
+            timer.AutoReset = true;
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            TX?.Dispatcher.Invoke(new System.Action(delegate
+            {
+                TX.Fill = new SolidColorBrush(Colors.DarkRed);
+            }));
+            RX?.Dispatcher.Invoke(new System.Action(delegate
+            {
+                RX.Fill = new SolidColorBrush(Colors.DarkGreen);
+            }));
+            timer.Stop();
+        }
 
         public void BlinkTX()
         {
             TX?.Dispatcher.Invoke(new System.Action(delegate
             {
-                TX.Fill = blinkTX == true ? new SolidColorBrush(Colors.DarkRed) : new SolidColorBrush(Colors.Red);
+                TX.Fill =  new SolidColorBrush(Colors.Red);
             }));
-            blinkTX = !blinkTX;
+            timer.Start();
         }
 
         public void BlinkRX()
         {
             RX?.Dispatcher.Invoke(new System.Action(delegate
             {
-                RX.Fill = blinkRX == true ? new SolidColorBrush(Colors.DarkGreen) : new SolidColorBrush(Colors.LightGreen);
+                RX.Fill = new SolidColorBrush(Colors.LightGreen);
             }));
-            blinkRX = !blinkRX;
+            timer.Start();
         }
 
         public void ShowCOMStatus(bool IsOpen)

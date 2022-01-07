@@ -30,7 +30,27 @@
       "ProjectGuid": "1f26009d-c483-4dbf-af0e-f3274c32d21a",
       "DisplayName": "Utility",
       "ColorIndex": 4
+    },
+    "cbd283fe-eb0e-4814-844a-98b5af3d4279": {
+      "ProjectGuid": "cbd283fe-eb0e-4814-844a-98b5af3d4279",
+      "DisplayName": "HVT.StandantLocalUsers",
+      "ColorIndex": 5
+    },
+    "37e9a704-fd52-48eb-be68-aa6be59529d5": {
+      "ProjectGuid": "37e9a704-fd52-48eb-be68-aa6be59529d5",
+      "DisplayName": "UI",
+      "ColorIndex": 6
+    },
+    "a3df039c-78df-4422-b774-c78339bf0bd9": {
+      "ProjectGuid": "a3df039c-78df-4422-b774-c78339bf0bd9",
+      "DisplayName": "Comunication",
+      "ColorIndex": 7
+    },
+    "438ddbcf-c05a-42cc-b768-e2dedcf0a5ed": {
+      "ProjectGuid": "438ddbcf-c05a-42cc-b768-e2dedcf0a5ed",
+      "DisplayName": "Logics",
+      "ColorIndex": 8
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 9
 }

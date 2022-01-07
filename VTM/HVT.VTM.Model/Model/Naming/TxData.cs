@@ -18,7 +18,19 @@ namespace HVT.VTM.Base
         public string blank { get; set; } = "00";
         public string remark { get; set; } = "Remark data";
 
-        public int No{get; set; }
+        public int No 
+        {
+            get { return no; }
+            set
+            {
+                if (no != value)
+                {
+                    no = value;
+                    NotifyPropertyChanged(nameof(No));
+                }
+            }
+        }
+
         public string Name
         {
             get { return name; }

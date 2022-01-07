@@ -105,6 +105,7 @@ namespace HVT.VTM.Base
         public event EventHandler OnRecive;
         public event EventHandler OnConnected;
         public event EventHandler OnChange;
+        public event EventHandler OnModeChange;
 
         // Update parameter
         public int Time = 100;
@@ -223,6 +224,7 @@ namespace HVT.VTM.Base
                 OnSend?.Invoke(true, null);
             }
         }
+
         public async Task<string> QueryAsync(string Content, int ScanTimeOut)
         {
             string value = "";
@@ -252,6 +254,7 @@ namespace HVT.VTM.Base
             }
             return value;
         }
+
         public async Task<string> QueryOneTime(string Content)
         {
             string value = "";
@@ -261,7 +264,7 @@ namespace HVT.VTM.Base
                 serialPort.DiscardInBuffer();
                 comData = null;
                 Send(Content);
-                while (DateTime.Now.Subtract(startScanTime).TotalMilliseconds < 1000)
+                while (DateTime.Now.Subtract(startScanTime).TotalMilliseconds < 100)
                 {
                     if (comData != null)
                     {
@@ -273,6 +276,7 @@ namespace HVT.VTM.Base
             }
             return value;
         }
+
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             OnRecive?.Invoke(null, null);
@@ -359,8 +363,65 @@ namespace HVT.VTM.Base
 
         }
 
+        public async Task<double> GetValue(bool valueOnly = true)
+        {
+
+            double currentValue = LastDoubleValue;
+            if (double.TryParse(await QueryOneTime("VAL1?"), out LastDoubleValue))
+            {
+                currentValue = LastDoubleValue;
+            }
+
+            if (System.Math.Abs(currentValue) < 0.001)
+            {
+                LastStringValue = (currentValue * 1000000) + " u";
+            }
+            else if (System.Math.Abs(currentValue) < 1)
+            {
+                LastStringValue = (currentValue * 1000) + " m";
+            }
+            else
+            {
+                LastStringValue = (System.Math.Abs(currentValue) < 1000) ? (currentValue / 1000) + " k" : (currentValue / 1000000) + " M";
+            }
+            if (currentValue == +1.200000E+37)
+            {
+                LastStringValue = "OL ";
+            }
+            switch (Mode)
+            {
+                case DMM_Mode.NONE:
+                    break;
+                case DMM_Mode.DCV:
+                    LastStringValue += "VDC";
+                    break;
+                case DMM_Mode.ACV:
+                    LastStringValue += "VAC";
+                    break;
+                case DMM_Mode.FREQ:
+                    LastStringValue += "Hz";
+                    break;
+                case DMM_Mode.RES:
+                    LastStringValue += "OHm";
+                    break;
+                case DMM_Mode.DIODE:
+                    LastStringValue += "VDC";
+                    break;
+                default:
+                    break;
+            }
+
+            OnChange?.Invoke(LastStringValue, null);
+            return currentValue;
+
+        }
+
         public async Task<bool> SetMode(DMM_Mode mode)
         {
+            if (Mode != mode)
+            {
+                OnModeChange?.Invoke(null, null);
+            }
             Mode = mode;
             switch (mode)
             {
@@ -384,10 +445,12 @@ namespace HVT.VTM.Base
                 default:
                     return false;
             }
+
         }
 
         public void ChangeRange(int RangeSelected)
         {
+            OnModeChange?.Invoke(null, null);
             switch (Mode)
             {
                 case DMM_Mode.NONE:
@@ -508,24 +571,29 @@ namespace HVT.VTM.Base
 
         }
 
-
         public void ChangeRate(DMM_Rate _Rate)
         {
-            switch (_Rate)
+            if (Rate != _Rate)
             {
-                case DMM_Rate.NONE:
-                    break;
-                case DMM_Rate.SLOW:
-                    Send("SENSe:DETector:RATE S");
-                    break;
-                case DMM_Rate.MID:
-                    Send("SENSe:DETector:RATE M");
-                    break;
-                case DMM_Rate.FAST:
-                    Send("SENSe:DETector:RATE F");
-                    break;
-                default:
-                    break;
+                Rate = _Rate;
+
+                switch (_Rate)
+                {
+                    case DMM_Rate.NONE:
+                        break;
+                    case DMM_Rate.SLOW:
+                        Send("SENSe:DETector:RATE S");
+                        break;
+                    case DMM_Rate.MID:
+                        Send("SENSe:DETector:RATE M");
+                        break;
+                    case DMM_Rate.FAST:
+                        Send("SENSe:DETector:RATE F");
+                        break;
+                    default:
+                        break;
+                }
+                OnModeChange?.Invoke(null, null);
             }
         }
     }

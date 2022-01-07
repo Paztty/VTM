@@ -4,19 +4,14 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace HVT.VTM.Program
 {
     public partial class Program
     {
         #region SerialDevide check connect
-        public async void ConnectCheck()
-        {
-            await DMM1.SearchCom();
-            await DMM2.SearchCom();
-            //await PPS1.SearchCom();
-            //await PPS2.SearchCom();
-        }
+
         #endregion
 
         #region PPS
@@ -145,6 +140,14 @@ namespace HVT.VTM.Program
             DMM1.OnRecive += DMM1_OnRecive;
             DMM1.OnSend += DMM1_OnSend;
 
+            DMM1.serialPort.PortName = appSetting.Communication.DMM1Port;
+            try
+            {
+                DMM1.serialPort.Open();
+            }
+            catch (Exception){}
+            DMM1.serialDisplay.ShowCOMStatus(DMM1.serialPort.IsOpen);
+
             this.MinVal_DMM2 = MinVal_DMM2;
             this.MaxVal_DMM2 = MaxVal_DMM2;
             this.Arg_DMM2 = Arg_DMM2;
@@ -157,6 +160,14 @@ namespace HVT.VTM.Program
             DMM2.OnConnected += DMM2_OnConnected;
             DMM2.OnRecive += DMM2_OnRecive;
             DMM2.OnSend += DMM2_OnSend;
+
+            DMM2.serialPort.PortName = appSetting.Communication.DMM2Port;
+            try
+            {
+                DMM2.serialPort.Open();
+            }
+            catch (Exception) { }
+            DMM2.serialDisplay.ShowCOMStatus(DMM2.serialPort.IsOpen);
 
         }
 
@@ -215,11 +226,11 @@ namespace HVT.VTM.Program
         }
         public void DMM_GetMeasure()
         {
-            Task.Run(async () =>
+            Task.Run(() =>
             {
                 DMM1.GetValue();
             });
-            Task.Run(async () =>
+            Task.Run(() =>
             {
                 DMM2.GetValue();
             });
@@ -239,13 +250,18 @@ namespace HVT.VTM.Program
         #endregion
 
         #region Barcode Scaner
+
         BarcodeReader BarcodeReader { get; set; } = new BarcodeReader();
-        DataGrid BarcodelistGrid;
-        public void BarcodeReaderInit(DataGrid BarcodesGrid, Rectangle RxRect, Rectangle ConnectedRect)
+        DataGrid BarcodelistGrid, BacodesWaitingList;
+        public void BarcodeReaderInit(DataGrid BarcodesGrid, DataGrid BacodesWaitingList, Rectangle RxRect, Rectangle ConnectedRect)
         {
             BarcodelistGrid = BarcodesGrid;
+            this.BacodesWaitingList = BacodesWaitingList;
             BarcodelistGrid.Dispatcher.Invoke(new Action(delegate {
                 BarcodelistGrid.ItemsSource = RootModel.Barcodes;
+            }));
+            BacodesWaitingList.Dispatcher.Invoke(new Action(delegate {
+                BacodesWaitingList.ItemsSource = RootModel.BarcodesWaitting;
             }));
 
             BarcodeReader.SerialDisplay.RX = RxRect;
@@ -253,7 +269,6 @@ namespace HVT.VTM.Program
             BarcodeReader.OnReciverData += BarcodeReader_OnReciverData;
             BarcodeReader.OnConnected += BarcodeReader_OnConnected;
             BarcodeReader.SerialStartConnect();
-
         }
 
         private void BarcodeReader_OnReciverData(object sender, EventArgs e)
@@ -273,18 +288,33 @@ namespace HVT.VTM.Program
                     break;
                 }
             }
+
             if (!haveHandle)
             {
+                if (RootModel.BarcodesWaitting.Select(o => o.BarcodeData).Contains(BarcodeReader.BarcodeBuffer.Replace("\r", "")))
+                {
+                    return;
+                }
+
                 for (int i = 0; i < RootModel.BarcodesWaitting.Count; i++)
                 {
-                    RootModel.BarcodesWaitting[i] = BarcodeReader.BarcodeBuffer;
-                    break;
+                    if (RootModel.BarcodesWaitting[i].BarcodeData == "")
+                    {
+                        RootModel.BarcodesWaitting[i].BarcodeData = BarcodeReader.BarcodeBuffer.Replace("\r", "");
+                        break;
+                    }
                 }
             }
+
             BarcodeReader.SerialDisplay.BlinkRX();
+
             BarcodelistGrid.Dispatcher.Invoke(new Action(delegate {
                 BarcodelistGrid.ItemsSource = null;
                 BarcodelistGrid.ItemsSource = RootModel.Barcodes;
+            }));
+            BacodesWaitingList.Dispatcher.Invoke(new Action(delegate {
+                BacodesWaitingList.ItemsSource = null;
+                BacodesWaitingList.ItemsSource = RootModel.BarcodesWaitting;
             }));
         }
 
@@ -293,19 +323,168 @@ namespace HVT.VTM.Program
             BarcodeReader.SerialDisplay.ShowCOMStatus(BarcodeReader.serialPort.IsOpen);
         }
 
+        public void UpdateBarcodeList()
+        {
+            foreach (var item in RootModel.contruction.PBAs)
+            {
+                if (item.BarcodeWaiting.Lenght > 1)
+                {
+                    item.Barcode = item.BarcodeWaiting;
+                    item.BarcodeWaiting = null;
+                }
+            }
+        }
+
         #endregion
 
         #region Mux card
-        public MuxCard MUX_CARD = new MuxCard();
+        public MuxCard MUX_CARD;
         public DataGrid MuxCardGridP1, MuxCardGridP2;
-        public void MuxUIInit(DataGrid MuxCardGrid1, DataGrid MuxCardGrid2)
+
+        public void MuxUIInit(
+             DataGrid MuxCardGrid1, DataGrid MuxCardGrid2, WrapPanel panelSelect, WrapPanel pnMux1, WrapPanel pnMux2,
+             Rectangle Tx1, Rectangle Rx1, Rectangle Status1,
+             Rectangle Tx2, Rectangle Rx2, Rectangle Status2
+            )
         {
+            MUX_CARD = new MuxCard(panelSelect);
+            if (!MUX_CARD.SetPort(
+                appSetting.Communication.Mux1Port, Tx1, Rx1, Status1,
+                appSetting.Communication.Mux2Port, Tx2, Rx2, Status2))
+            {
+                Utility.Debug.Write("MUX CARD can't connect" + appSetting.Communication.Mux1Port + ", please check MUX serial port setting.", Utility.Debug.ContentType.Error);
+            }
+
             this.MuxCardGridP1 = MuxCardGrid1;
             this.MuxCardGridP1.ItemsSource = MUX_CARD.ChanelsEdittingPart1;
             this.MuxCardGridP1 = MuxCardGrid2;
             this.MuxCardGridP1.ItemsSource = MUX_CARD.ChanelsEdittingPart2;
-            MUX_CARD.UpdateMainMuxChannels();
+
+            MUX_CARD.UpdateMainMuxChannels(panelSelect, pnMux1, pnMux2);
+        }
+
+        public void SendCardStatus()
+        {
+            MUX_CARD.SendCardStatus();
+        }
+
+        #endregion
+
+        #region Relay card
+        public RelayCard RL_CARD;
+        public void RelayUIInit(
+             WrapPanel panelSelect, WrapPanel pnMux1, WrapPanel pnMux2, WrapPanel pnVision,
+             Rectangle Tx1, Rectangle Rx1, Rectangle Status1
+            )
+        {
+            RL_CARD = new RelayCard(panelSelect);
+            if (!RL_CARD.SetPort(
+                appSetting.Communication.RelayPort, Tx1, Rx1, Status1))
+            {
+                Utility.Debug.Write("Relay CARD can't connect" + appSetting.Communication.RelayPort + ", please check Relay serial port setting.", Utility.Debug.ContentType.Error);
+            }
+
+            RL_CARD.UpdateMainRelayChannels(panelSelect, pnMux1, pnMux2, pnVision);
+        }
+
+        public void SendRLCardStatus()
+        {
+            RL_CARD.SendCardStatus();
+        }
+
+        #endregion
+
+        #region Solenoid
+        public Solenoid SOLENOID_CARD;
+        public void SolenoidUIInit(
+             WrapPanel panelSelect, WrapPanel pnVision,
+             Rectangle Tx1, Rectangle Rx1, Rectangle Status1
+            )
+        {
+            SOLENOID_CARD = new Solenoid();
+            if (!SOLENOID_CARD.SetPort(
+                appSetting.Communication.SolenoidPort, Tx1, Rx1, Status1))
+            {
+                Utility.Debug.Write("Solenoid can't connect to "+ appSetting.Communication.SolenoidPort + ", please check solenoid serial port setting.", Utility.Debug.ContentType.Error);
+            }
+
+            SOLENOID_CARD.UpdateMainSolenoidChannels(panelSelect, pnVision);
+        }
+
+        public void SendSOLENOID_CARDStatus()
+        {
+            SOLENOID_CARD.SendCardStatus();
+        }
+
+        #endregion
+
+        #region UUT
+
+        public List<UUTPort> UUTs = new List<UUTPort>()
+        {
+            new UUTPort(){},
+            new UUTPort(){},
+            new UUTPort(){},
+            new UUTPort(){},
+        };
+
+        public void UUTPortUIInit(Rectangle Tx1, Rectangle Rx1, Rectangle Status1,
+                                  Rectangle Tx2, Rectangle Rx2, Rectangle Status2,
+                                  Rectangle Tx3, Rectangle Rx3, Rectangle Status3,
+                                  Rectangle Tx4, Rectangle Rx4, Rectangle Status4)
+        {
+            UUTs[0].SerialName = appSetting.Communication.UUT1Port;
+            UUTs[1].SerialName = appSetting.Communication.UUT2Port;
+            UUTs[2].SerialName = appSetting.Communication.UUT3Port;
+            UUTs[3].SerialName = appSetting.Communication.UUT4Port;
+
+            UUTs[0].SetPort(Tx1, Rx1, Status1);
+            UUTs[1].SetPort(Tx2, Rx2, Status2);
+            UUTs[2].SetPort(Tx3, Rx3, Status3);
+            UUTs[3].SetPort(Tx4, Rx4, Status4);
+        }
+
+
+
+
+        #endregion
+
+        #region Printer
+        public GT800_Printer Printer = new GT800_Printer();
+        public void PrinterUiInit(Rectangle Tx1, Rectangle Rx1, Rectangle Status1)
+        {
+            Printer.serialPortName = appSetting.Communication.PrinterPort;
+            Printer.Display = new Utility.SerialDisplay()
+            {
+                TX = Tx1,
+                RX = Rx1,
+                IsOpenRect = Status1,
+            };
+            Printer.SerialInit();
+        }
+        public void Print_Test(QR_Code QR)
+        {
+            QR.printTestQR(Printer);
         }
         #endregion
+
+        public void CloseDevices()
+        {
+            DMM1.serialPort.Close();
+            DMM2.serialPort.Close();
+            PPS1.serialPort.Close();
+            PPS2.serialPort.Close();
+            MUX_CARD.Port1.serialPort.Close();
+            MUX_CARD.Port2.serialPort.Close();
+            SOLENOID_CARD.Port1.serialPort.Close();
+            RL_CARD.Port1.serialPort.Close();
+            foreach (var item in UUTs)
+            {
+                item.ClosePort();
+            }
+            BarcodeReader.serialPort.Close();
+            Printer.serialPort.Close();
+
+        }
     }
 }

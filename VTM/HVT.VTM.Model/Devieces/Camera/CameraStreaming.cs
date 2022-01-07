@@ -59,6 +59,8 @@ namespace HVT.VTM.Base
         public int CameraDeviceId { get; private set; }
         public byte[] LastPngFrame { get; private set; }
 
+        public CameraSetting cameraSetting = new CameraSetting();
+
         public VideoCapture videoCapture = new VideoCapture();
         public enum VideoProperties
         {
@@ -69,7 +71,8 @@ namespace HVT.VTM.Base
             WhiteBalance,
             Sharpness,
             Focus,
-            Zoom
+            Zoom,
+            Reset,
         }
 
         public CameraStreaming(
@@ -101,6 +104,7 @@ namespace HVT.VTM.Base
                 {
                     // Creation and disposal of this object should be done in the same thread 
                     // because if not it throws disconnectedContext exception
+
                     videoCapture = new VideoCapture();
 
 
@@ -110,8 +114,10 @@ namespace HVT.VTM.Base
                     }
                     Console.WriteLine("Set frame width:" + videoCapture.Set(VideoCaptureProperties.FrameWidth, _frameWidth));
                     Console.WriteLine("Set frame height:" + videoCapture.Set(VideoCaptureProperties.FrameHeight, _frameHeight));
-
-                    //Console.WriteLine("Set FPS" + videoCapture.Set(VideoCaptureProperties.Fps, 60));
+                    Console.WriteLine("frame width:" + videoCapture.Get(VideoCaptureProperties.FrameWidth));
+                    Console.WriteLine("frame height:" + videoCapture.Get(VideoCaptureProperties.FrameHeight));
+                    Console.WriteLine("Set FPS" + videoCapture.Set(VideoCaptureProperties.Fps, 30));
+                    Console.WriteLine("FPS " + videoCapture.Get(VideoCaptureProperties.Fps));
                     //Console.WriteLine("Set Brightness" + videoCapture.Set(VideoCaptureProperties.Brightness, 100));
                     //Console.WriteLine("Set Exposure" + videoCapture.Set(VideoCaptureProperties.Exposure, -5));
                     //Console.WriteLine("Set Sharpness" + videoCapture.Set(VideoCaptureProperties.Sharpness, 100));
@@ -130,24 +136,20 @@ namespace HVT.VTM.Base
                                     initializationSemaphore.Release();
                                 _lastFrame = BitmapConverter.ToBitmap(frame, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
                                 //_lastCropFrame = CropBitmap(_lastFrame);
-                                
+
                                 lastFrameBitmapImage = _lastFrame.ToBitmapSource();
                                 //System.Windows.Media.Imaging.BitmapSource lastFrameCropBitmapImage = _lastCropFrame.ToBitmapSource();
                                 lastFrameBitmapImage.Freeze();
                                 //lastFrameCropBitmapImage.Freeze();
                                 _imageControlForRendering.Dispatcher.Invoke(() => _imageControlForRendering.Source = lastFrameBitmapImage);
                                 //_imageControlForCropRendering.Dispatcher.Invoke(() => _imageControlForCropRendering.Source = lastFrameCropBitmapImage);
-                                ImageUpdate?.Invoke(lastFrameBitmapImage, null);
+                                //ImageUpdate?.Invoke(lastFrameBitmapImage, null);
                             }
                             // 30 FPS
-                            await Task.Delay(TimeSpan.FromMilliseconds(10));
+                            await Task.Delay(5);
                             //Console.WriteLine(DateTime.Now - timeStart);
                         }
                     }
-                    
-                    Console.WriteLine("Set frame width:" + videoCapture.Get(VideoCaptureProperties.FrameWidth));
-                    Console.WriteLine("Set frame height:" + videoCapture.Get(VideoCaptureProperties.FrameHeight));
-                    Console.WriteLine("Set FPS" + videoCapture.Get(VideoCaptureProperties.Fps));
 
                     videoCapture?.Dispose();
                 }
@@ -212,7 +214,7 @@ namespace HVT.VTM.Base
             return _lastFrame.Clone(new Rectangle(0, 0, _frameWidth, _frameHeight), _lastFrame.PixelFormat);
         }
 
-        public void SetParammeter(VideoProperties properties, int Value)
+        public void SetParammeter(VideoProperties properties, int Value, bool InTest)
         {
             if (videoCapture == null)
             {
@@ -233,7 +235,8 @@ namespace HVT.VTM.Base
                     videoCapture.Set(VideoCaptureProperties.Saturation, Value);
                     break;
                 case VideoProperties.WhiteBalance:
-                    videoCapture.Set(VideoCaptureProperties.WhiteBalanceBlueU, Value);
+                    //videoCapture.Set(VideoCaptureProperties.WhiteBalanceBlueU, Value);
+                    videoCapture.Set(VideoCaptureProperties.WBTemperature, Value);
                     break;
                 case VideoProperties.Sharpness:
                     videoCapture.Set(VideoCaptureProperties.Sharpness, Value);
@@ -248,6 +251,53 @@ namespace HVT.VTM.Base
                     break;
             }
         }
+
+
+        public void SetParammeter(VideoProperties properties, int Value)
+        {
+            if (videoCapture == null)
+            {
+                return;
+            }
+            switch (properties)
+            {
+                case VideoProperties.Exposure:
+                    videoCapture.Set(VideoCaptureProperties.Exposure, Value);
+                    cameraSetting.Exposure = Value;
+                    break;
+                case VideoProperties.Brightness:
+                    videoCapture.Set(VideoCaptureProperties.Brightness, Value);
+                    cameraSetting.Brightness = Value;
+                    break;
+                case VideoProperties.Contrast:
+                    videoCapture.Set(VideoCaptureProperties.Contrast, Value);
+                    cameraSetting.Contrast = Value;
+                    break;
+                case VideoProperties.Satuation:
+                    videoCapture.Set(VideoCaptureProperties.Saturation, Value);
+                    cameraSetting.Saturation = Value;
+                    break;
+                case VideoProperties.WhiteBalance:
+                    videoCapture.Set(VideoCaptureProperties.WBTemperature, Value);
+                    cameraSetting.WBTemperature = Value;
+                    break;
+                case VideoProperties.Sharpness:
+                    videoCapture.Set(VideoCaptureProperties.Sharpness, Value);
+                    cameraSetting.Sharpness = Value;
+                    break;
+                case VideoProperties.Focus:
+                    videoCapture.Set(VideoCaptureProperties.Focus, Value);
+                    cameraSetting.Focus = Value;
+                    break;
+                case VideoProperties.Zoom:
+                    videoCapture.Set(VideoCaptureProperties.Zoom, Value);
+                    cameraSetting.Zoom = Value;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public int GetParammeter(VideoProperties properties)
         {
             if (videoCapture == null)
@@ -277,6 +327,32 @@ namespace HVT.VTM.Base
             }
         }
 
+        public bool SetParammeter(CameraSetting cameraSetting)
+        {
+             videoCapture.Set(VideoCaptureProperties.Exposure, cameraSetting.Exposure);
+
+             videoCapture.Set(VideoCaptureProperties.Brightness, cameraSetting.Brightness);
+
+             videoCapture.Set(VideoCaptureProperties.Contrast, cameraSetting.Contrast);
+
+             videoCapture.Set(VideoCaptureProperties.Saturation, cameraSetting.Saturation);
+
+             videoCapture.Set(VideoCaptureProperties.WhiteBalanceBlueU, cameraSetting.WBTemperature);
+
+             videoCapture.Set(VideoCaptureProperties.Sharpness, cameraSetting.Sharpness);
+
+             videoCapture.Set(VideoCaptureProperties.Focus, cameraSetting.Focus);
+
+             videoCapture.Set(VideoCaptureProperties.Zoom, cameraSetting.Zoom);
+
+
+            return true;
+        }
+
+        public CameraSetting GetParammeter()
+        {
+            return cameraSetting;
+        }
 
         public void Dispose()
         {
