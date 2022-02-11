@@ -1,7 +1,5 @@
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\dll\x86\OpenCvSharpExtern.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\dll\x86\opencv_videoio_ffmpeg453.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\dll\x64\OpenCvSharpExtern.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\dll\x64\opencv_videoio_ffmpeg453_64.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\TessData\eng.traineddata
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\HVT.VTM.Base.dll.config
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\HVT.VTM.Base.dll
@@ -11,7 +9,6 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\HVT.Utility.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\ImageProcessor.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\OpenCvSharp.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\OpenCvSharp.Extensions.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\OpenCvSharp.WpfExtensions.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\Resource.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\System.Buffers.dll
@@ -31,8 +28,6 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\DirectShowLib.pdb
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\ImageProcessor.xml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\OpenCvSharp.xml
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\OpenCvSharp.Extensions.xml
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\OpenCvSharp.WpfExtensions.xml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\System.Buffers.xml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\System.Memory.xml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\System.Numerics.Vectors.xml
@@ -55,7 +50,6 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\tessdata\eng.cube.size
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\tessdata\eng.cube.word-freq
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\tessdata\eng.tesseract_cube.nn
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\ScottPlot.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\ScottPlot.WPF.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\ScottPlot.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\dll\x86\opencv_videoio_ffmpeg455.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\dll\x64\opencv_videoio_ffmpeg455_64.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Debug\System.Drawing.Common.xml

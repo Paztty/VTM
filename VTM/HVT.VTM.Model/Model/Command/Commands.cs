@@ -313,7 +313,6 @@ namespace HVT.VTM.Base
                             "Mode - NORMAL : recieved data compare.\r\n"+
                             "WAIT : To collect data in the same format, then compare the Rx Data Name\r\n"+
                             "W-DATA : Collecting data with the Rx Data Name format in the same upper and lower limit comparison data.\r\n"
-
             },
 
             new CommandDescriptions()

@@ -16,4 +16,3 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM_Rep
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM_Report\obj\Release\CSS\VTM_Animations.baml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM_Report\obj\Release\CSS\VTM_ControlTemplate.baml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM_Report\obj\Release\CSS\VTM_StyleDictionary.baml
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\VTM_Report\obj\Release\VTM_Report.csproj.SuggestedBindingRedirects.cache

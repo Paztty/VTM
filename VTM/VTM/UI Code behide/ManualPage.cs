@@ -1,7 +1,6 @@
 ﻿
 using HVT.VTM.Base;
 using HVT.VTM.Program;
-using ScottPlot;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,20 +39,6 @@ namespace VTM
             cbbDMM_range.ItemsSource = _enumval;
             cbbDMM_range.SelectedIndex = 3;
             btDMMslowRate.IsChecked = true;
-
-            double[] dataX = new double[] { 1, 2, 3, 4, 5 };
-            double[] dataY = new double[] { 0.6, 0.6, 1.4, 1.4, 0.6 };
-
-            double[] dataX1 = new double[] { 1, 2, 2, 3, 4, 5 };
-            double[] dataY1 = new double[] { 2.6, 2.6, 3.4, 3.4, 2.6, 3.4 };
-
-            Grap.Plot.Style(ScottPlot.Style.Black);
-            Grap.Plot.XAxis.MajorGrid(color: System.Drawing.Color.FromArgb(20, System.Drawing.Color.Black));
-            Grap.Plot.XAxis.MinorGrid(enable: true, color: System.Drawing.Color.FromArgb(100, System.Drawing.Color.Black));
-            Grap.Plot.YAxis.MajorGrid(lineWidth: 1, lineStyle: LineStyle.Dash, color: System.Drawing.Color.Magenta);
-            Grap.Plot.AddScatter(dataX, dataY, System.Drawing.Color.Red);
-            Grap.Plot.AddScatter(dataX1, dataY1, System.Drawing.Color.Green);
-            Grap.Refresh();
         }
 
         private void DMM_OnModeChange(object sender, EventArgs e)
@@ -140,16 +125,6 @@ namespace VTM
         {
             if (!Program.IsTestting)
             {
-                EscapTime = 0;
-                EscapTimer.Elapsed -= EscapTimer_Elapsed;
-                EscapTimer.Elapsed += EscapTimer_Elapsed;
-                EscapTimer.Start();
-                Runtest();
-            }
-            else
-            {
-                EscapTime = 0;
-                Program.TestState = Program.RunTestState.TESTTING;
                 foreach (var item in Program.RootModel.Steps)
                 {
                     item.ValueGet1 = "";
@@ -161,6 +136,16 @@ namespace VTM
                     item.Result3 = Step.DontCare;
                     item.Result4 = Step.DontCare;
                 }
+                EscapTime = 0;
+                EscapTimer.Elapsed -= EscapTimer_Elapsed;
+                EscapTimer.Elapsed += EscapTimer_Elapsed;
+                EscapTimer.Start();
+                Program.TestState = Program.RunTestState.TESTTING;
+                Program.RUN_MANUAL_TEST();
+            }
+            else
+            {
+                Program.TestState = Program.RunTestState.TESTTING;
                 TestStepsGrid.Items.Refresh();
                 EscapTimer.Start();
             }
@@ -257,7 +242,11 @@ namespace VTM
             }
             else
             {
-                Program.DMM1.GetValue();
+                Task.Run(async () =>
+                {
+                    Program.DMM1.GetValue();
+                    await Task.Delay(10);
+                });
             }
         }
 
@@ -273,10 +262,12 @@ namespace VTM
                 Task.Run(async () =>
                 {
                     Program.DMM1.GetValue();
+                    await Task.Delay(10);
                 });
                 Task.Run(async () =>
                 {
                     Program.DMM2.GetValue();
+                    await Task.Delay(10);
                 });
             }
         }
@@ -292,6 +283,7 @@ namespace VTM
                 await Task.Run(async () =>
                 {
                     Program.DMM2.GetValue();
+                    await Task.Delay(10);
                 });
             }
         }

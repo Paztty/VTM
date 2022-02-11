@@ -20,6 +20,7 @@ namespace HVT.VTM.Base.Machine
     public class Port
     {
         public SerialDisplay SerialDisplay = new SerialDisplay();
+        
         public SerialPort serialPort = new SerialPort()
         {
             WriteTimeout = 100,
@@ -28,7 +29,9 @@ namespace HVT.VTM.Base.Machine
         public bool ClearRxTimeSpecified { get; set; } = false;
 
         Timer clearRxTimer = new Timer();
+        
         private int clearTime;
+        
         private int ClearTime
         {
             get { return clearTime; }
@@ -51,6 +54,7 @@ namespace HVT.VTM.Base.Machine
         }
 
         private string serialname;
+        
         public string SerialName
         {
             get { return serialname; }
@@ -62,12 +66,15 @@ namespace HVT.VTM.Base.Machine
                 }
             }
         }
+        
         private List<int> _buffer = new List<int>();
+        
         public List<int> Buffer
         {
             get { return _buffer; }
             set { _buffer = value; }
         }
+        
         public int[] Data;
 
         public Port()
@@ -173,7 +180,7 @@ namespace HVT.VTM.Base.Machine
                     serialPort.Open();
                     return serialPort.IsOpen;
                 }
-                catch (Exception err)
+                catch (Exception)
                 {
                     return false;
                 }
@@ -190,7 +197,7 @@ namespace HVT.VTM.Base.Machine
                     serialPort.Close();
                     return serialPort.IsOpen;
                 }
-                catch (Exception err)
+                catch (Exception)
                 {
                     return false;
                 }
@@ -222,7 +229,7 @@ namespace HVT.VTM.Base.Machine
                         serialPort.Write(frame, 0, frame.Length);
                         return true;
                     }
-                    catch (TimeoutException e)
+                    catch (TimeoutException)
                     {
                         return false;
                     }
@@ -255,10 +262,8 @@ namespace HVT.VTM.Base.Machine
             return false;
         }
 
-
-
-
         public RichTextBox LogBox = new RichTextBox();
+        
         private void Write_Log(string log, bool IsTxWrite = true)
         {
             if (LogBox != null)

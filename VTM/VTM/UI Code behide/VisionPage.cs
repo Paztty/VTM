@@ -23,30 +23,26 @@ namespace VTM
 
             Program.CameraPropertiesChange += Program_CameraPropertiesChange;
 
-            Program.VisionInit(drawingTable, atDisplayCanvas, manualDisplayCanvas,
-                imgFNDviewA,
-                imgFNDviewB,
-                imgFNDviewC,
-                imgFNDviewD,
+            Program.VisionInit(
+                                drawingTable,
+                                atDisplayCanvas,
+                                manualDisplayCanvas,
 
-                imgLCDviewA,
-                imgLCDviewB,
-                imgLCDviewC,
-                imgLCDviewD,
+                                pnLCDA,
+                                pnLCDB,
+                                pnLCDC,
+                                pnLCDD,
 
-                lbFNDvalueA,
-                lbFNDvalueB,
-                lbFNDvalueC,
-                lbFNDvalueD,
+                                pnFNDA,
+                                pnFNDB,
+                                pnFNDC,
+                                pnFNDD,
 
-                lbLCDvalueA,
-                lbLCDvalueB,
-                lbLCDvalueC,
-                lbLCDvalueD,
+                                lbGLEDsHexa,
+                                lbLEDsHexa
 
-                lbGLEDsHexa,
-                lbLEDsHexa
-                );
+                                );
+            rdbtSelectAll.IsChecked = true;
             //atDisplayCanvas.Source = Program.CaptureCanvasLayout(drawingTable);
         }
 
@@ -294,7 +290,7 @@ namespace VTM
 
         private void CameraSetting_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (setCamTask != null && !setCamTask.IsCompleted)
+            if (setCamTask != null && setCamTask.Status == TaskStatus.Running)
             {
                 return;
             }
@@ -302,25 +298,28 @@ namespace VTM
             switch (paramSettup)
             {
                 case "slExporsure":
-                    setCamTask = Task.Run(async () => { Program.cameraStreaming.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Exposure, (int)e.NewValue); });
+                    setCamTask = Task.Run(() => { Program.cameraStreaming?.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Exposure, (int)e.NewValue); return Task.CompletedTask; });
                     break;
                 case "slBrightness":
-                    setCamTask = Task.Run(async () => { Program.cameraStreaming.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Brightness, (int)e.NewValue); });
+                    setCamTask = Task.Run(() => { Program.cameraStreaming?.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Brightness, (int)e.NewValue); return Task.CompletedTask; });
                     break;
                 case "slContrast":
-                    setCamTask = Task.Run(async () => { Program.cameraStreaming.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Contrast, (int)e.NewValue); });
+                    setCamTask = Task.Run(() => { Program.cameraStreaming?.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Contrast, (int)e.NewValue); return Task.CompletedTask; });
                     break;
                 case "slFocus":
-                    setCamTask = Task.Run(async () => { Program.cameraStreaming.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Focus, (int)e.NewValue); });
+                    setCamTask = Task.Run(() => { Program.cameraStreaming?.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Focus, (int)e.NewValue); return Task.CompletedTask; });
                     break;
                 case "slWhite":
-                    setCamTask = Task.Run(async () => { Program.cameraStreaming.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.WhiteBalance, (int)e.NewValue); });
+                    setCamTask = Task.Run(() => { Program.cameraStreaming?.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.WhiteBalance, (int)e.NewValue); return Task.CompletedTask; });
                     break;
                 case "slSharpness":
-                    setCamTask = Task.Run(async () => { Program.cameraStreaming.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Sharpness, (int)e.NewValue); });
+                    setCamTask = Task.Run(() => { Program.cameraStreaming?.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Sharpness, (int)e.NewValue); return Task.CompletedTask; });
                     break;
                 case "slZoom":
-                    setCamTask = Task.Run(async () => { Program.cameraStreaming.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Zoom, (int)e.NewValue); });
+                    setCamTask = Task.Run(() => { Program.cameraStreaming?.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Zoom, (int)e.NewValue); return Task.CompletedTask; });
+                    break;
+                case "slSatuation":
+                    setCamTask = Task.Run(() => { Program.cameraStreaming?.SetParammeter(HVT.VTM.Base.CameraStreaming.VideoProperties.Satuation, (int)e.NewValue); return Task.CompletedTask; });
                     break;
                 default:
                     break;
@@ -356,10 +355,21 @@ namespace VTM
             sldLCDC.Value = Program.RootModel.LCDs[2].Threshold;
             sldLCDD.Value = Program.RootModel.LCDs[3].Threshold;
 
+            Program.RootModel.ReplaceComponent(
+                                drawingTable,
+                                atDisplayCanvas,
+                                manualDisplayCanvas,
+
+                                pnLCDA,
+                                pnLCDB,
+                                pnLCDC,
+                                pnLCDD,
+
+                                pnFNDA,
+                                pnFNDB,
+                                pnFNDC,
+                                pnFNDD);
         }
-
-
-
         #endregion
 
         #region FunctionsDrawing 

@@ -1,6 +1,7 @@
 ﻿
 using HVT.StandantLocalUsers;
 using HVT.Utility;
+using HVT.VTM.Base;
 using HVT.VTM.Program;
 using System;
 using System.Collections.Generic;
@@ -59,8 +60,7 @@ namespace VTM
             Program.Machine_Init();
 
             Program.CameraInit(
-                cameraView,
-                imgFNDviewA
+                cameraView
                 );
 
             Program.CreatMachineFolder();
@@ -87,6 +87,16 @@ namespace VTM
             Program.StepTestChange += Model_StepTestChangeAsync;
             Program.TestRunFinish += Model_TestRunFinish;
             Program.StateChange += Model_StateChange;
+
+            FolderMap.GetListModelsLoaded();
+            panellastloaded.Children.Clear();
+
+            foreach (var item in FolderMap.ModelLoadeds)
+            {
+                panellastloaded.Children.Add(item.FileLabel);
+                item.FileLabel.Click -= OpenLastModel;
+                item.FileLabel.Click += OpenLastModel;
+            }
         }
 
         private void Contruction_ContructionChanged(object sender, EventArgs e)
@@ -107,16 +117,21 @@ namespace VTM
             Program.RootModel.LoadFinish += Contruction_ContructionChanged;
 
             Program.StepTestChange += Model_StepTestChangeAsync;
+            Program.TestRunFinish -= Model_TestRunFinish;
             Program.TestRunFinish += Model_TestRunFinish;
             Program.StateChange += Model_StateChange;
 
             Program.RootModel.contruction.ContructionChanged += Contruction_ContructionChanged;
-           
+
+            SetBarcodeConfig();
+            SetPortSetting();
         }
 
         private void btCheckComunications_Click(object sender, RoutedEventArgs e)
         {
             Program.CloseDevices();
+
+            Program.BarcodeReaderInit(RX_RECT_COM12, CONNECTED_RECT_COM12);
 
             Program.PrinterUiInit(TX_RECT_COM13, RX_RECT_COM13, CONNECTED_RECT_COM13);
 
@@ -124,8 +139,12 @@ namespace VTM
                 TX_RECT_COM3, RX_RECT_COM3, CONNECTED_RECT_COM3,
                 TX_RECT_COM4, RX_RECT_COM4, CONNECTED_RECT_COM4
                 );
+
+
             Program.RelayUIInit(pnRelaySelect, pnRelay1, pnRelay2, pnVisionRelays,
             TX_RECT_COM5, RX_RECT_COM5, CONNECTED_RECT_COM5);
+
+            Program.LevelUIInit(pnRelaySelect,grGraph, TX_RECT_COM2, RX_RECT_COM2, CONNECTED_RECT_COM2);
 
             Program.SolenoidUIInit(pnSolenoid, pnVisionSolenoid,
             TX_RECT_COM6, RX_RECT_COM6, CONNECTED_RECT_COM6);
@@ -136,6 +155,7 @@ namespace VTM
                 TX_RECT_COM10, RX_RECT_COM10, CONNECTED_RECT_COM10,
                 TX_RECT_COM11, RX_RECT_COM11, CONNECTED_RECT_COM11
                 );
+
             Program.DMM_UI_Init(MinVal_DMM1, MaxVal_DMM1, Arg_DMM1, Val_DMM1, MinVal_DMM2, MaxVal_DMM2, Arg_DMM2, Val_DMM2,
             RX_RECT_COM7, TX_RECT_COM7, CONNECTED_RECT_COM7, RX_RECT_COM15, TX_RECT_COM15, CONNECTED_RECT_COM15);
             
@@ -172,25 +192,15 @@ namespace VTM
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            FolderMap.SaveListModelLoaded();
             if (Program.cameraStreaming != null)
             {
+                await Program.cameraStreaming.Stop();
                 Program.cameraStreaming.Dispose();
             } 
-            Environment.Exit(0);
-            Program.PPS1.canUpdate = false;
-            Program.PPS2.canUpdate = false;
-            try
-            {
-                while (Program.PPS1.UpdateValueTask.Status == TaskStatus.Running
-                            || Program.PPS2.UpdateValueTask.Status == TaskStatus.Running) ;
-                Program.PPS1.UpdateValueTask.Dispose();
-                Program.PPS2.UpdateValueTask.Dispose();
-            }
-            catch (Exception)
-            {
-            }
+
 
         }
 

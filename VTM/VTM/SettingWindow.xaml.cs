@@ -30,7 +30,6 @@ namespace VTM
             this.Setting = Program.appSetting;
             this.Program = Program;
 
-
             cbbBarcodePort.ItemsSource = Communication.ComPorts;
             cbbDMM1Port.ItemsSource = Communication.ComPorts;
             cbbDMM2Port.ItemsSource = Communication.ComPorts;
@@ -128,6 +127,8 @@ namespace VTM
 
             nudPrintSpeed.Value = Setting.QR.label.speed;
             nudDarkness.Value = Setting.QR.label.dark;
+            nudLabelLenght.Value = Setting.QR.label.Lenght;
+
             nudLabelHomeX.Value = Setting.QR.label.home_x;
             nudLableHomeY.Value = Setting.QR.label.home_y;
             nudQRCodeX.Value = Setting.QR.label.qr_x;
@@ -231,6 +232,7 @@ namespace VTM
             Setting.QR.InspectionEquipment = tbProductMachine.Text;
             Setting.QR.label.speed = (int)nudPrintSpeed.Value;
             Setting.QR.label.dark = (int)nudDarkness.Value;
+            Setting.QR.label.Lenght = (int)nudLabelLenght.Value;
             Setting.QR.label.home_x = (int)nudLabelHomeX.Value;
             Setting.QR.label.home_y = (int)nudLableHomeY.Value;
             Setting.QR.label.qr_x = (int)nudQRCodeX.Value;
@@ -278,6 +280,7 @@ namespace VTM
             Setting.QR.InspectionEquipment = tbProductMachine.Text;
             Setting.QR.label.speed = (int)nudPrintSpeed.Value;
             Setting.QR.label.dark = (int)nudDarkness.Value;
+            Setting.QR.label.Lenght = (int)nudLabelLenght.Value;
             Setting.QR.label.home_x = (int)nudLabelHomeX.Value;
             Setting.QR.label.home_y = (int)nudLableHomeY.Value;
             Setting.QR.label.qr_x = (int)nudQRCodeX.Value;

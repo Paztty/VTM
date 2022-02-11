@@ -18,9 +18,6 @@
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
-
-
     </Window.Resources>
 
     <Grid>
@@ -400,11 +397,11 @@
 
                                             <Label Grid.Row="2" Grid.Column="1" Content="Print speed" Foreground="LightGray"/>
                                             <Label Grid.Row="3" Grid.Column="1" Content="Darkness" Foreground="LightGray"/>
-                                            <Label Grid.Row="4" Grid.Column="1" Content="Tear off position" Foreground="LightGray" Visibility="Hidden"/>
+                                            <Label Grid.Row="4" Grid.Column="1" Content="Label lenght" Foreground="LightGray" />
 
                                             <xc:IntegerUpDown x:Name="nudPrintSpeed" Grid.Column="2" Grid.Row="2" Margin="15,1,5,1" VerticalAlignment="Center" Maximum="100000" Minimum="0" Value="3" ClipValueToMinMax="True"/>
                                             <xc:IntegerUpDown x:Name="nudDarkness" Grid.Column="2" Grid.Row="3" Margin="15,1,5,1" VerticalAlignment="Center" Maximum="100000" Minimum="0" Value="3" ClipValueToMinMax="True"/>
-                                            <xc:IntegerUpDown x:Name="nudTearOffPosition" Grid.Column="2" Grid.Row="4" Margin="15,1,5,1" VerticalAlignment="Center" Maximum="100000" Minimum="0" Value="3" ClipValueToMinMax="True" Visibility="Hidden"/>
+                                            <xc:IntegerUpDown x:Name="nudLabelLenght" Grid.Column="2" Grid.Row="4" Margin="15,1,5,1" VerticalAlignment="Center" Maximum="100000" Minimum="0" Value="3" ClipValueToMinMax="True" />
                                         </Grid>
                                         <Grid Margin="0">
                                             <Grid.RowDefinitions>

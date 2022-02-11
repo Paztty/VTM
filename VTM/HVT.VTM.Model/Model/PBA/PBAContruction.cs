@@ -22,9 +22,6 @@ namespace HVT.VTM.Base
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-
-
         private string sitename;
         public string SiteName
         {
@@ -37,8 +34,29 @@ namespace HVT.VTM.Base
             }
         }
         public List<PBA_STEP> Steps { get; set; } = new List<PBA_STEP>();
-        public Barcode Barcode { get; set; } = new Barcode();
-        public Barcode BarcodeWaiting { get; set; } = new Barcode();
+
+
+        public string barcode = "";
+        public string barcodeWaiting = "";
+        public string barcodeResult = "";
+        public string Barcode
+        {
+            get { return barcode; }
+            set
+            {
+                barcode = value ?? "";
+                NotifyPropertyChanged(nameof(Barcode));
+            }
+        }
+        public string BarcodeWaiting
+        {
+            get { return barcodeWaiting; }
+            set
+            {
+                barcodeWaiting = value ?? "";
+                NotifyPropertyChanged(nameof(BarcodeWaiting));
+            }
+        }
 
         private bool isWaiting = true;
         public bool IsWaiting
@@ -54,9 +72,9 @@ namespace HVT.VTM.Base
                     {
                         CbWait.IsChecked = value;
                         CbWait.Content = value ? "Wait" : "Skip";
-                        CbWait.Background = value ? new SolidColorBrush(Colors.Transparent): new SolidColorBrush(Colors.DarkGray);
+                        CbWait.Background = value ? new SolidColorBrush(Colors.Transparent) : new SolidColorBrush(Colors.DarkGray);
                     }));
-                    lbIsWaiting.Dispatcher.Invoke(new Action(() => 
+                    lbIsWaiting.Dispatcher.Invoke(new Action(() =>
                     {
                         lbIsWaiting.Content = value ? "Wait" : "Skip";
                         lbIsWaiting.Background = value ? new SolidColorBrush(Colors.Transparent) : new SolidColorBrush(Colors.DarkGray);
@@ -66,7 +84,7 @@ namespace HVT.VTM.Base
                 }
             }
         }
-
+        public bool IsUse { get; set; }
         public UUTPort Port1 = new UUTPort();
         public UUTPort Port2 = new UUTPort();
 
@@ -77,7 +95,8 @@ namespace HVT.VTM.Base
         public Visibility Visibility
         {
             get { return visible; }
-            set {
+            set
+            {
                 if (visible != value)
                 {
                     visible = value == Visibility.Visible ? Visibility.Visible : Visibility.Hidden;
@@ -118,9 +137,10 @@ namespace HVT.VTM.Base
             HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
         };
 
+        public bool TestResult = false;
 
         // Method
-        public void GetStepList(List<Step> steps, int Site)
+        public bool GetStepResult(List<Step> steps)
         {
             this.Steps.Clear();
             foreach (Step step in steps)
@@ -133,16 +153,26 @@ namespace HVT.VTM.Base
                         TestContent = step.TestContent,
                         Oper = step.Oper,
                         MinMax = step.Min_Max,
-                        Value = Site == 1 ? step.ValueGet1 :
-                            Site == 2 ? step.ValueGet2 :
-                            Site == 3 ? step.ValueGet3 :
-                            Site == 4 ? step.ValueGet4 : "",
-                        Result = Site == 1 ? step.Result1 :
-                            Site == 2 ? step.Result2 :
-                            Site == 3 ? step.Result3 :
-                            Site == 4 ? step.Result4 : "",
+                        Value = SiteName == "A" ? step.ValueGet1 :
+                            SiteName == "B" ? step.ValueGet2 :
+                            SiteName == "C" ? step.ValueGet3 :
+                            SiteName == "D" ? step.ValueGet4 : "",
+                        Result = SiteName == "A" ? step.Result1 :
+                            SiteName == "B" ? step.Result2 :
+                            SiteName == "C" ? step.Result3 :
+                            SiteName == "D" ? step.Result4 : "",
                     });
             }
+            foreach (var item in Steps)
+            {
+                if (item.Result == Step.Ng)
+                {
+                    TestResult = false;
+                    return false;
+                }
+            }
+            TestResult = true;
+            return true;
         }
 
 

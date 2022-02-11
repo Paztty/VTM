@@ -17,5 +17,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <RemoteDebugEnabled>false</RemoteDebugEnabled>
     <RemoteDebugMachine>MIS_28860_001:4026</RemoteDebugMachine>
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
 </Project>

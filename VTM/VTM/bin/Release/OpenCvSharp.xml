@@ -3349,6 +3349,12 @@
             </summary>
             <param name="windowName"></param>
         </member>
+        <member name="M:OpenCvSharp.Cv2.InitContainer(System.Object)">
+            <summary>
+            Initialize XAML container panel for use by ImShow
+            </summary>
+            <param name="panel">Panel container.</param>
+        </member>
         <member name="M:OpenCvSharp.Cv2.ImRead(System.String,OpenCvSharp.ImreadModes)">
             <summary>
             Loads an image from a file.
@@ -6594,6 +6600,34 @@
         <member name="M:OpenCvSharp.ResourcesTracker.Dispose">
             <summary>
             Dispose all traced objects
+            </summary>
+        </member>
+        <member name="T:OpenCvSharp.Internal.ExceptionHandler">
+            <summary>
+            This static class defines one instance which than can be used by multiple threads to gather exception information from OpenCV
+            Implemented as a singleton
+            </summary>
+        </member>
+        <member name="F:OpenCvSharp.Internal.ExceptionHandler.ErrorHandlerCallback">
+            <summary>
+            Callback function invoked by OpenCV when exception occurs 
+            Stores the information locally for every thread
+            </summary>
+        </member>
+        <member name="M:OpenCvSharp.Internal.ExceptionHandler.RegisterExceptionCallback">
+            <summary>
+            Registers the callback function to OpenCV, so exception caught before the p/invoke boundary 
+            </summary>
+        </member>
+        <member name="M:OpenCvSharp.Internal.ExceptionHandler.ThrowPossibleException">
+            <summary>
+            Throws appropriate exception if one happened
+            </summary>
+        </member>
+        <member name="M:OpenCvSharp.Internal.ExceptionHandler.CheckForException">
+            <summary>
+            Returns a boolean which indicates if an exception occured for the current thread
+            Reading this value changes its state, so an exception is handled only once
             </summary>
         </member>
         <member name="T:OpenCvSharp.Internal.ExceptionStatus">

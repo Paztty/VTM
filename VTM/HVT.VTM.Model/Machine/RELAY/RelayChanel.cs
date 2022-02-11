@@ -28,7 +28,7 @@ namespace HVT.VTM.Base
         public CheckBox CbUse = new CheckBox()
         {
             Content = "Ch",
-            IsChecked = false,
+            IsChecked = true,
         };
 
         public ToggleButton btOn = new ToggleButton()
@@ -38,7 +38,7 @@ namespace HVT.VTM.Base
             Width = 30,
             Content = "Ch",
             IsChecked = false,
-            IsEnabled = false,
+            IsEnabled = true,
             HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
         };
 
@@ -55,7 +55,7 @@ namespace HVT.VTM.Base
 
         public int CardID = 0x4D;
 
-        private bool _isUse = false;
+        private bool _isUse = true;
         public bool isUse
         {
             get { return _isUse; }

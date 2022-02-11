@@ -37,6 +37,8 @@ namespace VTM
 
             PCB_Ui_Layout_Init();
 
+            Program.BarcodeReaderInit(RX_RECT_COM12, CONNECTED_RECT_COM12);
+
             Program.PrinterUiInit(TX_RECT_COM13, RX_RECT_COM13, CONNECTED_RECT_COM13);
 
             Program.UUTpageInit(dgTX_data_naming, dgRX_data_naming, dgQRcodeNameCode, tbQRcodeLink);
@@ -49,16 +51,18 @@ namespace VTM
             Program.RelayUIInit(pnRelaySelect, pnRelay1, pnRelay2, pnVisionRelays,
             TX_RECT_COM5, RX_RECT_COM5, CONNECTED_RECT_COM5);
 
+            Program.LevelUIInit(pnRelaySelect, grGraph, TX_RECT_COM2, RX_RECT_COM2, CONNECTED_RECT_COM2);
+
             Program.SolenoidUIInit(pnSolenoid, pnVisionSolenoid,
             TX_RECT_COM6, RX_RECT_COM6, CONNECTED_RECT_COM6);
 
             Program.UUTPortUIInit(
                 TX_RECT_COM8, RX_RECT_COM8, CONNECTED_RECT_COM8,
                 TX_RECT_COM9, RX_RECT_COM9, CONNECTED_RECT_COM9,
-                TX_RECT_COM10, RX_RECT_COM10,CONNECTED_RECT_COM10,
-                TX_RECT_COM11, RX_RECT_COM11,CONNECTED_RECT_COM11
+                TX_RECT_COM10, RX_RECT_COM10, CONNECTED_RECT_COM10,
+                TX_RECT_COM11, RX_RECT_COM11, CONNECTED_RECT_COM11
                 );
-            
+
         }
 
         #region Model Action
@@ -91,18 +95,20 @@ namespace VTM
 
         private void btSaveModel_Click(object sender, RoutedEventArgs e)
         {
+            GetBarcodeConfig();
             GetPortSetting();
             Program.SaveModel();
             foreach (Step step in Program.RootModel.Steps)
                 Console.WriteLine(step.CMD);
-            Program.RootModel.LoadFinishEvent();
+            //Program.RootModel.LoadFinishEvent();
         }
 
         private void btSaveAsModel_Click(object sender, RoutedEventArgs e)
         {
+            GetBarcodeConfig();
             GetPortSetting();
             Program.SaveModelAs();
-            Program.RootModel.LoadFinishEvent();
+            //Program.RootModel.LoadFinishEvent();
         }
 
         private void btOpenEditModel_Click(object sender, RoutedEventArgs e)
@@ -118,6 +124,8 @@ namespace VTM
             //Program.RootModel.StateChange += Model_StateChange;
 
             Program.RootModel.LoadFinishEvent();
+            SetPortSetting();
+            SetBarcodeConfig();
         }
 
         private void TestStepsGridData_Unloaded(object sender, RoutedEventArgs e)
@@ -668,7 +676,124 @@ namespace VTM
 
 
         #endregion
-        
+
+        #region Model Barcode
+        private void cbUseBarcode_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Program != null)
+            {
+                Program.RootModel.UseBarcodeInput = (bool)cbUseBarcode.IsChecked;
+            }
+        }
+
+        private void cbUseBarcode_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (Program != null)
+            {
+                Program.RootModel.UseBarcodeInput = (bool)cbUseBarcode.IsChecked;
+
+            }
+        }
+        private void rbtBarcodeVariableLenght_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Program != null)
+            {
+                Program.RootModel.UseBarcodeLenghtFixed = !(bool)rbtBarcodeVariableLenght.IsChecked;
+            }
+        }
+
+        private void rbtBarcodeFixedLenght_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Program != null)
+            {
+                Program.RootModel.UseBarcodeLenghtFixed = (bool)rbtBarcodeFixedLenght.IsChecked;
+
+            }
+        }
+        private void nUD_BarcodeLenght_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (Program != null)
+            {
+                Program.RootModel.BarcodeLenght = (int)nUD_BarcodeLenght.Value;
+                updateBarcodePreview();
+            }
+        }
+
+        private void cbBarcodeCompareModel_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Program != null)
+            {
+                Program.RootModel.CompareModelCode = (bool)cbBarcodeCompareModel.IsChecked;
+
+            }
+        }
+
+        private void cbBarcodeCompareModel_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (Program != null)
+            {
+                Program.RootModel.CompareModelCode = (bool)cbBarcodeCompareModel.IsChecked;
+
+            }
+        }
+
+        private void nUD_BarcodeModelStart_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (Program != null)
+            {
+                Program.RootModel.StartModelCodePosition = (int)nUD_BarcodeModelStart.Value;
+                updateBarcodePreview();
+
+            }
+        }
+
+        private void tbBacodeModelCode_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Program != null)
+            {
+                Program.RootModel.ModelCode = tbBacodeModelCode.Text;
+                updateBarcodePreview();
+
+            }
+        }
+
+        private void updateBarcodePreview()
+        {
+            if (nUD_BarcodeLenght == null || nUD_BarcodeModelStart == null)
+            {
+                return;
+            }
+            string barcodePreview = "";
+            for (int i = 0; i < (int)nUD_BarcodeLenght.Value; i++)
+            {
+                barcodePreview += 'x';
+            }
+            barcodePreview = barcodePreview.Remove((int)nUD_BarcodeModelStart.Value, tbBacodeModelCode.Text.Length).Insert((int)nUD_BarcodeModelStart.Value, tbBacodeModelCode.Text);
+            lbBarcodePreview.Content = barcodePreview;
+        }
+
+        public void GetBarcodeConfig()
+        {
+            Program.RootModel.ModelCode = tbBacodeModelCode.Text;
+            Program.RootModel.StartModelCodePosition = (int)nUD_BarcodeModelStart.Value;
+            Program.RootModel.CompareModelCode = (bool)cbBarcodeCompareModel.IsChecked;
+            Program.RootModel.BarcodeLenght = (int)nUD_BarcodeLenght.Value;
+            Program.RootModel.UseBarcodeLenghtFixed = (bool)rbtBarcodeFixedLenght.IsChecked;
+            Program.RootModel.UseBarcodeLenghtFixed = !(bool)rbtBarcodeVariableLenght.IsChecked;
+            Program.RootModel.UseBarcodeInput = (bool)cbUseBarcode.IsChecked;
+        }
+        public void SetBarcodeConfig()
+        {
+            tbBacodeModelCode.Text = Program.RootModel.ModelCode;
+            nUD_BarcodeModelStart.Value = Program.RootModel.StartModelCodePosition;
+            cbBarcodeCompareModel.IsChecked = Program.RootModel.CompareModelCode;
+            nUD_BarcodeLenght.Value = Program.RootModel.BarcodeLenght;
+            rbtBarcodeFixedLenght.IsChecked = Program.RootModel.UseBarcodeLenghtFixed;
+            rbtBarcodeVariableLenght.IsChecked = Program.RootModel.UseBarcodeLenghtFixed;
+            cbUseBarcode.IsChecked = Program.RootModel.UseBarcodeInput;
+        }
+        #endregion
+
         #region MUX_LEVEL
         public void ModelPage_UpdateLayout(Contruction contruction)
         {
@@ -767,7 +892,7 @@ namespace VTM
         {
             Program.RootModel.P1_Config.Use = (bool)cbUsePort1.IsChecked;
             Program.RootModel.P1_Config.Kind = Enum.TryParse<UUT_Config.PortKind>(Port1_Kind.Text, out UUT_Config.PortKind pkind) ? pkind : UUT_Config.PortKind.TTL;
-            Program.RootModel.P1_Config.Baudrate = Int32.TryParse(Port1_baudrate.Text, out int baud)? baud: 9600;
+            Program.RootModel.P1_Config.Baudrate = Int32.TryParse(Port1_baudrate.Text, out int baud) ? baud : 9600;
             Program.RootModel.P1_Config.Parity = Enum.TryParse<Parity>(Port1_Parity.Text, out Parity parity) ? parity : Parity.None;
             Program.RootModel.P1_Config.DataBit = Int32.TryParse(Port1_Databits.Text, out int databit) ? databit : 8;
             Program.RootModel.P1_Config.StopBits = Enum.TryParse<StopBits>(Port1_Stopbit.Text, out StopBits stbit) ? stbit : StopBits.None;
@@ -775,27 +900,30 @@ namespace VTM
             Program.RootModel.P1_Config.UsePrefix1 = (bool)Port1_UsePrefix1.IsChecked;
             Program.RootModel.P1_Config.UsePrefix1 = (bool)Port1_UsePrefix2.IsChecked;
             Program.RootModel.P1_Config.UseSuffix = (bool)Port1_UseSuffix.IsChecked;
-            Program.RootModel.P1_Config.UseLengFixed= (bool)Port1_FixLength.IsChecked;
+            Program.RootModel.P1_Config.UseLengFixed = (bool)Port1_FixLength.IsChecked;
 
-            Program.RootModel.P1_Config.Prefix1 = (int)nUD_P1TX_PrefixData1.Value;
-            Program.RootModel.P1_Config.Prefix2 = (int)nUD_P1TX_PrefixData2.Value;
-            Program.RootModel.P1_Config.Suffix = (int)nUD_P1TX_SuffixData.Value;
-            Program.RootModel.P1_Config.LenghtFixed = (int)nUD_P1TX_FixLenghtData.Value;
+            Program.RootModel.P1_Config.Prefix1 = nUD_P1TX_PrefixData1.Value ?? 0;
+            Program.RootModel.P1_Config.Prefix2 = nUD_P1TX_PrefixData2.Value ?? 0;
+            Program.RootModel.P1_Config.Suffix = nUD_P1TX_SuffixData.Value ?? 0;
+            Program.RootModel.P1_Config.LenghtFixed = nUD_P1TX_FixLenghtData.Value ?? 0;
 
             Program.RootModel.P1_Config.Checksum = (CheckSumType)Enum.ToObject(typeof(CheckSumType), Port1_Checksum.SelectedIndex);
-            Program.RootModel.P1_Config.StartChecksumCal = (int)nUD_P1TX_CheckSumRageStart.Value;
-            Program.RootModel.P1_Config.EndChecksumCal = (int)nUD_P1TX_CheckSumRageEnd.Value;
+            Program.RootModel.P1_Config.StartChecksumCal = nUD_P1TX_CheckSumRageStart.Value ?? 0;
+            Program.RootModel.P1_Config.EndChecksumCal = nUD_P1TX_CheckSumRageEnd.Value ?? 0;
 
             Program.RootModel.P1_Config.UseRxPrefix1 = (bool)Port1_RX_UsePrefix1.IsChecked;
             Program.RootModel.P1_Config.UseRxPrefix1 = (bool)Port1_RX_UsePrefix2.IsChecked;
             Program.RootModel.P1_Config.UseRxSuffix = (bool)Port1_RX_UseSuffix.IsChecked;
             Program.RootModel.P1_Config.UseRxLengFixed = (bool)Port1_RX_FixLenght.IsChecked;
 
-            Program.RootModel.P1_Config.RxPrefix1 = (int)nUD_P1RX_PrefixData1.Value;
-            Program.RootModel.P1_Config.RxPrefix2 = (int)nUD_P1RX_PrefixData2.Value;
-            Program.RootModel.P1_Config.RxSuffix = (int)nUD_P1RX_SuffixData.Value;
-            Program.RootModel.P1_Config.RxLenghtFixed = (int)nUD_P1RX_FixLenghtData.Value;
-
+            Program.RootModel.P1_Config.RxPrefix1 = nUD_P1RX_PrefixData1.Value ?? 0;
+            Program.RootModel.P1_Config.RxPrefix2 = nUD_P1RX_PrefixData2.Value ?? 0;
+            Program.RootModel.P1_Config.RxSuffix = nUD_P1RX_SuffixData.Value ?? 0;
+            Program.RootModel.P1_Config.RxLenghtFixed = nUD_P1RX_FixLenghtData.Value ?? 0;
+            Program.RootModel.P1_Config.ClearRxTime = nUD_P1RX_ClearTimeOut.Value ?? 1000;
+            Program.RootModel.P1_Config.RxLenghtStart = nUD_P1RX_LenghtLocStart.Value ?? 3;
+            Program.RootModel.P1_Config.RxLenghtEnd = nUD_P1RX_LenghtLocEnd.Value ?? 3;
+            Program.RootModel.P1_Config.RxLenghtByteCount = nUD_P1RX_LenghtByteCount.Value ?? 1;
 
 
             Program.RootModel.P2_Config.Use = (bool)cbUsePort2.IsChecked;
@@ -810,27 +938,94 @@ namespace VTM
             Program.RootModel.P2_Config.UseSuffix = (bool)Port2_UseSuffix.IsChecked;
             Program.RootModel.P2_Config.UseLengFixed = (bool)Port2_FixLength.IsChecked;
 
-            Program.RootModel.P2_Config.Prefix1 = (int)nUD_P2TX_PrefixData1.Value;
-            Program.RootModel.P2_Config.Prefix2 = (int)nUD_P2TX_PrefixData2.Value;
-            Program.RootModel.P2_Config.Suffix = (int)nUD_P2TX_SuffixData.Value;
-            Program.RootModel.P2_Config.LenghtFixed = (int)nUD_P2TX_FixLenghtData.Value;
+            Program.RootModel.P2_Config.Prefix1 = nUD_P2TX_PrefixData1.Value ?? 0;
+            Program.RootModel.P2_Config.Prefix2 = nUD_P2TX_PrefixData2.Value ?? 0;
+            Program.RootModel.P2_Config.Suffix = nUD_P2TX_SuffixData.Value ?? 0;
+            Program.RootModel.P2_Config.LenghtFixed = nUD_P2TX_FixLenghtData.Value ?? 0;
 
             Program.RootModel.P2_Config.Checksum = (CheckSumType)Enum.ToObject(typeof(CheckSumType), Port2_Checksum.SelectedIndex);
-            Program.RootModel.P2_Config.StartChecksumCal = (int)nUD_P2TX_CheckSumRageStart.Value;
-            Program.RootModel.P2_Config.EndChecksumCal = (int)nUD_P2TX_CheckSumRageEnd.Value;
+            Program.RootModel.P2_Config.StartChecksumCal = nUD_P2TX_CheckSumRageStart.Value ?? 0;
+            Program.RootModel.P2_Config.EndChecksumCal = nUD_P2TX_CheckSumRageEnd.Value ?? 0;
 
             Program.RootModel.P2_Config.UseRxPrefix1 = (bool)Port2_RX_UsePrefix1.IsChecked;
             Program.RootModel.P2_Config.UseRxPrefix1 = (bool)Port2_RX_UsePrefix2.IsChecked;
             Program.RootModel.P2_Config.UseRxSuffix = (bool)Port2_RX_UseSuffix.IsChecked;
             Program.RootModel.P2_Config.UseRxLengFixed = (bool)Port2_RX_FixLenght.IsChecked;
 
-            Program.RootModel.P2_Config.RxPrefix1 = (int)nUD_P2RX_PrefixData1.Value;
-            Program.RootModel.P2_Config.RxPrefix2 = (int)nUD_P2RX_PrefixData2.Value;
-            Program.RootModel.P2_Config.RxSuffix = (int)nUD_P2RX_SuffixData.Value;
-            Program.RootModel.P2_Config.RxLenghtFixed = (int)nUD_P2RX_FixLenghtData.Value;
-
+            Program.RootModel.P2_Config.RxPrefix1 = nUD_P2RX_PrefixData1.Value ?? 0;
+            Program.RootModel.P2_Config.RxPrefix2 = nUD_P2RX_PrefixData2.Value ?? 0;
+            Program.RootModel.P2_Config.RxSuffix = nUD_P2RX_SuffixData.Value ?? 0;
+            Program.RootModel.P2_Config.RxLenghtFixed = nUD_P2RX_FixLenghtData.Value ?? 0;
+            Program.RootModel.P2_Config.ClearRxTime = nUD_P2RX_ClearTimeOut.Value ?? 1000;
+            Program.RootModel.P2_Config.RxLenghtStart = nUD_P2RX_LenghtLocStart.Value ?? 3;
+            Program.RootModel.P2_Config.RxLenghtEnd = nUD_P2RX_LenghtLocEnd.Value ?? 3;
+            Program.RootModel.P2_Config.RxLenghtByteCount = nUD_P2RX_LenghtByteCount.Value ?? 1;
         }
 
+        private void SetPortSetting()
+        {
+            cbUsePort1.IsChecked = Program.RootModel.P1_Config.Use;
+            Port1_Kind.Text = Program.RootModel.P1_Config.Kind.ToString(); ;
+            Port1_baudrate.Text = Program.RootModel.P1_Config.Baudrate.ToString();
+            Port1_Parity.Text = Program.RootModel.P1_Config.Parity.ToString();
+            Port1_Databits.Text = Program.RootModel.P1_Config.DataBit.ToString();
+            Port1_Stopbit.Text = Program.RootModel.P1_Config.StopBits.ToString();
+            Port1_UsePrefix1.IsChecked = Program.RootModel.P1_Config.UsePrefix1;
+            Port1_UsePrefix2.IsChecked = Program.RootModel.P1_Config.UsePrefix1;
+            Port1_UseSuffix.IsChecked = Program.RootModel.P1_Config.UseSuffix;
+            Port1_FixLength.IsChecked = Program.RootModel.P1_Config.UseLengFixed;
+            nUD_P1TX_PrefixData1.Value = Program.RootModel.P1_Config.Prefix1;
+            nUD_P1TX_PrefixData2.Value = Program.RootModel.P1_Config.Prefix2;
+            nUD_P1TX_SuffixData.Value = Program.RootModel.P1_Config.Suffix;
+            nUD_P1TX_FixLenghtData.Value = Program.RootModel.P1_Config.LenghtFixed;
+            Port1_Checksum.Text = Program.RootModel.P1_Config.Checksum.ToString();
+            nUD_P1TX_CheckSumRageStart.Value = Program.RootModel.P1_Config.StartChecksumCal;
+            nUD_P1TX_CheckSumRageEnd.Value = Program.RootModel.P1_Config.EndChecksumCal;
+            Port1_RX_UsePrefix1.IsChecked = Program.RootModel.P1_Config.UseRxPrefix1;
+            Port1_RX_UsePrefix2.IsChecked = Program.RootModel.P1_Config.UseRxPrefix1;
+            Port1_RX_UseSuffix.IsChecked = Program.RootModel.P1_Config.UseRxSuffix;
+            Port1_RX_FixLenght.IsChecked = Program.RootModel.P1_Config.UseRxLengFixed;
+            nUD_P1RX_PrefixData1.Value = Program.RootModel.P1_Config.RxPrefix1;
+            nUD_P1RX_PrefixData2.Value = Program.RootModel.P1_Config.RxPrefix2;
+            nUD_P1RX_SuffixData.Value = Program.RootModel.P1_Config.RxSuffix;
+            nUD_P1RX_FixLenghtData.Value = Program.RootModel.P1_Config.RxLenghtFixed;
+            nUD_P1RX_ClearTimeOut.Value = Program.RootModel.P1_Config.ClearRxTime;
+            nUD_P1RX_LenghtLocStart.Value = Program.RootModel.P1_Config.RxLenghtStart;
+            nUD_P1RX_LenghtLocEnd.Value = Program.RootModel.P1_Config.RxLenghtEnd;
+            nUD_P1RX_LenghtByteCount.Value = Program.RootModel.P1_Config.RxLenghtByteCount;
+
+
+            cbUsePort2.IsChecked = Program.RootModel.P2_Config.Use;
+            Port2_Kind.Text = Program.RootModel.P2_Config.Kind.ToString(); ;
+            Port2_baudrate.Text = Program.RootModel.P2_Config.Baudrate.ToString();
+            Port2_Parity.Text = Program.RootModel.P2_Config.Parity.ToString();
+            Port2_Databits.Text = Program.RootModel.P2_Config.DataBit.ToString();
+            Port2_Stopbit.Text = Program.RootModel.P2_Config.StopBits.ToString();
+            Port2_UsePrefix1.IsChecked = Program.RootModel.P2_Config.UsePrefix1;
+            Port2_UsePrefix2.IsChecked = Program.RootModel.P2_Config.UsePrefix1;
+            Port2_UseSuffix.IsChecked = Program.RootModel.P2_Config.UseSuffix;
+            Port2_FixLength.IsChecked = Program.RootModel.P2_Config.UseLengFixed;
+            nUD_P2TX_PrefixData1.Value = Program.RootModel.P2_Config.Prefix1;
+            nUD_P2TX_PrefixData2.Value = Program.RootModel.P2_Config.Prefix2;
+            nUD_P2TX_SuffixData.Value = Program.RootModel.P2_Config.Suffix;
+            nUD_P2TX_FixLenghtData.Value = Program.RootModel.P2_Config.LenghtFixed;
+            Port2_Checksum.Text = Program.RootModel.P2_Config.Checksum.ToString();
+            nUD_P2TX_CheckSumRageStart.Value = Program.RootModel.P2_Config.StartChecksumCal;
+            nUD_P2TX_CheckSumRageEnd.Value = Program.RootModel.P2_Config.EndChecksumCal;
+            Port2_RX_UsePrefix1.IsChecked = Program.RootModel.P2_Config.UseRxPrefix1;
+            Port2_RX_UsePrefix2.IsChecked = Program.RootModel.P2_Config.UseRxPrefix1;
+            Port2_RX_UseSuffix.IsChecked = Program.RootModel.P2_Config.UseRxSuffix;
+            Port2_RX_FixLenght.IsChecked = Program.RootModel.P2_Config.UseRxLengFixed;
+            nUD_P2RX_PrefixData1.Value = Program.RootModel.P2_Config.RxPrefix1;
+            nUD_P2RX_PrefixData2.Value = Program.RootModel.P2_Config.RxPrefix2;
+            nUD_P2RX_SuffixData.Value = Program.RootModel.P2_Config.RxSuffix;
+            nUD_P2RX_FixLenghtData.Value = Program.RootModel.P2_Config.RxLenghtFixed;
+            nUD_P2RX_ClearTimeOut.Value = Program.RootModel.P2_Config.ClearRxTime;
+            nUD_P2RX_LenghtLocStart.Value = Program.RootModel.P2_Config.RxLenghtStart;
+            nUD_P2RX_LenghtLocEnd.Value = Program.RootModel.P2_Config.RxLenghtEnd;
+            nUD_P2RX_LenghtByteCount.Value = Program.RootModel.P2_Config.RxLenghtByteCount;
+
+        }
         #endregion
 
         #region UUT

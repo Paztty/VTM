@@ -50,7 +50,12 @@
       "ProjectGuid": "438ddbcf-c05a-42cc-b768-e2dedcf0a5ed",
       "DisplayName": "Logics",
       "ColorIndex": 8
+    },
+    "dcfc9ee8-f8b1-4a74-8897-237bcba964cd": {
+      "ProjectGuid": "dcfc9ee8-f8b1-4a74-8897-237bcba964cd",
+      "DisplayName": "Program (middle layer)",
+      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 9
+  "NextColorIndex": 10
 }

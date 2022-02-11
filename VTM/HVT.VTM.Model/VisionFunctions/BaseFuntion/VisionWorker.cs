@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using OpenCvSharp;
-using OpenCvSharp.Extensions;
+using OpenCvSharp.WpfExtensions;
 using Rect = System.Windows.Rect;
 using Tesseract;
 
@@ -59,9 +59,66 @@ namespace HVT.VTM.Base.VisionFunctions
 
 
         #region segement detecter
+        public static BitmapSource SeventSegmentDetect(Mat source, double threshold, out string detectedString)
+        {
+            detectedString = "";
+            Mat mInput = source;
+            Mat gray = mInput.CvtColor(ColorConversionCodes.RGB2GRAY);
 
 
-        public static Bitmap SeventSegmentDetect(Bitmap source, double threshold, out string detectedString)
+            gray.MinMaxIdx(out _, out double maxval);
+
+            Mat edge = gray.Threshold(threshold, 255, ThresholdTypes.Binary);
+            //Cv2.FastNlMeansDenoising(edge, edge, 0,4);
+            Mat blurred = edge.GaussianBlur(new OpenCvSharp.Size(3, 9), 0, 3);
+            Mat blurgreen = blurred.Threshold(maxval * 0.1 > 10 ? maxval * 0.1 : 10, 255, ThresholdTypes.Binary);
+            OpenCvSharp.Point[][] contour;
+            HierarchyIndex[] hierarchy;
+            List<OpenCvSharp.Rect> digitContour = new List<OpenCvSharp.Rect>();
+
+            // make corect region 
+            Mat blurWhiteDown = blurgreen;
+            Mat blurWhiteUp = blurgreen;
+            //for (int i = 0; i < blurWhiteDown.Cols; i++)
+            //{
+            //    bool startWhite = false;
+            //    for (int j = 0; j < blurWhiteDown.Rows; j++)
+            //    {
+            //        var colorVal = blurWhiteDown.At<>(i, j)
+            //    }
+            //}
+
+
+
+
+            Cv2.FindContours(blurgreen, out contour, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+
+            for (int i = 0; i < contour.Length; i++)
+            {
+                //mInput.DrawContours(contour, i, new Scalar(255, 0, 0));
+                OpenCvSharp.Rect rect = Cv2.BoundingRect(contour[i]);
+                if (rect.Width > 2 && rect.Height > 20 && rect.Height < 100)
+                {
+                    digitContour.Add(rect);
+                    //blurgreen.Rectangle(rect, new Scalar(255, 0, 0));
+                }
+            }
+            digitContour = digitContour.OrderBy(o => o.Left).ToList();
+            Mat moutput = blurWhiteDown.CvtColor(ColorConversionCodes.GRAY2RGB);
+            foreach (var item in digitContour)
+            {
+                //Console.Write(item.Left.ToString() + "->");
+                var rect = item;
+                detectedString += DetectSegmentChar(rect, new Mat(edge, item), moutput);
+            }
+            foreach (var item in digitContour)
+            {
+                moutput.Rectangle(item, new Scalar(255, 0, 0));
+            }
+            return moutput.ToBitmapSource();
+        }
+
+        public static void SeventSegmentDetect(BitmapSource source, double threshold, out string detectedString, out BitmapSource outSource)
         {
             detectedString = "";
             Mat mInput = source.ToMat();
@@ -117,8 +174,7 @@ namespace HVT.VTM.Base.VisionFunctions
             {
                 moutput.Rectangle(item, new Scalar(255, 0, 0));
             }
-            Bitmap output = BitmapConverter.ToBitmap(moutput, PixelFormat.Format24bppRgb);
-            return output;
+            outSource = moutput.ToBitmapSource();
         }
 
         private static char DetectSegmentChar(OpenCvSharp.Rect rectg, Mat Matinput, Mat colorMat)
@@ -274,7 +330,7 @@ namespace HVT.VTM.Base.VisionFunctions
 
         #endregion
         #region GLED
-        public static int Meansure(Int32Rect rect, Bitmap bitmap, int Thresh)
+        public static int Meansure(Int32Rect rect, BitmapSource bitmap, int Thresh)
         {
             Mat input = bitmap.ToMat();
             Mat crop = new Mat(input, new OpenCvSharp.Rect(rect.X, rect.Y, rect.Width, rect.Height));
@@ -292,10 +348,12 @@ namespace HVT.VTM.Base.VisionFunctions
             return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
         }
 
+        public static bool Processing = false;
         public static TesseractEngine engine = new TesseractEngine(@"./TessData", "eng", EngineMode.TesseractAndCube);
 
-        public static Bitmap DetectString(Bitmap bitmap, int Threshold, out string str)
+        public static void DetectString(BitmapSource bitmap, int Threshold, out string str, out BitmapSource resultImage)
         {
+            Processing = true;
             DateTime now = DateTime.Now;
             Mat mat = bitmap.ToMat();
             var Mat_Light = new Mat();
@@ -304,8 +362,8 @@ namespace HVT.VTM.Base.VisionFunctions
 
             Cv2.BitwiseNot(Mat_Gray, Mat_Gray);
             Mat_Gray = Mat_Gray.CvtColor(ColorConversionCodes.GRAY2RGB);
-            Bitmap output = BitmapConverter.ToBitmap(Mat_Gray, PixelFormat.Format24bppRgb);
 
+            Bitmap output = GetBitmap(Mat_Gray.ToBitmapSource());
             var ocrtext = string.Empty;
             try
             {
@@ -321,15 +379,15 @@ namespace HVT.VTM.Base.VisionFunctions
                     }
                 }
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                Console.WriteLine(err.Message);
             }
 
             str = ocrtext;
-            Console.WriteLine("detec string time = " + DateTime.Now.Subtract(now).TotalMilliseconds.ToString());
-            return output;
+            resultImage = Mat_Gray.ToBitmapSource();
+            Processing = false;
         }
+
         #endregion
     }
 }

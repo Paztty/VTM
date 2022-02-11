@@ -67,10 +67,7 @@ namespace HVT.VTM.Base.VisionFunctions
                 manualDisplay = value;
             }
         }
-
-        private Bitmap bitmap = null;
         public string DetectString = "";
-        public BitmapSource DetectedImage;
 
         private Rect displaySize;
         public Rect DisplaySize
@@ -118,12 +115,17 @@ namespace HVT.VTM.Base.VisionFunctions
             }
         }
 
+
+        private BitmapSource _source;
         private string data;
 
         public string Data
         {
             get { return data; }
-            private set { data = value; }
+            private set {
+                data = value;
+                LabelContent.Dispatcher.Invoke(new Action(() => LabelContent.Content = data));
+            }
         }
 
         private double threshold;
@@ -155,6 +157,23 @@ namespace HVT.VTM.Base.VisionFunctions
             }
         }
 
+        public System.Windows.Controls.Image Image = new System.Windows.Controls.Image()
+        {
+            MaxWidth = 500,
+            MaxHeight = 120
+        };
+
+        public Label LabelContent = new Label()
+        {
+            MaxHeight = 120,
+            FontSize = 20,
+            FontWeight = FontWeights.Bold,
+            Foreground = new SolidColorBrush(Colors.White),
+            Focusable = true,
+            Cursor = Cursors.SizeAll,
+            VerticalContentAlignment = VerticalAlignment.Center,
+            HorizontalContentAlignment = HorizontalAlignment.Right,
+        };
         public Label ManualLabelDisplay = new Label()
         {
             Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0)),
@@ -409,6 +428,7 @@ namespace HVT.VTM.Base.VisionFunctions
             LabelBotRight.LostKeyboardFocus += Label_LostKeyboardFocus;
             LabelMidLeft.LostKeyboardFocus += Label_LostKeyboardFocus;
             LabelMidRight.LostKeyboardFocus += Label_LostKeyboardFocus;
+            LabelTopLeft.LostKeyboardFocus += Label_LostKeyboardFocus;
             LabelTopLeft.LostKeyboardFocus += Label_LostKeyboardFocus;
             LabelTopMid.LostKeyboardFocus += Label_LostKeyboardFocus;
             LabelTopRight.LostKeyboardFocus += Label_LostKeyboardFocus;
@@ -827,32 +847,10 @@ namespace HVT.VTM.Base.VisionFunctions
         {
             if (source != null)
             {
-                this.bitmap = VisionWorker.GetBitmap(source);
-                string str = "";
-                var result = VisionWorker.SeventSegmentDetect(bitmap, Threshold, out str);
-                var imageSource = VisionWorker.Convert(result);
-                this.DetectString = str;
-                this.DetectedImage = imageSource;
-            }
-        }
-        public void SetImage(System.Windows.Controls.Image control, Label detectedResultlabel)
-        {
-            if (DetectedImage != null && control != null)
-            {
-                control.Dispatcher.BeginInvoke(new Action(() => control.Source = DetectedImage));
-                detectedResultlabel.Content = DetectString;
-            }
-        }
-
-        public void GetValue()
-        {
-            if (bitmap != null )
-            {
-                string str = "";
-                var result = VisionWorker.SeventSegmentDetect(bitmap, Threshold, out str);
-                var imageSource = VisionWorker.Convert(result);
-                this.DetectString = str;
-                this.DetectedImage = imageSource;
+                VisionWorker.SeventSegmentDetect(source, Threshold, out string str, out _source);
+                Data = str;
+                _source.Freeze();
+                Image.Dispatcher.Invoke(new Action(() => Image.Source = _source));
             }
         }
     }

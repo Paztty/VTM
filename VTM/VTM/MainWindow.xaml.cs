@@ -2,6 +2,7 @@
 using HVT.VTM.Base;
 using HVT.VTM.Program;
 using System;
+using System.IO;
 using System.IO.Ports;
 using System.Windows;
 using System.Windows.Controls;
@@ -60,7 +61,24 @@ namespace VTM
         private void pnResult_MouseDown(object sender, MouseButtonEventArgs e)
         {
             pnResult.Visibility = Visibility.Hidden;
-            Program.TestState = Program.RunTestState.WAIT;
+
+            for (int i = 0; i < Program.RootModel.contruction.PCB_Count; i++)
+            {
+                if (Program.RootModel.contruction.PBAs[i].Barcode != "")
+                {
+                    if (i == Program.RootModel.contruction.PCB_Count - 1)
+                    {
+                        Program.TestState = Program.RunTestState.READY;
+                        return;
+                    }
+                }
+                else
+                {
+                    Program.TestState = Program.RunTestState.WAIT;
+                    return;
+                }
+            }
+            
         }
 
         private void TestStepsGridManual_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -122,12 +140,12 @@ namespace VTM
 
         private void btRelaySelectAll_Click(object sender, RoutedEventArgs e)
         {
-            Program.RL_CARD.SelectAll();
+            Program.LEVEL_CARD.SelectAll();
         }
 
         private void btRelayClearAll_Click(object sender, RoutedEventArgs e)
         {
-            Program.RL_CARD.ClearAll();
+            Program.LEVEL_CARD.ClearAll();
         }
 
         private void btPageSetup_Click(object sender, RoutedEventArgs e)
@@ -159,6 +177,54 @@ namespace VTM
             Program.RootModel.CleanSteps();
             Program.StepTesting = 0;
         }
+
+        private void btSamplingStart_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Program != null)
+            {
+                if (Program.LEVEL_CARD != null)
+                {
+                    Program.LEVEL_CARD.ClearChart();
+                    Program.LEVEL_CARD.Sampling.Interval = TimeSpan.FromMilliseconds((int)nudSampleTime.Value);
+                    Program.LEVEL_CARD.SampleCount = 0;
+                    Program.LEVEL_CARD.TotalSample = (int)nudlevelTotalSample.Value;
+                    Program.LEVEL_CARD.Sampling.Start();
+                }
+            }
+        }
+
+        private void btLastOpenModels_Click(object sender, RoutedEventArgs e)
+        {
+            panellastloaded.Children.Clear();
+            foreach (var item in FolderMap.ModelLoadeds)
+            {
+                //item.FileExited = File.Exists(item.Path);
+                panellastloaded.Children.Add(item.FileLabel);
+            }
+            panellastloaded.Visibility = panellastloaded.Visibility != Visibility.Visible ? Visibility.Visible: Visibility.Collapsed;
+        }
+
+        private void TestStepsGrid_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (!Program.IsTestting)
+            {
+                var rowScroll = e.Delta / 30;
+                var currentRow = TestStepsGrid.SelectedIndex;
+                if (currentRow + rowScroll > 0)
+                {
+
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
 
         //////      /////    ////////////////////    ////////        ////
         /////     ////             /////           ////// ///      ////   

@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace HVT.VTM.Base
+
 {
-    public class Contruction
+    public class Contruction : INotifyPropertyChanged
     {
         public event EventHandler<EventArgs> ContructionChanged;
         private void ContructionChange()
@@ -16,6 +20,11 @@ namespace HVT.VTM.Base
             ContructionChanged?.Invoke(this, EventArgs.Empty);
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
 
         //Contruction layout
@@ -46,8 +55,9 @@ namespace HVT.VTM.Base
                     pcb_Count = value;
                     for (int i = 0; i < PBAs.Count; i++)
                     {
-                        PBAs[i].Visibility = pcb_Count > i ? Visibility.Visible : Visibility.Hidden;
+                        PBAs[i].Visibility = pcb_Count > i ? Visibility.Visible : Visibility.Collapsed;
                         PBAs[i].IsWaiting = i < pcb_Count;
+                        PBAs[i].IsUse = i < pcb_Count;
                     }
                     ContructionChange();
                 }
@@ -67,7 +77,7 @@ namespace HVT.VTM.Base
         };
         public ArrayPositions ArrayPosition { get; set; } = ArrayPositions.HorizontalBottomRight;
 
-        public List<PBA> PBAs = new List<PBA>(4)
+        public ObservableCollection<PBA> PBAs = new ObservableCollection<PBA>()
         {
             new PBA(){ SiteName = "A"},
             new PBA(){ SiteName = "B"},

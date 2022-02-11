@@ -16,15 +16,15 @@ namespace HVT.VTM.Program
 
 
         public CameraStreaming cameraStreaming;
+        public System.Windows.Controls.Image CameraHolder;
 
         public void CameraInit(
-            System.Windows.Controls.Image cameraHolder,
-            System.Windows.Controls.Image cameraCrop)
+            System.Windows.Controls.Image cameraHolder)
         { 
-            SetCamera(cameraHolder, cameraCrop);
+            SetCamera(cameraHolder);
         }
 
-        private async void SetCamera(System.Windows.Controls.Image cameraHolder, System.Windows.Controls.Image cameraCrop)
+        private async void SetCamera(System.Windows.Controls.Image cameraHolder)
         {
             Debug.Write("Camera initting....", Debug.ContentType.Notify);
             List<CameraDevice> cameras = new List<CameraDevice>();
@@ -51,7 +51,7 @@ namespace HVT.VTM.Program
                     return;
                 }
             }
-
+            CameraHolder = cameraHolder;
             var selectedCameraDeviceId = cameras[0].OpenCvId;
             if (cameraStreaming == null || cameraStreaming.CameraDeviceId != selectedCameraDeviceId)
             {
@@ -59,7 +59,6 @@ namespace HVT.VTM.Program
                 cameraStreaming?.Dispose();
                 cameraStreaming = new CameraStreaming(
                     imageControlForRendering: cameraHolder,
-                    imageControlForCrop: cameraCrop,
                     frameWidth: 1920,
                     frameHeight: 1080,
                     cameraDeviceId: cameras[0].OpenCvId);

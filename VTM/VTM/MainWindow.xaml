@@ -140,9 +140,32 @@
                             <ImageBrush Stretch="Uniform" ImageSource="img/companyLoge.png" />
                         </TextBlock.Background>
                     </TextBlock>
-                    <Button x:Name="btOpenModel" Content="" Template="{DynamicResource ButtonControlNonHoverEffect}" Height="27" BorderThickness="0" FontWeight="Bold" Foreground="#FF109322" FontSize="14" ToolTip="OpenModel" Margin="0,15,0,20" Padding="5" Click="BtOpenModel_Click">
+                    <Button x:Name="btOpenModel" Content="" Template="{DynamicResource ButtonControlNonHoverEffect}" Height="27" BorderThickness="0" FontWeight="Bold" Foreground="#FF109322" FontSize="14" ToolTip="OpenModel" Margin="0,15,0,5" Padding="5" Click="BtOpenModel_Click">
                         <Button.Background>
                             <ImageBrush Stretch="Uniform" ImageSource="img/folder.png"/>
+                        </Button.Background>
+                        <Button.Effect>
+                            <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="7"/>
+                        </Button.Effect>
+                        <Button.BorderBrush>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <LinearGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                        <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                        <RotateTransform Angle="90" CenterY="0.5" CenterX="0.5"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </LinearGradientBrush.RelativeTransform>
+                                <GradientStop Color="#FF3E3E3E"/>
+                                <GradientStop Color="White" Offset="0.525"/>
+                                <GradientStop Color="#FF3E3E3E" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.BorderBrush>
+                    </Button>
+                    <Button x:Name="btLastOpenModels"  Template="{DynamicResource ButtonElipse}" Content="" Height="15" BorderThickness="1" FontWeight="Bold" Foreground="#FF109322" FontSize="14" ToolTip="OpenModel" Margin="0,0,0,20" Padding="5" Click="btLastOpenModels_Click">
+                        <Button.Background>
+                            <ImageBrush Stretch="Uniform" ImageSource="/img/downward-arrow.png" />
                         </Button.Background>
                         <Button.Effect>
                             <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="7"/>
@@ -295,6 +318,15 @@
                         </Button.BorderBrush>
                     </Button>
                 </StackPanel>
+                <Border Visibility="Visible" BorderBrush="#818488" BorderThickness="1" Padding="0" Background="#2B2C2D"
+                        Panel.ZIndex="2" Margin="10,130,0,0" MinWidth="35" Width="Auto" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Border.Effect>
+                        <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="5" Direction="270"/>
+                    </Border.Effect>
+                    <StackPanel x:Name="panellastloaded" Margin="2" Background="#B8B8B9" Width="Auto" Height="Auto">
+                    </StackPanel>
+                </Border>
+                
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -320,7 +352,7 @@
                     </Grid>
 
                     <!--Auto Grid page-->
-                    <Grid x:Name ="AutoPanel" Grid.Row="1" Visibility="Visible" Margin="5" Background="#FF5D5D5D" d:IsHidden="True">
+                    <Grid x:Name ="AutoPanel" Grid.Row="1" Visibility="Visible" Margin="5" Background="#FF5D5D5D">
                         <Grid.Effect>
                             <DropShadowEffect/>
                         </Grid.Effect>
@@ -409,17 +441,17 @@
                                             <GradientStop Color="Gray"/>
                                         </LinearGradientBrush>
                                     </Grid.Background>
-                                <DockPanel VerticalAlignment="Center" Height="Auto">
-                                    <Image Source="img/infor.png" Height="18" Margin="10,0,5,0" Width="14" />
-                                    <TextBlock Text="Fixture Infor." Foreground="#FFF0F0F0"/>
-                                    <TextBlock Text="ID" Foreground="#FFF0F0F0" Margin="30,0,10,0"/>
-                                    <TextBox Text="Fixture Infor." Foreground="Gainsboro" Width="159" BorderBrush="Black" Background="#FF4D4D4D" OpacityMask="White"/>
-                                    <TextBlock Text="Use Count" Foreground="#FFF0F0F0" Margin="30,0,9.6,0"/>
-                                    <TextBox Text="Fixture Infor." Foreground="Gainsboro" Width="139" BorderBrush="Black" Background="#FF4D4D4D" OpacityMask="White"/>
-                                    <Border Margin="30,0,10,0" Background="#FFB9B9B9" >
-                                        <TextBlock Text="None" Foreground="#FF272727" Margin="30,0,30,0"  HorizontalAlignment="Center"/>
-                                    </Border>
-                                </DockPanel>
+                                    <DockPanel VerticalAlignment="Center" Height="Auto">
+                                        <Image Source="img/infor.png" Height="18" Margin="10,0,5,0" Width="14" />
+                                        <TextBlock Text="Fixture Infor." Foreground="#FFF0F0F0"/>
+                                        <TextBlock Text="ID" Foreground="#FFF0F0F0" Margin="30,0,10,0"/>
+                                        <TextBox Text="Fixture Infor." Foreground="Gainsboro" Width="159" BorderBrush="Black" Background="#FF4D4D4D" OpacityMask="White"/>
+                                        <TextBlock Text="Use Count" Foreground="#FFF0F0F0" Margin="30,0,9.6,0"/>
+                                        <TextBox Text="Fixture Infor." Foreground="Gainsboro" Width="139" BorderBrush="Black" Background="#FF4D4D4D" OpacityMask="White"/>
+                                        <Border Margin="30,0,10,0" Background="#FFB9B9B9" >
+                                            <TextBlock Text="None" Foreground="#FF272727" Margin="30,0,30,0"  HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </DockPanel>
                                 </Grid>
                             </DockPanel>
 
@@ -763,7 +795,9 @@
                                                           SelectionMode="Single" HeadersVisibility="None"
                                                           Style="{StaticResource VTMDataGrid}" VerticalScrollBarVisibility="Disabled"
                                                           ColumnHeaderStyle="{StaticResource VTMDataGridHeader}"
-                                                          SelectionChanged="TestStepsGrid_SelectionChanged">
+                                                          SelectionChanged="TestStepsGrid_SelectionChanged"
+                                                          PreviewMouseWheel="TestStepsGrid_MouseWheel"
+                                                          >
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn Binding="{Binding No, Mode=OneWay}"
                                                             Header="No" Width="39"
@@ -1323,7 +1357,7 @@
 
                                                             </DataGridTextColumn>
 
-                                                            <DataGridTextColumn Binding="{Binding Path=Barcode.BarcodeData}"
+                                                            <DataGridTextColumn Binding="{Binding Path=Barcode,  UpdateSourceTrigger=PropertyChanged}"
                                                              Header="No" Width="*" 
                                                              Foreground="white">
                                                                 <DataGridTextColumn.CellStyle>
@@ -1358,7 +1392,7 @@
                                                             <DataGridTextColumn Binding="{Binding Path=SiteName}" 
                                                             Header="No" Width="39"
                                                              Foreground="#FFE8E8E8"  CellStyle="{StaticResource VTMDataGridCellHeader}"/>
-                                                            <DataGridTextColumn Binding="{Binding Path=BarcodeWaiting.BarcodeData}"
+                                                            <DataGridTextColumn Binding="{Binding Path=BarcodeWaiting,  UpdateSourceTrigger=PropertyChanged}"
                                                             Header="No" Width="*"
                                                              Foreground="#FFA49E9E">
                                                                 <DataGridTextColumn.CellStyle>
@@ -1497,7 +1531,7 @@
                                                                     </LinearGradientBrush>
                                                                 </Label.Background>
                                                             </Label>
-                                                            
+
                                                             <Label VerticalContentAlignment="Center" x:Name="lbTestResultWait" HorizontalContentAlignment ="Center" Visibility="Visible"
                                                                    FontSize="30" FontWeight="ExtraBold" Foreground="White" 
                                                                    BorderBrush="Black" BorderThickness="3" Margin="2"
@@ -1509,7 +1543,7 @@
                                                                     </LinearGradientBrush>
                                                                 </Label.Background>
                                                             </Label>
-                                                            
+
                                                             <Label VerticalContentAlignment="Center" x:Name="lbTestResultFail" HorizontalContentAlignment ="Center" Visibility="Hidden"
                                                                    FontSize="30" FontWeight="ExtraBold" Foreground="White" 
                                                                    BorderBrush="Black" BorderThickness="1" Margin="2"
@@ -1536,7 +1570,19 @@
                                                                 </Label.Background>
                                                             </Label>
 
-                                                           
+                                                            <Label VerticalContentAlignment="Center" x:Name="lbTestReady" HorizontalContentAlignment ="Center" Visibility="Hidden"
+                                                                   FontSize="30" FontWeight="ExtraBold" Foreground="White" 
+                                                                   BorderBrush="Black" BorderThickness="3" Margin="2"
+                                                                   Content="READY"
+                                                                   >
+                                                                <Label.Background>
+                                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                                        <GradientStop Color="Black" Offset="0"/>
+                                                                        <GradientStop Color="YellowGreen" Offset="0.99"/>
+                                                                    </LinearGradientBrush>
+                                                                </Label.Background>
+                                                            </Label>
+
 
                                                             <Label VerticalContentAlignment="Center" x:Name="lbTestResultPause" HorizontalContentAlignment ="Center" Visibility="Hidden"
                                                                    FontSize="30" FontWeight="ExtraBold" Foreground="White" 
@@ -1801,6 +1847,18 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
+                                        <DockPanel Grid.Row="0" HorizontalAlignment="Right">
+                                            <CheckBox Content="Full range" Foreground="White" VerticalAlignment="Center"/>
+                                            <Label Margin="20,0,0,0" Content="Read count" Foreground="White" VerticalAlignment="Center"/>
+                                            <xc:IntegerUpDown x:Name="nudlevelTotalSample" Margin="0,5" Width="80" Height="Auto" Minimum="0" Maximum="1000" Value="0"/>
+                                            <Label Margin="0,0,0,0" Content="EA" Foreground="White" VerticalAlignment="Center"/>
+                                            <Label Margin="20,0,0,0" Content="Sampling" Foreground="White" VerticalAlignment="Center"/>
+                                            <xc:IntegerUpDown x:Name="nudSampleTime" Margin="0,5" Width="80" Height="Auto" Minimum="0" Maximum="1000" Value="100"/>
+                                            <Label Margin="0,0,0,0" Content="ms" Foreground="White" VerticalAlignment="Center"/>
+
+                                            <ToggleButton x:Name = "btSamplingStart"  Content="Start"  Width="80"  Margin="20,5,0,5" Checked="btSamplingStart_Checked"/>
+                                            <ToggleButton Content="Stop" Width="80"  Margin="0,5"/>
+                                        </DockPanel>
                                         <DockPanel Background="#1D1F22" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="0,0,0,5">
                                             <Image Source="img/cam-options.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3"/>
                                             <TextBlock Text="LEVEL" Foreground="#FCD462" VerticalAlignment="Bottom" Margin="3,-9,3,3" Padding="5" HorizontalAlignment="Stretch" FontWeight="Bold" Height="26" FontSize="14">
@@ -1809,30 +1867,10 @@
                                                 </TextBlock.Effect>
                                             </TextBlock>
                                         </DockPanel>
-                                        <Grid x:Name="grGraph" Grid.Row="1">
-                                            <WpfPlot x:Name="Grap" Margin="5" Background="Black" BorderBrush="#FFDADADA">
-                     
-                                            </WpfPlot>
-                                        </Grid>
-                                        <Grid Margin="5" Grid.Row="1">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition Width="2*"/>
-                                                <ColumnDefinition Width="0.6*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-
-
-                                        </Grid>
-
+                                        <ScrollViewer  Grid.Row="1" >
+                                            <Grid x:Name="grGraph" Grid.Row="1" >
+                                            </Grid>
+                                        </ScrollViewer>
                                     </Grid>
 
                                 </Border>
@@ -2264,7 +2302,7 @@
                                             </TextBlock.Effect>
                                         </TextBlock>
                                     </DockPanel>
-                                    <DockPanel x:Name="pnManualBoardSellect" Height="34" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Right" Margin="5,0">
+                                    <DockPanel x:Name="pnManualBoardSellect" Height="34" VerticalAlignment="Top" Width="Auto" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Right" Margin="5">
                                         <ToggleButton x:Name="manualA" IsVisibleChanged="manualBoardSelect_IsVisibleChanged" Cursor="Hand" FontWeight="Bold" Margin="2" Width="40" Template="{StaticResource ToggleButtonSwitch}">A</ToggleButton>
                                         <ToggleButton x:Name="manualB" IsVisibleChanged="manualBoardSelect_IsVisibleChanged" Cursor="Hand" FontWeight="Bold" Margin="2" Width="40" Template="{StaticResource ToggleButtonSwitch}">B</ToggleButton>
                                         <ToggleButton x:Name="manualC" IsVisibleChanged="manualBoardSelect_IsVisibleChanged" Cursor="Hand" FontWeight="Bold" Margin="2" Width="40" Template="{StaticResource ToggleButtonSwitch}">C</ToggleButton>
@@ -2354,6 +2392,7 @@
                                                              Foreground="#FFE8E8E8">
                                                         <DataGridTextColumn.CellStyle>
                                                             <Style BasedOn="{StaticResource VTMDataGridCellData}"  TargetType="{x:Type DataGridCell}">
+                                                                <Setter Property="Background" Value="Black"/>
                                                                 <Style.Triggers>
                                                                     <DataTrigger Binding="{Binding CMD}" Value="MAK">
                                                                         <Setter Property="TextBlock.Width" Value="0"/>
@@ -2370,6 +2409,7 @@
                                                              Foreground="#FFD8D8D8">
                                                         <DataGridTextColumn.CellStyle>
                                                             <Style BasedOn="{StaticResource VTMDataGridCellData}"  TargetType="{x:Type DataGridCell}">
+                                                                <Setter Property="Background" Value="Black"/>
                                                                 <Style.Triggers>
                                                                     <DataTrigger Binding="{Binding CMD}" Value="MAK">
                                                                         <Setter Property="TextBlock.Width" Value="0"/>
@@ -2386,6 +2426,7 @@
                                                              Foreground="#FFD8D8D8">
                                                         <DataGridTextColumn.CellStyle>
                                                             <Style BasedOn="{StaticResource VTMDataGridCellData}"  TargetType="{x:Type DataGridCell}">
+                                                                <Setter Property="Background" Value="Black"/>
                                                                 <Style.Triggers>
                                                                     <DataTrigger Binding="{Binding CMD}" Value="MAK">
                                                                         <Setter Property="TextBlock.Width" Value="0"/>
@@ -2402,6 +2443,7 @@
                                                              Foreground="#FFD8D8D8">
                                                         <DataGridTextColumn.CellStyle>
                                                             <Style BasedOn="{StaticResource VTMDataGridCellData}"  TargetType="{x:Type DataGridCell}">
+                                                                <Setter Property="Background" Value="Black"/>
                                                                 <Style.Triggers>
                                                                     <DataTrigger Binding="{Binding CMD}" Value="MAK">
                                                                         <Setter Property="TextBlock.Width" Value="0"/>
@@ -2891,7 +2933,7 @@
                     </Grid>
 
                     <!--Model Grid page-->
-                    <Grid x:Name="ModelPanel" Grid.Row="1" Visibility="Visible" Margin="5" Background="#FF5D5D5D" PreviewKeyDown="ModelPanel_PreviewKeyDown">
+                    <Grid x:Name="ModelPanel" Grid.Row="1" Visibility="Visible" Margin="5" Background="#FF5D5D5D" PreviewKeyDown="ModelPanel_PreviewKeyDown" d:IsHidden="True">
                         <Grid.Effect>
                             <DropShadowEffect/>
                         </Grid.Effect>
@@ -3924,22 +3966,22 @@
                                                                     <RowDefinition Height="Auto"/>
                                                                     <RowDefinition Height="Auto"/>
                                                                 </Grid.RowDefinitions>
-                                                                <CheckBox Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" Height="15" Margin="20,5" Content="Use Barcode input" />
-                                                                <RadioButton Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Background="#FF646464" Foreground="White" Height="14" Margin="0,7" Content="Variable length"/>
-                                                                <RadioButton Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Background="#FF646464" Foreground="White" Height="14" Margin="0,7" Content="Fixed length"/>
-                                                                <CheckBox Grid.Row="2" Grid.Column="1" Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" Content="Compare model code"/>
+                                                                <CheckBox x:Name="cbUseBarcode" Checked="cbUseBarcode_Checked" Unchecked="cbUseBarcode_Unchecked" Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" Height="15" Margin="20,5" Content="Use Barcode input" />
+                                                                <RadioButton x:Name="rbtBarcodeVariableLenght" Checked="rbtBarcodeVariableLenght_Checked"  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Background="#FF646464" Foreground="White" Height="14" Margin="0,7" Content="Variable length"/>
+                                                                <RadioButton x:Name="rbtBarcodeFixedLenght" Checked="rbtBarcodeFixedLenght_Checked" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Background="#FF646464" Foreground="White" Height="14" Margin="0,7" Content="Fixed length"/>
+                                                                <CheckBox x:Name="cbBarcodeCompareModel" Checked="cbBarcodeCompareModel_Checked" Unchecked="cbBarcodeCompareModel_Unchecked" Grid.Row="2" Grid.Column="1" Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center" Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" Content="Compare model code"/>
                                                                 <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Foreground="White" Height="26" Margin="0,1" Content="Model-code start position"/>
                                                                 <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Foreground="White" Height="26" Margin="0,1" Content="Model-code"/>
-                                                                <Label Grid.Row="5" Grid.Column="2"  Grid.ColumnSpan="2" VerticalAlignment="Center" Foreground="White" Height="26" Margin="0,1" Content="xxxDJ9200265Cxxxxxxxxxxxxxxxx"/>
-                                                                <TextBox Grid.Row="4" Margin="0" HorizontalAlignment="Left"  Width="171" Background="#FFDEDEDE" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="2" VerticalAlignment="Center" Grid.Column="2"/>
+                                                                <Label x:Name="lbBarcodePreview" Grid.Row="5" Grid.Column="2"  Grid.ColumnSpan="2" VerticalAlignment="Center" Foreground="White" Height="26" Margin="0,1" Content="xxxDJ9200265Cxxxxxxxxxxxxxxxx"/>
+                                                                <TextBox x:Name="tbBacodeModelCode" TextChanged="tbBacodeModelCode_TextChanged" Grid.Row="4" Margin="0" HorizontalAlignment="Left"  Width="171" Background="#FFDEDEDE" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="2" VerticalAlignment="Center" Grid.Column="2" Text="ABC123456"/>
                                                                 <Border VerticalAlignment="Stretch" Grid.Row="1" Margin="20,5,0,5" Width="76" Grid.Column="3" HorizontalAlignment="Left" Background="WhiteSmoke">
-                                                                    <xc:IntegerUpDown x:Name="nUD_BarcodeLenght" ValueChanged="nUD_PCBcount_ValueChanged" 
-                                                                       FontWeight="Bold" Maximum="50" Minimum="1"
+                                                                    <xc:IntegerUpDown x:Name="nUD_BarcodeLenght" ValueChanged="nUD_BarcodeLenght_ValueChanged" 
+                                                                       FontWeight="Bold" Maximum="100" Minimum="1" Value="23"
                                                                        BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                 </Border>
                                                                 <Border VerticalAlignment="Stretch" Grid.Row="3" Margin="20,5,0,5" Width="76" Grid.Column="2" HorizontalAlignment="Left" Background="WhiteSmoke">
-                                                                    <xc:IntegerUpDown x:Name="nUD_BarcodeModelStart" ValueChanged="nUD_PCBcount_ValueChanged" 
-                                                                       FontWeight="Bold" Maximum="{Binding ElementName=nUD_BarcodeLenght, Path=Value}" Minimum="1"
+                                                                    <xc:IntegerUpDown x:Name="nUD_BarcodeModelStart" ValueChanged="nUD_BarcodeModelStart_ValueChanged" 
+                                                                       FontWeight="Bold" Maximum="{Binding ElementName=nUD_BarcodeLenght, Path=Value}" Minimum="1" Value="1"
                                                                        BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                 </Border>
                                                             </Grid>
@@ -4200,7 +4242,7 @@
                                                     </TabItem>
                                                 </TabControl>
                                                 <!-- ETC TAP-->
-                                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" Background="{x:Null}" Margin="5,10,5,5">
+                                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" Background="{x:Null}" Margin="5,10,5,5" Visibility="Collapsed">
                                                     <TabItem Template="{StaticResource TabVTMControl}" Header="ETC Setting" Foreground="White" >
                                                         <Grid Background="#3E4349">
                                                             <Grid.ColumnDefinitions>
@@ -4231,7 +4273,7 @@
                                                     </TabItem>
                                                 </TabControl>
                                                 <!-- PPS DC Power setting TAP-->
-                                                <TabControl VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Background="{x:Null}" Margin="5,25,5,-100" Height="230">
+                                                <TabControl VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="1" Background="{x:Null}" Margin="5,25,5,-100" Height="230" Visibility="Collapsed">
                                                     <TabItem Template="{StaticResource TabVTMControl}" Header="PPS DC Power Setting" Foreground="White" >
                                                         <Grid Background="#3E4349">
                                                             <DataGrid x:Name="Error_Positions_Table_Copy"
@@ -4393,7 +4435,7 @@
                                                                 </Button.Background>
                                                             </Button>
                                                             <Border  Grid.Row="1" Grid.ColumnSpan="3" Background="#FF31353A" Padding="5" Margin="5" BorderThickness="2" BorderBrush="Black">
-                                                                <WrapPanel x:Name="wrapPanelMuxSelect" ItemHeight="20" ItemWidth="70" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+                                                                <WrapPanel x:Name="wrapPanelMuxSelect" ItemHeight="20" ItemWidth="65" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Stretch">
                                                                     <CheckBox Content="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                                                     <CheckBox Content="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                                                     <CheckBox Content="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -4527,7 +4569,7 @@
                                                                 </Button.Background>
                                                             </Button>
                                                             <Border  Grid.Row="1" Grid.ColumnSpan="3" Background="#FF31353A" Padding="5" Margin="5" BorderThickness="2" BorderBrush="Black">
-                                                                <WrapPanel x:Name="pnRelaySelect"  ItemHeight="20" ItemWidth="70" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+                                                                <WrapPanel x:Name="pnRelaySelect"  ItemHeight="20" ItemWidth="65" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Stretch">
                                                                     <CheckBox Content="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                                                     <CheckBox Content="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                                                     <CheckBox Content="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -4591,7 +4633,7 @@
                                                         </Grid>
                                                     </TabItem>
                                                 </TabControl>
-                                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Background="{x:Null}" Margin="5" Visibility="Visible">
+                                                <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" Background="{x:Null}" Margin="5" Visibility="Hidden">
                                                     <TabItem Template="{StaticResource TabVTMControl}" Header="Level Commond Live use channel" Foreground="White" >
                                                         <Grid Background= "#3E4349">
                                                             <Grid.ColumnDefinitions>
@@ -4879,19 +4921,19 @@
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="0" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                                                                         <xc:IntegerUpDown x:Name="nUD_P1RX_PrefixData1" 
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="1" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                                                                         <xc:IntegerUpDown x:Name="nUD_P1RX_PrefixData2"
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="2" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                                                                         <xc:IntegerUpDown x:Name="nUD_P1RX_SuffixData"
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
 
@@ -4902,14 +4944,14 @@
                                                                     </Border>
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="4" Margin="0,5,20,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
-                                                                        <xc:IntegerUpDown x:Name="nUD_P1RX_LenghtLocStrart"
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                        <xc:IntegerUpDown x:Name="nUD_P1RX_LenghtLocStart"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="4" Margin="5,5,5,5" Width="100" Height="20" Grid.Column="2" HorizontalAlignment="Right" Background="WhiteSmoke">
                                                                         <xc:IntegerUpDown x:Name="nUD_P1RX_LenghtLocEnd"
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
 
@@ -4921,7 +4963,7 @@
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="6" Margin="5,5,5,5" Width="70" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                                                                         <xc:IntegerUpDown x:Name="nUD_P1RX_ClearTimeOut"
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1"
+                                                                            FontWeight="Bold" Maximum="5000" Minimum="1"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
                                                                 </Grid>
@@ -4936,11 +4978,11 @@
                                                                 <RowDefinition/>
                                                                 <RowDefinition/>
                                                             </Grid.RowDefinitions>
-                                                            
+
                                                             <CheckBox x:Name="cbUsePort2" Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center"
                                                                 Background="#FF080808" IsChecked="True" BorderBrush="#FFBFB5B5" 
                                                                 Height="15" Margin="20,5" Content="Use the port" />
-                                                            
+
                                                             <GroupBox Header="Port properties" IsEnabled="{Binding ElementName=cbUsePort2, Path=IsChecked}" Margin="5" Grid.Row="1" Foreground="White" Padding="5" Height ="Auto">
                                                                 <Grid Background="#3E4349">
                                                                     <Grid.RowDefinitions>
@@ -4956,7 +4998,7 @@
                                                                         <ColumnDefinition/>
                                                                         <ColumnDefinition/>
                                                                     </Grid.ColumnDefinitions>
-                                                                   
+
                                                                     <Label VerticalAlignment="Center" Foreground="White" Content="Kind" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left"/>
                                                                     <Label VerticalAlignment="Top" Foreground="White" Content="Baudrate" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="1"/>
                                                                     <Label VerticalAlignment="Top" Foreground="White" Content="Parity&#xD;&#xA;" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="2"/>
@@ -5114,19 +5156,19 @@
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="0" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                                                                         <xc:IntegerUpDown x:Name="nUD_P2RX_PrefixData1" 
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="1" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                                                                         <xc:IntegerUpDown x:Name="nUD_P2RX_PrefixData2"
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="2" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                                                                         <xc:IntegerUpDown x:Name="nUD_P2RX_SuffixData"
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
 
@@ -5137,14 +5179,14 @@
                                                                     </Border>
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="4" Margin="0,5,20,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
-                                                                        <xc:IntegerUpDown x:Name="nUD_P2RX_LenghtLocStrart"
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                        <xc:IntegerUpDown x:Name="nUD_P2RX_LenghtLocStart"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="4" Margin="5,5,5,5" Width="100" Height="20" Grid.Column="2" HorizontalAlignment="Right" Background="WhiteSmoke">
                                                                         <xc:IntegerUpDown x:Name="nUD_P2RX_LenghtLocEnd"
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
 
@@ -5156,7 +5198,7 @@
 
                                                                     <Border VerticalAlignment="Stretch" Grid.Row="6" Margin="5,5,5,5" Width="70" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                                                                         <xc:IntegerUpDown x:Name="nUD_P2RX_ClearTimeOut"
-                                                                            FontWeight="Bold" Maximum="50" Minimum="1"
+                                                                            FontWeight="Bold" Maximum="5000" Minimum="1"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                                                                     </Border>
                                                                 </Grid>
@@ -5651,6 +5693,26 @@
                                         </TabItem.Header>
                                         <Grid  LostFocus="Grid_LostFocus" Focusable="true">
                                             <Image Source="{Binding ElementName=cameraView, Path=Source}" SourceUpdated="Image_SourceUpdated" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                                <Grid x:Name="CanvasGrid" Background="#02C17D7D" Focusable="True"
+                                                        Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                                    <Grid.Style>
+                                                        <Style TargetType="Grid">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=rbtShowGrid, Path= IsChecked}" Value="true">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=rbtShowGrid, Path= IsChecked}" Value="false">
+                                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Grid.Style>
+                                                    <Ellipse Width="300" Height="300" VerticalAlignment="Center" HorizontalAlignment="Center" Stroke="Blue" ></Ellipse>
+                                                    <Border BorderBrush="Blue" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                                                    <Border BorderBrush="Blue" BorderThickness="1" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                                                </Grid>
+                                            </Border>
                                             <Border x:Name="drawingZone" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                                 <Canvas x:Name="drawingTable" Background="#02C17D7D" Focusable="True"
                                                         Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -5757,6 +5819,7 @@
                                                             <RowDefinition/>
                                                             <RowDefinition/>
                                                             <RowDefinition/>
+                                                            <RowDefinition/>
                                                         </Grid.RowDefinitions>
 
                                                         <Label Content="Exposure" Grid.Row="0" Style="{StaticResource ContentLabelStyle}" />
@@ -5766,14 +5829,16 @@
                                                         <Label Content="White" Grid.Row="4" Style="{StaticResource ContentLabelStyle}" />
                                                         <Label Content="Sharpness" Grid.Row="5" Style="{StaticResource ContentLabelStyle}" />
                                                         <Label Content="Zoom" Grid.Row="6" Style="{StaticResource ContentLabelStyle}" />
+                                                        <Label Content="Satuation" Grid.Row="7" Style="{StaticResource ContentLabelStyle}" />
 
-                                                        <Slider x:Name="slExporsure" Grid.Row="0" Grid.Column="1" Style="{StaticResource SliderStyle}" Minimum="-10" Maximum="10" ValueChanged="CameraSetting_ValueChanged"/>
-                                                        <Slider x:Name="slBrightness"  Grid.Row="1" Grid.Column="1" Style="{StaticResource SliderStyle}" Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged"/>
-                                                        <Slider x:Name="slContrast"  Grid.Row="2" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged"/>
-                                                        <Slider x:Name="slFocus"  Grid.Row="3" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged"/>
-                                                        <Slider x:Name="slWhite"  Grid.Row="4" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="6000" ValueChanged="CameraSetting_ValueChanged"/>
-                                                        <Slider x:Name="slSharpness"  Grid.Row="5" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged"/>
-                                                        <Slider x:Name="slZoom"  Grid.Row="6" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged"/>
+                                                        <Slider x:Name="slExporsure" Grid.Row="0" Grid.Column="1" Style="{StaticResource SliderStyle}" Minimum="-10" Maximum="10" ValueChanged="CameraSetting_ValueChanged" TickFrequency="100"/>
+                                                        <Slider x:Name="slBrightness"  Grid.Row="1" Grid.Column="1" Style="{StaticResource SliderStyle}" Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" TickFrequency="100"/>
+                                                        <Slider x:Name="slContrast"  Grid.Row="2" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" TickFrequency="100"/>
+                                                        <Slider x:Name="slFocus"  Grid.Row="3" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" TickFrequency="100"/>
+                                                        <Slider x:Name="slWhite"  Grid.Row="4" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="6000" ValueChanged="CameraSetting_ValueChanged" TickFrequency="100"/>
+                                                        <Slider x:Name="slSharpness"  Grid.Row="5" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" TickFrequency="100"/>
+                                                        <Slider x:Name="slZoom"  Grid.Row="6" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" TickFrequency="100"/>
+                                                        <Slider x:Name="slSatuation"  Grid.Row="7" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" TickFrequency="100"/>
 
                                                         <xc:IntegerUpDown Value="{Binding ElementName=slExporsure, Path=Value, Mode=TwoWay}" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"/>
                                                         <xc:IntegerUpDown Value="{Binding ElementName=slBrightness, Path=Value, Mode=TwoWay}" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"/>
@@ -5782,6 +5847,7 @@
                                                         <xc:IntegerUpDown Value="{Binding ElementName=slWhite, Path=Value, Mode=TwoWay}" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center"/>
                                                         <xc:IntegerUpDown Value="{Binding ElementName=slSharpness, Path=Value, Mode=TwoWay}" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center"/>
                                                         <xc:IntegerUpDown Value="{Binding ElementName=slZoom, Path=Value, Mode=TwoWay}" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center"/>
+                                                        <xc:IntegerUpDown Value="{Binding ElementName=slSatuation, Path=Value, Mode=TwoWay}" Grid.Row="7" Grid.Column="2" VerticalAlignment="Center"/>
 
                                                     </Grid>
                                                 </TabItem>
@@ -5939,13 +6005,16 @@
                                         </Grid>
                                     </TabItem>
                                 </TabControl>
-                                <Label Content="Board select: " Foreground="#FCD462" FontSize="25"
+                                <!--<Label Content="Board select: " Foreground="#FCD462" FontSize="25"
                                        Margin="0,0,250,0" VerticalAlignment="Top" HorizontalAlignment="Right" VerticalContentAlignment="Center"
-                                       FontStyle="Italic" FontWeight="Bold" Height="37"></Label>
+                                       FontStyle="Italic" FontWeight="Bold" Height="37"></Label>-->
+                                <CheckBox x:Name="rbtShowGrid"  Content="Show grid" FontWeight="Bold" Margin="0,14,350,0" VerticalAlignment="Top" HorizontalAlignment="Right" VerticalContentAlignment="Center"
+                                       FontStyle="Italic" Foreground="White" ></CheckBox>
 
                                 <DockPanel Grid.Column="0" Margin="5" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Right"
-                                        Width="250">
-                                    <RadioButton Content="All" Margin="10,0,0,0" FontWeight="Bold" Foreground="#FCD462" FontSize="25" VerticalContentAlignment="Center" Checked="RadioButton_Checked"></RadioButton>
+                                        Width="Auto">
+
+                                    <RadioButton x:Name="rdbtSelectAll" Content="All" Margin="10,0,0,0" FontWeight="Bold" Foreground="#FCD462" FontSize="25" VerticalContentAlignment="Center" Checked="RadioButton_Checked"></RadioButton>
                                     <RadioButton x:Name="rdbtSelectA" Content="A" Margin="10,0,0,0" FontWeight="Bold" Foreground="#FCD462" FontSize="25" VerticalContentAlignment="Center" Checked="RadioButton_Checked"></RadioButton>
                                     <RadioButton x:Name="rdbtSelectB" Content="B" Margin="10,0,0,0" FontWeight="Bold" Foreground="#FCD462" FontSize="25" VerticalContentAlignment="Center" Checked="RadioButton_Checked"></RadioButton>
                                     <RadioButton x:Name="rdbtSelectC" Content="C" Margin="10,0,0,0" FontWeight="Bold" Foreground="#FCD462" FontSize="25" VerticalContentAlignment="Center" Checked="RadioButton_Checked"></RadioButton>
@@ -5958,7 +6027,7 @@
                                     <TabItem Template="{StaticResource TabVTMControl}" Header="LCD" Foreground="White">
                                         <Grid Margin="5">
                                             <StackPanel Background="#898F98">
-                                                <DockPanel x:Name="pnLCDA" LastChildFill="True" Margin="5" Background="#292C30" Height="120">
+                                                <DockPanel Margin="5" Background="#292C30" Height="120">
                                                     <Label Content="A" Width="30"  FontSize="20" Margin="5,5,20,5" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
                                                     <Grid Height="120">
                                                         <Grid.RowDefinitions>
@@ -5977,10 +6046,11 @@
                                                         </Slider>
                                                         <xc:IntegerUpDown Grid.Row="1" Height="20" Width="60" Value="{Binding ElementName=sldLCDA , Path=Value, Mode=TwoWay}"></xc:IntegerUpDown>
                                                     </Grid>
-                                                    <Image x:Name="imgLCDviewA"  MaxWidth="500"  MaxHeight="120" ></Image>
-                                                    <Label x:Name="lbLCDvalueA" Content="88" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />
+                                                    <DockPanel  x:Name="pnLCDA" LastChildFill="True" ></DockPanel>
+                                                    <!--<Image x:Name="imgLCDviewA"  MaxWidth="500"  MaxHeight="120" ></Image>
+                                                    <Label x:Name="lbLCDvalueA" Content="88" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />-->
                                                 </DockPanel>
-                                                <DockPanel x:Name="pnLCDB" LastChildFill="True" Margin="5" Background="#292C30">
+                                                <DockPanel LastChildFill="True" Margin="5" Background="#292C30">
                                                     <Label Content="B" Width="30"  FontSize="20" Margin="5,5,20,5" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
                                                     <Grid Height="120">
                                                         <Grid.RowDefinitions>
@@ -5999,10 +6069,11 @@
                                                         </Slider>
                                                         <xc:IntegerUpDown Grid.Row="1" Height="20" Width="60" Value="{Binding ElementName=sldLCDB , Path=Value, Mode=TwoWay}"></xc:IntegerUpDown>
                                                     </Grid>
-                                                    <Image Name="imgLCDviewB"  MaxWidth="500"  MaxHeight="120"/>
-                                                    <Label x:Name="lbLCDvalueB" Content="8" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />
+                                                    <DockPanel  x:Name="pnLCDB" LastChildFill="True" ></DockPanel>
+                                                    <!--<Image Name="imgLCDviewB"  MaxWidth="500"  MaxHeight="120"/>
+                                                    <Label x:Name="lbLCDvalueB" Content="8" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />-->
                                                 </DockPanel>
-                                                <DockPanel x:Name="pnLCDC" LastChildFill="True" Margin="5" Background="#292C30">
+                                                <DockPanel LastChildFill="True" Margin="5" Background="#292C30">
                                                     <Label Content="C" Width="30"  FontSize="20" Margin="5,5,20,5" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
                                                     <Grid Height="120">
                                                         <Grid.RowDefinitions>
@@ -6021,10 +6092,11 @@
                                                         </Slider>
                                                         <xc:IntegerUpDown Grid.Row="1" Height="20" Width="60" Value="{Binding ElementName=sldLCDC , Path=Value, Mode=TwoWay}"></xc:IntegerUpDown>
                                                     </Grid>
-                                                    <Image Name="imgLCDviewC" MaxWidth="500"  MaxHeight="120"/>
-                                                    <Label x:Name="lbLCDvalueC" Content="1888" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />
+                                                    <DockPanel  x:Name="pnLCDC" LastChildFill="True" ></DockPanel>
+                                                    <!--<Image Name="imgLCDviewC" MaxWidth="500"  MaxHeight="120"/>
+                                                    <Label x:Name="lbLCDvalueC" Content="1888" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />-->
                                                 </DockPanel>
-                                                <DockPanel x:Name="pnLCDD" LastChildFill="True" Margin="5" Background="#292C30">
+                                                <DockPanel LastChildFill="True" Margin="5" Background="#292C30">
                                                     <Label Content="D" Width="30" FontSize="20" Margin="5,5,20,5" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
                                                     <Grid Height="120">
                                                         <Grid.RowDefinitions>
@@ -6043,8 +6115,9 @@
                                                         </Slider>
                                                         <xc:IntegerUpDown Grid.Row="1" Height="20" Width="60" Value="{Binding ElementName=sldLCDD , Path=Value, Mode=TwoWay}"></xc:IntegerUpDown>
                                                     </Grid>
-                                                    <Image Name="imgLCDviewD"  MaxWidth="500"  MaxHeight="120"/>
-                                                    <Label x:Name="lbLCDvalueD" Content="88 8 1888" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />
+                                                    <DockPanel  x:Name="pnLCDD" LastChildFill="True" ></DockPanel>
+                                                    <!--<Image Name="imgLCDviewD"  MaxWidth="500"  MaxHeight="120"/>
+                                                    <Label x:Name="lbLCDvalueD" Content="88 8 1888" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />-->
                                                 </DockPanel>
                                                 <Button x:Name="Detect" Content="DETECT" Click="Detect_Click"/>
                                             </StackPanel>
@@ -6054,7 +6127,7 @@
                                     <TabItem Template="{StaticResource TabVTMControl}" Header="FND" Foreground="White">
                                         <Grid Margin="5">
                                             <StackPanel Background="#898F98">
-                                                <DockPanel x:Name="pnFNDA" LastChildFill="True" Margin="5" Background="#292C30" Height="120">
+                                                <DockPanel LastChildFill="True" Margin="5" Background="#292C30" Height="120">
                                                     <Label Content="A" Width="30"  FontSize="20" Margin="5,5,20,5" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
                                                     <Grid Height="120">
                                                         <Grid.RowDefinitions>
@@ -6073,10 +6146,11 @@
                                                         </Slider>
                                                         <xc:IntegerUpDown Grid.Row="1" Height="20" Width="60" Value="{Binding ElementName=sldFNDA , Path=Value, Mode=TwoWay}"></xc:IntegerUpDown>
                                                     </Grid>
-                                                    <Image x:Name="imgFNDviewA"  MaxWidth="500"  MaxHeight="120" ></Image>
-                                                    <Label x:Name="lbFNDvalueA" Content="88" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />
+                                                    <DockPanel x:Name="pnFNDA" LastChildFill="True"/>
+                                                    <!--<Image x:Name="imgFNDviewA"  MaxWidth="500"  MaxHeight="120" ></Image>
+                                                    <Label x:Name="lbFNDvalueA" Content="88" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />-->
                                                 </DockPanel>
-                                                <DockPanel x:Name="pnFNDB"  LastChildFill="True" Margin="5" Background="#292C30">
+                                                <DockPanel LastChildFill="True" Margin="5" Background="#292C30">
                                                     <Label Content="B" Width="30"  FontSize="20" Margin="5,5,20,5" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
                                                     <Grid Height="120">
                                                         <Grid.RowDefinitions>
@@ -6095,10 +6169,11 @@
                                                         </Slider>
                                                         <xc:IntegerUpDown Grid.Row="1" Height="20" Width="60" Value="{Binding ElementName=sldFNDB , Path=Value, Mode=TwoWay}"></xc:IntegerUpDown>
                                                     </Grid>
-                                                    <Image Name="imgFNDviewB"  MaxWidth="500"  MaxHeight="120"/>
-                                                    <Label x:Name="lbFNDvalueB" Content="8" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />
+                                                    <DockPanel x:Name="pnFNDB" LastChildFill="True"/>
+                                                    <!--<Image Name="imgFNDviewB"  MaxWidth="500"  MaxHeight="120"/>
+                                                    <Label x:Name="lbFNDvalueB" Content="8" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />-->
                                                 </DockPanel>
-                                                <DockPanel  x:Name="pnFNDC"  LastChildFill="True" Margin="5" Background="#292C30">
+                                                <DockPanel LastChildFill="True" Margin="5" Background="#292C30">
                                                     <Label Content="C" Width="30"  FontSize="20" Margin="5,5,20,5" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
                                                     <Grid Height="120">
                                                         <Grid.RowDefinitions>
@@ -6117,10 +6192,11 @@
                                                         </Slider>
                                                         <xc:IntegerUpDown Grid.Row="1" Height="20" Width="60" Value="{Binding ElementName=sldFNDC , Path=Value, Mode=TwoWay}"></xc:IntegerUpDown>
                                                     </Grid>
-                                                    <Image Name="imgFNDviewC" MaxWidth="500"  MaxHeight="120"/>
-                                                    <Label x:Name="lbFNDvalueC" Content="1888" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />
+                                                    <DockPanel x:Name="pnFNDC" LastChildFill="True"/>
+                                                    <!--<Image Name="imgFNDviewC" MaxWidth="500"  MaxHeight="120"/>
+                                                    <Label x:Name="lbFNDvalueC" Content="1888" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />-->
                                                 </DockPanel>
-                                                <DockPanel  x:Name="pnFNDD" LastChildFill="True" Margin="5" Background="#292C30">
+                                                <DockPanel  LastChildFill="True" Margin="5" Background="#292C30">
                                                     <Label Content="D" Width="30" FontSize="20" Margin="5,5,20,5" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" />
                                                     <Grid Height="120">
                                                         <Grid.RowDefinitions>
@@ -6139,8 +6215,9 @@
                                                         </Slider>
                                                         <xc:IntegerUpDown Grid.Row="1" Height="20" Width="60" Value="{Binding ElementName=sldFNDD , Path=Value, Mode=TwoWay}"></xc:IntegerUpDown>
                                                     </Grid>
-                                                    <Image Name="imgFNDviewD"  MaxWidth="500"  MaxHeight="120"/>
-                                                    <Label x:Name="lbFNDvalueD" Content="88 8 1888" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />
+                                                    <DockPanel x:Name="pnFNDD" LastChildFill="True"/>
+                                                    <!--<Image Name="imgFNDviewD"  MaxWidth="500"  MaxHeight="120"/>
+                                                    <Label x:Name="lbFNDvalueD" Content="88 8 1888" VerticalAlignment="Center"  FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" />-->
                                                 </DockPanel>
                                                 <Button x:Name="DetectFND" Content="DETECT" Click="DetectFND_Click"/>
                                             </StackPanel>

@@ -46,7 +46,7 @@ namespace HVT.Utility
 
                 if (LogBox.Dispatcher.CheckAccess())
                 {
-                    dispatcher.Invoke(new Action(delegate
+                    dispatcher.Invoke((Action)(delegate
                     {
                         LogBox.Document.Blocks.Add(paragraph);
                         LogBox.ScrollToEnd();

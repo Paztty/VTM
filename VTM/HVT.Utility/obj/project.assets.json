@@ -866,7 +866,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\Utility.csproj",
-      "projectName": "HVT.Utility",
+      "projectName": "Utility",
       "projectPath": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\Utility.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
       "outputPath": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\obj\\",

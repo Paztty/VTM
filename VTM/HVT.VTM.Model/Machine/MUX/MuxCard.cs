@@ -294,5 +294,34 @@ namespace HVT.VTM.Base
                 }
             }
         }
+
+        public List<int> GetUseChannels()
+        {
+            List<int> useChannels = new List<int>();
+            for (int i = 0; i < Chanels.Count; i++)
+            {
+                if (Chanels[i].IsUse)
+                {
+                    useChannels.Add(i);
+                }
+            }
+            return useChannels;
+        }
+
+        public void SetUseChannels( List<int> useChannels)
+        {
+            if (useChannels == null || useChannels.Count < 1)
+            {
+                return;
+            }
+            foreach (var item in useChannels)
+            {
+                if (item < Chanels.Count)
+                {
+                    Chanels[item].IsUse = true;
+                }
+            }
+        }
+
     }
 }

@@ -107,6 +107,18 @@ namespace HVT.VTM.Base
         public int RxLenghtFixed
         { get { return RxlenghtFixed; } set { RxlenghtFixed = value; } }
 
+        public int rxlenghtStart;
+        public int RxLenghtStart
+        { get { return rxlenghtStart; } set { rxlenghtStart = value; } }
+
+        public int rxlenghtEnd;
+        public int RxLenghtEnd
+        { get { return rxlenghtEnd; } set { rxlenghtEnd = value; } }
+
+        public int rxlenghtByteCount;
+        public int RxLenghtByteCount
+        { get { return rxlenghtByteCount; } set { rxlenghtByteCount = value; } }
+
         //public enum CheckSumType
         //{
         //    XOR,
@@ -235,7 +247,7 @@ namespace HVT.VTM.Base
                         config = value;
                         serial.BaudRate = value.Baudrate;
                         serial.Parity = value.Parity;
-                        serial.StopBits = value.StopBits;
+                        serial.StopBits = value.StopBits == StopBits.None ? StopBits.One : value.StopBits;
                         serial.DataBits = value.DataBit;
                         ClearTime = value.ClearRxTime;
                         try
@@ -254,6 +266,9 @@ namespace HVT.VTM.Base
         }
 
         Timer clearRxTimer = new Timer();
+        Timer ReSendTimer = new Timer();
+        byte[] dataSendTimer;
+
         private int clearTime;
         private int ClearTime
         {
@@ -299,8 +314,17 @@ namespace HVT.VTM.Base
 
         public UUTPort()
         {
+            ReSendTimer.Elapsed += ReSendTimer_Elapsed;
             serial.DataReceived += Serial_DataReceived;
             clearRxTimer.Elapsed += ClearRxTimer_Elapsed;
+        }
+
+        private void ReSendTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (dataSendTimer != null)
+            {
+                Send(dataSendTimer);
+            }
         }
 
         public void SetPort(Rectangle portTx, Rectangle portRx, Rectangle portStatus)
@@ -321,7 +345,7 @@ namespace HVT.VTM.Base
                     serial.Open();
                     return serial.IsOpen;
                 }
-                catch (Exception err)
+                catch (Exception)
                 {
                     return false;
                 }
@@ -360,7 +384,7 @@ namespace HVT.VTM.Base
                 if (config.ClearRxTimeSpecified)
                 {
                     //Buffer.Clear();
-                    config.ClearRxTimeSpecified = false;
+                    config.ClearRxTimeSpecified = false; 
                     clearRxTimer.Start();
                 }
                 int length = serial.BytesToRead;
@@ -406,6 +430,61 @@ namespace HVT.VTM.Base
                 HVT.Utility.Debug.Write(err.Message, Debug.ContentType.Error);
                 return false;
             }
+        }
+
+        public bool SendTimer(string txData, int time)
+        {
+            if (time == 0)
+            {
+                dataSendTimer = null;
+                ReSendTimer.Enabled = false;
+                ReSendTimer.Stop();
+                return true;
+            }
+
+            if (txData == null)
+            {
+                return false;
+            }
+
+            if (!serial.IsOpen)
+            {
+                return false;
+            }
+
+            dataSendTimer = config.GetFrame(txData);
+            ReSendTimer.Interval = time;
+            ReSendTimer.AutoReset = true;
+            ReSendTimer.Enabled = true;
+            ReSendTimer.Start();
+            return true;
+        }
+        public bool SendTimer(TxData txData, int time)
+        {
+            if (time == 0)
+            {
+                dataSendTimer = null;
+                ReSendTimer.Enabled = false;
+                ReSendTimer.Stop();
+                return true;
+            }
+
+            if (txData == null)
+            {
+                return false;
+            }
+
+            if (!serial.IsOpen)
+            {
+                return false;
+            }
+
+            dataSendTimer = config.GetFrame(txData);
+            ReSendTimer.Interval = time;
+            ReSendTimer.AutoReset = true;
+            ReSendTimer.Enabled = true;
+            ReSendTimer.Start();
+            return true;
         }
 
         public bool Send(byte[] data)
@@ -493,9 +572,9 @@ namespace HVT.VTM.Base
             }
             Write_Log(datalog);
 
+            SerialDisplay.BlinkTX();
             if (serial.IsOpen)
             {
-                SerialDisplay.BlinkTX();
                 try
                 {
                     serial.Write(data, 0, data.Length);
@@ -532,7 +611,6 @@ namespace HVT.VTM.Base
                         {
                             if (Int32.TryParse(rxData.L_Lbit, out lbit))
                             {
-                                int byteToCheck = 0;
                                 for (int i = mbyte; i <= lbyte; i++)
                                 {
                                     if (Buffer.Count > i)

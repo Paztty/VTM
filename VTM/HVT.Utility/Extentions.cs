@@ -33,7 +33,7 @@ namespace HVT.Utility
             JsonSerializerOptions options = new JsonSerializerOptions()
             {
                 MaxDepth = 1024,
-                WriteIndented = true
+                //WriteIndented = true
             };
             return JsonSerializer.Serialize(source, options);
         }
@@ -43,7 +43,7 @@ namespace HVT.Utility
             JsonSerializerOptions options = new JsonSerializerOptions()
             {
                 MaxDepth = 1024,
-                WriteIndented = true
+                //WriteIndented = true
             };
             return JsonSerializer.Deserialize<T>(jsonStr, options);
         }

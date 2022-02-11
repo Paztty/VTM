@@ -13,7 +13,7 @@ namespace HVT.VTM.Base
             new SerialPort()
             {
                 PortName = "COM1",
-                BaudRate = 115200,
+                BaudRate = 9600,
                 Parity = Parity.None,
                 StopBits = StopBits.One,
             };

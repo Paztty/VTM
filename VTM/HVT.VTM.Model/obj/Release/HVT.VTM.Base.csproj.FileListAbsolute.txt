@@ -1,7 +1,5 @@
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\dll\x86\OpenCvSharpExtern.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\dll\x86\opencv_videoio_ffmpeg453.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\dll\x64\OpenCvSharpExtern.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\dll\x64\opencv_videoio_ffmpeg453_64.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\TessData\eng.traineddata
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\HVT.VTM.Base.dll.config
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\HVT.VTM.Base.dll
@@ -11,7 +9,6 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\HVT.Utility.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\ImageProcessor.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\OpenCvSharp.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\OpenCvSharp.Extensions.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\OpenCvSharp.WpfExtensions.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\Resource.dll
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\System.Buffers.dll
@@ -31,8 +28,6 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\DirectShowLib.pdb
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\ImageProcessor.xml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\OpenCvSharp.xml
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\OpenCvSharp.Extensions.xml
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\OpenCvSharp.WpfExtensions.xml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\System.Buffers.xml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\System.Memory.xml
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\System.Numerics.Vectors.xml
@@ -55,7 +50,6 @@ D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\tessdata\eng.cube.size
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\tessdata\eng.cube.word-freq
 D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\tessdata\eng.tesseract_cube.nn
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\ScottPlot.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\ScottPlot.WPF.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll
-D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\ScottPlot.xml
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\dll\x86\opencv_videoio_ffmpeg455.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\dll\x64\opencv_videoio_ffmpeg455_64.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.VTM.Model\bin\Release\System.Drawing.Common.xml

@@ -66,10 +66,13 @@ namespace HVT.VTM.Base.VisionFunctions
 
         public ObservableCollection<SingleGLED> GLEDs { get; set; } = new ObservableCollection<SingleGLED>();
 
-        public GLED() { }
+        public GLED() {
+            CalculatorOutputString = "";
+        }
 
         public GLED(Canvas manual, Canvas displayCanvas, Canvas placeCanvas, int index)
         {
+            CalculatorOutputString = "";
             for (int i = 0; i < 32; i++)
             {
                 GLEDs.Add(new SingleGLED(i, index, placeCanvas, displayCanvas, manual));
@@ -157,8 +160,6 @@ namespace HVT.VTM.Base.VisionFunctions
             }
         }
 
-        private Bitmap bitmap = null;
-
         private Rect displaySize;
         public Rect DisplaySize
         {
@@ -217,6 +218,16 @@ namespace HVT.VTM.Base.VisionFunctions
                             Label.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 255, 0));
                             Label.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
                         }));
+                        LabelDisplay.Dispatcher.BeginInvoke(new Action(delegate
+                        {
+                            LabelDisplay.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+                            LabelDisplay.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+                        }));
+                        ManualLabelDisplay.Dispatcher.BeginInvoke(new Action(delegate
+                        {
+                            ManualLabelDisplay.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+                            ManualLabelDisplay.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+                        }));
                     }
                     else
                     {
@@ -224,6 +235,16 @@ namespace HVT.VTM.Base.VisionFunctions
                         {
                             Label.BorderBrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
                             Label.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                        }));
+                        LabelDisplay.Dispatcher.BeginInvoke(new Action(delegate
+                        {
+                            LabelDisplay.BorderBrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                            LabelDisplay.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                        }));
+                        ManualLabelDisplay.Dispatcher.BeginInvoke(new Action(delegate
+                        {
+                            ManualLabelDisplay.BorderBrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                            ManualLabelDisplay.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
                         }));
                     }
                 }
@@ -243,7 +264,7 @@ namespace HVT.VTM.Base.VisionFunctions
                     NotifyPropertyChanged(nameof(Use));
                     if (use)
                     {
-                        Visibility = Visibility.Visible;
+                        //Visibility = Visibility.Visible;
                         this.Label.Dispatcher.BeginInvoke(new Action(delegate
                         {
                             Label.BorderBrush = new SolidColorBrush(Colors.Red);
@@ -252,7 +273,7 @@ namespace HVT.VTM.Base.VisionFunctions
                     }
                     else
                     {
-                        Visibility = Visibility.Hidden;
+                        //Visibility = Visibility.Hidden;
                         Label.Dispatcher.BeginInvoke(new Action(delegate
                         {
                             Label.BorderBrush = new SolidColorBrush(Colors.Yellow);
@@ -522,8 +543,8 @@ namespace HVT.VTM.Base.VisionFunctions
             this.Display = Display;
             this.ManualDisplay = ManualDisplay;
 
-            Name =  index.ToString();
-            
+            Name = index.ToString();
+
             Index = index;
             this.Rect = new Rect()
             {
@@ -999,15 +1020,12 @@ namespace HVT.VTM.Base.VisionFunctions
         {
             if (source != null && Use)
             {
-                this.bitmap = VisionWorker.GetBitmap(source);
-                if (bitmap != null)
+
+                Intens = VisionWorker.Meansure(area, source, Thresh);
+                NotifyPropertyChanged(nameof(Intens));
+                if (Intens >= Thresh)
                 {
-                    Intens = VisionWorker.Meansure(area, bitmap, Thresh);
-                    NotifyPropertyChanged(nameof(Intens));
-                    if (Intens >= Thresh)
-                    {
-                        return "1";
-                    }
+                    return "1";
                 }
             }
             return "0";

@@ -12,7 +12,7 @@ namespace HVT.Utility
 
         Timer timer = new Timer()
         {
-            Interval = 50,
+            Interval = 150,
         };
 
         public SerialDisplay()
@@ -40,7 +40,7 @@ namespace HVT.Utility
             TX?.Dispatcher.Invoke(new System.Action(delegate
             {
                 TX.Fill =  new SolidColorBrush(Colors.Red);
-            }));
+            }), System.Windows.Threading.DispatcherPriority.Send);
             timer.Start();
         }
 
@@ -49,7 +49,7 @@ namespace HVT.Utility
             RX?.Dispatcher.Invoke(new System.Action(delegate
             {
                 RX.Fill = new SolidColorBrush(Colors.LightGreen);
-            }));
+            }), System.Windows.Threading.DispatcherPriority.Send);
             timer.Start();
         }
 
@@ -60,7 +60,7 @@ namespace HVT.Utility
                 IsOpenRect.Dispatcher.BeginInvoke(new System.Action(delegate
                  {
                      IsOpenRect.Fill = IsOpen ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Gray);
-                 }));
+                 }), System.Windows.Threading.DispatcherPriority.Send);
             }
         }
     }

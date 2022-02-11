@@ -109,28 +109,13 @@ namespace HVT.VTM.Base
         #endregion
 
         #region Barcode settup
-        public class Barcode
-        {
-            public int No { get; set; }
-            public string BarcodeData { get; set; }
-            public int Lenght { get; set; }
-            public int StartModelCodePosition { get; set; }
-            public string ModelCode { get; set; }
-        }
-        public ObservableCollection<Barcode> Barcodes { get; set; } = new ObservableCollection<Barcode>()
-        {
-         new Barcode(){No = 0, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
-         new Barcode(){No = 1, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
-         new Barcode(){No = 2, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
-         new Barcode(){No = 3, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
-        };
-        public ObservableCollection<Barcode> BarcodesWaitting = new ObservableCollection<Barcode>()
-        {
-         new Barcode(){No = 0, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
-         new Barcode(){No = 1, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
-         new Barcode(){No = 2, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
-         new Barcode(){No = 3, BarcodeData = "", Lenght=23, StartModelCodePosition= 3, ModelCode="" },
-        };
+        public bool UseBarcodeInput { get; set; } = true;
+        public bool UseBarcodeLenghtFixed { get; set; } = true;
+        public int BarcodeLenght { get; set; }
+        public bool CompareModelCode { get; set; }
+        public int StartModelCodePosition { get; set; }
+        public string ModelCode { get; set; }
+
         #endregion
 
         #region Naming
@@ -163,7 +148,20 @@ namespace HVT.VTM.Base
         public List<VisionFunctions.GLED> GLEDs { get; set; }
         public List<VisionFunctions.LED> LEDs { get; set; }
 
-        public void VisionTestInit(Canvas DrawingCanvas, Canvas DisplayFunction, Canvas ManualDisplayCanvas)
+        public void VisionTestInit(
+            Canvas DrawingCanvas,
+            Canvas DisplayFunction,
+            Canvas ManualDisplayCanvas,
+                                DockPanel LCDA,
+                                DockPanel LCDB,
+                                DockPanel LCDC,
+                                DockPanel LCDD,
+
+                                DockPanel FNDA,
+                                DockPanel FNDB,
+                                DockPanel FNDC,
+                                DockPanel FNDD
+            )
         {
             FNDs = new List<Base.VisionFunctions.FND>()
                     {
@@ -172,6 +170,15 @@ namespace HVT.VTM.Base
                     new Base.VisionFunctions.FND(3, "FND C", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
                     new Base.VisionFunctions.FND(4, "FND D", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
                     };
+            FNDA.Children.Add(FNDs[0].Image);
+            FNDB.Children.Add(FNDs[1].Image);
+            FNDC.Children.Add(FNDs[2].Image);
+            FNDD.Children.Add(FNDs[3].Image);
+
+            FNDA.Children.Add(FNDs[0].LabelContent);
+            FNDB.Children.Add(FNDs[1].LabelContent);
+            FNDC.Children.Add(FNDs[2].LabelContent);
+            FNDD.Children.Add(FNDs[3].LabelContent);
 
             LCDs = new List<Base.VisionFunctions.LCD>()
                     {
@@ -180,6 +187,14 @@ namespace HVT.VTM.Base
                     new Base.VisionFunctions.LCD(3, "LCD C", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
                     new Base.VisionFunctions.LCD(4, "LCD D", DrawingCanvas, DisplayFunction,ManualDisplayCanvas),
                     };
+            LCDA.Children.Add(LCDs[0].Image);
+            LCDA.Children.Add(LCDs[0].LabelContent);
+            LCDB.Children.Add(LCDs[1].Image);
+            LCDB.Children.Add(LCDs[1].LabelContent);
+            LCDC.Children.Add(LCDs[2].Image);
+            LCDC.Children.Add(LCDs[2].LabelContent);
+            LCDD.Children.Add(LCDs[3].Image);
+            LCDD.Children.Add(LCDs[3].LabelContent);
 
             GLEDs = new List<Base.VisionFunctions.GLED>()
             {
@@ -223,7 +238,19 @@ namespace HVT.VTM.Base
 
         }
 
-        public void ReplaceComponent(Canvas DrawingCanvas, Canvas DisplayFunction, Canvas ManualDisplayCanvas)
+        public void ReplaceComponent(Canvas DrawingCanvas,
+            Canvas DisplayFunction,
+            Canvas ManualDisplayCanvas,
+                                DockPanel LCDA,
+                                DockPanel LCDB,
+                                DockPanel LCDC,
+                                DockPanel LCDD,
+
+                                DockPanel FNDA,
+                                DockPanel FNDB,
+                                DockPanel FNDC,
+                                DockPanel FNDD
+            )
         {
             DrawingCanvas.Children.Clear();
             DisplayFunction.Children.Clear();
@@ -239,6 +266,37 @@ namespace HVT.VTM.Base
                 item.ReInit(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
                 item.PlaceIn(DrawingCanvas, DisplayFunction, ManualDisplayCanvas);
             }
+            FNDA.Children.Clear();
+            FNDB.Children.Clear();
+            FNDC.Children.Clear();
+            FNDD.Children.Clear();
+
+            FNDA.Children.Add(FNDs[0].Image);
+            FNDB.Children.Add(FNDs[1].Image);
+            FNDC.Children.Add(FNDs[2].Image);
+            FNDD.Children.Add(FNDs[3].Image);
+
+            FNDA.Children.Add(FNDs[0].LabelContent);
+            FNDB.Children.Add(FNDs[1].LabelContent);
+            FNDC.Children.Add(FNDs[2].LabelContent);
+            FNDD.Children.Add(FNDs[3].LabelContent);
+
+
+            LCDA.Children.Clear();
+            LCDB.Children.Clear();
+            LCDC.Children.Clear();
+            LCDD.Children.Clear();
+
+            LCDA.Children.Add(LCDs[0].Image);
+            LCDA.Children.Add(LCDs[0].LabelContent);
+            LCDB.Children.Add(LCDs[1].Image);
+            LCDB.Children.Add(LCDs[1].LabelContent);
+            LCDC.Children.Add(LCDs[2].Image);
+            LCDC.Children.Add(LCDs[2].LabelContent);
+            LCDD.Children.Add(LCDs[3].Image);
+            LCDD.Children.Add(LCDs[3].LabelContent);
+
+
             foreach (var item in GLEDs)
             {
                 foreach (var led in item.GLEDs)
@@ -260,6 +318,11 @@ namespace HVT.VTM.Base
 
         }
 
+        #endregion
+
+        #region Machine Card
+        public List<int> MuxChannelsUse { get; set; }
+        public List<int> LevelChannelsUse { get; set; }
         #endregion
 
         #region UUT config
@@ -291,6 +354,7 @@ namespace HVT.VTM.Base
         }
 
         #endregion
+        
 
         #region Event
         public event EventHandler LoadFinish;
@@ -300,20 +364,12 @@ namespace HVT.VTM.Base
 
         public void LoadFinishEvent()
         {
-            foreach (var item in Barcodes) item.BarcodeData = "";
             LoadFinish?.Invoke(null, null);
         }
 
         public void Contruction_ContructionChanged()
         {
-            Barcodes = new ObservableCollection<Barcode> { };
-            BarcodesWaitting = new ObservableCollection<Barcode> { };
 
-            for (int i = 0; i < contruction.PCB_Count; i++)
-            {
-                Barcodes.Add(new Barcode() { No = i + 1, BarcodeData = "", Lenght = 23, StartModelCodePosition = 3, ModelCode = "" });
-                BarcodesWaitting.Add(new Barcode() { No = i + 1, BarcodeData = "", Lenght = 23, StartModelCodePosition = 3, ModelCode = "" });
-            }
         }
 
         public Model() {

@@ -6,8 +6,8 @@
         <Storyboard>
             <ThicknessAnimation
                     Storyboard.TargetProperty="(Label.Margin)"
-                    From="400,2,2,2" To="2" Duration="0:0:2"
-                    RepeatBehavior="0:0:2" />
+                    From="200,2,2,2" To="2" Duration="0:0:1"
+                    RepeatBehavior="0:0:1" />
         </Storyboard>
     </Storyboard>
     

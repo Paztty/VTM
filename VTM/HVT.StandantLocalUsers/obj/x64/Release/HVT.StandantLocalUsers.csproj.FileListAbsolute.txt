@@ -1,0 +1,5 @@
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.StandantLocalUsers\bin\x64\Release\HVT.StandantLocalUsers.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.StandantLocalUsers\bin\x64\Release\HVT.StandantLocalUsers.pdb
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.StandantLocalUsers\obj\x64\Release\HVT.StandantLocalUsers.csproj.CoreCompileInputs.cache
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.StandantLocalUsers\obj\x64\Release\HVT.StandantLocalUsers.dll
+D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\4. Software\VTM\HVT.StandantLocalUsers\obj\x64\Release\HVT.StandantLocalUsers.pdb

@@ -92,7 +92,7 @@ namespace HVT.VTM.Base
         public void UpdateMainRelayChannels(WrapPanel panelSelect, WrapPanel pnMux1, WrapPanel pnMux2, WrapPanel pnVision)
         {
 
-            panelSelect.Children.Clear();
+            //panelSelect.Children.Clear();
             pnMux1.Children.Clear();
             pnMux2.Children.Clear();
             pnVision.Children.Clear();
@@ -111,7 +111,7 @@ namespace HVT.VTM.Base
             }
             foreach (var item in Chanels)
             {
-                panelSelect.Children.Add(item.CbUse);
+                //panelSelect.Children.Add(item.CbUse);
                 pnVision.Children.Add(item.btOnVision);
                 item.STATE_CHANGE += Item_STATE_CHANGE;
             }

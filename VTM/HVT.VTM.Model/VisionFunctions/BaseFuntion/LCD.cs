@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Color = System.Windows.Media.Color;
 using Image = System.Windows.Controls.Image;
 using Point = System.Windows.Point;
@@ -67,10 +68,9 @@ namespace HVT.VTM.Base.VisionFunctions
                 manualDisplay = value;
             }
         }
-        private Bitmap bitmap = null;
-        public string DetectString = "";
+
+
         private BitmapSource _source;
-        public BitmapSource DetectedImage { get { return _source; } }
 
         private Rect displaySize;
         public Rect DisplaySize
@@ -123,7 +123,11 @@ namespace HVT.VTM.Base.VisionFunctions
         public string Data
         {
             get { return data; }
-            private set { data = value; }
+            private set
+            {
+                data = value;
+                LabelContent.Dispatcher.Invoke(new Action(() => LabelContent.Content = data));
+            }
         }
 
         public int Threshold { get; set; }
@@ -136,15 +140,16 @@ namespace HVT.VTM.Base.VisionFunctions
             {
                 visibility = value;
                 Label.Visibility = value;
-
-                //LabelBotLeft.Visibility = value;
-                //LabelBotMid.Visibility = value;
-                //LabelBotRight.Visibility = value;
-                //LabelMidLeft.Visibility = value;
-                //LabelMidRight.Visibility = value;
-                //LabelTopLeft.Visibility = value;
-                //LabelTopMid.Visibility = value;
-                //LabelTopRight.Visibility = value;
+                LabelDisplay.Visibility = value;
+                ManualLabelDisplay.Visibility = value;
+                LabelBotLeft.Visibility = value;
+                LabelBotMid.Visibility = value;
+                LabelBotRight.Visibility = value;
+                LabelMidLeft.Visibility = value;
+                LabelMidRight.Visibility = value;
+                LabelTopLeft.Visibility = value;
+                LabelTopMid.Visibility = value;
+                LabelTopRight.Visibility = value;
 
                 if (value != Visibility.Visible)
                 {
@@ -153,7 +158,25 @@ namespace HVT.VTM.Base.VisionFunctions
             }
         }
 
-        public Image Image = new Image();
+        public Image Image = new Image()
+        {
+            MaxWidth = 500,
+            MaxHeight = 120
+        };
+
+        public Label LabelContent = new Label()
+        {
+
+            MaxHeight = 120,
+            FontSize = 20,
+            FontWeight = FontWeights.Bold,
+            Foreground = new SolidColorBrush(Colors.White),
+            Focusable = true,
+            Cursor = Cursors.SizeAll,
+            VerticalContentAlignment = VerticalAlignment.Center,
+            HorizontalContentAlignment = HorizontalAlignment.Right,
+        };
+
 
         public Label ManualLabelDisplay = new Label()
         {
@@ -824,37 +847,16 @@ namespace HVT.VTM.Base.VisionFunctions
             Canvas.SetLeft(this.LabelBotRight, rect.X - 3 + Label.Width);
         }
 
-
         public void GetImage(BitmapSource source)
         {
-            if (source != null)
+            if (source != null && !VisionWorker.Processing)
             {
-                CroppedBitmap croppedBitmap = new CroppedBitmap(source, Area);
-                this.bitmap = VisionWorker.GetBitmap(croppedBitmap);
-                string str = "";
-                var result = VisionWorker.DetectString(bitmap, Threshold, out str);
-                var imageSource = VisionWorker.Convert(result);
-                this.DetectString = str;
-                _source = imageSource;
+                VisionWorker.DetectString(source, Threshold, out string str, out _source);
+                Data = str.Replace("\n",String.Empty);
+                _source.Freeze();
+                Image.Dispatcher.Invoke(new Action(() => Image.Source = _source));
             }
         }
-        public void SetImage(System.Windows.Controls.Image control, Label detectedResultlabel)
-        {
-            if (DetectedImage != null && control != null)
-            {
-                control.Dispatcher.BeginInvoke(new Action(() => control.Source = DetectedImage));
-                detectedResultlabel.Content = DetectString;
-            }
-        }
-
-        public void GetValue()
-        {
-            if (bitmap != null)
-            {
-                var result = VisionWorker.DetectString(bitmap, Threshold, out string str);
-                _source = VisionWorker.Convert(result);
-                DetectString = str;
-            }
-        }
+        
     }
 }

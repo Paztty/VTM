@@ -66,10 +66,13 @@ namespace HVT.VTM.Base.VisionFunctions
 
         public ObservableCollection<SingleLED> LEDs { get; set; } = new ObservableCollection<SingleLED>();
 
-        public LED() { }
+        public LED() {
+            CalculatorOutputString = "";
+        }
 
         public LED(Canvas Manual, Canvas displayCanvas, Canvas placeCanvas, int index)
         {
+            CalculatorOutputString = "";
             for (int i = 0; i < 32; i++)
             {
                 LEDs.Add(new SingleLED(i, index, placeCanvas, displayCanvas, Manual));
@@ -164,8 +167,6 @@ namespace HVT.VTM.Base.VisionFunctions
             get { return manualdisplaySize; }
             set { manualdisplaySize = value; }
         }
-
-        private Bitmap bitmap = null;
 
         private Rect displaySize;
         public Rect DisplaySize
@@ -272,7 +273,6 @@ namespace HVT.VTM.Base.VisionFunctions
                 NotifyPropertyChanged(nameof(Use));
                 if (use)
                 {
-                    Visibility = Visibility.Visible;
                     Context.Dispatcher.BeginInvoke(new Action(() => Context.Foreground = new SolidColorBrush(Colors.Yellow)));
                     ContextDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Yellow)));
                     ContextManualDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Yellow)));
@@ -285,7 +285,6 @@ namespace HVT.VTM.Base.VisionFunctions
                 }
                 else
                 {
-                    Visibility = Visibility.Hidden;
                     Context.Dispatcher.BeginInvoke(new Action(() => Context.Foreground = new SolidColorBrush(Colors.Red)));
                     ContextDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Red)));
                     ContextManualDisplay.Dispatcher.BeginInvoke(new Action(() => ContextDisplay.Foreground = new SolidColorBrush(Colors.Red)));
@@ -726,8 +725,8 @@ namespace HVT.VTM.Base.VisionFunctions
             Canvas.SetTop(this.Label, rect.Y);
             Canvas.SetLeft(this.Label, rect.X);
 
-            Canvas.SetTop(this.LabelDisplay, manualRectDisplay.Y);
-            Canvas.SetLeft(this.LabelDisplay, manualRectDisplay.X);
+            Canvas.SetTop(this.LabelManualDisplay, manualRectDisplay.Y);
+            Canvas.SetLeft(this.LabelManualDisplay, manualRectDisplay.X);
 
             Manual.Children.Add(this.LabelManualDisplay);
             displayCanvas.Children.Add(LabelDisplay);
@@ -753,15 +752,11 @@ namespace HVT.VTM.Base.VisionFunctions
         {
             if (source != null && Use)
             {
-                this.bitmap = VisionWorker.GetBitmap(source);
-                if (bitmap != null)
+                Intens = VisionWorker.Meansure(area, source, Thresh);
+                NotifyPropertyChanged(nameof(Intens));
+                if (Intens >= Thresh)
                 {
-                    Intens = VisionWorker.Meansure(area, bitmap, Thresh);
-                    NotifyPropertyChanged(nameof(Intens));
-                    if (Intens >= Thresh)
-                    {
-                        return "1";
-                    }
+                    return "1";
                 }
             }
             return "0";

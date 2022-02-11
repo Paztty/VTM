@@ -1,8 +1,9 @@
 ﻿using ImageProcessor;
 using ImageProcessor.Imaging;
 using OpenCvSharp;
-using OpenCvSharp.Extensions;
+using OpenCvSharp.WpfExtensions;
 using System;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
@@ -33,13 +34,15 @@ namespace HVT.VTM.Base
             }
         }
 
-        private System.Windows.Media.Imaging.BitmapSource LastFrameBitmapImage;
-        public System.Windows.Media.Imaging.BitmapSource LastFrame { get; private set; }
+        public  System.Windows.Media.Imaging.BitmapSource LastFrameBitmapImage;
+        public  System.Windows.Media.Imaging.BitmapSource LastFrame;
         private Task _previewTask;
 
         private CancellationTokenSource _cancellationTokenSource;
         private readonly System.Windows.Controls.Image _imageControlForRendering;
-        private readonly System.Windows.Controls.Image _imageControlForCropRendering;
+        //private readonly System.Windows.Controls.Image _imageControlForCropRendering;
+
+        public ConcurrentStack<System.Windows.Media.Imaging.BitmapSource> Camera_Frame_Collection = new ConcurrentStack<System.Windows.Media.Imaging.BitmapSource>();
 
         public System.Windows.Media.Imaging.BitmapSource lastFrameBitmapImage
         {
@@ -49,7 +52,6 @@ namespace HVT.VTM.Base
                 LastFrameBitmapImage = value;
                 if (value != null)
                         LastFrame = value;
-                NotifyPropertyChanged();
             }
         }
 
@@ -77,13 +79,11 @@ namespace HVT.VTM.Base
 
         public CameraStreaming(
             System.Windows.Controls.Image imageControlForRendering,
-            System.Windows.Controls.Image imageControlForCrop,
             int frameWidth,
             int frameHeight,
             int cameraDeviceId)
         {
             _imageControlForRendering = imageControlForRendering;
-            _imageControlForCropRendering = imageControlForCrop;
             _frameWidth = frameWidth;
             _frameHeight = frameHeight;
             CameraDeviceId = cameraDeviceId;
@@ -95,7 +95,7 @@ namespace HVT.VTM.Base
             if (_previewTask != null && !_previewTask.IsCompleted)
                 return;
 
-            var initializationSemaphore = new SemaphoreSlim(0, 1);
+            //var initializationSemaphore = new SemaphoreSlim(0, 1);
 
             _cancellationTokenSource = new CancellationTokenSource();
             _previewTask = Task.Run(async () =>
@@ -132,21 +132,21 @@ namespace HVT.VTM.Base
                             if (!frame.Empty())
                             {
                                 // Releases the lock on first not empty frame
-                                if (initializationSemaphore != null)
-                                    initializationSemaphore.Release();
-                                _lastFrame = BitmapConverter.ToBitmap(frame, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+                                //if (initializationSemaphore != null)
+                                //    initializationSemaphore.Release();
                                 //_lastCropFrame = CropBitmap(_lastFrame);
 
-                                lastFrameBitmapImage = _lastFrame.ToBitmapSource();
+                                var frameSource = frame.ToBitmapSource();
                                 //System.Windows.Media.Imaging.BitmapSource lastFrameCropBitmapImage = _lastCropFrame.ToBitmapSource();
-                                lastFrameBitmapImage.Freeze();
+                                frameSource.Freeze();
                                 //lastFrameCropBitmapImage.Freeze();
-                                _imageControlForRendering.Dispatcher.Invoke(() => _imageControlForRendering.Source = lastFrameBitmapImage);
+                                _imageControlForRendering.Dispatcher.Invoke(() => _imageControlForRendering.Source = frameSource);
                                 //_imageControlForCropRendering.Dispatcher.Invoke(() => _imageControlForCropRendering.Source = lastFrameCropBitmapImage);
-                                //ImageUpdate?.Invoke(lastFrameBitmapImage, null);
+                                 Camera_Frame_Collection.Push(frameSource);
+                                ImageUpdate?.Invoke(null, null);
                             }
                             // 30 FPS
-                            await Task.Delay(5);
+                            await Task.Delay(15);
                             //Console.WriteLine(DateTime.Now - timeStart);
                         }
                     }
@@ -155,17 +155,17 @@ namespace HVT.VTM.Base
                 }
                 finally
                 {
-                    if (initializationSemaphore != null)
-                        initializationSemaphore.Release();
+                    //if (initializationSemaphore != null)
+                    //    initializationSemaphore.Release();
                 }
 
             }, _cancellationTokenSource.Token);
 
             // Async initialization to have the possibility to show an animated loader without freezing the GUI
             // The alternative was the long polling. (while !variable) await Task.Delay
-            await initializationSemaphore.WaitAsync();
-            initializationSemaphore.Dispose();
-            initializationSemaphore = null;
+            //await initializationSemaphore.WaitAsync();
+            //initializationSemaphore.Dispose();
+            //initializationSemaphore = null;
 
             if (_previewTask.IsFaulted)
             {
@@ -329,23 +329,25 @@ namespace HVT.VTM.Base
 
         public bool SetParammeter(CameraSetting cameraSetting)
         {
-             videoCapture.Set(VideoCaptureProperties.Exposure, cameraSetting.Exposure);
+            if (cameraSetting != null)
+            {
 
-             videoCapture.Set(VideoCaptureProperties.Brightness, cameraSetting.Brightness);
+                videoCapture.Set(VideoCaptureProperties.Exposure, cameraSetting.Exposure);
 
-             videoCapture.Set(VideoCaptureProperties.Contrast, cameraSetting.Contrast);
+                videoCapture.Set(VideoCaptureProperties.Brightness, cameraSetting.Brightness);
 
-             videoCapture.Set(VideoCaptureProperties.Saturation, cameraSetting.Saturation);
+                videoCapture.Set(VideoCaptureProperties.Contrast, cameraSetting.Contrast);
 
-             videoCapture.Set(VideoCaptureProperties.WhiteBalanceBlueU, cameraSetting.WBTemperature);
+                videoCapture.Set(VideoCaptureProperties.Saturation, cameraSetting.Saturation);
 
-             videoCapture.Set(VideoCaptureProperties.Sharpness, cameraSetting.Sharpness);
+                videoCapture.Set(VideoCaptureProperties.WhiteBalanceBlueU, cameraSetting.WBTemperature);
 
-             videoCapture.Set(VideoCaptureProperties.Focus, cameraSetting.Focus);
+                videoCapture.Set(VideoCaptureProperties.Sharpness, cameraSetting.Sharpness);
 
-             videoCapture.Set(VideoCaptureProperties.Zoom, cameraSetting.Zoom);
+                videoCapture.Set(VideoCaptureProperties.Focus, cameraSetting.Focus);
 
-
+                videoCapture.Set(VideoCaptureProperties.Zoom, cameraSetting.Zoom);
+            }
             return true;
         }
 

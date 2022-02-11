@@ -100,6 +100,8 @@ namespace HVT.VTM.Base
 
         public class Label
         {
+            public int Lenght { get; set; } = 200;
+
             public int home_x { get; set; } = 478;
             public int home_y { get; set; } = 0;
 
@@ -304,15 +306,15 @@ namespace HVT.VTM.Base
             string str = "I8,A,001\n";
             str += "\n";
             str += "V00,8,L\n";
-            str += "Q200,015\n";
+            str += "Q"+ label.Lenght +",015\n";
             str += "q1228\n";
             str += "rN\n";
             str += "S1" + "\n";
             str += "D15" + "\n";
-            str += "ZT\n";
+            str += "ZB\n";
             str += "JF\n";
-            str += "O\n";
-            str += "R478,0\n";
+            str += "OC\n";
+            str += "R" + label.home_x + "," + label.home_y + "\n";
             str += "f100\n";
             str += "N\n";
             str += "b" + label.qr_x + "," + label.qr_y + ",Q,m" + Mode + ",s" + Size + ",eQ,iA\"" + qr + "\"\n"; // Nội dung QR code

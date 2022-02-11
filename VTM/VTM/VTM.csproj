@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>VTM</RootNamespace>
     <AssemblyName>VTM</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -74,24 +74,6 @@
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
-    <Reference Include="SciChart.Charting, Version=6.5.0.11862, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL">
-      <HintPath>..\packages\SciChart.6.5.0.13720\lib\net452\SciChart.Charting.dll</HintPath>
-    </Reference>
-    <Reference Include="SciChart.Core, Version=6.5.0.11862, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL">
-      <HintPath>..\packages\SciChart.6.5.0.13720\lib\net452\SciChart.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="SciChart.Data, Version=6.5.0.11862, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL">
-      <HintPath>..\packages\SciChart.6.5.0.13720\lib\net452\SciChart.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="SciChart.Drawing, Version=6.5.0.11862, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL">
-      <HintPath>..\packages\SciChart.6.5.0.13720\lib\net452\SciChart.Drawing.dll</HintPath>
-    </Reference>
-    <Reference Include="ScottPlot, Version=4.1.27.0, Culture=neutral, PublicKeyToken=86698dc10387c39e, processorArchitecture=MSIL">
-      <HintPath>..\packages\ScottPlot.4.1.27\lib\net461\ScottPlot.dll</HintPath>
-    </Reference>
-    <Reference Include="ScottPlot.WPF, Version=4.1.27.0, Culture=neutral, PublicKeyToken=e53b06131e34a3aa, processorArchitecture=MSIL">
-      <HintPath>..\packages\ScottPlot.WPF.4.1.27\lib\net461\ScottPlot.WPF.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -365,6 +347,7 @@
     <Content Include="Assemblies\DirectShowLib-2005.dll" />
     <Content Include="Assemblies\WebCamControl.dll" />
     <Content Include="Assemblies\WebCamLib.dll" />
+    <Resource Include="img\downward-arrow.png" />
     <Resource Include="img\printer.png" />
     <Resource Include="img\qr-code.png" />
     <Resource Include="img\CameraLoading2.gif" />

@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Linq;
 using System.Collections.Generic;
+using HVT.Utility;
+using System.Windows;
 
 namespace HVT.VTM.Program
 {
@@ -145,7 +147,7 @@ namespace HVT.VTM.Program
             {
                 DMM1.serialPort.Open();
             }
-            catch (Exception){}
+            catch (Exception) { }
             DMM1.serialDisplay.ShowCOMStatus(DMM1.serialPort.IsOpen);
 
             this.MinVal_DMM2 = MinVal_DMM2;
@@ -252,18 +254,21 @@ namespace HVT.VTM.Program
         #region Barcode Scaner
 
         BarcodeReader BarcodeReader { get; set; } = new BarcodeReader();
-        DataGrid BarcodelistGrid, BacodesWaitingList;
-        public void BarcodeReaderInit(DataGrid BarcodesGrid, DataGrid BacodesWaitingList, Rectangle RxRect, Rectangle ConnectedRect)
+        public void BarcodeReaderInit(Rectangle RxRect, Rectangle ConnectedRect)
         {
-            BarcodelistGrid = BarcodesGrid;
-            this.BacodesWaitingList = BacodesWaitingList;
-            BarcodelistGrid.Dispatcher.Invoke(new Action(delegate {
-                BarcodelistGrid.ItemsSource = RootModel.Barcodes;
-            }));
-            BacodesWaitingList.Dispatcher.Invoke(new Action(delegate {
-                BacodesWaitingList.ItemsSource = RootModel.BarcodesWaitting;
-            }));
 
+            //BarcodelistGrid = BarcodesGrid;
+            //this.BacodesWaitingList = BacodesWaitingList;
+            //BarcodelistGrid.Dispatcher.Invoke(new Action(delegate
+            //{
+            //    BarcodelistGrid.ItemsSource = RootModel.Barcodes;
+            //}));
+            //BacodesWaitingList.Dispatcher.Invoke(new Action(delegate
+            //{
+            //    BacodesWaitingList.ItemsSource = RootModel.BarcodesWaitting;
+            //}));
+
+            BarcodeReader.PortName = appSetting.Communication.ScannerPort;
             BarcodeReader.SerialDisplay.RX = RxRect;
             BarcodeReader.SerialDisplay.IsOpenRect = ConnectedRect;
             BarcodeReader.OnReciverData += BarcodeReader_OnReciverData;
@@ -273,49 +278,86 @@ namespace HVT.VTM.Program
 
         private void BarcodeReader_OnReciverData(object sender, EventArgs e)
         {
-            bool haveHandle = false;
-            if (RootModel.Barcodes.Select(o => o.BarcodeData).Contains(BarcodeReader.BarcodeBuffer.Replace("\r", "")))
+            string code = BarcodeReader.BarcodeBuffer.Replace("\r", "");
+
+            if (!RootModel.UseBarcodeInput)
             {
                 return;
             }
 
-            for (int i = 0; i < RootModel.Barcodes.Count; i++)
+            if (RootModel.UseBarcodeLenghtFixed)
             {
-                if (RootModel.Barcodes[i].BarcodeData == "")
+                if (code.Length != RootModel.BarcodeLenght)
                 {
-                    RootModel.Barcodes[i].BarcodeData = BarcodeReader.BarcodeBuffer.Replace("\r", "");
+                    MessageBox.Show("Barcode lenght not match.", "Barcode Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+
+            if (RootModel.CompareModelCode)
+            {
+                if (code.Contains(RootModel.ModelCode))
+                {
+                    if (code.IndexOf(RootModel.ModelCode) != RootModel.StartModelCodePosition)
+                    {
+                        MessageBox.Show("Model code not correct.", "Barcode Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Barcode not have model code", "Barcode Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+
+            bool haveHandle = false;
+            if (RootModel.contruction.PBAs.Select(o => o.Barcode).Contains(code))
+            {
+                return;
+            }
+
+            for (int i = 0; i < RootModel.contruction.PCB_Count; i++)
+            {
+                if (RootModel.contruction.PBAs[i].Barcode == "")
+                {
+                    RootModel.contruction.PBAs[i].Barcode = code;
+                    if (i == RootModel.contruction.PCB_Count - 1)
+                    {
+                        TestState = RunTestState.READY;
+                    }
                     haveHandle = true;
                     break;
                 }
             }
 
+
+
             if (!haveHandle)
             {
-                if (RootModel.BarcodesWaitting.Select(o => o.BarcodeData).Contains(BarcodeReader.BarcodeBuffer.Replace("\r", "")))
+                if (RootModel.contruction.PBAs.Select(o => o.BarcodeWaiting).Contains(code))
                 {
                     return;
                 }
 
-                for (int i = 0; i < RootModel.BarcodesWaitting.Count; i++)
+                for (int i = 0; i < RootModel.contruction.PCB_Count; i++)
                 {
-                    if (RootModel.BarcodesWaitting[i].BarcodeData == "")
+                    if (RootModel.contruction.PBAs[i].BarcodeWaiting == "")
                     {
-                        RootModel.BarcodesWaitting[i].BarcodeData = BarcodeReader.BarcodeBuffer.Replace("\r", "");
+                        RootModel.contruction.PBAs[i].BarcodeWaiting = code;
                         break;
                     }
                 }
             }
 
+            foreach (var item in RootModel.contruction.PBAs)
+            {
+                Console.WriteLine(item.Barcode);
+                Console.WriteLine(item.BarcodeWaiting);
+
+            }
             BarcodeReader.SerialDisplay.BlinkRX();
 
-            BarcodelistGrid.Dispatcher.Invoke(new Action(delegate {
-                BarcodelistGrid.ItemsSource = null;
-                BarcodelistGrid.ItemsSource = RootModel.Barcodes;
-            }));
-            BacodesWaitingList.Dispatcher.Invoke(new Action(delegate {
-                BacodesWaitingList.ItemsSource = null;
-                BacodesWaitingList.ItemsSource = RootModel.BarcodesWaitting;
-            }));
         }
 
         private void BarcodeReader_OnConnected(object sender, EventArgs e)
@@ -327,10 +369,11 @@ namespace HVT.VTM.Program
         {
             foreach (var item in RootModel.contruction.PBAs)
             {
-                if (item.BarcodeWaiting.Lenght > 1)
+                item.Barcode = "";
+                if (item.BarcodeWaiting != "")
                 {
                     item.Barcode = item.BarcodeWaiting;
-                    item.BarcodeWaiting = null;
+                    item.BarcodeWaiting = "";
                 }
             }
         }
@@ -370,6 +413,37 @@ namespace HVT.VTM.Program
 
         #endregion
 
+        #region Level
+        public LevelCard LEVEL_CARD;
+        public void LevelUIInit(WrapPanel panelSelect, Grid graph, Rectangle Tx1, Rectangle Rx1, Rectangle Status1)
+        {
+            if (LEVEL_CARD == null)
+            {
+                LEVEL_CARD = new LevelCard(panelSelect, graph);
+            }
+
+            if (!LEVEL_CARD.SetPort(
+                appSetting.Communication.LevelPort, Tx1, Rx1, Status1))
+            {
+                Utility.Debug.Write("Relay CARD can't connect" + appSetting.Communication.RelayPort + ", please check Relay serial port setting.", Utility.Debug.ContentType.Error);
+            }
+
+            LEVEL_CARD.UpdateMainLevelChannels(panelSelect);
+        }
+        #endregion
+
+        public void SetCardChannel()
+        {
+            MUX_CARD.SetUseChannels(RootModel.MuxChannelsUse);
+            LEVEL_CARD.SetUseChannels(RootModel.LevelChannelsUse);
+        }
+
+        public void GetCardChannel()
+        {
+            RootModel.MuxChannelsUse = MUX_CARD.GetUseChannels();
+            RootModel.LevelChannelsUse = LEVEL_CARD.GetUseChannels();
+        }
+
         #region Relay card
         public RelayCard RL_CARD;
         public void RelayUIInit(
@@ -405,7 +479,7 @@ namespace HVT.VTM.Program
             if (!SOLENOID_CARD.SetPort(
                 appSetting.Communication.SolenoidPort, Tx1, Rx1, Status1))
             {
-                Utility.Debug.Write("Solenoid can't connect to "+ appSetting.Communication.SolenoidPort + ", please check solenoid serial port setting.", Utility.Debug.ContentType.Error);
+                Utility.Debug.Write("Solenoid can't connect to " + appSetting.Communication.SolenoidPort + ", please check solenoid serial port setting.", Utility.Debug.ContentType.Error);
             }
 
             SOLENOID_CARD.UpdateMainSolenoidChannels(panelSelect, pnVision);
@@ -467,6 +541,7 @@ namespace HVT.VTM.Program
             QR.printTestQR(Printer);
         }
         #endregion
+
 
         public void CloseDevices()
         {

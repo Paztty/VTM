@@ -3,11 +3,14 @@ using HVT.VTM.Base;
 using HVT.VTM.Program;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace VTM
 {
@@ -19,6 +22,8 @@ namespace VTM
         #region AutoPage
         public void LoadAutopage()
         {
+
+
             Program.RootModel.contruction.PCB_resultGrid = pnResult;
             Program.RootModel.contruction._resultGrid.Add(pnResultA);
             Program.RootModel.contruction._resultGrid.Add(pnResultB);
@@ -45,6 +50,8 @@ namespace VTM
                 BacodesWaitingList.ItemsSource = null;
                 BacodesWaitingList.ItemsSource = Program.RootModel.contruction.PBAs;
             }));
+
+
         }
 
 
@@ -81,59 +88,38 @@ namespace VTM
 
         public void Runtest()
         {
+            if (Program.RootModel.Steps.Count < 1)
+            {
+                return;
+            }
             if (!Program.IsTestting)
             {
                 bool barcodeCheck = true;
-                //for (int i = 0; i < Program.RootModel.Barcodes.Count; i++)
-                //{
-                //    var item = Program.RootModel.Barcodes[i];
-                //    if (item.BarcodeData == "")
-                //    {
-                //        if (true)
-                //        {
-                //            barcodeCheck = false;
-                //            switch (i)
-                //            {
-                //                case 0:
-                //                    Debug.Write("PCB A not have barcode.", Debug.ContentType.Error);
-                //                    break;
-                //                case 1:
-                //                    Debug.Write("PCB B not have barcode.", Debug.ContentType.Error);
-                //                    break;
-                //                case 2:
-                //                    Debug.Write("PCB C not have barcode.", Debug.ContentType.Error);
-                //                    break;
-                //                case 3:
-                //                    Debug.Write("PCB D not have barcode.", Debug.ContentType.Error);
-                //                    break;
-                //                default:
-                //                    break;
-                //            }
-                //            break;
-                //        }
-                //    }
-                //    else
-                //    {
-                //        switch (i)
-                //        {
-                //            case 0:
-                //                lbbarcodeA.Content = item.BarcodeData;
-                //                break;
-                //            case 1:
-                //                lbbarcodeB.Content = item.BarcodeData;
-                //                break;
-                //            case 2:
-                //                lbbarcodeC.Content = item.BarcodeData;
-                //                break;
-                //            case 3:
-                //                lbbarcodeD.Content = item.BarcodeData;
-                //                break;
-                //            default:
-                //                break;
-                //        }
+                if (Program.RootModel.UseBarcodeInput)
+                {
 
-                //    }
-                //}
+                    for (int i = 0; i < Program.RootModel.contruction.PCB_Count; i++)
+                    {
+                        barcodeCheck = barcodeCheck && Program.RootModel.contruction.PBAs[i].Barcode != "";
+                        if (!barcodeCheck)
+                        {
+                            Debug.Write("PCB " + Program.RootModel.contruction.PBAs[i].SiteName + " barcode empty.", Debug.ContentType.Error);
+                            return;
+                        }
+
+                        lbbarcodeA.Content = Program.RootModel.contruction.PBAs[0].Barcode;
+                        lbbarcodeB.Content = Program.RootModel.contruction.PBAs[1].Barcode;
+                        lbbarcodeC.Content = Program.RootModel.contruction.PBAs[2].Barcode;
+                        lbbarcodeD.Content = Program.RootModel.contruction.PBAs[3].Barcode;
+
+                        foreach (var item in Program.RootModel.contruction.PBAs)
+                        {
+                            item.TestResult = false;
+                            item.barcodeResult = item.Barcode;
+                        }
+                    }
+                }
+
                 if (barcodeCheck)
                 {
                     pnResult.Visibility = Visibility.Hidden;
@@ -188,7 +174,7 @@ namespace VTM
                     TestStepsGrid.ScrollIntoView(TestStepsGrid.SelectedItem);
                     //TestStepsGridManual.SelectedItem = Program.RootModel.Steps[(int)sender];
                     TestStepsGridManual.ScrollIntoView(TestStepsGrid.SelectedItem);
-                }) , DispatcherPriority.DataBind);
+                }), DispatcherPriority.DataBind);
             }
         }
         private void Model_TestRunFinish(object sender, EventArgs e)
@@ -196,13 +182,29 @@ namespace VTM
             EscapTimer.Stop();
             Dispatcher.BeginInvoke(new ThreadStart(delegate
             {
-                //lbResultA.Content = Program.RootModel.contruction.IsOK[0] ? "OK" : "NG";
-                //lbResultB.Content = Program.RootModel.contruction.IsOK[1] ? "OK" : "NG";
-                //lbResultC.Content = Program.RootModel.contruction.IsOK[2] ? "OK" : "NG";
-                //lbResultD.Content = Program.RootModel.contruction.IsOK[3] ? "OK" : "NG";
+                lbResultA.Content = Program.RootModel.contruction.PBAs[0].TestResult ? "OK" : "NG";
+                lbResultB.Content = Program.RootModel.contruction.PBAs[1].TestResult ? "OK" : "NG";
+                lbResultC.Content = Program.RootModel.contruction.PBAs[2].TestResult ? "OK" : "NG";
+                lbResultD.Content = Program.RootModel.contruction.PBAs[3].TestResult ? "OK" : "NG";
 
                 pnResult.Visibility = Visibility.Visible;
+
+                for (int i = 0; i < Program.RootModel.contruction.PCB_Count; i++)
+                {
+                    var item = Program.RootModel.contruction.PBAs[i];
+                    if (item.TestResult)
+                    {
+                        Debug.Write("Site " + item.SiteName + ": " + item.barcodeResult + " - OK", Debug.ContentType.Notify);
+                    }
+                    else
+                    {
+                        Debug.Write("Site " + item.SiteName + ": " + item.barcodeResult + " - FAIL", Debug.ContentType.Error);
+                    }
+                }
+                Program.UpdateBarcodeList();
             }));
+
+
 
         }
         private void TestStepsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -264,10 +266,24 @@ namespace VTM
         #endregion
 
         #region Model Action
-
         //Event 
         private void Model_LoadFinish_AutoPage(object sender, EventArgs e)
         {
+
+            var modelLoadedpath = FolderMap.ModelLoadeds.Select(x => x.Path).ToList();
+            if (!modelLoadedpath.Contains(Program.RootModel.Path))
+            {
+                FolderMap.ModelLoadeds.Insert(0, new ModelLoaded() { Path = Program.RootModel.Path });
+                panellastloaded.Children.Clear();
+                foreach (var item in FolderMap.ModelLoadeds)
+                {
+                    panellastloaded.Children.Add(item.FileLabel);
+                    item.FileLabel.Click -= OpenLastModel;
+                    item.FileLabel.Click += OpenLastModel;
+                }
+            }
+
+
             waitSiteA.Child = Program.RootModel.contruction.PBAs[0].CbWait;
             waitSiteB.Child = Program.RootModel.contruction.PBAs[1].CbWait;
             waitSiteC.Child = Program.RootModel.contruction.PBAs[2].CbWait;
@@ -307,6 +323,18 @@ namespace VTM
             }));
         }
 
+        private void OpenLastModel(object sender, RoutedEventArgs e)
+        {
+            panellastloaded.Visibility = Visibility.Collapsed;
+
+                string path = (string)(sender as Button).Content;
+                if (File.Exists(path))
+                {
+                    Program.LoadModel(path);
+                }
+
+        }
+
         private void Model_StateChange(object sender, EventArgs e)
         {
             Dispatcher.Invoke(new Action((
@@ -319,6 +347,7 @@ namespace VTM
                     lbTestResultFail.Visibility = Visibility.Hidden;
                     lbTestBusy.Visibility = Visibility.Hidden;
                     lbTestResultWait.Visibility = Visibility.Hidden;
+                    lbTestReady.Visibility = Visibility.Hidden;
                 }
 
                 )));
@@ -373,12 +402,16 @@ namespace VTM
                     }), DispatcherPriority.Send);
                     break;
                 case Program.RunTestState.READY:
-                    //Dispatcher.Invoke(new Action(delegate
-                    //{
-                    //    lbTestResultGood.Visibility = Visibility.Visible;
-                    //    Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
-                    //    if (sb != null) sb.Begin(lbTestResultGood);
-                    //}), DispatcherPriority.Send);
+                    Dispatcher.Invoke(new Action(delegate
+                    {
+                        lbTestReady.Visibility = Visibility.Visible;
+                        Storyboard sb = (Storyboard)TryFindResource("LabelSlide");
+                        if (sb != null) sb.Begin(lbTestReady);
+                    }), DispatcherPriority.Send);
+                    break;
+                case Program.RunTestState.DONE:
+                    btTestManual.Dispatcher.Invoke(new Action(() => btTestManual.IsChecked = false));
+                    EscapTimer.Stop();
                     break;
                 default:
                     break;
