@@ -318,7 +318,7 @@
                         </Button.BorderBrush>
                     </Button>
                 </StackPanel>
-                <Border Visibility="Visible" BorderBrush="#818488" BorderThickness="1" Padding="0" Background="#2B2C2D"
+                <Border Visibility="Visible" BorderBrush="#818488" BorderThickness="1" Padding="0" CornerRadius="3" Background="#2B2C2D"
                         Panel.ZIndex="2" Margin="10,130,0,0" MinWidth="35" Width="Auto" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Border.Effect>
                         <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="5" Direction="270"/>
@@ -1742,7 +1742,7 @@
 
 
                     <!--Manual Panel-->
-                    <Grid  x:Name="ManualPanel" Grid.Row="1" Visibility="Visible" Margin="5,5,5,5" Background="#FF5D5D5D" d:IsHidden="True">
+                    <Grid  x:Name="ManualPanel" Grid.Row="1" Visibility="Visible" Margin="5,5,5,5" Background="#FF5D5D5D">
                         <Grid.Effect>
                             <DropShadowEffect/>
                         </Grid.Effect>
@@ -2012,7 +2012,7 @@
                                         </TextBlock>
                                     </ToggleButton>
 
-                                    <ToggleButton Margin="5" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Template="{StaticResource ToggleButtonLager}" FontWeight="Bold" FontSize="12" Foreground="#FF3D92E2">
+                                    <ToggleButton x:Name="tgPower220V" Checked="tgPower220V_Checked" Margin="5" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Template="{StaticResource ToggleButtonLager}" FontWeight="Bold" FontSize="12" Foreground="#FF3D92E2">
                                         <ToggleButton.Background>
                                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                                 <GradientStop Color="#FF535252" Offset="0"/>
@@ -2025,7 +2025,7 @@
                                         </TextBlock>
                                     </ToggleButton>
 
-                                    <ToggleButton Margin="5" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="3" Template="{StaticResource ToggleButtonLager}" FontWeight="Bold" FontSize="12" Foreground="#FF3D92E2">
+                                    <ToggleButton x:Name="tgPower110V" Checked="tgPower110V_Checked" Margin="5" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="3" Template="{StaticResource ToggleButtonLager}" FontWeight="Bold" FontSize="12" Foreground="#FF3D92E2">
                                         <ToggleButton.Background>
                                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                                 <GradientStop Color="#FF535252" Offset="0"/>
@@ -2752,7 +2752,21 @@
                                             </TextBlock>
                                         </DockPanel>
                                         <Button x:Name="btModelReset" Cursor="Hand" FontWeight="Bold" Margin="5" Background="Green" Foreground="White" Template="{StaticResource ButtonElipse}" Content="Reset" Grid.Row="1" Click="btModelReset_Click"/>
-                                        <Button Cursor="Hand" FontWeight="Bold" Margin="5" Background="Coral"  Template="{StaticResource ButtonElipse}" Content="Discharge" Grid.Row="1" Grid.Column="1"/>
+                                        <Button Cursor="Hand" FontWeight="Bold" Margin="5" Background="Coral"  Template="{StaticResource ButtonElipse}" Content="Discharge" Grid.Row="1" Grid.Column="1">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="IsEnabled" Value="True"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=tgPower220V, Path=IsChecked}" Value="True">
+                                                            <Setter Property="IsEnabled" Value="False"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=tgPower110V, Path=IsChecked}" Value="True">
+                                                            <Setter Property="IsEnabled" Value="False"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
 
                                     </Grid>
                                 </Border>

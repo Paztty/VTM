@@ -158,9 +158,9 @@ namespace VTM
 
             Program.DMM_UI_Init(MinVal_DMM1, MaxVal_DMM1, Arg_DMM1, Val_DMM1, MinVal_DMM2, MaxVal_DMM2, Arg_DMM2, Val_DMM2,
             RX_RECT_COM7, TX_RECT_COM7, CONNECTED_RECT_COM7, RX_RECT_COM15, TX_RECT_COM15, CONNECTED_RECT_COM15);
-            
-            //Program.DMM1.SearchCom().Wait();
-            //Program.DMM2.SearchCom().Wait();
+
+            Program.DMM1.SetCom(Program.appSetting.Communication.DMM1Port);
+            Program.DMM2.SetCom(Program.appSetting.Communication.DMM2Port);
             //Program.PPS1.SearchCom().Wait();
             //Program.PPS2.SearchCom().Wait();
         }

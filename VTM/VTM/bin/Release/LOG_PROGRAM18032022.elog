@@ -1,0 +1,2593 @@
+3/18/2022 09:38:47Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM3",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM13"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 09:40:16Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM3",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM13"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 09:41:19Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM3",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM13"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 09:41:49 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:51 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:51 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:51 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:51 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:52 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:52 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:52 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:52 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:53 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:56 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:56 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:56 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:56 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:56 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:57 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:57 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:58 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:59 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:41:59 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:00 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:00 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:01 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:01 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:02 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:03 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:03 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:04 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:04 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:05 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:05 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:06 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:06 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:07 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:08 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:09 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:09 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:10 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:10 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:12 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:12 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:13 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:13 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:13 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:13 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:13 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:13 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:14 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:14 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:42:22 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:44:41 Extension :    at System.Windows.DependencyObject.SetValueCommon(DependencyProperty dp, Object value, PropertyMetadata metadata, Boolean coerceWithDeferredReference, Boolean coerceWithCurrentValue, OperationType operationType, Boolean isInternal)
+   at System.Windows.DependencyObject.SetValue(DependencyProperty dp, Object value)
+   at VTM.MainWindow.TestStepsGrid_MouseWheel(Object sender, MouseWheelEventArgs e) in D:\1.DEV\1. Project\1. Machine\19. Vision Tester Machine\6. Software\VTM\VTM\VTM\MainWindow.xaml.cs:line 215
+   at System.Windows.Input.MouseWheelEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)
+   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)
+   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)
+   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)
+   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)
+   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)
+   at System.Windows.Input.InputManager.ProcessStagingArea()
+   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)
+   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)
+   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)
+   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+3/18/2022 09:44:49Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM3",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM13"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 11:09:58Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM3",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM13"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 11:11:01Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM3",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM13"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 16:30:09Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM13",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM26"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 16:30:35Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM13",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM26"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 16:31:47Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM13",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM26"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 16:32:12Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM13",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM26"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 16:32:24Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM25",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM26"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 16:35:20Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM25",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM26"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}
+3/18/2022 16:40:00Extension : Open from file SUCCESS Config.cfg
+{
+  "Operations": {
+    "NoTest_PressUp": true,
+    "StartDelaytime": 500,
+    "TestPressUpTime": 500,
+    "FailContinue": false,
+    "FailStopAll": true,
+    "FailStopPCB": false,
+    "FailResistanceStopAll": true,
+    "ErrorJumpCount": 3,
+    "SaveFailPCB": true,
+    "UsePre_endSignal": true,
+    "RetryCount": 2,
+    "PassSkipPCB": true,
+    "UseRetryUpdown": false,
+    "RetryUpdownTime": 500
+  },
+  "Communication": {
+    "SystemIOPort": "COM29",
+    "LevelPort": "COM6",
+    "Mux1Port": "COM25",
+    "Mux2Port": "COM4",
+    "RelayPort": "COM15",
+    "SolenoidPort": "COM16",
+    "DMM1Port": "COM7",
+    "DMM2Port": "COM8",
+    "UUT1Port": "COM14",
+    "UUT2Port": "COM43",
+    "UUT3Port": "COM11",
+    "UUT4Port": "COM12",
+    "ScannerPort": "COM1",
+    "Scan_Baudrate": 9600,
+    "Scan_Databit": 7,
+    "Scan_Parity": 0,
+    "PrinterPort": "COM26"
+  },
+  "ETCSetting": {
+    "MUXdelay_slow_RES": 100,
+    "MUXdelay_slow_DCV": 100,
+    "MUXdelay_slow_ACVFRQ": 100,
+    "MUXdelay_Mid_RES": 100,
+    "MUXdelay_Mid_DCV": 100,
+    "MUXdelay_Mid_ACVFRQ": 100,
+    "MUXdelay_Fast_RES": 50,
+    "MUXdelay_Fast_DCV": 50,
+    "MUXdelay_Fast_ACVFRQ": 50,
+    "UseDischargeError": false,
+    "UseDischargeConfig": false,
+    "UseDischargeTestStart": false,
+    "DischargeTime": 500,
+    "DischargeVolt": 5
+  },
+  "QR": {
+    "TestPCBPrintAll": false,
+    "TestPCBPassPrint": true,
+    "ArrayPCBPrint": true,
+    "PrintMaxStepCount": 3,
+    "UnitCode": "",
+    "MaterialCode": "",
+    "SupplierCode": "",
+    "ProductionDate": "",
+    "MainSerialNumber": "",
+    "SubSerialNumber": "",
+    "QRCode": "",
+    "CountryCode": "",
+    "ProductionLine": "",
+    "InspectionEquipment": "",
+    "ThenumberofInspectionitem": "01",
+    "InspectionStart": "",
+    "InspectionEnd": "",
+    "InspectionItem": "",
+    "MeasuredValue": "",
+    "UpperLimitSpecificationValu": "",
+    "LowerLimitSpecificationValue": "",
+    "ClassificationSymbol": "/",
+    "Separator": "-",
+    "Size": 4,
+    "Mode": 2,
+    "label": {
+      "Lenght": 120,
+      "home_x": 460,
+      "home_y": 0,
+      "qr_x": 50,
+      "qr_y": 5,
+      "SN1_X": 70,
+      "SN1_Y": 150,
+      "SN1_W": 70,
+      "SN1_H": 150,
+      "SN1_Font": "3",
+      "SN2_X": 230,
+      "SN2_Y": 10,
+      "SN2_W": 60,
+      "SN2_H": 150,
+      "SN2_Font": "3",
+      "MainCodeVersion_X": 60,
+      "MainCodeVersion_Y": 180,
+      "MainCodeVersion_W": 60,
+      "MainCodeVersion_H": 150,
+      "MainCodeVersion_Font": "2",
+      "InvCodeVersion_X": 260,
+      "InvCodeVersion_Y": 10,
+      "InvCodeVersion_W": 60,
+      "InvCodeVersion_H": 150,
+      "InvCodeVersion_Font": "2",
+      "PCBArrayText_X": 220,
+      "PCBArrayText_Y": 150,
+      "PCBArrayText_W": 60,
+      "PCBArrayText_H": 150,
+      "PCBArrayText_Font": "3",
+      "dark": 15,
+      "speed": 1
+    }
+  },
+  "SystemAccess": {
+    "UseAdminPass": true,
+    "AdminPass": "1234af",
+    "UseOperator": true,
+    "OperationPass": "OP"
+  }
+}

@@ -14,6 +14,7 @@ namespace HVT.VTM.Base
     public class MuxChannel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler ManualStateChange;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -169,11 +170,13 @@ namespace HVT.VTM.Base
         private void BtOn_Unchecked(object sender, System.Windows.RoutedEventArgs e)
         {
             IsON = false;
+            ManualStateChange?.Invoke(null, null);
         }
 
         private void BtOn_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
             IsON = true;
+            ManualStateChange?.Invoke(null, null);
         }
 
         private void CbUse_Unchecked(object sender, System.Windows.RoutedEventArgs e)

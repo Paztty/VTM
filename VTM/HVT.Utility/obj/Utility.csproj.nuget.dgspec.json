@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\Utility.csproj": {}
+    "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\6. Software\\VTM\\VTM\\HVT.Utility\\Utility.csproj": {}
   },
   "projects": {
-    "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\Utility.csproj": {
+    "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\6. Software\\VTM\\VTM\\HVT.Utility\\Utility.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\Utility.csproj",
-        "projectName": "Utility",
-        "projectPath": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\Utility.csproj",
+        "projectUniqueName": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\6. Software\\VTM\\VTM\\HVT.Utility\\Utility.csproj",
+        "projectName": "HVT.Utility",
+        "projectPath": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\6. Software\\VTM\\VTM\\HVT.Utility\\Utility.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\4. Software\\VTM\\HVT.Utility\\obj\\",
+        "outputPath": "D:\\1.DEV\\1. Project\\1. Machine\\19. Vision Tester Machine\\6. Software\\VTM\\VTM\\HVT.Utility\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [

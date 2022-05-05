@@ -86,7 +86,8 @@ namespace VTM
             if (TestStepsGridManual.SelectedItem != null)
             {
                 Step step = (Step)TestStepsGridManual.SelectedItem;
-                Program.RUN_FUNCTION_TEST(step);
+                Program.currentStep = step;
+                Program.RunStep();
             }
         }
 
@@ -208,13 +209,23 @@ namespace VTM
         {
             if (!Program.IsTestting)
             {
-                var rowScroll = e.Delta / 30;
+                var rowScroll = 3;
                 var currentRow = TestStepsGrid.SelectedIndex;
-                if (currentRow + rowScroll > 0)
+                if (currentRow - rowScroll > 0 && currentRow - rowScroll > 0)
                 {
-
+                    TestStepsGrid.SelectedIndex = e.Delta < 0 ? currentRow + rowScroll : currentRow - rowScroll;
                 }
             }
+        }
+
+        private void tgPower220V_Checked(object sender, RoutedEventArgs e)
+        {
+            tgPower110V.IsChecked = false;
+        }
+
+        private void tgPower110V_Checked(object sender, RoutedEventArgs e)
+        {
+            tgPower220V.IsChecked = false;
         }
 
 

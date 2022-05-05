@@ -123,7 +123,7 @@ namespace HVT.VTM.Program
         public DMM DMM2 = new DMM() { SN = "GET857611" };
 
         Label MinVal_DMM1, MaxVal_DMM1, Arg_DMM1, Val_DMM1, MinVal_DMM2, MaxVal_DMM2, Arg_DMM2, Val_DMM2;
-
+        ComboBox cbb_DMM_Rate;
 
         public void DMM_UI_Init(
                     Label MinVal_DMM1, Label MaxVal_DMM1, Label Arg_DMM1, Label Val_DMM1, Label MinVal_DMM2, Label MaxVal_DMM2, Label Arg_DMM2, Label Val_DMM2,
@@ -141,6 +141,7 @@ namespace HVT.VTM.Program
             DMM1.OnConnected += DMM1_OnConnected;
             DMM1.OnRecive += DMM1_OnRecive;
             DMM1.OnSend += DMM1_OnSend;
+
 
             DMM1.serialPort.PortName = appSetting.Communication.DMM1Port;
             try

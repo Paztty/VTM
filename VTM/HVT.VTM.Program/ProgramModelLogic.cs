@@ -274,7 +274,7 @@ namespace HVT.VTM.Program
                 switch (TestState)
                 {
                     case RunTestState.WAIT:
-                        
+
                         break;
                     case RunTestState.TESTTING:
                         if (StepTesting >= Steps.Count)
@@ -355,16 +355,16 @@ namespace HVT.VTM.Program
                     break;
                 }
                 var stepTest = RootModel.Steps[i];
-                    if (stepTest != null)
-                    {
+                if (stepTest != null)
+                {
                     StepTesting = i;
-                        if (stepTest.cmd != CMDs.NON || !stepTest.Skip)
-                        {
-                            StepTestChange?.Invoke(i, null);
-                            RUN_FUNCTION_TEST(stepTest);
-                            await Task.Delay(5); // delay for data binding
-                        }
+                    if (stepTest.cmd != CMDs.NON || !stepTest.Skip)
+                    {
+                        StepTestChange?.Invoke(i, null);
+                        RUN_FUNCTION_TEST(stepTest);
+                        await Task.Delay(5); // delay for data binding
                     }
+                }
                 while (TestState == RunTestState.PAUSE)
                 {
                     Task.Delay(100).Wait();
@@ -375,6 +375,19 @@ namespace HVT.VTM.Program
             IsTestting = false;
             TestState = RunTestState.DONE;
 
+        }
+
+        public Step currentStep = new Step();
+
+        public async void RunStep()
+        {
+            await Task.Run(RunFunctionsTest);
+        }
+
+        public async void RunFunctionsTest()
+        {
+            RUN_FUNCTION_TEST(currentStep);
+            await Task.Delay(10);
         }
 
         public void RUN_FUNCTION_TEST(Step step)
@@ -483,112 +496,105 @@ namespace HVT.VTM.Program
         public async void DMM_Read(Step step, ObservableCollection<PBA> PBAs)
         {
             var start = DateTime.Now;
+            if (RootModel.contruction.PCB_Count < 3)
+            {
+                MUX_CARD.SetChannels(step.Condition1);
+            }
+            else
+            {
+                MUX_CARD.SetChannels(step.Condition1, 0, 2);
+            }
+
             switch (step.cmd)
             {
                 case CMDs.ACV:
                     DMM_Rate modeAC = (DMM_Rate)Enum.Parse(typeof(DMM_Rate), step.Condition2, true);
-                    MUX_CARD.SetChannels(step.Condition1);
-                    switch (modeAC)
-                    {
-                        case DMM_Rate.NONE:
-                            break;
-                        case DMM_Rate.SLOW:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_slow_ACVFRQ).Wait();
-                            break;
-                        case DMM_Rate.MID:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_Mid_ACVFRQ).Wait();
-                            break;
-                        case DMM_Rate.FAST:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_Fast_ACVFRQ).Wait();
-                            break;
-                        default:
-                            break;
-                    }
-                    DMM1.ChangeRate(modeAC);
-                    DMM2.ChangeRate(modeAC);
                     DMM1.SetMode(DMM_Mode.ACV).Wait();
                     DMM2.SetMode(DMM_Mode.ACV).Wait();
+                    DMM1.ChangeRate(modeAC);
+                    DMM2.ChangeRate(modeAC);
                     break;
                 case CMDs.DCV:
-                    MUX_CARD.SetChannels(step.Condition1);
                     DMM_Rate modeDC = (DMM_Rate)Enum.Parse(typeof(DMM_Rate), step.Condition2, true);
-                    switch (modeDC)
-                    {
-                        case DMM_Rate.NONE:
-                            break;
-                        case DMM_Rate.SLOW:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_slow_DCV).Wait();
-                            break;
-                        case DMM_Rate.MID:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_Mid_DCV).Wait();
-                            break;
-                        case DMM_Rate.FAST:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_Fast_DCV).Wait();
-                            break;
-                        default:
-                            break;
-                    }
-                    DMM1.ChangeRate(modeDC);
-                    DMM2.ChangeRate(modeDC);
                     DMM1.SetMode(DMM_Mode.DCV).Wait();
                     DMM2.SetMode(DMM_Mode.DCV).Wait();
+                    DMM1.ChangeRate(modeDC);
+                    DMM2.ChangeRate(modeDC);
                     break;
                 case CMDs.FRQ:
-                    MUX_CARD.SetChannels(step.Condition1);
                     DMM_Rate modeFQR = (DMM_Rate)Enum.Parse(typeof(DMM_Rate), step.Condition2, true);
-                    switch (modeFQR)
-                    {
-                        case DMM_Rate.NONE:
-                            break;
-                        case DMM_Rate.SLOW:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_slow_ACVFRQ).Wait();
-                            break;
-                        case DMM_Rate.MID:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_Mid_ACVFRQ).Wait();
-                            break;
-                        case DMM_Rate.FAST:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_Fast_ACVFRQ).Wait();
-                            break;
-                        default:
-                            break;
-                    }
-                    DMM1.ChangeRate(modeFQR);
-                    DMM2.ChangeRate(modeFQR);
                     DMM1.SetMode(DMM_Mode.FREQ).Wait();
                     DMM2.SetMode(DMM_Mode.FREQ).Wait();
+                    DMM1.ChangeRate(modeFQR);
+                    DMM2.ChangeRate(modeFQR);
                     break;
                 case CMDs.RES:
-                    MUX_CARD.SetChannels(step.Condition1);
                     DMM_Rate modeRES = (DMM_Rate)Enum.Parse(typeof(DMM_Rate), step.Condition2, true);
-                    switch (modeRES)
-                    {
-                        case DMM_Rate.NONE:
-                            break;
-                        case DMM_Rate.SLOW:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_slow_RES).Wait();
-                            break;
-                        case DMM_Rate.MID:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_Mid_RES).Wait();
-                            break;
-                        case DMM_Rate.FAST:
-                            Task.Delay(appSetting.ETCSetting.MUXdelay_Fast_RES).Wait();
-                            break;
-                        default:
-                            break;
-                    }
-                    DMM1.ChangeRate(modeRES);
-                    DMM2.ChangeRate(modeRES);
                     DMM1.SetMode(DMM_Mode.RES).Wait();
                     DMM2.SetMode(DMM_Mode.RES).Wait();
+                    DMM1.ChangeRate(modeRES);
+                    DMM2.ChangeRate(modeRES);
                     break;
             }
 
-            step.ValueGet1 = (await DMM1.GetValue(true)).ToString();
-            step.ValueGet2 = (await DMM2.GetValue(true)).ToString();
+            DMM1.ChangeRange(step.Oper);
+            DMM2.ChangeRange(step.Oper);
 
+            var delayTime = (DMM_Rate)Enum.Parse(typeof(DMM_Rate), step.Condition2, true);
+            switch (delayTime)
+            {
+                case DMM_Rate.NONE:
+                    break;
+                case DMM_Rate.SLOW:
+                    Task.Delay(appSetting.ETCSetting.MUXdelay_slow_ACVFRQ).Wait();
+                    break;
+                case DMM_Rate.MID:
+                    Task.Delay(appSetting.ETCSetting.MUXdelay_Mid_ACVFRQ).Wait();
+                    break;
+                case DMM_Rate.FAST:
+                    Task.Delay(appSetting.ETCSetting.MUXdelay_Fast_ACVFRQ).Wait();
+                    break;
+                default:
+                    break;
+            }
+            if (DMM1.IsModeChange || DMM2.IsModeChange)
+            {
+                Task.Delay(1000).Wait();
+            }
+            if (RootModel.contruction.PCB_Count < 3)
+            {
+                if (PBAs[0].IsWaiting) step.ValueGet1 = DMM1.GetCurrentValue().ToString();
+                if (PBAs[1].IsWaiting) step.ValueGet2 = DMM2.GetCurrentValue().ToString();
+            }
+            else
+            {
+                if (PBAs[0].IsWaiting) step.ValueGet1 = DMM1.GetCurrentValue().ToString();
+                if (PBAs[2].IsWaiting) step.ValueGet3 = DMM2.GetCurrentValue().ToString();
+                MUX_CARD.ReleaseChannels();
+                Task.Delay(10).Wait();
+                MUX_CARD.SetChannels(step.Condition1, 1, 3);
+                switch (delayTime)
+                {
+                    case DMM_Rate.NONE:
+                        break;
+                    case DMM_Rate.SLOW:
+                        Task.Delay(appSetting.ETCSetting.MUXdelay_slow_ACVFRQ).Wait();
+                        break;
+                    case DMM_Rate.MID:
+                        Task.Delay(appSetting.ETCSetting.MUXdelay_Mid_ACVFRQ).Wait();
+                        break;
+                    case DMM_Rate.FAST:
+                        Task.Delay(appSetting.ETCSetting.MUXdelay_Fast_ACVFRQ).Wait();
+                        break;
+                    default:
+                        break;
+                }
+                if (PBAs[1].IsWaiting) step.ValueGet2 = DMM1.GetCurrentValue().ToString();
+                if (PBAs[3].IsWaiting) step.ValueGet4 = DMM2.GetCurrentValue().ToString();
+            }
 
-
-            Console.WriteLine(DateTime.Now.Subtract(start).TotalMilliseconds);
+            MUX_CARD.ReleaseChannels();
+            Task.Delay(10).Wait();
         }
 
 
@@ -618,13 +624,13 @@ namespace HVT.VTM.Program
             Enum.TryParse<CameraStreaming.VideoProperties>(step.Condition1, out properties);
             if (properties == CameraStreaming.VideoProperties.Reset)
             {
-                cameraStreaming.SetParammeter(RootModel.CameraSetting);
+                cameraStreaming?.SetParammeter(RootModel.CameraSetting);
                 return;
             }
 
             int value = 0;
             Int32.TryParse(step.Oper, out value);
-            cameraStreaming.SetParammeter(properties, value, true);
+            cameraStreaming?.SetParammeter(properties, value, true);
         }
 
         public void UTN(Step step, ObservableCollection<PBA> PBAs)
@@ -1023,7 +1029,7 @@ namespace HVT.VTM.Program
             if (PBAs[0].IsWaiting) step.Result = step.Result || (step.Result1 == Step.Ok);
             if (PBAs[1].IsWaiting) step.Result = step.Result || (step.Result2 == Step.Ok);
             if (PBAs[2].IsWaiting) step.Result = step.Result || (step.Result3 == Step.Ok);
-            if (PBAs[3].IsWaiting) step.Result = step.Result || (step.Result4 == Step.Ok);                                                
+            if (PBAs[3].IsWaiting) step.Result = step.Result || (step.Result4 == Step.Ok);
             //Task.Delay(delay).Wait();
         }
 

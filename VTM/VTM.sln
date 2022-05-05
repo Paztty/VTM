@@ -44,8 +44,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VTM_Report", "VTM_Report\VT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Report", "Report", "{C0224205-8696-4525-BE94-B437215232FB}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "VTM Setup", "VTM Setup\VTM Setup.vdproj", "{95A549F8-DD6C-43E8-9FF4-0500B6DC8BF9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,12 +138,6 @@ Global
 		{A3F85A2B-258C-467F-83D3-B538287AA240}.Release|x64.Build.0 = Release|x64
 		{A3F85A2B-258C-467F-83D3-B538287AA240}.Release|x86.ActiveCfg = Release|Any CPU
 		{A3F85A2B-258C-467F-83D3-B538287AA240}.Release|x86.Build.0 = Release|Any CPU
-		{95A549F8-DD6C-43E8-9FF4-0500B6DC8BF9}.Debug|Any CPU.ActiveCfg = Debug
-		{95A549F8-DD6C-43E8-9FF4-0500B6DC8BF9}.Debug|x64.ActiveCfg = Debug
-		{95A549F8-DD6C-43E8-9FF4-0500B6DC8BF9}.Debug|x86.ActiveCfg = Debug
-		{95A549F8-DD6C-43E8-9FF4-0500B6DC8BF9}.Release|Any CPU.ActiveCfg = Release
-		{95A549F8-DD6C-43E8-9FF4-0500B6DC8BF9}.Release|x64.ActiveCfg = Release
-		{95A549F8-DD6C-43E8-9FF4-0500B6DC8BF9}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

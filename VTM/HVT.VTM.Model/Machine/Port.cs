@@ -103,25 +103,27 @@ namespace HVT.VTM.Base.Machine
 
         private void Serial_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (serialPort.IsOpen)
+            try
             {
-                SerialDisplay.BlinkRX();
-                if (ClearRxTimeSpecified)
+                if (serialPort.IsOpen)
                 {
-                    Buffer.Clear();
-                    ClearRxTimeSpecified = false;
-                    clearRxTimer.Start();
+                    SerialDisplay.BlinkRX();
+                    int length = serialPort.BytesToRead;
+                    string dataRead = "";
+                    for (int i = 0; i < length; i++)
+                    {
+                        var byteChar = serialPort.ReadByte();
+                        Buffer.Add(byteChar);
+                        dataRead += byteChar.ToString("X2") + " ";
+                    }
+                    Write_Log(dataRead, false);
                 }
-                int length = serialPort.BytesToRead;
-                string dataRead = "";
-                for (int i = 0; i < length; i++)
-                {
-                    Buffer.Add(serialPort.ReadByte());
-                    dataRead += Buffer[i].ToString("X2") + " ";
-                    //Console.Write(Buffer[i].ToString("X2") + " ");
-                }
-                Write_Log(dataRead, false);
             }
+            catch (Exception)
+            {
+
+            }
+
         }
 
         private bool RefindCom()
@@ -218,7 +220,6 @@ namespace HVT.VTM.Base.Machine
                 }
                 Write_Log(datalog);
 
-                
                 Buffer.Clear();
                 if (serialPort.IsOpen)
                 {

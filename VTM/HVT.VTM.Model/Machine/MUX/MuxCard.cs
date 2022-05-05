@@ -181,7 +181,13 @@ namespace HVT.VTM.Base
             foreach (var item in Chanels)
             {
                 panelSelect.Children.Add(item.CbUse);
+                item.ManualStateChange += Item_ManualStateChange;
             }
+        }
+
+        private void Item_ManualStateChange(object sender, EventArgs e)
+        {
+            //SendCardStatus();
         }
 
         public void SelectAll()
@@ -211,17 +217,18 @@ namespace HVT.VTM.Base
 
         public void SetChannels(string setParam)
         {
-            for (int i = 0; i < Chanels.Count; i++)
+            for (int i = 0; i < PCB_Remap_Count; i++) 
             {
                 if (Int32.TryParse(setParam, out int channel_select))
                 {
                     Chanels[i].IsON = false;
                     Chanels[channel_select - 1].IsON = true;
-                    for (int PCB = 1; PCB < 5; PCB++)
+                    for (int PCB = 1; PCB < Chanels.Count/PCB_Remap_Count; PCB++)
                     {
                         if (channel_select - 1 + PCB_Remap_Count < Chanels.Count)
                         {
-                            Chanels[channel_select - 1 + PCB_Remap_Count].IsON = true;
+                            Chanels[channel_select - 1 + PCB_Remap_Count * PCB].Channel_N = Chanels[channel_select - 1].Channel_N + PCB_Remap_Count * PCB;
+                            Chanels[channel_select - 1 + PCB_Remap_Count * PCB].IsON = true;
                         }
                     }
                 }
@@ -229,6 +236,32 @@ namespace HVT.VTM.Base
             SendCardStatus();
         }
 
+        public void SetChannels(string setParam, int PCB1, int PCB2)
+        {
+            for (int i = 0; i < PCB_Remap_Count; i++)
+            {
+                if (Int32.TryParse(setParam, out int channel_select))
+                {
+                    Chanels[i].IsON = false;
+                    Chanels[channel_select - 1].IsON = true;
+                    Chanels[channel_select - 1 + PCB_Remap_Count * PCB1].Channel_N = Chanels[channel_select - 1].Channel_N + PCB_Remap_Count * PCB1;
+                    Chanels[channel_select - 1 + PCB_Remap_Count * PCB1].IsON = true;
+                    Chanels[channel_select - 1 + PCB_Remap_Count * PCB2].Channel_N = Chanels[channel_select - 1].Channel_N + PCB_Remap_Count * PCB2;
+                    Chanels[channel_select - 1 + PCB_Remap_Count * PCB2].IsON = true;
+                }
+            }
+            SendCardStatus();
+        }
+
+        public void ReleaseChannels()
+        {
+            for (int i = 0; i < Chanels.Count; i++)
+            {
+                Chanels[i].IsON = false;
+            }
+
+            SendCardStatus();
+        }
         public void SendCardStatus()
         {
             byte[] cardChannel1 = new byte[13];
@@ -237,29 +270,23 @@ namespace HVT.VTM.Base
             cardChannel1[0] = (byte)0x4D;
             cardChannel2[0] = (byte)0x6D;
 
-            for (int i = 5; i >= 0; i--)
+            var OnChannels = Chanels.Where(o => o.IsON == true).ToList();
+            foreach (var item in OnChannels)
             {
-                byte data1 = 0x00, data2 = 0x00;
-                byte data3 = 0x00, data4 = 0x00;
-                for (int j = 0; j < 8; j++)
-                {
-                    if ((5 - i) * 8 + j < ChanelsEdittingPart1.Count)
-                    {
-                        data1 = (byte)(ChanelsEdittingPart1[(5 - i) * 8 + j].isOn ? (data1 << 1) ^ 0x01 : (data1 << 1) ^ 0x00);
-                        data2 = (byte)(ChanelsEdittingPart1[(5 - i) * 8 + j].isOn ? (data2 << 1) ^ 0x01 : (data2 << 1) ^ 0x00);
-                    }
-                    if ((5 - i) * 8 + j < ChanelsEdittingPart2.Count)
-                    {
-                        data3 = (byte)(ChanelsEdittingPart2[(5 - i) * 8 + j].isOn ? (data3 << 1) ^ 0x01 : (data3 << 1) ^ 0x00);
-                        data4 = (byte)(ChanelsEdittingPart2[(5 - i) * 8 + j].isOn ? (data4 << 1) ^ 0x01 : (data4 << 1) ^ 0x00);
-                    }
-                }
-                cardChannel1[i + 1] = data1;
-                cardChannel1[i + 7] = data2;
+                Console.WriteLine(item.Channel_P +"+++"+ item.Channel_P / 8 + "====" + item.Channel_P % 9 + "===="+ ((byte)(0b00000001 << (item.Channel_P - 1) % 8)).ToString("X"));
 
-                cardChannel2[i + 1] = data3;
-                cardChannel2[i + 7] = data4;
+                if (item.Channel_P < 49)
+                {
+                    cardChannel1[6 - (item.Channel_P - 1) / 8] |= (byte)(0b00000001 << ((item.Channel_P - 1) % 8));
+                    cardChannel1[12 - (item.Channel_N - 1) / 8] |= (byte)(0b00000001 << ((item.Channel_N - 1) % 8));
+                }
+                else
+                {
+                    cardChannel2[6 - (item.Channel_P - 49) / 8] |= (byte)(0x00000001 << ((item.Channel_P - 1) % 8));
+                    cardChannel2[12 - (item.Channel_N - 49) / 8] |= (byte)(0x00000001 << ((item.Channel_N - 1) % 8));
+                }
             }
+
             Port1.Send(cardChannel1);
             Port2.Send(cardChannel2);
         }
@@ -308,7 +335,7 @@ namespace HVT.VTM.Base
             return useChannels;
         }
 
-        public void SetUseChannels( List<int> useChannels)
+        public void SetUseChannels(List<int> useChannels)
         {
             if (useChannels == null || useChannels.Count < 1)
             {

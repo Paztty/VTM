@@ -4,6 +4,7 @@ using System.IO.Ports;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Linq;
 using Timer = System.Timers.Timer;
 
 namespace HVT.VTM.Base
@@ -56,7 +57,7 @@ namespace HVT.VTM.Base
 
     public class DMM
     {
-        public string SN = "GET857611";
+        public string SN = "EP844176";
 
         // Command
         const string CALL = "*IDN?";
@@ -114,7 +115,7 @@ namespace HVT.VTM.Base
         public SerialDisplay serialDisplay = new SerialDisplay();
         public SerialPort serialPort = new SerialPort()
         {
-            BaudRate = 115200,
+            BaudRate = 9600,
             Parity = Parity.None,
             DataBits = 8,
             StopBits = StopBits.One,
@@ -214,6 +215,28 @@ namespace HVT.VTM.Base
             return IsBoardPort;
         }
 
+        public void SetCom(string ComName)
+        {
+            if (serialPort != null & serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
+            serialPort.PortName = ComName;
+            try
+            {
+                serialPort.Open();
+                OnConnected?.Invoke(serialPort.IsOpen, null);
+                Send("CONFigure:VOLTage:DC 100");
+                Send("SENSe:DETector:RATE S");
+            }
+            catch (Exception e)
+            {
+                Debug.Write("DMM setcom error.", Debug.ContentType.Error);
+            }
+
+
+        }
+
         public void Send(string Content)
         {
             if (serialPort.IsOpen)
@@ -264,7 +287,7 @@ namespace HVT.VTM.Base
                 serialPort.DiscardInBuffer();
                 comData = null;
                 Send(Content);
-                while (DateTime.Now.Subtract(startScanTime).TotalMilliseconds < 100)
+                while (DateTime.Now.Subtract(startScanTime).TotalMilliseconds <= 110)
                 {
                     if (comData != null)
                     {
@@ -272,6 +295,26 @@ namespace HVT.VTM.Base
                         break;
                     }
                     await Task.Delay(50);
+                }
+            }
+            return value;
+        }
+        public string QueryOneTime(string Content, bool isasync )
+        {
+            string value = "";
+            DateTime startScanTime = DateTime.Now;
+            if (serialPort.IsOpen)
+            {
+                serialPort.DiscardInBuffer();
+                comData = null;
+                Send(Content);
+                while (DateTime.Now.Subtract(startScanTime).TotalMilliseconds <= 110)
+                {
+                    if (comData != null)
+                    {
+                        value = comData;
+                        break;
+                    }
                 }
             }
             return value;
@@ -415,42 +458,98 @@ namespace HVT.VTM.Base
             return currentValue;
 
         }
+        public double GetCurrentValue()
+        {
 
+            double currentValue = 0;
+            if (double.TryParse( QueryOneTime("VAL1?", false), out LastDoubleValue))
+            {
+                currentValue = LastDoubleValue;
+            }
+
+            if (System.Math.Abs(currentValue) < 0.001)
+            {
+                LastStringValue = (currentValue * 1000000) + " u";
+            }
+            else if (System.Math.Abs(currentValue) < 1)
+            {
+                LastStringValue = (currentValue * 1000) + " m";
+            }
+            else
+            {
+                LastStringValue = (System.Math.Abs(currentValue) < 1000) ? (currentValue / 1000) + " k" : (currentValue / 1000000) + " M";
+            }
+            if (currentValue == +1.200000E+37)
+            {
+                LastStringValue = "OL ";
+            }
+
+            switch (Mode)
+            {
+                case DMM_Mode.NONE:
+                    break;
+                case DMM_Mode.DCV:
+                    LastStringValue += "VDC";
+                    break;
+                case DMM_Mode.ACV:
+                    LastStringValue += "VAC";
+                    break;
+                case DMM_Mode.FREQ:
+                    LastStringValue += "Hz";
+                    break;
+                case DMM_Mode.RES:
+                    LastStringValue += "OHm";
+                    break;
+                case DMM_Mode.DIODE:
+                    LastStringValue += "VDC";
+                    break;
+                default:
+                    break;
+            }
+
+            OnChange?.Invoke(LastStringValue, null);
+            return currentValue;
+
+        }
+
+        public bool IsModeChange = false;
         public async Task<bool> SetMode(DMM_Mode mode)
         {
             if (Mode != mode)
             {
+                Mode = mode;
                 OnModeChange?.Invoke(null, null);
+                switch (mode)
+                {
+                    case DMM_Mode.NONE:
+                        break;
+                    case DMM_Mode.DCV:
+                        Send("CONFigure:VOLTage:DC 100");
+                        break;
+                    case DMM_Mode.ACV:
+                        Send("CONFigure:VOLTage:AC 750");
+                        break;
+                    case DMM_Mode.FREQ:
+                        Send("CONFigure:FREQuency 750");
+                        break;
+                    case DMM_Mode.RES:
+                        Send("CONFigure:RESistance 10000");
+                        break;
+                    case DMM_Mode.DIODE:
+                        Send("CONFigure:DIODe");
+                        break;
+                    default:
+                        return false;
+                }
+                IsModeChange = true;
             }
-            Mode = mode;
-            switch (mode)
-            {
-                case DMM_Mode.NONE:
-                    return false;
-                case DMM_Mode.DCV:
-                    Send("CONFigure:VOLTage:DC 100");
-                    return await QueryOneTime("CONFigure:FUNCtion?") == "VOLT";
-                case DMM_Mode.ACV:
-                    Send("CONFigure:VOLTage:AC 750");
-                    return await QueryOneTime("CONFigure:FUNCtion?") == "VOLT:AC";
-                case DMM_Mode.FREQ:
-                    Send("CONFigure:FREQuency 750");
-                    return await QueryOneTime("CONFigure:FUNCtion?") == "FREQ";
-                case DMM_Mode.RES:
-                    Send("CONFigure:RESistance 10000");
-                    return await QueryOneTime("CONFigure:FUNCtion?") == "RES";
-                case DMM_Mode.DIODE:
-                    Send("CONFigure:DIODe");
-                    return await QueryOneTime("CONFigure:FUNCtion?") == "DIOD";
-                default:
-                    return false;
-            }
-
+            else
+                IsModeChange = false;
+            return IsModeChange;
         }
 
         public void ChangeRange(int RangeSelected)
         {
-            OnModeChange?.Invoke(null, null);
             switch (Mode)
             {
                 case DMM_Mode.NONE:
@@ -458,6 +557,7 @@ namespace HVT.VTM.Base
                 case DMM_Mode.DCV:
                     if (RangeSelected < Enum.GetNames(typeof(DMM_DCV_Range)).Length)
                     {
+                        DCV_Range = (DMM_DCV_Range)RangeSelected;
                         switch ((DMM_DCV_Range)RangeSelected)
                         {
                             case DMM_DCV_Range.DC100mV:
@@ -483,6 +583,7 @@ namespace HVT.VTM.Base
                 case DMM_Mode.ACV:
                     if (RangeSelected < Enum.GetNames(typeof(DMM_ACV_Range)).Length)
                     {
+                        ACV_Range = (DMM_ACV_Range)RangeSelected;
                         switch ((DMM_ACV_Range)RangeSelected)
                         {
                             case DMM_ACV_Range.AC100mV:
@@ -509,6 +610,7 @@ namespace HVT.VTM.Base
 
                     if (RangeSelected < Enum.GetNames(typeof(DMM_ACV_Range)).Length)
                     {
+                        ACV_Range = (DMM_ACV_Range)RangeSelected;
                         switch ((DMM_ACV_Range)RangeSelected)
                         {
                             case DMM_ACV_Range.AC100mV:
@@ -535,6 +637,7 @@ namespace HVT.VTM.Base
 
                     if (RangeSelected < Enum.GetNames(typeof(DMM_RES_Range)).Length)
                     {
+                        RES_Range = (DMM_RES_Range)RangeSelected;
                         switch ((DMM_RES_Range)RangeSelected)
                         {
                             case DMM_RES_Range.R100Ω:
@@ -568,6 +671,125 @@ namespace HVT.VTM.Base
                 default:
                     break;
             }
+            OnModeChange?.Invoke(null, null);
+
+        }
+        public void ChangeRange(string Range)
+        {
+            switch (Mode)
+            {
+                case DMM_Mode.NONE:
+                    break;
+                case DMM_Mode.DCV:
+                    int indexDCV = Enum.GetNames(typeof(DMM_DCV_Range)).ToList().IndexOf(Range);
+                    DCV_Range = (DMM_DCV_Range)indexDCV;
+                    switch ((DMM_DCV_Range)indexDCV)
+                    {
+                        case DMM_DCV_Range.DC100mV:
+                            Send("CONFigure:VOLTage:DC 0.1");
+                            break;
+                        case DMM_DCV_Range.DC1V:
+                            Send("CONFigure:VOLTage:DC 1");
+                            break;
+                        case DMM_DCV_Range.DC10V:
+                            Send("CONFigure:VOLTage:DC 10");
+                            break;
+                        case DMM_DCV_Range.DC100V:
+                            Send("CONFigure:VOLTage:DC 100");
+                            break;
+                        case DMM_DCV_Range.DC1000V:
+                            Send("CONFigure:VOLTage:DC 1000");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case DMM_Mode.ACV:
+                    int indexACV = Enum.GetNames(typeof(DMM_ACV_Range)).ToList().IndexOf(Range);
+                    ACV_Range = (DMM_ACV_Range)indexACV;
+                    switch ((DMM_ACV_Range)indexACV)
+                    {
+                        case DMM_ACV_Range.AC100mV:
+                            Send("CONFigure:VOLTage:AC 0.1");
+                            break;
+                        case DMM_ACV_Range.AC1V:
+                            Send("CONFigure:VOLTage:AC 1");
+                            break;
+                        case DMM_ACV_Range.AC10V:
+                            Send("CONFigure:VOLTage:AC 10");
+                            break;
+                        case DMM_ACV_Range.AC100V:
+                            Send("CONFigure:VOLTage:AC 100");
+                            break;
+                        case DMM_ACV_Range.AC750V:
+                            Send("CONFigure:VOLTage:AC 750");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case DMM_Mode.FREQ:
+
+                    int indexFREQ = Enum.GetNames(typeof(DMM_ACV_Range)).ToList().IndexOf(Range);
+                    ACV_Range = (DMM_ACV_Range)indexFREQ;
+                    switch ((DMM_ACV_Range)indexFREQ)
+                    {
+                        case DMM_ACV_Range.AC100mV:
+                            Send("CONFigure:FREQuency 0.1");
+                            break;
+                        case DMM_ACV_Range.AC1V:
+                            Send("CONFigure:FREQuency 1");
+                            break;
+                        case DMM_ACV_Range.AC10V:
+                            Send("CONFigure:FREQuency 10");
+                            break;
+                        case DMM_ACV_Range.AC100V:
+                            Send("CONFigure:FREQuency 100");
+                            break;
+                        case DMM_ACV_Range.AC750V:
+                            Send("CONFigure:FREQuency 750");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case DMM_Mode.RES:
+
+                    int indexRES = Enum.GetNames(typeof(DMM_RES_Range)).ToList().IndexOf(Range);
+                    RES_Range = (DMM_RES_Range)indexRES;
+                    switch ((DMM_RES_Range)indexRES)
+                    {
+                        case DMM_RES_Range.R100Ω:
+                            Send("CONFigure:RESistance 100");
+                            break;
+                        case DMM_RES_Range.R1kΩ:
+                            Send("CONFigure:RESistance 1000");
+                            break;
+                        case DMM_RES_Range.R10kΩ:
+                            Send("CONFigure:RESistance 10000");
+                            break;
+                        case DMM_RES_Range.R100kΩ:
+                            Send("CONFigure:RESistance 100000");
+                            break;
+                        case DMM_RES_Range.R1MΩ:
+                            Send("CONFigure:RESistance 1000000");
+                            break;
+                        case DMM_RES_Range.R10MΩ:
+                            Send("CONFigure:RESistance 10000000");
+                            break;
+                        case DMM_RES_Range.R100MΩ:
+                            Send("CONFigure:RESistance 100000000");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case DMM_Mode.DIODE:
+                    break;
+                default:
+                    break;
+            }
+            OnModeChange?.Invoke(null, null);
 
         }
 

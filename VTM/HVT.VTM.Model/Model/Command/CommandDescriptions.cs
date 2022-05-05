@@ -123,29 +123,29 @@ namespace HVT.VTM.Base
 
         public static List<string> CommandMode_DMM_DCVrange = new List<string>()
         {
-            "100 mV",
-            "1V",
-            "10V",
-            "100V",
-            "1000V"
+        "DC100mV",
+        "DC1V",
+        "DC10V",
+        "DC100V",
+        "DC1000V"
         };
         public static List<string> CommandMode_DMM_ACVrange = new List<string>()
         {
-            "100 mV",
-            "1V",
-            "10V",
-            "100V",
-            "750V"
+        "AC100mV",
+        "AC1V",
+        "AC10V",
+        "AC100V",
+        "AC750V"
         };
         public static List<string> CommandMode_DMM_RESrange = new List<string>()
         {
-            "100 Ohm",
-            "1 kOhm",
-            "10 kOhm",
-            "100 kOhm",
-            "1 MOhm",
-            "10 MOhm",
-            "100 MOhm",
+        "R100Ω",
+        "R1kΩ",
+        "R10kΩ",
+        "R100kΩ",
+        "R1MΩ",
+        "R10MΩ",
+        "R100MΩ"
         };
 
         public static List<string> CommandMode_UUT_Port = new List<String>()

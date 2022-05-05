@@ -56,19 +56,23 @@ namespace VTM
                         case DMM_Mode.NONE:
                             break;
                         case DMM_Mode.DCV:
+                            cbbDMM_range.ItemsSource = Enum.GetNames(typeof(DMM_DCV_Range)).ToList();
                             DMM_Mode_DC.IsChecked = true;
                             cbbDMM_range.SelectedIndex = (int)Program.DMM1.DCV_Range;
                             break;
                         case DMM_Mode.ACV:
+                            cbbDMM_range.ItemsSource = Enum.GetNames(typeof(DMM_ACV_Range)).ToList();
                             DMM_Mode_DC.IsChecked = true;
                             cbbDMM_range.SelectedIndex = (int)Program.DMM1.ACV_Range;
                             break;
                         case DMM_Mode.FREQ:
+                            cbbDMM_range.ItemsSource = Enum.GetNames(typeof(DMM_ACV_Range)).ToList();
                             DMM_Mode_FRQ.IsChecked = true;
                             cbbDMM_range.SelectedIndex = (int)Program.DMM1.ACV_Range;
                             break;
                         case DMM_Mode.RES:
                             DMM_Mode_RES.IsChecked = true;
+                            cbbDMM_range.ItemsSource = Enum.GetNames(typeof(DMM_RES_Range)).ToList();
                             cbbDMM_range.SelectedIndex = (int)Program.DMM1.RES_Range;
                             break;
                         case DMM_Mode.DIODE:
