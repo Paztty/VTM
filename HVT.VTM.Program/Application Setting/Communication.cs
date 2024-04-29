@@ -30,11 +30,13 @@ namespace HVT.VTM.Program
         public string SolenoidPort { get; set; } = "COM10";
         public string DMM1Port { get; set; } = "COM3";
         public string DMM2Port { get; set; } = "COM4";
+        public string PowerMetterPort { get; set; } = "COM4";
         public string UUT1Port { get; set; } = "COM17";
         public string UUT2Port { get; set; } = "COM15";
         public string UUT3Port { get; set; } = "COM18";
         public string UUT4Port { get; set; } = "COM16";
 
+        
         public string ScannerPort { get; set; } = "COM11";
         public int Scan_Baudrate { get; set; } = 115200;
         public int Scan_Databit { get; set; } = 8;

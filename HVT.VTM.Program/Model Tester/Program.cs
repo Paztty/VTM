@@ -10,6 +10,8 @@ using HVT.Controls;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Input;
+using OpenCvSharp;
+using System.Runtime.Remoting.Channels;
 
 namespace HVT.VTM.Program
 {
@@ -1112,6 +1114,9 @@ namespace HVT.VTM.Program
                     case CMDs.CAM:
                         CAM(step);
                         Task.Delay(1000).Wait();
+                        break;
+                    case CMDs.MOT:
+                        MOT(step);
                         break;
                     default:
                         break;
@@ -6039,7 +6044,152 @@ namespace HVT.VTM.Program
                 functionsParameterError("sys", step);
             }
         }
+        public void MOT(Step step)
+        {
+            double minValue = 0;
+            double maxValue = 0;
 
+            if (!Double.TryParse(step.Min, out minValue))
+            {
+                functionsParameterError("Min", step);
+                return;
+            }
+
+            if (!Double.TryParse(step.Max, out maxValue))
+            {
+                if (step.Max == "L")
+                {
+                    maxValue = Double.MaxValue;
+                }
+                else
+                {
+                    functionsParameterError("Max", step);
+                    return;
+                }
+            }
+            if (!PowerMetter.SerialPort.Port.IsOpen)
+            {
+                functionsParameterError("sys", step);
+            }
+
+            if (step.Condition1 == "READ")
+            {
+                if (Boards.Count >= 1) if (!Boards[0].Skip) if (PowerMetter.Read('A')) step.ValueGet1 = "exe"; else { step.ValueGet1 = "sys"; step.Result1 = Step.Ng; }
+                if (Boards.Count >= 2) if (!Boards[1].Skip) if (PowerMetter.Read('B')) step.ValueGet2 = "exe"; else { step.ValueGet2 = "sys"; step.Result2 = Step.Ng; }
+                if (Boards.Count >= 3) if (!Boards[2].Skip) if (PowerMetter.Read('C')) step.ValueGet3 = "exe"; else { step.ValueGet3 = "sys"; step.Result3 = Step.Ng; }
+                if (Boards.Count >= 4) if (!Boards[3].Skip) if (PowerMetter.Read('D')) step.ValueGet4 = "exe"; else { step.ValueGet4 = "sys"; step.Result4 = Step.Ng; }
+            }
+            else
+            {
+                //"READ", "CMP UU", "CMP UW", "CMP UV", "CMP UUW", "CMP UWV", "CMP UVU", "CMP IU", "CMP IW", "CMP IV"
+                switch (step.Condition1)
+                {
+                    case "CMP UU":
+                        CheckStepMinMax(step, PowerMetter.ValueHolders.Select(x => x.UU).ToArray(), minValue, maxValue);
+                        break;
+                    case "CMP UW":
+                        CheckStepMinMax(step, PowerMetter.ValueHolders.Select(x => x.UW).ToArray(), minValue, maxValue);
+                        break;
+                    case "CMP UV":
+                        CheckStepMinMax(step, PowerMetter.ValueHolders.Select(x => x.UV).ToArray(), minValue, maxValue);
+                        break;
+
+                    case "CMP UUW":
+                        CheckStepMinMax(step, PowerMetter.ValueHolders.Select(x => x.UUW).ToArray(), minValue, maxValue);
+                        break;
+                    case "CMP UWV":
+                        CheckStepMinMax(step, PowerMetter.ValueHolders.Select(x => x.UWV).ToArray(), minValue, maxValue);
+                        break;
+                    case "CMP UVU":
+                        CheckStepMinMax(step, PowerMetter.ValueHolders.Select(x => x.UVU).ToArray(), minValue, maxValue);
+                        break;
+
+                    case "CMP IU":
+                        CheckStepMinMax(step, PowerMetter.ValueHolders.Select(x => x.IU).ToArray(), minValue, maxValue);
+                        break;
+                    case "CMP IW":
+                        CheckStepMinMax(step, PowerMetter.ValueHolders.Select(x => x.IW).ToArray(), minValue, maxValue);
+                        break;
+                    case "CMP IV":
+                        CheckStepMinMax(step, PowerMetter.ValueHolders.Select(x => x.IV).ToArray(), minValue, maxValue);
+                        break;
+                    default:
+                        functionsParameterError("condition", step);
+                        break;
+                }
+            }
+        }
+        private void CheckStepMinMax(Step step, double[] values, double minValue, double maxValue)
+        {
+            if (Boards.Count >= 1)
+            {
+                if (!Boards[0].Skip)
+                {
+                    double countA = values[0];
+                    step.ValueGet1 = countA.ToString();
+                    if (countA >= minValue && countA <= maxValue)
+                    {
+                        step.Result1 = Step.Ok;
+                    }
+                    else
+                    {
+                        step.Result1 = Step.Ng;
+                    }
+                }
+            }
+
+            if (Boards.Count >= 2)
+            {
+                if (!Boards[1].Skip)
+                {
+                    double countA = values[1];
+                    step.ValueGet2 = countA.ToString();
+                    if (countA >= minValue && countA <= maxValue)
+                    {
+                        step.Result2 = Step.Ok;
+                    }
+                    else
+                    {
+                        step.Result2 = Step.Ng;
+                    }
+                }
+            }
+
+            if (Boards.Count >= 3)
+            {
+                if (!Boards[2].Skip)
+                {
+                    double countA = values[2];
+                    step.ValueGet3 = countA.ToString();
+                    if (countA >= minValue && countA <= maxValue)
+                    {
+                        step.Result3 = Step.Ok;
+                    }
+                    else
+                    {
+                        step.Result3 = Step.Ng;
+                    }
+                }
+            }
+
+            if (Boards.Count >= 4)
+            {
+                if (!Boards[3].Skip)
+                {
+                    double countA = values[3];
+                    step.ValueGet4 = countA.ToString();
+                    if (countA >= minValue && countA <= maxValue)
+                    {
+                        step.Result4 = Step.Ok;
+                    }
+                    else
+                    {
+                        step.Result4 = Step.Ng;
+                    }
+                }
+            }
+
+        }
         public void END(Step step)
         {
             SYSTEM.System_Board.PowerRelease();

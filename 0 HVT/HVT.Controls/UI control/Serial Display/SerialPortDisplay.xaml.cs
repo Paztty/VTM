@@ -428,6 +428,61 @@ namespace HVT.Controls
                 }
             }
         }
+        public bool SendAndRead(byte[] buf, int TimeOut, out List<byte> Response)
+        {
+            if (Port == null || !Port.IsOpen)
+            {
+                // Ex = "Port not found";
+                Response = new List<byte>();
+                return false;
+            }
+            else
+            {
+                List<byte> frame = new List<byte>();
+                try
+                {
+                    if (Port.IsOpen)
+                    {
+                        SerialSend();
+                        Port.DiscardInBuffer();
+                        Port.Write(buf, 0, buf.Length);
+                        Task.Delay(100).Wait();
+                        var start = DateTime.Now;
+                        while (DateTime.Now.Subtract(start).TotalMilliseconds < TimeOut)
+                        {
+                            //read address
+                            byte byteReaded = (byte)Port.ReadByte();
+                            frame.Add(byteReaded);
+                            //read function
+                            byteReaded = (byte)Port.ReadByte();
+                            frame.Add(byteReaded);
+                            //read size
+                            byteReaded = (byte)Port.ReadByte();
+                            frame.Add(byteReaded);
+                            //read data
+                            for (int i = 0; i < frame[2]; i++)
+                            {
+                                byteReaded = (byte)Port.ReadByte();
+                                frame.Add(byteReaded);
+                            }
+                        }
+                    }
+                    foreach (var item in frame)
+                    {
+                        Console.Write(item.ToString("X2") + " ");
+                    }
+                    Response = frame;
+                    return false;
+                }
+
+                catch (Exception)
+                {
+                    //Ex = "Port exception: " + e.Message;
+                    Response = frame;
+                    return false;
+                }
+            }
+        }
 
         public async Task<bool> CheckComPort(string PORT_NAME, int baudrate, string DATA_ASK, string endFrame, int TimeOut, string DevieceName)
         {

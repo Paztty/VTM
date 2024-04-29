@@ -54,6 +54,7 @@ namespace HVT.VTM.Base
         EDL,
         LCC,
         LEC,
+        MOT,
         //LSQ,
         //LTM,
         //STD,

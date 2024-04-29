@@ -54,6 +54,7 @@ namespace VTM
             cbbUUT2Port.ItemsSource = Communication.ComPorts;
             cbbUUT3Port.ItemsSource = Communication.ComPorts;
             cbbUUT4Port.ItemsSource = Communication.ComPorts;
+            cbbPowerMetterPort.ItemsSource = Communication.ComPorts;
 
             cbbBarcodeParity.ItemsSource = Enum.GetNames(typeof(Parity)).ToList();
             cbbBarcodeParity.SelectedIndex = 0;
@@ -93,6 +94,8 @@ namespace VTM
             cbbUUT2Port.SelectedItem = Setting.Communication.UUT2Port;
             cbbUUT3Port.SelectedItem = Setting.Communication.UUT3Port;
             cbbUUT4Port.SelectedItem = Setting.Communication.UUT4Port;
+
+            cbbPowerMetterPort.SelectedItem = Setting.Communication.PowerMetterPort;
 
             cbbBarcodeBaud.SelectedItem = Setting.Communication.Scan_Baudrate;
             cbbBarcodeDatabit.SelectedItem = Setting.Communication.Scan_Databit;
@@ -209,6 +212,7 @@ namespace VTM
             Setting.Communication.UUT2Port = (string)cbbUUT2Port.SelectedItem;
             Setting.Communication.UUT3Port = (string)cbbUUT3Port.SelectedItem;
             Setting.Communication.UUT4Port = (string)cbbUUT4Port.SelectedItem;
+            Setting.Communication.PowerMetterPort = (string)cbbPowerMetterPort.SelectedItem;
 
             Setting.Communication.Scan_Baudrate = Int32.Parse(cbbBarcodeBaud.Text);
             Setting.Communication.Scan_Databit = Int32.Parse(cbbBarcodeDatabit.Text);

@@ -468,10 +468,19 @@ namespace HVT.VTM.Base
             IsListCondition1 = true,
             Condition1List = Enum.GetNames(typeof(Camera.CameraControl.VideoProperties)).ToList(),
             Oper = "Value",
-            Description ="Command is for test only the selected PCB.\r\n"+
-                            "select PCB : You can use any combination of 1, 2, 3, 4 PCB.\r\n"+
-                            "ex) 1/2/3/4 or 1/2"
+            Description ="Apply setting to camera device.\r\n",
+            },
 
+            new CommandDescriptions()
+            {
+            CMD = CMDs.MOT,
+            Condition1 = "Param",
+            IsListCondition1 = true,
+            Condition1List = new List<string>(){"READ", "CMP UU", "CMP UW", "CMP UV", "CMP UUW", "CMP UWV", "CMP UVU", "CMP IU", "CMP IW", "CMP IV" },
+            Spect = "SPEC",
+            Min = "MIN",
+            Max = "MAX",
+            Description = "Measuring param of 3 phase motor at \"READ\" condition.\r\n",
             },
         };
 
