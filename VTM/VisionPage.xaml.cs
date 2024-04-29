@@ -92,7 +92,7 @@ namespace VTM
 
         Timer GetLCDImageSampleTimer = new Timer
         {
-            Interval = 620,
+            Interval = 1000,
         };
 
         public VisionPage()

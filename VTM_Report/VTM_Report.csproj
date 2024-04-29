@@ -207,7 +207,7 @@
     <Resource Include="img\counter.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\0 HVT\HVT.Utility\Utility.csproj">
+    <ProjectReference Include="..\0 HVT\HVT.Utility\Utility.csproj">
       <Project>{1f26009d-c483-4dbf-af0e-f3274c32d21a}</Project>
       <Name>Utility</Name>
     </ProjectReference>

@@ -273,12 +273,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HVT.Utility\Utility.csproj">
-      <Project>{1f26009d-c483-4dbf-af0e-f3274c32d21a}</Project>
-      <Name>Utility</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Img\" />
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +283,12 @@
     <Resource Include="Devices Control\SYSIO\pause.png" />
     <Resource Include="Devices Control\SYSIO\play-button.png" />
     <Resource Include="Devices Control\SYSIO\stop-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HVT.Utility\Utility.csproj">
+      <Project>{1f26009d-c483-4dbf-af0e-f3274c32d21a}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

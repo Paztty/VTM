@@ -121,15 +121,15 @@
     <Compile Include="UUT_PORT\UUTPort.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\0 HVT\Camera\Camera.csproj">
-      <Project>{e3e4ead9-1084-435b-a65f-5db8b6de0264}</Project>
+    <ProjectReference Include="..\0 HVT\Camera\Camera.csproj">
+      <Project>{73b61416-e39f-4fa1-8aab-ce2bd8f1c76f}</Project>
       <Name>Camera</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\0 HVT\HVT.Controls\HVT.Controls.csproj">
+    <ProjectReference Include="..\0 HVT\HVT.Controls\HVT.Controls.csproj">
       <Project>{8c737116-eacf-4dd6-b0a0-9e757e8a6961}</Project>
       <Name>HVT.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\0 HVT\HVT.Utility\Utility.csproj">
+    <ProjectReference Include="..\0 HVT\HVT.Utility\Utility.csproj">
       <Project>{1f26009d-c483-4dbf-af0e-f3274c32d21a}</Project>
       <Name>Utility</Name>
     </ProjectReference>

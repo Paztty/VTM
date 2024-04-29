@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E3E4EAD9-1084-435B-A65F-5DB8B6DE0264}</ProjectGuid>
+    <ProjectGuid>{73B61416-E39F-4FA1-8AAB-CE2BD8F1C76F}</ProjectGuid>
     <OutputType>library</OutputType>
     <RootNamespace>Camera</RootNamespace>
     <AssemblyName>Camera</AssemblyName>
@@ -281,5 +281,5 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-</Target>
+  </Target>
 </Project>
