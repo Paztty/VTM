@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="HVT.VTM.Program.StepViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HVT.VTM.Program"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="{Binding No}" ContentStringFormat="Step: {0}" Foreground="White" FontSize="20" FontWeight="DemiBold" Margin="10,0,0,0" Padding="2"/>
+        <Label Content="{Binding TestContent}" ContentStringFormat="Contents: {0}" Grid.Column="1" Grid.ColumnSpan="3" Foreground="White" FontSize="15" FontWeight="DemiBold" Margin="10,0,0,0"
+                Padding="2" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <Label Content="{Binding CMD}" Foreground="Yellow" Grid.Row="1" Grid.RowSpan="2" FontSize="30" FontWeight="Bold" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" />
+        <Label Content="{Binding Condition1}" ContentStringFormat="Condition 1: {0}" Foreground="WhiteSmoke" Grid.Row="1" Grid.Column="1" FontSize="12" FontWeight="Bold" Margin="10,0,0,0" Padding="2"/>
+        <Label Content="{Binding Condition2}" ContentStringFormat="Condition 2: {0}" Foreground="WhiteSmoke" Grid.Row="2" Grid.Column="1" FontSize="12" FontWeight="Bold" Margin="10,0,0,0" Padding="2"/>
+        <Label Content="{Binding Oper}" ContentStringFormat="Oper:             {0}" Foreground="WhiteSmoke" Grid.Row="3" Grid.Column="1" FontSize="12" FontWeight="Bold" Margin="10,0,0,0" Padding="2"/>
+
+        <Label Content="{Binding Spect}" ContentStringFormat="Spect: {0}" Foreground="WhiteSmoke" Grid.Row="1" Grid.Column="2" FontSize="12" FontWeight="Bold" Margin="10,0,0,0" Padding="2"/>
+        <Label Content="{Binding Min}" ContentStringFormat="Min: {0}" Foreground="WhiteSmoke" Grid.Row="2" Grid.Column="2" FontSize="12" FontWeight="Bold" Margin="10,0,0,0" Padding="2"/>
+        <Label Content="{Binding Max}" ContentStringFormat="Max: {0}" Foreground="WhiteSmoke" Grid.Row="3" Grid.Column="2" FontSize="12" FontWeight="Bold" Margin="10,0,0,0" Padding="2"/>
+
+        <ScrollViewer Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="6" Margin="5,10,5,5">
+            <TextBlock Text="{Binding CommandDescriptions.Description}" Foreground="White" FontSize="12"
+               TextWrapping="WrapWithOverflow"/>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8C737116-EACF-4DD6-B0A0-9E757E8A6961}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>HVT.Controls</RootNamespace>
+    <AssemblyName>HVT.Controls</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\4. VTM\VTM\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.0.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\4. VTM\VTM\packages\Microsoft.Extensions.Options.2.0.2\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\4. VTM\VTM\packages\Microsoft.Extensions.Primitives.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\4. VTM\VTM\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\4. VTM\VTM\packages\System.Runtime.CompilerServices.Unsafe.4.4.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\4. VTM\VTM\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\4. VTM\VTM\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\4. VTM\VTM\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\4. VTM\VTM\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\4. VTM\VTM\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Devices Control\PowerMetter\PowerMetter.cs" />
+    <Compile Include="UI control\AutoCompleteTextBox\AutoCompleteTextBox.xaml.cs">
+      <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CheckSum.cs" />
+    <Compile Include="Devices Control\DMM\DMM.cs" />
+    <Compile Include="Devices Control\LEVEL\LevelCard.cs" />
+    <Compile Include="Devices Control\LEVEL\LevelCardOption.xaml.cs">
+      <DependentUpon>LevelCardOption.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices Control\LEVEL\LevelChanel.cs" />
+    <Compile Include="Devices Control\LEVEL\LevelDataViewer.xaml.cs">
+      <DependentUpon>LevelDataViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices Control\LEVEL\LevelSample.cs" />
+    <Compile Include="Devices Control\MUX\MuxCard.cs" />
+    <Compile Include="Devices Control\MUX\MuxCardControl.xaml.cs">
+      <DependentUpon>MuxCardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices Control\MUX\MuxCardOption.xaml.cs">
+      <DependentUpon>MuxCardOption.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices Control\MUX\MuxChanel.cs" />
+    <Compile Include="Devices Control\RELAY\RelayCard.cs" />
+    <Compile Include="Devices Control\RELAY\RelayChanel.cs" />
+    <Compile Include="Devices Control\RELAY\RelayControls.xaml.cs">
+      <DependentUpon>RelayControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices Control\Solenoid\SolenoidCard.cs" />
+    <Compile Include="Devices Control\Solenoid\SolenoidChanel.cs" />
+    <Compile Include="Devices Control\Solenoid\SolenoidControls.xaml.cs">
+      <DependentUpon>SolenoidControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices Control\SYSIO\SystemMachineIO.cs" />
+    <Compile Include="Devices Control\SYSIO\SYSTEM_BOARD.cs" />
+    <Compile Include="Devices Control\UUT\UUTPort.cs" />
+    <Compile Include="Devices Control\UUT\UUTPortConfig.xaml.cs">
+      <DependentUpon>UUTPortConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MachineControrl.xaml.cs">
+      <DependentUpon>MachineControrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices Control\SYSIO\SYSIOcontrol.xaml.cs">
+      <DependentUpon>SYSIOcontrol.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SYSTEM_COMUNICATION.cs" />
+    <Compile Include="UI control\DischargeOption\DischargeOption.cs" />
+    <Compile Include="UI control\DischargeOption\DisChargeOption.xaml.cs">
+      <DependentUpon>DisChargeOption.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI control\BarcodeOption\BarcodeOption.cs" />
+    <Compile Include="UI control\Graph\CircleGraph.xaml.cs">
+      <DependentUpon>CircleGraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices Control\DMM\GWIN_TECH_DMM.xaml.cs">
+      <DependentUpon>GWIN_TECH_DMM.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Devices Control\Printer\Printer_QR.xaml.cs">
+      <DependentUpon>Printer_QR.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="UI control\BarcodeOption\ModelBarcodeOption.xaml.cs">
+      <DependentUpon>ModelBarcodeOption.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI control\PBALayout\PBALayoutWiewer.xaml.cs">
+      <DependentUpon>PBALayoutWiewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI control\PBALayout\PBA_Layout.cs" />
+    <Compile Include="UI control\Serial Display\SerialPortDisplay.xaml.cs">
+      <DependentUpon>SerialPortDisplay.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="tessData\eng.cube.bigrams">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessData\eng.cube.fold">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessData\eng.cube.lm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessData\eng.cube.nn">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessData\eng.cube.params">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessData\eng.cube.size">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessData\eng.cube.word-freq">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessData\eng.tesseract_cube.nn">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="tessData\eng.traineddata">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Resource Include="Font\Seven Segment.ttf" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UI control\AutoCompleteTextBox\AutoCompleteTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices Control\LEVEL\LevelCardOption.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices Control\LEVEL\LevelDataViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices Control\MUX\MuxCardControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices Control\MUX\MuxCardOption.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices Control\RELAY\RelayControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices Control\Solenoid\SolenoidControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Devices Control\UUT\UUTPortConfig.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MachineControrl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices Control\SYSIO\SYSIOcontrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI control\DischargeOption\DisChargeOption.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI control\Graph\CircleGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices Control\DMM\GWIN_TECH_DMM.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Devices Control\Printer\Printer_QR.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI control\BarcodeOption\ModelBarcodeOption.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI control\PBALayout\PBALayoutWiewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI control\Serial Display\SerialPortDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HVT.Utility\Utility.csproj">
+      <Project>{1f26009d-c483-4dbf-af0e-f3274c32d21a}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Img\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Devices Control\Printer\printer.png" />
+    <Resource Include="Devices Control\Printer\qr-code.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Devices Control\SYSIO\pause.png" />
+    <Resource Include="Devices Control\SYSIO\play-button.png" />
+    <Resource Include="Devices Control\SYSIO\stop-button.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

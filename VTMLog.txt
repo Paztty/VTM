@@ -1,0 +1,6 @@
+10:19:39 -> Camera : No camera detected, check your camera device and restart this software.
+10:26:12 -> Camera : No camera detected, check your camera device and restart this software.
+10:38:02 -> Camera : No camera detected, check your camera device and restart this software.
+13:20:52 -> Camera : No camera detected, check your camera device and restart this software.
+14:01:59 -> Camera : No camera detected, check your camera device and restart this software.
+15:00:20 -> Camera : No camera detected, check your camera device and restart this software.

@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="HVT.Gwinstek.GDS1102B"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HVT.Gwinstek"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance Type=local:GDS1120machine}">
+    <Grid Margin="2">
+        <Border CornerRadius="15">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#10FDFDFD" Offset="0"/>
+                    <GradientStop Color="#4F000000" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="GDS-1102B" FontWeight="Bold" Foreground="#FF111111" FontSize="15" HorizontalAlignment="Center" Grid.ColumnSpan="5" MouseDoubleClick="AutoSet"/>
+                <Label Content="COM3 115200" Grid.Column="4" FontWeight="DemiBold" FontSize="10" Foreground="#FF222222" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+
+                <Label Content="CH1" Padding="0" Grid.Row="1" FontWeight="Bold" Foreground="#FF222222" FontSize="15"
+                       HorizontalAlignment="Left"/>
+                <Label Content="{Binding Path=CH1.Frequency}" ContentStringFormat="Frequency: {0} Hz" FontWeight="Bold"
+                       Padding="0" Grid.Column="1" Grid.Row="1" Foreground="#FF222222" FontSize="15" 
+                       HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                <Label Content="{Binding Path=CH1.Amplitude}" ContentStringFormat="VRMS: {0} V" FontWeight="Bold"
+                       Padding="0" Grid.Column="1" Grid.Row="2" Foreground="#FF222222" FontSize="18"
+                       HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+
+                <Border Grid.Column="2" VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="4" Width="2">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#00ffffff" Offset="0"/>
+                            <GradientStop Color="#FF000000" Offset="0.5"/>
+                            <GradientStop Color="#00222222" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <Label Content="CH2" Padding="0" Grid.Column="3" Grid.Row="1" FontWeight="Bold" Foreground="#FF222222" FontSize="15"
+                       HorizontalAlignment="Left"/>
+                <Label Content="{Binding Path=CH2.Frequency}" ContentStringFormat="Frequency: {0} Hz" FontWeight="Bold"
+                       Padding="0" Grid.Column="43" Grid.Row="1" Foreground="#FF222222" FontSize="15"
+                       HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                <Label Content="{Binding Path=CH2.Amplitude}" ContentStringFormat="VRMS: {0} V" FontWeight="Bold"
+                       Padding="0" Grid.Column="4" Grid.Row="2" Foreground="#FF222222" FontSize="18"
+                       HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

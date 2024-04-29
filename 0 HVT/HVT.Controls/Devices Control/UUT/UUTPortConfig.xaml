@@ -1,0 +1,238 @@
+﻿<UserControl x:Class="HVT.Controls.UUTPortConfig"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HVT.Controls"
+             mc:Ignorable="d" 
+             xmlns:xc="http://schemas.xceed.com/wpf/xaml/toolkit" d:DataContext="{d:DesignInstance Type=local:UUT_Config}">
+    <Grid Margin="5">
+        <Grid  Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <CheckBox x:Name="cbUsePort1" Foreground="White" Grid.ColumnSpan="2" VerticalAlignment="Center" IsChecked="{Binding Use}"
+                                                                Background="#FF080808" BorderBrush="#FFBFB5B5" 
+                                                                Margin="20,5" Content="Use the port config" />
+
+            <GroupBox BorderThickness="0" Header="Port properties" IsEnabled="{Binding ElementName=cbUsePort1, Path=IsChecked}" Margin="5" Grid.Row="1" Foreground="White" Padding="5" Height ="Auto">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label VerticalAlignment="Center" Foreground="White" Content="Kind" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Baudrate" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="1"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Parity&#xD;&#xA;" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="2"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Data bit" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="3"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Stopbit" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="4"/>
+                    <ComboBox x:Name="Port1_Kind" SelectedIndex="{Binding Kind }" Margin="10,0,0,0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Center"  Width="100" HorizontalContentAlignment="Center">
+                        <ComboBoxItem Content="TTL"/>
+                        <ComboBoxItem Content="RS485"/>
+                    </ComboBox>
+                    <ComboBox x:Name="Port1_baudrate" SelectedIndex="{Binding Baudrate}" ItemsSource="{Binding Baudrates}" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Center"  Grid.Row="1" Width="100" HorizontalContentAlignment="Center">
+                    </ComboBox>
+                    <ComboBox  x:Name="Port1_Parity" SelectedIndex="{Binding ParityBit}" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Center"  Grid.Row="2" Width="100" HorizontalContentAlignment="Center">
+                        <ComboBoxItem Content="None"/>
+                        <ComboBoxItem Content="Odd"/>
+                        <ComboBoxItem Content="Event"/>
+                        <ComboBoxItem Content="Mark"/>
+                        <ComboBoxItem Content="Space"/>
+                    </ComboBox>
+                    <ComboBox  x:Name="Port1_Databits" SelectedIndex="{Binding DataBit}" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Center"  Grid.Row="3" Width="100" HorizontalContentAlignment="Center">
+                        <ComboBoxItem Content="8"/>
+                        <ComboBoxItem Content="7"/>
+                    </ComboBox>
+                    <ComboBox  x:Name="Port1_Stopbit" SelectedIndex="{Binding StopBits_Index}" Margin="0" HorizontalAlignment="Right" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Center"  Grid.Row="4" Width="100" HorizontalContentAlignment="Center">
+                        <ComboBoxItem Content="None"/>
+                        <ComboBoxItem Content="One"/>
+                        <ComboBoxItem Content="OnePointFive"/>
+                        <ComboBoxItem Content="Two"/>
+                    </ComboBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox BorderThickness="0" Header="TX Format (PC->UUT)"  IsEnabled="{Binding ElementName=cbUsePort1, Path=IsChecked}" Margin="5,10" Grid.Row="2" Foreground="White" Padding="5" Height ="Auto">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="Port1_UsePrefix1" IsChecked="{Binding UsePrefix1}" VerticalAlignment="Center" Foreground="White" Content="Prefix #1 data" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <CheckBox x:Name="Port1_UsePrefix2" IsChecked="{Binding UsePrefix2}"  VerticalAlignment="Center" Foreground="White" Content="Prefix #2 data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="1"/>
+                    <CheckBox x:Name="Port1_UseSuffix"  IsChecked="{Binding UseSuffix}" VerticalAlignment="Center" Foreground="White" Content="Suffix data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="2"/>
+                    <CheckBox x:Name="Port1_FixLength"  IsChecked="{Binding UseLenghtFixed}" VerticalAlignment="Center" Foreground="White" Content="Fix Lenght" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="3"/>
+
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Checksum" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="4"/>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="0" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1TX_PrefixData1"     Value="{Binding Prefix1}"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="0" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="1" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1TX_PrefixData2"     Value="{Binding Prefix2}"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="0" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="2" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1TX_SuffixData" Value="{Binding Suffix}"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="0" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="3" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1TX_FixLenghtData" Value="{Binding LenghtFixed}"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="0"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="5" Margin="0,5,20,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1TX_CheckSumRageStart" Value="{Binding StartChecksumCal}"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="0" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="5" Margin="5,5,5,5" Width="100" Height="20" Grid.Column="3" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1TX_CheckSumRageEnd" Value="{Binding EndChecksumCal}"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="0" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+
+                    <ComboBox x:Name="Port1_Checksum" SelectedIndex="0" Margin="0,2,0,0" HorizontalAlignment="Right"
+                              FontWeight="Bold" Grid.Column="1" VerticalAlignment="Center"
+                              Width="200" HorizontalContentAlignment="Center" 
+                              Grid.Row="4" Grid.ColumnSpan="3">
+                        <ComboBoxItem Content="XOR"/>
+                        <ComboBoxItem Content="CRC 16"/>
+                        <ComboBoxItem Content="CRC 16 CCITT"/>
+                        <ComboBoxItem Content="MODBUS CRC 16"/>
+                        <ComboBoxItem Content="CRC 8"/>
+                        <ComboBoxItem Content="CRC 32"/>
+                        <ComboBoxItem Content="CRC 8 REVERSED"/>
+                        <ComboBoxItem Content="SUM"/>
+
+                    </ComboBox>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Checksum Range" Margin="20,0,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="5"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Column="3"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="3"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="3"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Pf/Sf Include" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="3"/>
+                    <Label VerticalAlignment="Center" Foreground="White" Content="~" Margin="5" Height="24" Grid.Row="5" Grid.Column="2" HorizontalContentAlignment="Center"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox BorderThickness="0" Header="RX Format (UUT->PC)"  IsEnabled="{Binding ElementName=cbUsePort1, Path=IsChecked}" Margin="5,10" Grid.Row="3" Foreground="White" Padding="5" Height ="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="Port1_RX_UsePrefix1"  IsChecked="{Binding UseRxPrefix1}" VerticalAlignment="Center" Foreground="White" Content="Prefix #1 data" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <CheckBox x:Name="Port1_RX_UsePrefix2" IsChecked="{Binding UseRxPrefix2}" VerticalAlignment="Center"  Foreground="White" Content="Prefix #2 data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="1"/>
+                    <CheckBox x:Name="Port1_RX_UseSuffix" IsChecked="{Binding UseRxSuffix}" VerticalAlignment="Center"  Foreground="White" Content="Suffix data" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="2"/>
+                    <CheckBox x:Name="Port1_RX_FixLenght" IsChecked="{Binding UseRxLengFixed}"  VerticalAlignment="Center"  Foreground="White" Content="Fix Lenght" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="3"/>
+                    <CheckBox x:Name="Port1_RX_UseGetLenghtLoc" IsChecked="{Binding UseRxGetLengtLoc}"  VerticalAlignment="Center"  Foreground="White" Content="Get Lenght Loc" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="4"/>
+
+                    <Label VerticalAlignment="Center" Foreground="White" Content="Lenght add byte count" Margin="20,0,0,0" Padding="0" Height="25" HorizontalAlignment="Right" Grid.Row="5" Grid.ColumnSpan="2"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Rx Clear Timeout" Margin="20,0,0,0" Height="25" HorizontalAlignment="Right" Grid.Row="6"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Column="3"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="3"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Hex" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="3"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="Pf/Sf Include" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="3"/>
+                    <Label VerticalAlignment="Center"  Foreground="White" Content="ms" Margin="0,1,0,0" Height="25" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="3"/>
+                    <Label VerticalAlignment="Center" Foreground="White" Content="~" Margin="0" Height="26" Grid.Row="4" Grid.Column="2" Width="20" HorizontalContentAlignment="Center"/>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="0" Margin="20,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1RX_PrefixData1"  Value="{Binding RxPrefix1}"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="1" Margin="20,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1RX_PrefixData2" Value="{Binding RxPrefix2}"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="2" Margin="20,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1RX_SuffixData" Value="{Binding RxSuffix}"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="3" Margin="20,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1RX_FixLenghtData" Value="{Binding RxLenghtByteCount}"
+                                                                            FontWeight="Bold" Maximum="50" Minimum="1"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="4" Margin="20,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1RX_LenghtLocStart" Value="{Binding RxLenghtStart}"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border Grid.Row="4" Margin="5,5,0,5" Width="93" Height="20" Grid.Column="3" HorizontalAlignment="Left" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1RX_LenghtLocEnd" Value="{Binding RxLenghtEnd}"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="5" Margin="5,5,5,5" Width="70" Height="20" Grid.Column="3" HorizontalAlignment="Left" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1RX_LenghtByteCount" Value="{Binding RxLenghtByteCount}"
+                                                                            FontWeight="Bold" Maximum="50" Minimum="1"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+
+                    <Border VerticalAlignment="Stretch" Grid.Row="6" Margin="20,5,5,5" Width="70" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
+                        <xc:IntegerUpDown x:Name="nUD_P1RX_ClearTimeOut" Value="{Binding ClearRxTime}"
+                                                                            FontWeight="Bold" Maximum="5000" Minimum="1"
+                                                                            BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                    </Border>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>

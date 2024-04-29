@@ -1,0 +1,137 @@
+﻿<UserControl x:Class="HVT.Controls.LevelDataViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HVT.Controls"
+             d:DataContext="{d:DesignInstance Type=local:LevelCard}"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="FlatTabControl" TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Border x:Name="Border" BorderThickness="0,0,0,2" BorderBrush="White" CornerRadius="0" Margin="0,0,0,-1" Background="#222222" Height="Auto">
+                            <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,0"
+                                        />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Gray"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ControlTemplate x:Key="ToggleButton" TargetType="{x:Type ToggleButton}">
+            <Border x:Name="border" CornerRadius="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="#01000000">
+                <Grid>
+                    <Ellipse x:Name="backgroundEllipse" Width="1" Height="1" Fill="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ContentPresenter x:Name="contentPresenter" 
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                              Focusable="False"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"
+                              RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Cursor="Hand"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="{x:Null}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#4F808080"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+
+
+
+    <Grid Background="#181818" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="640"/>
+            <ColumnDefinition Width="90"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Label Content="Ch" FontSize="10" Foreground="White" Padding="2"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Sample" FontSize="10" Foreground="White" Padding="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <Label Content="{Binding SampleCount}" ContentStringFormat="Sample count {0}" Foreground="White"/>
+        </StackPanel>
+        
+
+        <ScrollViewer x:Name="channelpanel" ScrollChanged="VerticalScrollViewer_ScrollChanged" Margin="0,0,-15,0"  Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+            <StackPanel x:Name="ChPanel">
+            </StackPanel>
+        </ScrollViewer>
+
+        <ScrollViewer x:Name="SampleViewer" ScrollChanged="HorizontalScrollViewer_ScrollChanged"  Margin="-10,0,0,0"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"
+                       Grid.Row="2" Grid.Column="1" >
+            <StackPanel x:Name="SamplePanel" Orientation="Horizontal" Margin="0,0,0,0">
+            </StackPanel>
+        </ScrollViewer>
+
+        <ScrollViewer x:Name="GraphView" Margin="0,0,0,0" ScrollChanged="GraphView_ScrollChanged" Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+            <StackPanel x:Name="GraphPanel" Background="#111111" Width="{Binding ElementName=SamplePanel, Path=ActualWidth}" >
+            </StackPanel>
+        </ScrollViewer>
+
+        <ToggleButton Grid.Column="2" Template="{StaticResource ToggleButton}"
+                      IsChecked="{Binding AllowGetSample, UpdateSourceTrigger=PropertyChanged}"
+                      Margin="5" Foreground="White"
+                      Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked">
+            <TextBlock>
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AllowGetSample}" Value="true">
+                                <Setter Property="Text" Value="Stop" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding AllowGetSample}" Value="false">
+                                <Setter Property="Text" Value="Start" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </ToggleButton>
+
+        <WrapPanel x:Name="MatrixViewer" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
+                   VerticalAlignment="Stretch" HorizontalAlignment="Right"
+                   Width="80" Margin="5"
+                   ItemHeight="15.5" ItemWidth="10"/>
+    </Grid>
+</UserControl>

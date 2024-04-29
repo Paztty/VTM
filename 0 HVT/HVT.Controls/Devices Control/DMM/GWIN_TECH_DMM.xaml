@@ -1,0 +1,256 @@
+﻿<UserControl x:Class="HVT.Controls.GWIN_TECH_DMM"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xc="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local="clr-namespace:HVT.Controls"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="ButtonControlNonHoverEffect" TargetType="{x:Type Button}">
+            <Grid>
+                <Ellipse x:Name="backgroundEllipse" Width="0" Height="0" Fill="#4F808080" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Ellipse x:Name="backgroundHoverEllipse" Width="0" Height="0" Fill="#4F808080" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="#01000000" SnapsToDevicePixels="True">
+                    <ContentPresenter x:Name="contentPresenter" 
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                              Focusable="False"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"
+                              RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Cursor="Hand"/>
+                </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="{x:Null}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#4F808080"/>
+                </Trigger>
+                <EventTrigger RoutedEvent="FrameworkElement.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:1" To="0" SpeedRatio="3"
+                                             Storyboard.TargetName="backgroundEllipse"
+                                             Storyboard.TargetProperty="Width" >
+                                </DoubleAnimation>
+                                <DoubleAnimation Duration="0:0:1" To="0" SpeedRatio="3"
+                                             Storyboard.TargetName="backgroundEllipse"
+                                             Storyboard.TargetProperty="Height" >
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:1" From="0" To="370" SpeedRatio="5"
+                                             DecelerationRatio="0.1"
+                                             Storyboard.TargetName="backgroundEllipse"
+                                             Storyboard.TargetProperty="Width" >
+                                </DoubleAnimation>
+                                <DoubleAnimation Duration="0:0:1" From="0" To="200" SpeedRatio="5"
+                                             AccelerationRatio="0.1"
+                                             Storyboard.TargetName="backgroundEllipse"
+                                             Storyboard.TargetProperty="Height" >
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="Gray"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ToggleButton" TargetType="{x:Type ToggleButton}">
+            <Border x:Name="border" CornerRadius="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="#01000000">
+                <Grid>
+                    <Ellipse x:Name="backgroundEllipse" Width="0" Height="0" Fill="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ContentPresenter x:Name="contentPresenter" 
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                              Focusable="False"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"
+                              RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Cursor="Hand"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="{x:Null}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#4F808080"/>
+                </Trigger>
+                <EventTrigger RoutedEvent="ToggleButton.Checked">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:1" From="0" To="170" SpeedRatio="5"
+                                             DecelerationRatio="0.1"
+                                             Storyboard.TargetName="backgroundEllipse"
+                                             Storyboard.TargetProperty="Width" >
+                                </DoubleAnimation>
+                                <DoubleAnimation Duration="0:0:1" From="0" To="100" SpeedRatio="5"
+                                             AccelerationRatio="0.1"
+                                             Storyboard.TargetName="backgroundEllipse"
+                                             Storyboard.TargetProperty="Height" >
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:1" To="0" SpeedRatio="5"
+                                             Storyboard.TargetName="backgroundEllipse"
+                                             Storyboard.TargetProperty="Width" >
+                                </DoubleAnimation>
+                                <DoubleAnimation Duration="0:0:1" To="0" SpeedRatio="5"
+                                             Storyboard.TargetName="backgroundEllipse"
+                                             Storyboard.TargetProperty="Height" >
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    
+    </UserControl.Resources>
+    
+    
+    
+    <Grid Margin="0" Height="180">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="DMM" Foreground="White" VerticalAlignment="Center" Margin="0" Grid.ColumnSpan="2" Padding="5" HorizontalAlignment="Stretch" FontWeight="Bold" Height="26" FontSize="14">
+            </TextBlock>
+            <DockPanel Grid.Column="2" Grid.ColumnSpan="4">
+            <CheckBox x:Name="cbDMM_MatchRead" Content="Match  " VerticalAlignment="Center" Foreground="White" Visibility="Hidden"></CheckBox>
+            <CheckBox x:Name="cbDMM_AutoRead" Click="cbDMM_AutoRead_Click" Content="Auto   " VerticalAlignment="Center" Foreground="White"></CheckBox>
+            <xc:IntegerUpDown x:Name="nudPeriod" Margin="5"
+                              VerticalAlignment="Stretch"  Value="100" Minimum="100" Maximum="10000" ClipValueToMinMax="True" MaxLength="100"
+                              MouseWheelActiveOnFocus="True"
+                              IsUndoEnabled="True"
+                              MouseWheelActiveTrigger="MouseOver" ></xc:IntegerUpDown>
+        </DockPanel>
+
+        <Button x:Name="btMeasureCH1" Click="btMeasureCH1_Click" Cursor="Hand" FontWeight="Bold" Margin="5,0,5,5"  Template="{StaticResource ButtonControlNonHoverEffect}" Content="CH 1" Grid.Column="5" Grid.Row="2" Foreground="White">
+        </Button>
+        <Button x:Name="btMeasureAll" Click="btMeasureAll_Click"  Cursor="Hand" FontWeight="Bold" Margin="5,3,5,2"  Template="{StaticResource ButtonControlNonHoverEffect}" Content="All"  Grid.Column="5" Grid.Row="3" Foreground="White">
+        </Button>
+        <Button x:Name="btMeasureCH2" Click="btMeasureCH2_Click" Cursor="Hand" FontWeight="Bold" Margin="5,5,5,0"  Template="{StaticResource ButtonControlNonHoverEffect}" Content="CH 2" Grid.Column="5" Grid.Row="4" Foreground="White">
+        </Button>
+        <ToggleButton x:Name="DMM_Mode_DC" Cursor="Hand" FontWeight="Bold"   Template="{StaticResource ToggleButton}" Foreground="White" Content="DCV" Grid.Row="1" Margin="5,0,0,0" FontSize="10" Click="DMM_Mode_Click" />
+        <ToggleButton x:Name="DMM_Mode_AC" Cursor="Hand" FontWeight="Bold"   Template="{StaticResource ToggleButton}" Foreground="White" Content="ACV" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" FontSize="10"  Click="DMM_Mode_Click" />
+        <ToggleButton x:Name="DMM_Mode_FRQ" Cursor="Hand" FontWeight="Bold"   Template="{StaticResource ToggleButton}" Foreground="White" Content="FRQ" Grid.Row="1" Grid.Column="2" Margin="5,0,0,0" FontSize="10"  Click="DMM_Mode_Click" />
+        <ToggleButton x:Name="DMM_Mode_RES" Cursor="Hand" FontWeight="Bold"   Template="{StaticResource ToggleButton}" Foreground="White" Content="RES" Grid.Row="1" Grid.Column="3" Margin="5,0,0,0" FontSize="10" Click="DMM_Mode_Click" />
+        <ToggleButton x:Name="DMM_Mode_DIODE" Cursor="Hand" FontWeight="Bold"   Template="{StaticResource ToggleButton}" Foreground="White" Content="DIODE" Grid.Row="1" Grid.Column="4" Margin="5,0,0,0" FontSize="10" Click="DMM_Mode_Click" />
+        <Grid Background="#3E3E3E" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="5" Margin="5,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="DMM1_Value"  Background="Black" Grid.Row="0" Margin="5,5,5,2.5" Grid.ColumnSpan="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <!--<Label x:Name="MinVal_DMM1" Content="998.0VDC" Width="Auto" FontFamily="Font\Seven Segment.ttf" Foreground="#FF05F705" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Height="Auto" Padding="5,2,5,0" FontSize="16"/>
+                <Label x:Name="Arg_DMM1"  Content="999.0VDC" Width="Auto" FontFamily="Font\Seven Segment.ttf" Foreground="#FF05F705" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" Height="Auto" Padding="5,2,5,0" FontSize="16"/>
+                <Label  x:Name="MaxVal_DMM1" Content="1000.0VDC" Width="Auto" FontFamily="Font\Seven Segment.ttf" Foreground="#FF05F705" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="2" Height="Auto" Padding="5,2,5,0" FontSize="16"/>-->
+
+                <Label Name="Val_DMM1" Content="{Binding LastStringValue, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" FontFamily="{DynamicResource {x:Static SystemFonts.MessageFontFamilyKey}}"  Width="191"
+                                                       Foreground="#FF05F705" Grid.Row="1" Grid.ColumnSpan="3"
+                                                       Height="Auto" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                       Padding="0,-5,-5,0" Margin="0,8,2,7" HorizontalContentAlignment="Right"/>
+
+                <Label Content="#1" Padding="10,-5,-5,10" BorderBrush="Gray" BorderThickness="1" Width="20" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1" FontSize="10" Margin="5,0,0,5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            </Grid>
+            <Grid  x:Name="DMM2_Value" Background="Black" Grid.Row="1" Margin="5,2.5,5,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <!--<Label  x:Name="MinVal_DMM2"  Content="998.0VDC" Width="Auto" FontFamily="Font\Seven Segment.ttf" Foreground="#FF05F705" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Height="Auto" Padding="5,2,5,0" FontSize="16"/>
+                <Label  x:Name="Arg_DMM2"  Content="999.0VDC" Width="Auto"    FontFamily="Font\Seven Segment.ttf" Foreground="#FF05F705" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" Height="Auto" Padding="5,2,5,0" FontSize="16"/>
+                <Label  x:Name="MaxVal_DMM2" Content="1000.0VDC" Width="Auto" FontFamily="Font\Seven Segment.ttf" Foreground="#FF05F705" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="2" Height="Auto" Padding="5,2,5,0" FontSize="16"/>-->
+
+                <Label  x:Name="Val_DMM2" Content="{Binding LastStringValue, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" FontFamily="{DynamicResource {x:Static SystemFonts.MessageFontFamilyKey}}"  Width="194"
+                                                    Foreground="#FF05F705" Grid.Row="1" Grid.ColumnSpan="3"
+                                                    Height="Auto" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                    Padding="0,-5,-5,0" Margin="0,8,2,7" HorizontalContentAlignment="Right"/>
+                <Label Content="#2" Padding="10,-5,-5,10" BorderBrush="Gray" BorderThickness="1" Width="20" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1" FontSize="10" Margin="5,0,0,5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            </Grid>
+        </Grid>
+
+
+        <Label Content="Speed" Width="Auto" Grid.ColumnSpan="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" FontSize="10" Margin="0,2" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <ToggleButton x:Name="btDMMfastRate" Click="btDMMRate_Click"  Cursor="Hand" FontWeight="Bold"   Template="{StaticResource ToggleButton}" Foreground="White" Content="Fast" Grid.Row="5" Grid.Column="1" Margin="2,2,0,0" FontSize="10"/>
+        <ToggleButton x:Name="btDMMmidRate"  Click="btDMMRate_Click"  Cursor="Hand" FontWeight="Bold"   Template="{StaticResource ToggleButton}" Foreground="White" Content="Mid"  Grid.Row="5" Grid.Column="2" Margin="2,02,0,0" FontSize="10"/>
+        <ToggleButton x:Name="btDMMslowRate" Click="btDMMRate_Click"  Cursor="Hand" FontWeight="Bold"   Template="{StaticResource ToggleButton}" Foreground="White" Content="Slow" Grid.Row="5" Grid.Column="3" Margin="2,02,0,0" FontSize="10"/>
+
+
+        <Label Content="Range" Width="Auto" Grid.ColumnSpan="1" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+               Grid.Row="5" Grid.Column="4" FontSize="10" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cbbDMM_range" SelectionChanged="cbbDMM_range_SelectionChanged" Grid.Row="5" Grid.Column="5" Padding="0,0,0,0" VerticalContentAlignment="Center" Grid.ColumnSpan="1" FontSize="10" Margin="5,2,5,0"/>
+
+    </Grid>
+</UserControl>

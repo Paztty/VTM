@@ -1,0 +1,591 @@
+﻿<Page x:Class="VTM.ManualPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VTM"
+      xmlns:cc="clr-namespace:Camera;assembly=Camera"
+      xmlns:ctr="clr-namespace:HVT.Controls;assembly=HVT.Controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="1900"
+      Title="Manual">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CSS/FlatStyle.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid Margin="0" Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MaxWidth="800"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="500"/>
+                <RowDefinition Height="125*"/>
+                <RowDefinition Height="125*"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="125*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" Grid.Row="0" Background="#292929" Margin="5" VerticalAlignment="Top" CornerRadius="10">
+                <Grid Margin="3,3,3,3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="CAMERA VIEWER" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                                    Foreground="WhiteSmoke" FontWeight="Bold" FontSize="12" />
+                    <cc:CameraControl x:Name="camera" VerticalAlignment="Top" Grid.Row="1" Width="770" Height="435.375"/>
+                    <Border x:Name="VisionTest_Holder" Grid.Row="1" Width="774" Height="435.375">
+
+                    </Border>
+                    <cc:CameraSettingPanel x:Name="cameraSetting" Grid.Row="1"/>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Background="#292929" Margin="5,5,5,5"  CornerRadius="10">
+                <Grid Margin="3,3,3,10">
+                    <Label Content="STEPS" VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Foreground="WhiteSmoke" FontWeight="Bold" FontSize="12"/>
+
+                    <DataGrid x:Name="dgModelSteps" Margin="3,30,3,0"
+                          VerticalScrollBarVisibility="Visible" GridLinesVisibility="All"
+                          Style="{StaticResource FlatDataGrid}"
+                          AutoGenerateColumns="False"
+                          MouseDown="dgModelSteps_MouseDown" MouseDoubleClick="dgModelSteps_MouseDoubleClick"
+                          SelectionMode="Single" ColumnHeaderHeight="40" RowHeight="20"
+                          ColumnHeaderStyle="{StaticResource FlatDataGridHeaderNomal}">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <Grid Background="#202020">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="39"/>
+                                                            <ColumnDefinition/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Content="{Binding No, Mode=OneWay}"
+                                                               Foreground="White" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                        <Label Grid.Column="1" Content="{Binding Condition1, Mode=OneWay}"
+                                                               Foreground="White" FontWeight="Bold"/>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Resources>
+                            <Style x:Key="DataGridColumnHeaderCheckbox" TargetType="DataGridColumnHeader">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                            <Grid Background="{TemplateBinding Background}" HorizontalAlignment="Stretch" >
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0"/>
+                                                <CheckBox x:Name="waitCheckbox" Grid.Row="1" Foreground="White" Click="waitCheckbox_Click" Checked="waitCheckbox_Checked" Unchecked="waitCheckbox_Unchecked"
+                                                              VerticalContentAlignment="Center" HorizontalAlignment="Center" IsChecked="True">
+                                                    <CheckBox.Style>
+                                                        <Style TargetType="CheckBox">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsChecked" Value="True">
+                                                                    <Setter Property="Content" Value="Wait"/>
+                                                                    <Setter Property="IsEnabled" Value="True"/>
+                                                                </Trigger>
+                                                                <Trigger Property="IsChecked" Value="False">
+                                                                    <Setter Property="Content" Value="Skip"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </CheckBox.Style>
+                                                </CheckBox>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background" Value="#151515"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Height" Value="30"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding No, Mode=OneWay}"
+                                                            Header="No" Width="39"
+                                                             Foreground="#FFE8E8E8">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style BasedOn="{StaticResource FlatVTMCell}"  TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                <Setter Property="Background" Value="#202020"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                                                <Setter Property="Background" Value="Gray"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="CMDcolumn" Binding="{Binding CMD, Mode=OneWay}"
+                                                            Header="CMD" Width="60">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style BasedOn="{StaticResource FlatVTMCell}"  TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                <Setter Property="Background" Value="#202020"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                                                <Setter Property="Background" Value="Gray"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Condition1, Mode=OneWay}"
+                                                            Header="Condition" Width="150">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style BasedOn="{StaticResource FlatVTMCell}" TargetType="{x:Type DataGridCell}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                    <Grid Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center"/>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="BorderBrush" Value="#6C6B6B"/>
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="BorderThickness" Value="0,1,0,1"/>
+                                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                <Setter Property="FontFamily" Value="Arial"/>
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="900"/>
+                                                <Setter Property="TextBlock.TextAlignment" Value="Left"/>
+                                                <Setter Property="Background" Value="#000000"/>
+                                                <Setter Property="Foreground" Value="Yellow"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                                                <Setter Property="Background" Value="Gray"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Binding="{Binding Oper, Mode=OneWay}"
+                                                            Header="Oper" Width="60">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style BasedOn="{StaticResource FlatVTMCell}"  TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                <Setter Property="Background" Value="#202020"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="Width" Value="0"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                                                <Setter Property="Background" Value="Gray"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Min_Max, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                            Header="Min ~ Max" Width="80">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style BasedOn="{StaticResource FlatVTMCell}"  TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                <Setter Property="Background" Value="#202020"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="Width" Value="0"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                                                <Setter Property="Background" Value="Gray"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn x:Name="dtttSite1" Binding="{Binding ValueGet1, UpdateSourceTrigger=PropertyChanged}"
+                                                            Header="A" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridColumnHeaderCheckbox}"
+                                                            Foreground="#FFE8E8E8">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style BasedOn="{StaticResource FlatVTMCell}"  TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                <Setter Property="Width" Value="0"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Result1}" Value="">
+                                                <Setter Property="Background" Value="#202020"/>
+                                            </DataTrigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#646000"/>
+                                            </Trigger>
+                                            <DataTrigger Binding="{Binding Result1}" Value="Ng">
+                                                <Setter Property="Background" Value="#710000"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                                                <Setter Property="Background" Value="Gray"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn  x:Name="dtttSite2"  Binding="{Binding ValueGet2,  UpdateSourceTrigger=PropertyChanged}"
+                                                            Header="B" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridColumnHeaderCheckbox}"
+                                                            Foreground="#FFD8D8D8">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style BasedOn="{StaticResource FlatVTMCell}"  TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                <Setter Property="Width" Value="0"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Result2}" Value="">
+                                                <Setter Property="Background" Value="#202020"/>
+                                            </DataTrigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#646000"/>
+                                            </Trigger>
+                                            <DataTrigger Binding="{Binding Result2}" Value="Ng">
+                                                <Setter Property="Background" Value="#710000"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                                                <Setter Property="Background" Value="Gray"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn  x:Name="dtttSite3" Binding="{Binding ValueGet3,  UpdateSourceTrigger=PropertyChanged}"
+                                                            Header="C"  Width="*"  IsReadOnly="True" HeaderStyle="{StaticResource DataGridColumnHeaderCheckbox}"
+                                                             Foreground="#FFD8D8D8">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style BasedOn="{StaticResource FlatVTMCell}"  TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                <Setter Property="Width" Value="0"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Result3}" Value="">
+                                                <Setter Property="Background" Value="#202020"/>
+                                            </DataTrigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#646000"/>
+                                            </Trigger>
+                                            <DataTrigger Binding="{Binding Result3}" Value="Ng">
+                                                <Setter Property="Background" Value="#710000"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                                                <Setter Property="Background" Value="Gray"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn  x:Name="dtttSite4"  Binding="{Binding ValueGet4, UpdateSourceTrigger=PropertyChanged}"
+                                                            Header="D" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridColumnHeaderCheckbox}"
+                                                             Foreground="#FFD8D8D8">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style BasedOn="{StaticResource FlatVTMCell}"  TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CMD}" Value="MAK">
+                                                <Setter Property="Width" Value="0"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Result4}" Value="">
+                                                <Setter Property="Background" Value="#202020"/>
+                                            </DataTrigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#646000"/>
+                                            </Trigger>
+                                            <DataTrigger Binding="{Binding Result4}" Value="Ng">
+                                                <Setter Property="Background" Value="#710000"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Skip}" Value="True" >
+                                                <Setter Property="Background" Value="Gray"/>
+                                                <Setter Property="Foreground" Value="Black"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <ProgressBar x:Name="pgbTestProgress" Grid.Column="2" Grid.Row="3" Value="12" Minimum="0" Maximum="100" HorizontalAlignment="Stretch" Margin="2">
+                <ProgressBar.Style>
+                    <Style  TargetType="ProgressBar">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ProgressBar">
+                                    <Grid>
+                                        <Border Background="#121212" CornerRadius="10" Padding="1" Margin="0,0,0,0">
+                                            <Grid x:Name="PART_Track" >
+                                                <Rectangle x:Name="PART_Indicator" HorizontalAlignment="Left" RadiusX="10" RadiusY="10">
+                                                    <Rectangle.Fill>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FF075B07" Offset="1"/>
+                                                            <GradientStop Color="#FF04EE04"/>
+                                                        </LinearGradientBrush>
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ProgressBar.Style>
+            </ProgressBar>
+            <Label Content="{Binding ElementName=pgbTestProgress, Path=Value}" FontWeight="Bold" FontSize="12" Foreground="White"
+                                           ContentStringFormat=" {0} %" Grid.Column="2" Grid.Row="3"
+                                           Padding="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+            <Grid Grid.Column="2" Grid.Row="4" Grid.RowSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border x:Name="StepDetailHolder" Grid.Column="1" Margin="5"
+                    Background="#212121" CornerRadius="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="0"  Margin="5"
+                    Background="#212121" CornerRadius="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <ToggleButton x:Name="btTest" Background="{x:Null}" Margin="5,5,5,0" BorderThickness="0" Checked="btTest_Checked" Unchecked="btTest_Unchecked">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                    <Border x:Name="border" CornerRadius="5,5,0,0" Padding="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                        <Grid>
+                                            <Image x:Name="image" Source="img/play-button.png" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="False">
+                                            <Setter Property="Margin" TargetName="image" Value="6"/>
+                                            <Setter Property="BorderThickness" TargetName="border" Value="0,0,0,0"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Margin" TargetName="image" Value="2"/>
+                                            <Setter Property="Background" TargetName="border" Value="#404040"/>
+                                        </Trigger>
+                                        <Trigger Property="IsChecked" Value="true">
+                                            <Setter Property="Margin" TargetName="image" Value="4"/>
+                                            <Setter Property="Source" TargetName="image" Value="img/pause-multimedia-big-gross-symbol-lines.png"/>
+                                            <Setter Property="BorderThickness" TargetName="border" Value="0,0,0,0"/>
+                                            <Setter Property="Background" TargetName="border" Value="#606060"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                                            <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                                            <Setter Property="Foreground" Value="#FF838383"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <ToggleButton x:Name="btStop" Background="{x:Null}" Margin="5,0,5,5" BorderThickness="0" Checked="btStop_Checked"
+                                       Grid.Row="1">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                    <Border x:Name="border" CornerRadius="0,0,5,5" Padding="0" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                        <Grid>
+                                            <Image x:Name="image" Source="img/stop-button.png" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="False">
+                                            <Setter Property="Margin" TargetName="image" Value="6"/>
+                                            <Setter Property="BorderThickness" TargetName="border" Value="0,0,0,0"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Margin" TargetName="image" Value="2"/>
+                                            <Setter Property="Background" TargetName="border" Value="#404040"/>
+                                        </Trigger>
+                                        <Trigger Property="IsChecked" Value="true">
+                                            <Setter Property="Margin" TargetName="image" Value="4"/>
+                                            <Setter Property="BorderThickness" TargetName="border" Value="0,0,0,0"/>
+                                            <Setter Property="Background" TargetName="border" Value="#606060"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                                            <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                                            <Setter Property="Foreground" Value="#FF838383"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <Button Template="{StaticResource ButtonControlNonHoverBackground}" Background="{x:Null}" Margin="5" BorderThickness="0" Click="btNextStep_Click"
+                                Grid.Row="2">
+                            <Image Source="img/next.png" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Button>
+                        <Button Template="{StaticResource ButtonControlNonHoverBackground}" Background="{x:Null}" Margin="5" BorderThickness="0" Click="ButtonReset_Click"
+                                Grid.Row="4">
+                            <Image Source="img/reset.png" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+
+
+            <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#292929" Margin="5"  CornerRadius="10">
+                    <Grid>
+                        <Border x:Name="DMM_Holder" Grid.Row="1" Padding="5,5,5,10">
+
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1"  Background="#292929" Margin="5" CornerRadius="10">
+                    <Grid>
+                        <Border x:Name="MuxControl_Holder" Grid.Row="1" Padding="0">
+
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="2"  Background="#292929" Margin="5" CornerRadius="10">
+                    <Grid>
+                        <Border x:Name="RelayControl_Holder" Grid.Row="1" Padding="0">
+
+                        </Border>
+                    </Grid>
+                </Border>
+                <Border  Grid.Row="3"  Background="#292929" Margin="5" CornerRadius="10">
+                    <Grid>
+                        <Border x:Name="SolenoidControl_Holder" Grid.Row="1" Padding="0">
+
+                        </Border>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" Background="#292929" Margin="5,5,5,5"  CornerRadius="10">
+                    <Grid Margin="3,3,3,3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="MACHINE CONTROL" VerticalAlignment="Top" HorizontalAlignment="Left"
+                       Foreground="WhiteSmoke" FontWeight="Bold" FontSize="12" />
+                        <Border x:Name="SYSTEM_Holder" Grid.Row="1" />
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border Grid.Column="0" Grid.Row="3" Grid.RowSpan="3" Background="#292929" Margin="5,5,5,5"  CornerRadius="10">
+                <Grid Margin="3,3,3,3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="LEVEL DATA" VerticalAlignment="Top" HorizontalAlignment="Left"
+                       Foreground="WhiteSmoke" FontWeight="Bold" FontSize="12" />
+                    <Border x:Name="LevelViewer_Holder" Grid.Row="1" HorizontalAlignment="Stretch"/>
+                </Grid>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Background="#292929" Margin="5,5,5,5"  CornerRadius="10">
+                <Grid Margin="3,3,3,3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <TabControl Grid.Row="2" Background="Black" Foreground="White" Margin="5,-30,5,5" BorderThickness="0">
+
+                            <TabItem x:Name="UUT1Com" Style="{StaticResource FlatTabControl}" Header="UUT1" Foreground="White" Background="Black" >
+
+                            </TabItem>
+                            <TabItem x:Name="UUT2Com" Style="{StaticResource FlatTabControl}" Header="UUT2" Foreground="White" Background="Black" >
+
+                            </TabItem>
+                            <TabItem x:Name="UUT3Com" Style="{StaticResource FlatTabControl}" Header="UUT3" Foreground="White" Background="Black" >
+
+                            </TabItem>
+                            <TabItem x:Name="UUT4Com" Style="{StaticResource FlatTabControl}" Header="UUT4" Foreground="White" Background="Black" >
+
+                            </TabItem>
+                        </TabControl>
+                        <Label Content="Communications Log" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,5,0"
+                       Foreground="WhiteSmoke" FontWeight="Bold" FontSize="12" />
+                        <Label Content="TxDatas:" VerticalAlignment="Center"  Margin="240,5,200,5" Padding="0"
+                       Foreground="WhiteSmoke" FontWeight="Bold" FontSize="12" />
+                        <Label x:Name="lbTxData" Content="5A FD FC 12 12 35 33 25 ...." Grid.Row="1" VerticalAlignment="Top" Width="433" HorizontalAlignment="Right" Margin="294,5,6,0" Padding="0"
+                       Foreground="WhiteSmoke" FontWeight="Bold" FontSize="12" />
+                        <ComboBox x:Name="cbbTxnaming_Manual" Margin="0,5,160,5" Width="280" HorizontalAlignment="Right" SelectionChanged="cbbTxnaming_Mainual_SelectionChanged"></ComboBox>
+                        <ComboBox x:Name="cbbUUTconfig_Manual" Margin="0,5,100,5" Width="50" HorizontalAlignment="Right" SelectedIndex="0">
+                            <ComboBoxItem Content="P1"/>
+                            <ComboBoxItem Content="P2"/>
+                        </ComboBox>
+                        <Button Template="{StaticResource ButtonControlNonHoverBackground}" Content="Send" Click="ButtonSendUUT_Click"
+                            Width="50" Margin="5" Foreground="White" FontWeight="Bold"
+                            Background="#212121" HorizontalAlignment="Right"/>
+                    </Grid>
+                </Border>
+        </Grid>
+    </Grid>
+</Page>

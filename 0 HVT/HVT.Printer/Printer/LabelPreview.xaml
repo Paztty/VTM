@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="HVT.Printer.LabelPreview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HVT.Printer"
+             mc:Ignorable="d" Width="Auto" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Grid >
+        <Canvas x:Name="CanvasRinbol" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Gray"
+                        Height="{Binding Path=RHeight}" Width="{Binding  Path=RWidth}">
+
+            <Canvas x:Name="labelCanvasViewer" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Height="{Binding Path=Height}" Width="{Binding  Path=Width}" Margin="{Binding Path=Pad}"
+                        Canvas.Top="{Binding Path=HomeY}" Canvas.Left="{Binding Path=HomeX}">
+
+                <Image x:Name="imgQr" Source="{Binding Path=QR.Content}" Width="{Binding Path=QR.Width}" Height="{Binding Path=QR.Height}" Stretch="Fill" Canvas.Top="{Binding Path=QR.Top}" Canvas.Left="{Binding Path=QR.Left}"/>
+                <Label x:Name="lbSN1"  FontWeight="Bold"  Content="06DA9200718A" FontSize="{Binding Path=SN1.Size}" Padding="0" Canvas.Top="{Binding Path=SN1.Top}" Canvas.Left="{Binding Path=SN1.Left}" Visibility="{Binding SN1.Visibility}"/>
+                <Label x:Name="lbMainVer"  FontWeight="Bold"  Content="01507A-150920" FontSize="{Binding Path=detail1.Size}" Padding="0" Canvas.Top="{Binding Path=detail1.Top}" Canvas.Left="{Binding Path=detail1.Left}" Visibility="{Binding detail1.Visibility}"/>
+                <Label x:Name="lbSN2"   FontWeight="Bold"  Content="06DA9200718A" FontSize="{Binding Path=SN2.Size}" Padding="0" Canvas.Top="{Binding Path=SN2.Top}" Canvas.Left="{Binding Path=SN2.Left}"  Visibility="{Binding SN2.Visibility}">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+
+                <Label x:Name="lbInvVer" FontWeight="Bold"  Content="01507A-150920" FontSize="{Binding Path=detail2.Size}" Padding="0" Canvas.Top="{Binding Path=detail2.Top}" Canvas.Left="{Binding Path=detail2.Left}"  Visibility="{Binding detail2.Visibility}">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+                <Label x:Name="lbSiteName"  FontWeight="Bold"  Content="A" Background="Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="{Binding Path=ArrayText.Width}" Height="{Binding Path=ArrayText.Height}"
+                                                   Foreground="White" Padding="0" FontSize="{Binding Path=ArrayText.Size}" Canvas.Top="{Binding Path=ArrayText.Top}" Canvas.Left="{Binding Path=ArrayText.Left}"  Visibility="{Binding ArrayText.Visibility}"/>
+            </Canvas>
+
+        </Canvas>
+
+    </Grid>
+</UserControl>
