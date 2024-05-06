@@ -230,13 +230,11 @@
                            VerticalAlignment="Center"
                            Background="{x:Null}"
                            Foreground="#FFD1D1D1"
-                           FontWeight="Bold"><Run Text="Daeyoung Electronics Vina"/><Run Text=" "/><Span><Run Text="- Development by Technical "/><Run Text="PJT "/><Run Text="Team"/></Span>
+                           FontWeight="Bold"><Run Text="TNG Technololy Co.ltd"/>
                 </TextBlock>
-                <TextBlock Width="30" DockPanel.Dock="Right">
-                    <TextBlock.Background>
-                        <ImageBrush Stretch="Uniform" ImageSource="img/companyLoge.png" />
-                    </TextBlock.Background>
-                </TextBlock>
+
+                <Image Source="img/companyLoge.png" Width="30" DockPanel.Dock="Right">
+                </Image>
                 <TextBlock Text="" HorizontalAlignment="Right"
                            Height="Auto" Margin="0,0,20,0"
                            VerticalAlignment="Center"

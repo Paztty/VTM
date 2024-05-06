@@ -5729,7 +5729,23 @@ namespace HVT.VTM.Program
             if (int.TryParse(step.Oper, out int delayTime))
             {
                 SetOK = true;
-                Task.Delay(delayTime).Wait();
+                if(delayTime > 100)
+                {
+                    int delay = 0;
+                    while (delay + 100<= delayTime)
+                    {
+                        Task.Delay(90).Wait();
+                        delay += 100;
+                        step.ValueGet1 = delay.ToString();
+                        step.ValueGet2 = delay.ToString();
+                        step.ValueGet3 = delay.ToString();
+                        step.ValueGet4 = delay.ToString();
+                    }
+                }
+                else
+                {
+                    Task.Delay(delayTime).Wait();
+                }
             }
 
             switch (Boards.Count)
@@ -6126,7 +6142,7 @@ namespace HVT.VTM.Program
                 if (!Boards[0].Skip)
                 {
                     double countA = values[0];
-                    step.ValueGet1 = countA.ToString();
+                    step.ValueGet1 = countA.ToString("N3");
                     if (countA >= minValue && countA <= maxValue)
                     {
                         step.Result1 = Step.Ok;
@@ -6143,7 +6159,7 @@ namespace HVT.VTM.Program
                 if (!Boards[1].Skip)
                 {
                     double countA = values[1];
-                    step.ValueGet2 = countA.ToString();
+                    step.ValueGet2 = countA.ToString("N3");
                     if (countA >= minValue && countA <= maxValue)
                     {
                         step.Result2 = Step.Ok;
@@ -6160,7 +6176,7 @@ namespace HVT.VTM.Program
                 if (!Boards[2].Skip)
                 {
                     double countA = values[2];
-                    step.ValueGet3 = countA.ToString();
+                    step.ValueGet3 = countA.ToString("N3");
                     if (countA >= minValue && countA <= maxValue)
                     {
                         step.Result3 = Step.Ok;
@@ -6177,7 +6193,7 @@ namespace HVT.VTM.Program
                 if (!Boards[3].Skip)
                 {
                     double countA = values[3];
-                    step.ValueGet4 = countA.ToString();
+                    step.ValueGet4 = countA.ToString("N3");
                     if (countA >= minValue && countA <= maxValue)
                     {
                         step.Result4 = Step.Ok;

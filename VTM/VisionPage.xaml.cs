@@ -113,7 +113,7 @@ namespace VTM
         public void EnableLive()
         {
             GetFNDImageSampleTimer.Start();
-            GetLCDImageSampleTimer.Start();
+            //GetLCDImageSampleTimer.Start();
         }
 
         public void DisableLive()

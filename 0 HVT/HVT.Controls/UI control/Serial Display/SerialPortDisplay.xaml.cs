@@ -181,7 +181,6 @@ namespace HVT.Controls
         {
             if (!Port.IsOpen)
             {
-
                 lbPortName.ToolTip = Port.PortName;
                 Open.Fill = new SolidColorBrush(Colors.Gray);
 
@@ -460,25 +459,31 @@ namespace HVT.Controls
                             byteReaded = (byte)Port.ReadByte();
                             frame.Add(byteReaded);
                             //read data
-                            for (int i = 0; i < frame[2]; i++)
+                            for (int i = 0; i < frame[2] + 2; i++)
                             {
                                 byteReaded = (byte)Port.ReadByte();
                                 frame.Add(byteReaded);
+                                if (i == frame[2] + 1) goto Out;
                             }
                         }
                     }
+                    Out:
                     foreach (var item in frame)
                     {
                         Console.Write(item.ToString("X2") + " ");
                     }
                     Response = frame;
-                    return false;
+                    return true;
                 }
 
                 catch (Exception)
                 {
                     //Ex = "Port exception: " + e.Message;
                     Response = frame;
+                    foreach (var item in frame)
+                    {
+                        Console.Write(item.ToString("X2") + " ");
+                    }
                     return false;
                 }
             }

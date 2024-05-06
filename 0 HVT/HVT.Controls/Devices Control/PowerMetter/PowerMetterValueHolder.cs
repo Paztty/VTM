@@ -35,27 +35,27 @@ namespace HVT.Controls.Devices_Control
             IW = 0;
             IV = 0;
         }
-
         public bool GetValue(List<byte> bytes)
         {
-            if (bytes.Count < 23) return false;
-            double IrAt = 0.1;
-            double UrAt = 0.1;
+            if (bytes.Count < 19) return false;
 
             var byteArray = bytes.ToArray();
+            var DPT = byteArray[3];
+            var DCT = byteArray[4];
+
             try
             {
-                UU = BitConverter.ToInt16(byteArray, 4) * UrAt * 0.1;
-                UW = BitConverter.ToInt16(byteArray, 6) * UrAt * 0.1;
-                UV = BitConverter.ToInt16(byteArray, 8) * UrAt * 0.1;
+                UU = BitConverter.ToInt16(new byte[2] { byteArray[8], byteArray[7] }, 0) / 10000.0 * (Math.Pow(10, DPT));
+                UW = BitConverter.ToInt16(new byte[2] { byteArray[10], byteArray[9] }, 0) / 10000.0 * (Math.Pow(10, DPT));
+                UV = BitConverter.ToInt16(new byte[2] { byteArray[12], byteArray[11] }, 0) / 10000.0 * (Math.Pow(10, DPT));
 
-                UUW = BitConverter.ToInt16(byteArray, 10) * UrAt * 0.1;
-                UWV = BitConverter.ToInt16(byteArray, 12) * UrAt * 0.1;
-                UVU = BitConverter.ToInt16(byteArray, 14) * UrAt * 0.1;
+                UUW = UU - UW;
+                UWV = UW - UV;
+                UVU = UV - UU;
 
-                IU = BitConverter.ToInt16(byteArray, 16) * IrAt * 0.001;
-                IW = BitConverter.ToInt16(byteArray, 18) * IrAt * 0.001;
-                IV = BitConverter.ToInt16(byteArray, 20) * IrAt * 0.001;
+                //IU = BitConverter.ToInt16(new byte[2] { byteArray[20], byteArray[19] }, 0) / 10000.0 * (Math.Pow(10, DCT));
+                //IW = BitConverter.ToInt16(new byte[2] { byteArray[22], byteArray[21] }, 0) / 10000.0 * (Math.Pow(10, DCT));
+                //IV = BitConverter.ToInt16(new byte[2] { byteArray[24], byteArray[23] }, 0) / 10000.0 * (Math.Pow(10, DCT));
             }
             catch
             {

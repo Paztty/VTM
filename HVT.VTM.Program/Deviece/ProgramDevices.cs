@@ -56,32 +56,54 @@ namespace HVT.VTM.Program
         public Printer_QR Printer = new Printer_QR();
         // Check devieces comunications 
 
-        public void CheckComnunication()
+        public async void CheckComnunication()
         {
+            SYSTEM.System_Board.SerialPort.Port?.Close();
+            MuxCard.SerialPort1.Port?.Close();
+            MuxCard.SerialPort2.Port?.Close();
+            _DMM.DMM1.SerialPort.Port?.Close();
+            _DMM.DMM2.SerialPort.Port?.Close();
+            RELAY.SerialPort.Port?.Close();
+            LEVEL.SerialPort.Port?.Close();
+            Solenoid.SerialPort.Port?.Close();
+            BarcodeReader.Port?.Close();
+            PowerMetter.SerialPort.Port?.Close();
+
+            UUTs[0].serial.Port?.Close();
+            UUTs[1].serial.Port?.Close();
+            UUTs[2].serial.Port?.Close();
+            UUTs[3].serial.Port?.Close();
+            await Task.Delay(10);
             //SYSTEM check
             SYSTEM.System_Board.CheckCardComunication(appSetting.Communication.SystemIOPort);
             SYSTEM.System_Board.MachineIO.OnStartRequest += MachineIO_OnStartRequest;
             SYSTEM.System_Board.MachineIO.OnCancleRequest += MachineIO_OnCancleRequest;
             SYSTEM.System_Board.MachineIO.OnDoorStateChange += MachineIO_OnDoorStateChange;
             SYSTEM.System_Board.MachineIO.OnUpDown += MachineIO_OnUpDown;
+            await Task.Delay(10);
             //MUX Check
             MuxCard.CheckCard1Comunication(appSetting.Communication.Mux1Port);
             MuxCard.CheckCard2Comunication(appSetting.Communication.Mux2Port);
+            await Task.Delay(10);
             // DMM check
             _DMM.DMM1.CheckCommunication(appSetting.Communication.DMM1Port);
             _DMM.DMM2.CheckCommunication(appSetting.Communication.DMM2Port);
+            await Task.Delay(10);
             // RELAY CHECK
             RELAY.CheckCardComunication(appSetting.Communication.RelayPort);
+            await Task.Delay(10);
             LEVEL.CheckCardComunication(appSetting.Communication.LevelPort);
+            await Task.Delay(10);
             Solenoid.CheckCardComunication(appSetting.Communication.SolenoidPort);
+            await Task.Delay(10);
+            //Power metter check
+            PowerMetter.CheckCommunication(appSetting.Communication.PowerMetterPort);
+            await Task.Delay(10);
             // Barcode scand
             BarcodeReader.Port?.Close();
             CheckBarcodeReader(appSetting.Communication.ScannerPort);
+            await Task.Delay(10);
             // UUTs
-            UUTs[0].serial.Port?.Close();
-            UUTs[1].serial.Port?.Close();
-            UUTs[2].serial.Port?.Close();
-            UUTs[3].serial.Port?.Close();
 
             UUTs[0].CheckPort(appSetting.Communication.UUT1Port);
             UUTs[1].CheckPort(appSetting.Communication.UUT2Port);
@@ -147,8 +169,5 @@ namespace HVT.VTM.Program
                 }
             }
         }
-
-
-
     }
 }

@@ -122,14 +122,14 @@
                 <Label Content="Zoom" Grid.Row="6" Style="{StaticResource ContentLabelStyle}" />
                 <Label Content="Satuation" Grid.Row="7" Style="{StaticResource ContentLabelStyle}" />
                 
-            <Slider x:Name="slExporsure"  Grid.Row="0" Grid.Column="1" Style="{StaticResource SliderStyle}" Minimum="-10" Maximum="10" ValueChanged="CameraSetting_ValueChanged" SmallChange="1"/>
-            <Slider x:Name="slBrightness"  Grid.Row="1" Grid.Column="1" Style="{StaticResource SliderStyle}" Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" SmallChange="1"/>
-            <Slider x:Name="slContrast" Grid.Row="2" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" SmallChange="1"/>
-            <Slider x:Name="slFocus" Grid.Row="3" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged"  SmallChange="1"/>
-            <Slider x:Name="slWhite" Grid.Row="4" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="6000" ValueChanged="CameraSetting_ValueChanged" SmallChange="1"/>
-            <Slider x:Name="slSharpness"  Grid.Row="5" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" SmallChange="1"/>
-            <Slider x:Name="slZoom"  Grid.Row="6" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" TickFrequency="1000"/>
-            <Slider x:Name="slSatuation"  Grid.Row="7" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" TickFrequency="1000"/>
+            <Slider x:Name="slExporsure"  Grid.Row="0" Grid.Column="1" Style="{StaticResource SliderStyle}" Minimum="-10" Maximum="0" ValueChanged="CameraSetting_ValueChanged" SmallChange="1" TickFrequency="1" TickPlacement="TopLeft"/>
+            <Slider x:Name="slBrightness"  Grid.Row="1" Grid.Column="1" Style="{StaticResource SliderStyle}" Minimum="0" Maximum="255" ValueChanged="CameraSetting_ValueChanged" SmallChange="1" TickFrequency="1" TickPlacement="TopLeft"/>
+            <Slider x:Name="slContrast" Grid.Row="2" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="255" ValueChanged="CameraSetting_ValueChanged" SmallChange="1" TickFrequency="1" TickPlacement="TopLeft"/>
+            <Slider x:Name="slFocus" Grid.Row="3" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="100" ValueChanged="CameraSetting_ValueChanged"  SmallChange="1" TickFrequency="1" TickPlacement="TopLeft"/>
+            <Slider x:Name="slWhite" Grid.Row="4" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="6000" ValueChanged="CameraSetting_ValueChanged" SmallChange="1" TickFrequency="1" TickPlacement="TopLeft"/>
+            <Slider x:Name="slSharpness"  Grid.Row="5" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="255" ValueChanged="CameraSetting_ValueChanged" SmallChange="1" TickFrequency="1" TickPlacement="TopLeft"/>
+            <Slider x:Name="slZoom"  Grid.Row="6" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="255" ValueChanged="CameraSetting_ValueChanged" SmallChange="1" TickFrequency="1" TickPlacement="TopLeft"/>
+            <Slider x:Name="slSatuation"  Grid.Row="7" Grid.Column="1" Style="{StaticResource SliderStyle}"  Minimum="0" Maximum="255" ValueChanged="CameraSetting_ValueChanged" SmallChange="1" TickFrequency="1" TickPlacement="TopLeft"/>
 
             <!--<Slider x:Name="slExporsure"  Value="{Binding Exposure}"  Grid.Row="0" Grid.Column="1" Style="{StaticResource SliderStyle}" Minimum="-10" Maximum="10" ValueChanged="CameraSetting_ValueChanged" SmallChange="1"/>
             <Slider x:Name="slBrightness"  Value="{Binding Brightness}"  Grid.Row="1" Grid.Column="1" Style="{StaticResource SliderStyle}" Minimum="0" Maximum="500" ValueChanged="CameraSetting_ValueChanged" SmallChange="1"/>

@@ -29,8 +29,13 @@ namespace HVT.Controls.Devices_Control
                 serialPort = value;
             }
         }
+        // static get values frame
+        private byte[] GetFrameID01 = new byte[8] { 0x01, 0x03, 0x00, 0x23, 0x00, 0x0B, 0xF5, 0xC7 };
+        private byte[] GetFrameID02 = new byte[8] { 0x02, 0x03, 0x00, 0x23, 0x00, 0x0B, 0xF5, 0xF4 };
+        private byte[] GetFrameID03 = new byte[8] { 0x03, 0x03, 0x00, 0x23, 0x00, 0x0B, 0xF4, 0x25 };
+        private byte[] GetFrameID04 = new byte[8] { 0x01, 0x03, 0x00, 0x23, 0x00, 0x0B, 0x55, 0x92 };
 
-        public List<PowerMettterValueHolder> ValueHolders = new List<PowerMettterValueHolder>(4);
+        public List<PowerMettterValueHolder> ValueHolders = new List<PowerMettterValueHolder>(4);// MAX 4 BOARD 
         public PowerMetter()
         {
             SerialPort.DevieceName = this.Name;
@@ -38,7 +43,7 @@ namespace HVT.Controls.Devices_Control
             SerialPort.Port = new SerialPort()
             {
                 PortName = "COM1",
-                BaudRate = 115200,
+                BaudRate = 9600,
                 ReadTimeout = 500,
             };
 
@@ -50,10 +55,21 @@ namespace HVT.Controls.Devices_Control
 
         public async void CheckCommunication(string COM_NAME)
         {
-            var checkResult = await SerialPort.CheckComPort(COM_NAME, 115200, "*IDN?", ",GDM8261A", 500, this.Name);
-            if (checkResult)
+            try
             {
-
+                SerialPort.DevieceName = this.Name;
+                SerialPort.BlinkTime = 50;
+                SerialPort.Port = new SerialPort()
+                {
+                    PortName = COM_NAME,
+                    BaudRate = 9600,
+                    ReadTimeout = 500,
+                };
+                SerialPort.Port.Open();
+                SerialPort.OpenPort();
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -63,28 +79,26 @@ namespace HVT.Controls.Devices_Control
             {
                 item.ClearValue();
             }
-            //Read holder resigter frame
-            List<byte> frame =new List<byte> { 0x01, 0x03, 0x00, 0x0B, 0x00, 0x09, 0x45, 0x0A };
-
+            byte[] frame;
             switch (Site)
             {
                 case 'A':
-                    frame.Insert(0, 0x01);
+                    frame = GetFrameID01;
                     break;
                 case 'B':
-                    frame.Insert(0, 0x02);
+                    frame = GetFrameID02;
                     break;
                 case 'C':
-                    frame.Insert(0, 0x03);
+                    frame = GetFrameID03;
                     break;
                 case 'D':
-                    frame.Insert(0, 0x04);
+                    frame = GetFrameID04;
                     break;
                 default:
                     return false;
             }
 
-            if(SerialPort.SendAndRead(frame.ToArray(),500, out List<byte> Response))
+            if (SerialPort.SendAndRead(frame,500, out List<byte> Response))
             {
                 switch (Site)
                 {

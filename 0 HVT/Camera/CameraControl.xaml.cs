@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -116,14 +117,15 @@ namespace Camera
 
         public void START()
         {
-            try
-            {
-                Task.Run(Start);
-            }
-            catch (Exception)
-            {
+            //try
+            //{
+            //    Task.Run(Start);
+            //}
+            //catch (Exception)
+            //{
 
-            }
+            //}
+            _ = Start();
         }
 
 
@@ -142,15 +144,11 @@ namespace Camera
                 {
                     // Creation and disposal of this object should be done in the same thread 
                     // because if not it throws disconnectedContext exception
-                    videoCapture = new VideoCapture(CameraDeviceId);
-                    if (!videoCapture.Open(CameraDeviceId))
-                    {
-                        Console.WriteLine("XXXXXXXXXXXXXXX");
-                    }
+                    videoCapture = new VideoCapture(0, VideoCaptureAPIs.DSHOW);
                     try
                     {
-                        videoCapture.FrameWidth=1920;
-                        videoCapture.FrameHeight=1080;
+                        videoCapture.FrameWidth = 1920;
+                        videoCapture.FrameHeight = 1080;
                         videoCapture.Fps = 30;
                         videoCapture.AutoExposure = -5;
                         videoCapture.AutoFocus = false;
@@ -165,23 +163,25 @@ namespace Camera
                     }
 
                     //GetCameraProperties();
-                    using (Mat frame = new Mat())
+
+                    while (!_cancellationTokenSource.IsCancellationRequested)
                     {
-                        while (!_cancellationTokenSource.IsCancellationRequested)
+                        using (Mat frame = videoCapture.RetrieveMat())
                         {
-                            if (videoCapture.Read(frame))
+
+                            if (frame != null && !frame.Empty())
                             {
-                                if (!frame.Empty())
-                                {
-                                    LastMatFrame = frame.Clone();
-                                    var bi = frame.ToBitmapSource();
-                                    bi.Freeze();
-                                    LastFrame = bi;
-                                }
+                                LastMatFrame = frame.Clone();
+                                var bi = frame.ToBitmapSource();
+                                bi.Freeze();
+                                LastFrame = bi;
                             }
-                            await Task.Delay(30); // millisecond
+                            videoCapture.Grab();
+                            await Task.Delay(30);
                         }
+                        await Task.Delay(30); // millisecond
                     }
+
                     videoCapture?.Dispose();
                 }
                 finally
@@ -375,21 +375,21 @@ namespace Camera
         {
             if (cameraSetting != null)
             {
-                videoCapture.Exposure= cameraSetting.Exposure;
+                videoCapture.Exposure = cameraSetting.Exposure;
 
-                videoCapture.Brightness=cameraSetting.Brightness;
+                videoCapture.Brightness = cameraSetting.Brightness;
 
-                videoCapture.Contrast=cameraSetting.Contrast;
+                videoCapture.Contrast = cameraSetting.Contrast;
 
-                videoCapture.Saturation= cameraSetting.Saturation;
+                videoCapture.Saturation = cameraSetting.Saturation;
 
-                videoCapture.WhiteBalanceBlueU= cameraSetting.WBTemperature;
+                videoCapture.WhiteBalanceBlueU = cameraSetting.WBTemperature;
 
-                videoCapture.Sharpness= cameraSetting.Sharpness;
+                videoCapture.Sharpness = cameraSetting.Sharpness;
 
-                videoCapture.Focus= cameraSetting.Focus;
+                videoCapture.Focus = cameraSetting.Focus;
 
-                videoCapture.Zoom= cameraSetting.Zoom;
+                videoCapture.Zoom = cameraSetting.Zoom;
             }
             return true;
         }
@@ -444,7 +444,8 @@ namespace Camera
         public int Brightness
         {
             get { return _brightness; }
-            set {
+            set
+            {
                 if (_brightness != value)
                 {
                     _brightness = value;
@@ -454,7 +455,9 @@ namespace Camera
         }
 
         private int _contrast = 0;
-        public int Contrast { get { return _contrast; }
+        public int Contrast
+        {
+            get { return _contrast; }
             set
             {
                 if (_contrast != value)
@@ -467,31 +470,37 @@ namespace Camera
 
 
         private int _saturation = 0;
-        public int Saturation { get { return _saturation; }
+        public int Saturation
+        {
+            get { return _saturation; }
             set
             {
                 if (_saturation != value)
                 {
-                   _saturation = value;
+                    _saturation = value;
                     NotifyPropertyChanged(nameof(Saturation));
                 }
             }
         }
 
         private int _exposure = -5;
-        public int Exposure { get { return _exposure; }
+        public int Exposure
+        {
+            get { return _exposure; }
             set
             {
                 if (_exposure != value)
                 {
-                   _exposure = value;
+                    _exposure = value;
                     NotifyPropertyChanged(nameof(Exposure));
                 }
             }
         }
 
         private int _zoom = 0;
-        public int Zoom { get { return _zoom; }
+        public int Zoom
+        {
+            get { return _zoom; }
             set
             {
                 if (_zoom != value)
@@ -503,7 +512,9 @@ namespace Camera
         }
 
         private int _backlight = 0;
-        public int Backlight { get { return _backlight; }
+        public int Backlight
+        {
+            get { return _backlight; }
             set
             {
                 if (_backlight != value)
@@ -515,7 +526,9 @@ namespace Camera
         }
 
         private int _focus = 0;
-        public int Focus { get { return _focus; }
+        public int Focus
+        {
+            get { return _focus; }
             set
             {
                 if (_focus != value)
@@ -527,7 +540,9 @@ namespace Camera
         }
 
         private int _sharpness = 0;
-        public int Sharpness { get { return _sharpness; }
+        public int Sharpness
+        {
+            get { return _sharpness; }
             set
             {
                 if (_sharpness != value)
@@ -539,7 +554,9 @@ namespace Camera
         }
 
         private int _wbTemperature = 0;
-        public int WBTemperature { get { return _wbTemperature; }
+        public int WBTemperature
+        {
+            get { return _wbTemperature; }
             set
             {
                 if (_wbTemperature != value)
