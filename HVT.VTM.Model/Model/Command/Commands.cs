@@ -476,11 +476,15 @@ namespace HVT.VTM.Base
             CMD = CMDs.MOT,
             Condition1 = "Param",
             IsListCondition1 = true,
-            Condition1List = new List<string>(){"READ", "CMP UU", "CMP UW", "CMP UV", "CMP UUW", "CMP UWV", "CMP UVU", "CMP IU", "CMP IW", "CMP IV" },
+            Condition1List = new List<string>(){ "READ", "RPM", "CMP UU", "CMP UW", "CMP UV", "CMP UUW", "CMP UWV", "CMP UVU", "CMP IU", "CMP IW", "CMP IV" },
+            Oper = "Channels",
+            IsListOper = true,
+            OperList= new List<string>(){"1", "2"},
             Spect = "SPEC",
             Min = "MIN",
             Max = "MAX",
-            Description = "Measuring param of 3 phase motor at \"READ\" condition.\r\n",
+            Description = "Measuring param of 3 phase motor at \"READ\" condition.\r\n"+
+                          "RPM mode measure the RPM of motor, channel 1~2 (The negative sign represents counterclockwise rotation)",
             },
         };
 

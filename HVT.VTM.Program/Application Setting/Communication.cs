@@ -31,6 +31,7 @@ namespace HVT.VTM.Program
         public string DMM1Port { get; set; } = "COM3";
         public string DMM2Port { get; set; } = "COM4";
         public string PowerMetterPort { get; set; } = "COM4";
+        public string MotorPort { get; set; } = "COM14";
         public string UUT1Port { get; set; } = "COM17";
         public string UUT2Port { get; set; } = "COM15";
         public string UUT3Port { get; set; } = "COM18";

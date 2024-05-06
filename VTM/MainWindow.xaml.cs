@@ -85,6 +85,7 @@ namespace VTM
             stackpanelComunication.Children.Add(MainProgram.LEVEL.SerialPort);
             stackpanelComunication.Children.Add(MainProgram.Solenoid.SerialPort);
             stackpanelComunication.Children.Add(MainProgram.PowerMetter.SerialPort);
+            stackpanelComunication.Children.Add(MainProgram.MotorExtension.SerialPort);
             stackpanelComunication.Children.Add(MainProgram.UUTs[0].serial);
             stackpanelComunication.Children.Add(MainProgram.UUTs[1].serial);
             stackpanelComunication.Children.Add(MainProgram.UUTs[2].serial);

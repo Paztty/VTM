@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Devices Control\MotorExtension\MotorExtension.cs" />
     <Compile Include="Devices Control\PowerMetter\PowerMetter.cs" />
     <Compile Include="Devices Control\PowerMetter\PowerMetterValueHolder.cs" />
     <Compile Include="UI control\AutoCompleteTextBox\AutoCompleteTextBox.xaml.cs">

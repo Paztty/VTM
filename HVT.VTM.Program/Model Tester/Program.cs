@@ -1724,15 +1724,15 @@ namespace HVT.VTM.Program
 
                     if (Boards.Count >= 2) if (!Boards[1].Skip) step.ValueGet2 = step.Result2 != Step.Ok ?
                                     (VisionTester.Models.LCDs[0].DetectedString.Replace("B", "8") == step.Oper.Replace("B", "8") ? step.Oper :
-                                    VisionTester.Models.LCDs[1].DetectedString): step.ValueGet2;
+                                    VisionTester.Models.LCDs[1].DetectedString) : step.ValueGet2;
 
                     if (Boards.Count >= 3) if (!Boards[2].Skip) step.ValueGet3 = step.Result3 != Step.Ok ?
                                     (VisionTester.Models.LCDs[0].DetectedString.Replace("B", "8") == step.Oper.Replace("B", "8") ? step.Oper :
-                                    VisionTester.Models.LCDs[2].DetectedString): step.ValueGet3;
+                                    VisionTester.Models.LCDs[2].DetectedString) : step.ValueGet3;
 
                     if (Boards.Count >= 4) if (!Boards[3].Skip) step.ValueGet4 = step.Result4 != Step.Ok ?
                                     (VisionTester.Models.LCDs[0].DetectedString.Replace("B", "8") == step.Oper.Replace("B", "8") ? step.Oper :
-                                    VisionTester.Models.LCDs[3].DetectedString): step.ValueGet4;
+                                    VisionTester.Models.LCDs[3].DetectedString) : step.ValueGet4;
 
                     if (Boards.Count >= 1) if (!Boards[0].Skip) step.Result1 = step.ValueGet1 == step.Oper ? Step.Ok : Step.Ng;
                     if (Boards.Count >= 2) if (!Boards[1].Skip) step.Result2 = step.ValueGet2 == step.Oper ? Step.Ok : Step.Ng;
@@ -5729,10 +5729,10 @@ namespace HVT.VTM.Program
             if (int.TryParse(step.Oper, out int delayTime))
             {
                 SetOK = true;
-                if(delayTime > 100)
+                if (delayTime > 100)
                 {
                     int delay = 0;
-                    while (delay + 100<= delayTime)
+                    while (delay + 100 <= delayTime)
                     {
                         Task.Delay(90).Wait();
                         delay += 100;
@@ -6086,6 +6086,38 @@ namespace HVT.VTM.Program
             if (!PowerMetter.SerialPort.Port.IsOpen)
             {
                 functionsParameterError("sys", step);
+            }
+            if (step.Condition1 == "RPM")
+            {
+                List<float> RPMs = new List<float>();
+                int channel = 1;
+                if (!Int32.TryParse(step.Oper, out channel)) {
+                    functionsParameterError("oper", step);
+                    return;
+                }
+                else
+                {
+                    if (channel > 2) {
+                        functionsParameterError("oper > 2", step);
+                        return;
+                    }
+                    if (channel <= 0)
+                    {
+                        functionsParameterError("oper <= 0", step);
+                        return;
+                    }
+                }
+
+                if (MotorExtension.Read(out RPMs))
+                {
+                    CheckStepMinMax(step, new double[]{ RPMs[channel - 1] , RPMs[channel*2 - 1],}, minValue, maxValue);
+                    return;
+                }
+                else
+                {
+                    functionsParameterError("sys", step);
+                    return;
+                }
             }
 
             if (step.Condition1 == "READ")

@@ -24,6 +24,7 @@ namespace HVT.VTM.Program
         public VisionTester VisionTester = new VisionTester();
         public SYSIOcontrol SYSTEM = new SYSIOcontrol();
         public PowerMetter PowerMetter = new PowerMetter();
+        public MotorExtension MotorExtension = new MotorExtension();
         public CameraControl Capture;
         public SerialPortDisplay BarcodeReader = new SerialPortDisplay();
         public List<UUTPort> UUTs = new List<UUTPort>()
@@ -68,47 +69,57 @@ namespace HVT.VTM.Program
             Solenoid.SerialPort.Port?.Close();
             BarcodeReader.Port?.Close();
             PowerMetter.SerialPort.Port?.Close();
+            MotorExtension.SerialPort.Port?.Close();
+            BarcodeReader.Port?.Close();
 
             UUTs[0].serial.Port?.Close();
             UUTs[1].serial.Port?.Close();
             UUTs[2].serial.Port?.Close();
             UUTs[3].serial.Port?.Close();
-            await Task.Delay(10);
+            await Task.Delay(50);
             //SYSTEM check
             SYSTEM.System_Board.CheckCardComunication(appSetting.Communication.SystemIOPort);
             SYSTEM.System_Board.MachineIO.OnStartRequest += MachineIO_OnStartRequest;
             SYSTEM.System_Board.MachineIO.OnCancleRequest += MachineIO_OnCancleRequest;
             SYSTEM.System_Board.MachineIO.OnDoorStateChange += MachineIO_OnDoorStateChange;
             SYSTEM.System_Board.MachineIO.OnUpDown += MachineIO_OnUpDown;
-            await Task.Delay(10);
+            await Task.Delay(50);
             //MUX Check
             MuxCard.CheckCard1Comunication(appSetting.Communication.Mux1Port);
+            await Task.Delay(50);
             MuxCard.CheckCard2Comunication(appSetting.Communication.Mux2Port);
-            await Task.Delay(10);
+            await Task.Delay(50);
             // DMM check
             _DMM.DMM1.CheckCommunication(appSetting.Communication.DMM1Port);
+            await Task.Delay(50);
             _DMM.DMM2.CheckCommunication(appSetting.Communication.DMM2Port);
-            await Task.Delay(10);
+            await Task.Delay(50);
             // RELAY CHECK
             RELAY.CheckCardComunication(appSetting.Communication.RelayPort);
-            await Task.Delay(10);
+            await Task.Delay(50);
             LEVEL.CheckCardComunication(appSetting.Communication.LevelPort);
-            await Task.Delay(10);
+            await Task.Delay(50);
             Solenoid.CheckCardComunication(appSetting.Communication.SolenoidPort);
-            await Task.Delay(10);
+            await Task.Delay(50);
             //Power metter check
             PowerMetter.CheckCommunication(appSetting.Communication.PowerMetterPort);
-            await Task.Delay(10);
+            await Task.Delay(50);
+            //Motor Extension port check 
+            MotorExtension.CheckCommunication(appSetting.Communication.MotorPort);
+            await Task.Delay(50);
             // Barcode scand
-            BarcodeReader.Port?.Close();
             CheckBarcodeReader(appSetting.Communication.ScannerPort);
-            await Task.Delay(10);
+            await Task.Delay(50);
             // UUTs
 
             UUTs[0].CheckPort(appSetting.Communication.UUT1Port);
+            await Task.Delay(50);
             UUTs[1].CheckPort(appSetting.Communication.UUT2Port);
+            await Task.Delay(50);
             UUTs[2].CheckPort(appSetting.Communication.UUT3Port);
+            await Task.Delay(50);
             UUTs[3].CheckPort(appSetting.Communication.UUT4Port);
+            await Task.Delay(50);
         }
 
         private void MachineIO_OnUpDown(object sender, EventArgs e)

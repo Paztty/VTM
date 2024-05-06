@@ -376,6 +376,7 @@ namespace HVT.Controls
                     {
                         SerialSend();
                         Port.DiscardInBuffer();
+                        Port.ReadTimeout = TimeOut;
                         var frameToSend = SYSTEM_COMUNICATION.GetFrame(buf);
                         Port.Write(frameToSend, 0, frameToSend.Length);
                         var start = DateTime.Now;

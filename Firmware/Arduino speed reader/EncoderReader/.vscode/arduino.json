@@ -1,0 +1,7 @@
+{
+    "configuration": "cpu=atmega2560",
+    "board": "arduino:avr:mega",
+    "programmer": "avrispmkii",
+    "port": "COM16",
+    "sketch": "EncoderReader.ino"
+}

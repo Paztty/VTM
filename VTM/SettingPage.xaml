@@ -132,7 +132,7 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition  Width="Auto"/>
                             <ColumnDefinition />
                             <ColumnDefinition  Width="0.7*"/>
@@ -158,6 +158,7 @@
                         <Label Grid.Row="12" Content="Barcode" Foreground="LightGray" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalContentAlignment="Right"/>
                         <Label Grid.Row="13" Content="QR Printer" Foreground="LightGray" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalContentAlignment="Right"/>
                         <Label Grid.Row="14" Content="Power metter" Foreground="LightGray" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalContentAlignment="Right"/>
+                        <Label Grid.Row="15" Content="Motor external board" Foreground="LightGray" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalContentAlignment="Right"/>
 
                         <ComboBox x:Name="cbbSysPort"             Grid.Column="2" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0,2,0,2"/>
                         <ComboBox x:Name="cbbLevelPort"  Grid.Row="1" Grid.Column="2" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0,2,0,2"/>
@@ -189,6 +190,7 @@
 
                         <ComboBox x:Name="cbbPrinterPort"  Grid.Row="13" Grid.Column="2" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0,2,0,2"/>
                         <ComboBox x:Name="cbbPowerMetterPort"  Grid.Row="14" Grid.Column="2" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0,2,0,2"/>
+                        <ComboBox x:Name="cbbMotorExtensionPort"  Grid.Row="15" Grid.Column="2" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0,2,0,2"/>
 
                     </Grid>
                 </Grid>
