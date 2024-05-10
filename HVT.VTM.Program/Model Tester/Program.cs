@@ -706,6 +706,7 @@ namespace HVT.VTM.Program
                         SYSTEM.System_Board.MachineIO.ADSC = true;
                         SYSTEM.System_Board.MachineIO.BDSC = true;
                         SYSTEM.System_Board.MachineIO.LPG = true;
+                        SYSTEM.System_Board.MachineIO.LPY = false;
                         SYSTEM.System_Board.SendControl();
                         await Task.Delay(1000);
                         SYSTEM.System_Board.MachineIO.ADSC = false;
@@ -839,6 +840,7 @@ namespace HVT.VTM.Program
                         SYSTEM.System_Board.MachineIO.BDSC = true;
                         SYSTEM.System_Board.MachineIO.LPR = true;
                         SYSTEM.System_Board.MachineIO.BUZZER = true;
+                        SYSTEM.System_Board.MachineIO.LPY = false;
                         SYSTEM.System_Board.SendControl();
                         await Task.Delay(1000);
                         SYSTEM.System_Board.MachineIO.ADSC = false;
@@ -878,7 +880,7 @@ namespace HVT.VTM.Program
                                 {
                                     TestState = RunTestState.TESTTING;
                                     SYSTEM.System_Board.MachineIO.BUZZER = false;
-                                    SYSTEM.System_Board.MachineIO.LPG = true;
+                                    SYSTEM.System_Board.MachineIO.LPY = true;
                                     SYSTEM.System_Board.MachineIO.MainDOWN = false;
                                     SYSTEM.System_Board.SendControl();
                                 }
@@ -893,7 +895,7 @@ namespace HVT.VTM.Program
                             {
                                 TestState = RunTestState.TESTTING;
                                 SYSTEM.System_Board.MachineIO.BUZZER = false;
-                                SYSTEM.System_Board.MachineIO.LPG = true;
+                                SYSTEM.System_Board.MachineIO.LPY = true;
                                 SYSTEM.System_Board.SendControl();
                             }
                         }

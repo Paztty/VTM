@@ -902,11 +902,6 @@ namespace HVT.Controls
 
             BitArray bits = new BitArray(OutPuts.ToArray());
             bits.CopyTo(bytes, 1);
-            foreach (var item in bytes)
-            {
-                Console.Write(item.ToString("X2") + " ");
-            }
-            Console.WriteLine(" ");
             return bytes;
         }
     }

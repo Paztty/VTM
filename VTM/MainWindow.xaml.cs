@@ -347,7 +347,7 @@ namespace VTM
         }
         private void window_SourceInitialized(object sender, EventArgs e)
         {
-            WindowSizing.WindowInitialized(this);
+            //WindowSizing.WindowInitialized(this);
         }
 
     }

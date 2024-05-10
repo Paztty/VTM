@@ -51,6 +51,7 @@ namespace HVT.Controls
             if (SerialPort.Port.IsOpen)
             {
                 List<byte> frame = new List<byte>();
+                Task.Delay(10).Wait();
                 int size = SerialPort.Port.BytesToRead;
                 byte[] bytes = new byte[size];
                 try
@@ -74,11 +75,12 @@ namespace HVT.Controls
                             frame.Add(startByte);
                             frame.Add(secondByte);
                             frame.Add(bytes[i + 2]);
+
                             if ((int)bytes[i + 2] + 3 >= bytes.Length) return;
+
                             for (int j = i + 3; j <= (int)bytes[i + 2] + 3; j++)
                             {
                                 frame.Add(bytes[j]);
-                                Console.WriteLine(j);
                             }
                             MachineIO.DataToIO(new byte[] { frame[4], frame[5], frame[6], frame[7] });
                             {
@@ -100,7 +102,8 @@ namespace HVT.Controls
         {
             var data = MachineIO.IOtoData();
             if (SerialPort.Port.IsOpen)
-            {
+            {  
+                Console.Write("SYS: ");
                 SerialPort.SendBytes(SYSTEM_COMUNICATION.GetFrame(data));
             }
         }
@@ -122,7 +125,9 @@ namespace HVT.Controls
             MachineIO.BC0 = false;
             MachineIO.ADSC = false;
             MachineIO.BDSC = false;
-            MachineIO.LPG = true;
+            MachineIO.LPG = false;
+            MachineIO.LPY = false;
+            MachineIO.LPR = false;
             MachineIO.BUZZER = false;
             SendControl();
         }

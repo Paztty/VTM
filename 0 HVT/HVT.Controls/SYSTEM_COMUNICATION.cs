@@ -58,10 +58,6 @@ namespace HVT.Controls
                     dataToSend.Add(0x00);
                 }
             }
-            else
-            {
-                Console.Write("SYS: ");
-            }
             dataToSend.Insert(0, Prefix2);
             dataToSend.Insert(0, Prefix1);
             var checksum = CheckSum.Get(dataToSend.ToArray(), CheckSumType.XOR);

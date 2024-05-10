@@ -48,7 +48,7 @@ namespace VTM
                         }
                         else
                         {
-                            //EditModel.VisionModels = new Camera.VisionModel();
+                            EditModel.VisionModels = new Camera.VisionModel();
                             VisionBuider.Models = EditModel.VisionModels;
                             componentOptionHolder.Child = VisionBuider.Models.Option;
                         }
@@ -92,7 +92,7 @@ namespace VTM
 
         Timer GetLCDImageSampleTimer = new Timer
         {
-            Interval = 1000,
+            Interval = 500,
         };
 
         public VisionPage()
@@ -113,7 +113,7 @@ namespace VTM
         public void EnableLive()
         {
             GetFNDImageSampleTimer.Start();
-            //GetLCDImageSampleTimer.Start();
+            GetLCDImageSampleTimer.Start();
         }
 
         public void DisableLive()

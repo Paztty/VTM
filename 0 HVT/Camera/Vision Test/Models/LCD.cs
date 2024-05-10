@@ -35,6 +35,9 @@ namespace Camera
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        static OpenCvSharp.Text.OCRTesseract tesseract = OpenCvSharp.Text.OCRTesseract.Create(psmode: 13);
+
         public event EventHandler Sellected;
         private void OnSelected()
         {
@@ -1024,7 +1027,7 @@ namespace Camera
                     TurningProgress = (i / (double)Param.Count * 100);
                     var brightness = Param[i];
                     //var processedBitmap = DetectString(croppedMat, (int)Threshold, Blur, out string data);
-                    var processedBitmap = DetectStringRegion(croppedMat, (int)brightness.Threshold, out string data, SpectString);
+                    var processedBitmap = DetectStringRegion(croppedMat, (int)brightness.Threshold, out string data, SpectString, NoiseSize);
                     this.DetectedString = data;
                     Console.WriteLine(data);
                     DetectedString = data;
@@ -1101,14 +1104,25 @@ namespace Camera
         public static Mat DetectStringRegion(Mat source, int threshold, out string detectString,string targetStr, int noiseSize = 0)
         {
             Mat sourceToTest = source.Clone();
-            OpenCvSharp.Text.OCRTesseract tesseract = OpenCvSharp.Text.OCRTesseract.Create(psmode: 2, charWhitelist: targetStr);
             Mat graysource = sourceToTest.CvtColor(ColorConversionCodes.BGR2GRAY);
             //float[] kdata = new float[] { 0, 1, 0, 1, 5, 1, 0, 1, 0 };
             //Mat kernel = new Mat(3, 3, MatType.CV_8U, kdata);
             Mat binarySource = graysource.Threshold(threshold, 255, ThresholdTypes.Binary);
             //Mat binarySource = graysource.Filter2D(0,kernel);
-            //binarySource = binarySource.Erode(new Mat(3,3,MatType.CV_8UC1));
-            tesseract.Run(binarySource, out string text, out _, out _, out _, OpenCvSharp.Text.ComponentLevels.Word);
+            //binarySource = binarySource.Erode(kernel);
+            OpenCvSharp.Point[][] contour;
+            Cv2.FindContours(binarySource, out contour, out _, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+
+            for (int i = 0; i < contour.Length; i++)
+            {
+                if (Cv2.ContourArea(contour[i]) < noiseSize)
+                {
+                    binarySource.DrawContours(contour, i, new Scalar(0, 0, 0), -1);
+                }
+            }
+            Cv2.BitwiseNot(binarySource, binarySource);
+            tesseract.SetWhiteList(targetStr);
+            tesseract.Run(binarySource, out string text, out _, out _, out _, OpenCvSharp.Text.ComponentLevels.TextLine);
             Console.WriteLine(" Output text: {0}", text);
             detectString = text.Replace("\r", "\n").Replace("\n", "");
             return binarySource;
