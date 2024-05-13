@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:xc="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:Camera"
              mc:Ignorable="d" d:Width="800" d:Height="800">
     <UserControl.Resources>

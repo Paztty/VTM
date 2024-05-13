@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:xc="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             xmlns:xc="clr-namespace:HVT.Controls.CustomControls" 
              xmlns:local="clr-namespace:HVT.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -56,52 +56,52 @@
             </ComboBox>
 
             <Border  VerticalAlignment="Center" Grid.Row="1" Margin="20,3,0,3" Width="76" Grid.Column="4" HorizontalAlignment="Left" Background="WhiteSmoke">
-                <xc:IntegerUpDown x:Name="nUD_DischargeDelay" FontWeight="Bold" Maximum="10000" Minimum="1" Value="{Binding DelayBeforeStart}"
-                                                                       BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                <xc:IntegerUpDown x:Name="nUD_DischargeDelay" FontWeight="Bold" Maximum="10000" Minimum="1" 
+                                                                       BorderBrush="White" HorizontalContentAlignment="Stretch" Margin="0,0,0,0"/>
             </Border>
 
             <Border  VerticalAlignment="Center"  Grid.Row="2" Margin="20,3,0,3" Width="76" Grid.Column="4" HorizontalAlignment="Left" Background="WhiteSmoke">
-                <xc:IntegerUpDown x:Name="nUD_DischargeTime" FontWeight="Bold" Maximum="10000" Minimum="1" Value="{Binding DischargeTime}"
-                                                                       BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                <xc:IntegerUpDown x:Name="nUD_DischargeTime" FontWeight="Bold" Maximum="10000" Minimum="1" 
+                                                                       BorderBrush="White" HorizontalContentAlignment="Stretch" Margin="0,0,0,0"/>
             </Border>
 
             <Border  VerticalAlignment="Center" Grid.Row="4" Margin="20,3,0,0" Width="76" Grid.Column="2" HorizontalAlignment="Left" Background="WhiteSmoke" Height="19">
-                <xc:IntegerUpDown x:Name="nUD_DischargeCh1_P" FontWeight="Bold" Maximum="50" Minimum="1" Value="{Binding Item1ChannelP}"
-                                                                       BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                <xc:IntegerUpDown x:Name="nUD_DischargeCh1_P" FontWeight="Bold" Maximum="50" Minimum="1" 
+                                                                       BorderBrush="White" HorizontalContentAlignment="Stretch" Margin="0,0,0,0"/>
             </Border>
             <Border  VerticalAlignment="Center"  Grid.Row="5" Margin="20,3,0,3" Width="76" Grid.Column="2" HorizontalAlignment="Left" Background="WhiteSmoke">
-                <xc:IntegerUpDown x:Name="nUD_DischargeCh2_P" FontWeight="Bold" Maximum="50" Minimum="1" Value="{Binding Item2ChannelP}"
-                                                                       BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                <xc:IntegerUpDown x:Name="nUD_DischargeCh2_P" FontWeight="Bold" Maximum="50" Minimum="1" 
+                                                                       BorderBrush="White" HorizontalContentAlignment="Stretch" Margin="0,0,0,0"/>
             </Border>
             <Border  VerticalAlignment="Center"  Grid.Row="6" Margin="20,3,0,3" Width="76" Grid.Column="2" HorizontalAlignment="Left" Background="WhiteSmoke">
-                <xc:IntegerUpDown x:Name="nUD_DischargeCh3_P" FontWeight="Bold" Maximum="50" Minimum="1" Value="{Binding Item3ChannelP}"
-                                                                       BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                <xc:IntegerUpDown x:Name="nUD_DischargeCh3_P" FontWeight="Bold" Maximum="50" Minimum="1" 
+                                                                       BorderBrush="White" HorizontalContentAlignment="Stretch" Margin="0,0,0,0"/>
             </Border>
 
             <Border  VerticalAlignment="Center"  Grid.Row="4" Margin="20,3,0,3" Width="76" Grid.Column="3" HorizontalAlignment="Left" Background="WhiteSmoke">
-                <xc:IntegerUpDown x:Name="nUD_DischargeCh1_N" FontWeight="Bold" Maximum="50" Minimum="1"  Value="{Binding Item1ChannelN}"
-                                                                       BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                <xc:IntegerUpDown x:Name="nUD_DischargeCh1_N" FontWeight="Bold" Maximum="50" Minimum="1"  
+                                                                       BorderBrush="White" HorizontalContentAlignment="Stretch" Margin="0,0,0,0"/>
             </Border>
             <Border  VerticalAlignment="Center"  Grid.Row="5" Margin="20,3,0,3" Width="76" Grid.Column="3" HorizontalAlignment="Left" Background="WhiteSmoke">
-                <xc:IntegerUpDown x:Name="nUD_DischargeCh2_N" FontWeight="Bold" Maximum="50" Minimum="1"  Value="{Binding Item2ChannelN}"
-                                                                       BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                <xc:IntegerUpDown x:Name="nUD_DischargeCh2_N" FontWeight="Bold" Maximum="50" Minimum="1" 
+                                                                       BorderBrush="White" HorizontalContentAlignment="Stretch" Margin="0,0,0,0"/>
             </Border>
             <Border  VerticalAlignment="Center" Grid.Row="6" Margin="20,3,0,3" Width="76" Grid.Column="3" HorizontalAlignment="Left" Background="WhiteSmoke">
-                <xc:IntegerUpDown x:Name="nUD_DischargeCh3_N" FontWeight="Bold" Maximum="50" Minimum="1"  Value="{Binding Item3ChannelN}"
-                                                                       BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                <xc:IntegerUpDown x:Name="nUD_DischargeCh3_N" FontWeight="Bold" Maximum="50" Minimum="1" 
+                                                                       BorderBrush="White" HorizontalContentAlignment="Stretch" Margin="0,0,0,0"/>
             </Border>
 
             <Border  VerticalAlignment="Center"  Grid.Row="4" Margin="20,3,0,3" Width="76" Grid.Column="4" HorizontalAlignment="Left" Background="WhiteSmoke">
-                <xc:DoubleUpDown x:Name="nUD_DischargeCh1_V_below"  FontWeight="Bold" Maximum="50" Minimum="1" Value="{Binding Item1VoltageBelow}"
-                                                                       BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                <xc:DoubleUpDown x:Name="nUD_DischargeCh1_V_below"  FontWeight="Bold" Maximum="50" Minimum="1" 
+                                                                       BorderBrush="White" HorizontalContentAlignment="Stretch" Margin="0,0,0,0"/>
             </Border>
             <Border  VerticalAlignment="Center" Grid.Row="5" Margin="20,3,0,3" Width="76" Grid.Column="4" HorizontalAlignment="Left" Background="WhiteSmoke">
-                <xc:DoubleUpDown x:Name="nUD_DischargeCh2_V_below"  FontWeight="Bold" Maximum="50" Minimum="1" Value="{Binding Item2VoltageBelow}"
-                                                                       BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                <xc:DoubleUpDown x:Name="nUD_DischargeCh2_V_below"  FontWeight="Bold" Maximum="50" Minimum="1" 
+                                                                       BorderBrush="White" HorizontalContentAlignment="Stretch" Margin="0,0,0,0"/>
             </Border>
             <Border  VerticalAlignment="Center"  Grid.Row="6" Margin="20,3,0,3" Width="76" Grid.Column="4" HorizontalAlignment="Left" Background="WhiteSmoke">
-                <xc:DoubleUpDown x:Name="nUD_DischargeCh3_V_below" FontWeight="Bold" Maximum="50" Minimum="1" Value="{Binding Item3VoltageBelow}"
-                                                                       BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+                <xc:DoubleUpDown x:Name="nUD_DischargeCh3_V_below" FontWeight="Bold" Maximum="50" Minimum="1" 
+                                                                       BorderBrush="White" HorizontalContentAlignment="Stretch" Margin="0,0,0,0"/>
             </Border>
         </Grid>
 

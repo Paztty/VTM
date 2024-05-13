@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:xc="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:xc="clr-namespace:HVT.Controls.CustomControls"
              xmlns:local="clr-namespace:HVT.Controls"
              d:DataContext="{d:DesignInstance Type=local:BarcodeOption}"
              mc:Ignorable="d" 
@@ -42,12 +42,12 @@
                 <Label x:Name="lbBarcodePreview" Grid.Row="5" Grid.Column="2"  Grid.ColumnSpan="2" VerticalAlignment="Center" Foreground="White" Height="26" Margin="0,1" Content="xxxDJ9200265Cxxxxxxxxxxxxxxxx"/>
                 <TextBox x:Name="tbBacodeModelCode" Text="{Binding ModelCode}" Grid.Row="4" Margin="0" HorizontalAlignment="Left"  Width="171" Background="#FFDEDEDE" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="2" VerticalAlignment="Center" Grid.Column="2"/>
                 <Border VerticalAlignment="Center" Grid.Row="1" Margin="20,5,0,5" Width="76" Grid.Column="3" HorizontalAlignment="Left" Background="WhiteSmoke">
-                    <xc:IntegerUpDown x:Name="nUD_BarcodeLenght"  FontWeight="Bold" Maximum="100" Minimum="1" Value="{Binding BarcodeLenght}"
+                    <xc:IntegerUpDown x:Name="nUD_BarcodeLenght"  FontWeight="Bold" Maximum="100" Minimum="1" 
                                                                        BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                 </Border>
                 <Border VerticalAlignment="Center" Grid.Row="3" Margin="20,5,0,5" Width="76" Grid.Column="2" HorizontalAlignment="Left" Background="WhiteSmoke">
                     <xc:IntegerUpDown x:Name="nUD_BarcodeModelStart" ValueChanged="nUD_BarcodeModelStart_ValueChanged"  Value="{Binding StartModelCodePosition}"
-                                                                       FontWeight="Bold" Maximum="{Binding ElementName=nUD_BarcodeLenght, Path=Value}" Minimum="0"
+                                                                       FontWeight="Bold"  Minimum="0"
                                                                        BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                 </Border>
             </Grid>

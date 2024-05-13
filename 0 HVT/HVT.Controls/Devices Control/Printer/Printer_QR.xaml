@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:xc="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:xc="clr-namespace:HVT.Controls.CustomControls"
              xmlns:local="clr-namespace:HVT.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="1000">

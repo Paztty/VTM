@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:xc="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:xc="clr-namespace:HVT.Controls.CustomControls"
              xmlns:local="clr-namespace:HVT.Controls"
              mc:Ignorable="d">
     <UserControl.Resources>
@@ -172,11 +172,7 @@
             <DockPanel Grid.Column="2" Grid.ColumnSpan="4">
             <CheckBox x:Name="cbDMM_MatchRead" Content="Match  " VerticalAlignment="Center" Foreground="White" Visibility="Hidden"></CheckBox>
             <CheckBox x:Name="cbDMM_AutoRead" Click="cbDMM_AutoRead_Click" Content="Auto   " VerticalAlignment="Center" Foreground="White"></CheckBox>
-            <xc:IntegerUpDown x:Name="nudPeriod" Margin="5"
-                              VerticalAlignment="Stretch"  Value="100" Minimum="100" Maximum="10000" ClipValueToMinMax="True" MaxLength="100"
-                              MouseWheelActiveOnFocus="True"
-                              IsUndoEnabled="True"
-                              MouseWheelActiveTrigger="MouseOver" ></xc:IntegerUpDown>
+            <xc:IntegerUpDown x:Name="nudPeriod" Margin="5" VerticalAlignment="Stretch"  Value="100" Minimum="100" Maximum="10000"></xc:IntegerUpDown>
         </DockPanel>
 
         <Button x:Name="btMeasureCH1" Click="btMeasureCH1_Click" Cursor="Hand" FontWeight="Bold" Margin="5,0,5,5"  Template="{StaticResource ButtonControlNonHoverEffect}" Content="CH 1" Grid.Column="5" Grid.Row="2" Foreground="White">

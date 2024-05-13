@@ -24,5 +24,10 @@ namespace Camera
         {
             InitializeComponent();
         }
+
+        private void IntegerUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

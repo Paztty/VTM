@@ -37,7 +37,7 @@ namespace HVT.Controls
             this.DataContext = BarcodeOption;
         }
 
-        private void nUD_BarcodeModelStart_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void nUD_BarcodeModelStart_ValueChanged(object sender, EventArgs e)
         {
             if (nUD_BarcodeLenght == null || nUD_BarcodeModelStart == null)
             {

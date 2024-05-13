@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HVT.Controls.CustomControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Xceed.Wpf.Toolkit;
 
 namespace HVT.Controls
 {
@@ -121,7 +121,13 @@ namespace HVT.Controls
             }
         }
 
-        private void nUD_PCBcount_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PBA.Position = (sender as ComboBox).SelectedIndex;
+            Align_PCB();
+        }
+
+        private void nUD_PCBcount_ValueChanged(object sender, EventArgs e)
         {
             if ((sender as IntegerUpDown).Value != null)
             {
@@ -129,6 +135,7 @@ namespace HVT.Controls
                 if ((sender as IntegerUpDown).Name == "nUD_PCBcount")
                 {
                     PBA.PCB_Count = Count;
+                    if (nUD_X_axis_count != null)
                     nUD_X_axis_count.Maximum = Count;
                 }
                 if ((sender as IntegerUpDown).Name == "nUD_X_axis_count")
@@ -137,13 +144,6 @@ namespace HVT.Controls
                 }
                 Align_PCB();
             }
-
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            PBA.Position = (sender as ComboBox).SelectedIndex;
-            Align_PCB();
         }
     }
 }

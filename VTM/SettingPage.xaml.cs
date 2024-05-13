@@ -124,7 +124,7 @@ namespace VTM
             cbUseDischargeTestStart.IsChecked = Setting.ETCSetting.UseDischargeTestStart;
 
             nudDischargeTime.Value = Setting.ETCSetting.DischargeTime;
-            nudDischargeVolt.Value = Setting.ETCSetting.DischargeVolt;
+            nudDischargeVolt.Value = (int)Setting.ETCSetting.DischargeVolt;
 
             //// QR Tab load data
             //rbtTestPassAll.IsChecked = Setting.QR.TestPCBPrintAll;

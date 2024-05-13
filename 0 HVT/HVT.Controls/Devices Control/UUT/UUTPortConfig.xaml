@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HVT.Controls"
              mc:Ignorable="d" 
-             xmlns:xc="http://schemas.xceed.com/wpf/xaml/toolkit" d:DataContext="{d:DesignInstance Type=local:UUT_Config}">
+             xmlns:xc="clr-namespace:HVT.Controls.CustomControls" d:DataContext="{d:DesignInstance Type=local:UUT_Config}">
     <Grid Margin="5">
         <Grid  Grid.Column="1">
             <Grid.RowDefinitions>
@@ -92,19 +92,19 @@
 
                     <Border VerticalAlignment="Stretch" Grid.Row="0" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                         <xc:IntegerUpDown x:Name="nUD_P1TX_PrefixData1"     Value="{Binding Prefix1}"
-                                                                            FontWeight="Bold" Maximum="255" Minimum="0" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="0" 
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                     </Border>
 
                     <Border VerticalAlignment="Stretch" Grid.Row="1" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                         <xc:IntegerUpDown x:Name="nUD_P1TX_PrefixData2"     Value="{Binding Prefix2}"
-                                                                            FontWeight="Bold" Maximum="255" Minimum="0" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="0"
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                     </Border>
 
                     <Border VerticalAlignment="Stretch" Grid.Row="2" Margin="0,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                         <xc:IntegerUpDown x:Name="nUD_P1TX_SuffixData" Value="{Binding Suffix}"
-                                                                            FontWeight="Bold" Maximum="255" Minimum="0" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="0" 
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                     </Border>
 
@@ -116,13 +116,13 @@
 
                     <Border VerticalAlignment="Stretch" Grid.Row="5" Margin="0,5,20,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                         <xc:IntegerUpDown x:Name="nUD_P1TX_CheckSumRageStart" Value="{Binding StartChecksumCal}"
-                                                                            FontWeight="Bold" Maximum="255" Minimum="0" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="0" 
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                     </Border>
 
                     <Border VerticalAlignment="Stretch" Grid.Row="5" Margin="5,5,5,5" Width="100" Height="20" Grid.Column="3" HorizontalAlignment="Right" Background="WhiteSmoke">
                         <xc:IntegerUpDown x:Name="nUD_P1TX_CheckSumRageEnd" Value="{Binding EndChecksumCal}"
-                                                                            FontWeight="Bold" Maximum="255" Minimum="0" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="0" 
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                     </Border>
 
@@ -186,19 +186,19 @@
 
                     <Border VerticalAlignment="Stretch" Grid.Row="0" Margin="20,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                         <xc:IntegerUpDown x:Name="nUD_P1RX_PrefixData1"  Value="{Binding RxPrefix1}"
-                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" 
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                     </Border>
 
                     <Border VerticalAlignment="Stretch" Grid.Row="1" Margin="20,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                         <xc:IntegerUpDown x:Name="nUD_P1RX_PrefixData2" Value="{Binding RxPrefix2}"
-                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" 
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                     </Border>
 
                     <Border VerticalAlignment="Stretch" Grid.Row="2" Margin="20,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                         <xc:IntegerUpDown x:Name="nUD_P1RX_SuffixData" Value="{Binding RxSuffix}"
-                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" 
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                     </Border>
 
@@ -210,13 +210,13 @@
 
                     <Border VerticalAlignment="Stretch" Grid.Row="4" Margin="20,5,5,5" Width="100" Height="20" Grid.Column="1" HorizontalAlignment="Right" Background="WhiteSmoke">
                         <xc:IntegerUpDown x:Name="nUD_P1RX_LenghtLocStart" Value="{Binding RxLenghtStart}"
-                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" 
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                     </Border>
 
                     <Border Grid.Row="4" Margin="5,5,0,5" Width="93" Height="20" Grid.Column="3" HorizontalAlignment="Left" Background="WhiteSmoke">
                         <xc:IntegerUpDown x:Name="nUD_P1RX_LenghtLocEnd" Value="{Binding RxLenghtEnd}"
-                                                                            FontWeight="Bold" Maximum="255" Minimum="1" ParsingNumberStyle="HexNumber"  FormatString="X"
+                                                                            FontWeight="Bold" Maximum="255" Minimum="1" 
                                                                             BorderBrush="White" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
                     </Border>
 

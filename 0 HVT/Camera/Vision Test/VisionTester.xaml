@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Camera"
-             xmlns:xc="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:xc="clr-namespace:HVT.Controls.CustomControls;assembly=HVT.Controls"
              mc:Ignorable="d" >
     <Grid x:Name="mainGrid">
         <Canvas x:Name="functionCanvas" 
