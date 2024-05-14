@@ -88,12 +88,12 @@ namespace Camera
             FND tryCatchFND = (sender as FND);
             if (tryCatchFND != null)
             {
-                Option.DataContext = tryCatchFND;
+                Option.SetDataContext(tryCatchFND);
             }
             LCD tryCatchLCD = (sender as LCD);
             if (tryCatchLCD != null)
             {
-                Option.DataContext = tryCatchLCD;
+                Option.SetDataContext(tryCatchLCD);
             }
         }
 

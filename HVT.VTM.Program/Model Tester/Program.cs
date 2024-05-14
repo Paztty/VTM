@@ -845,7 +845,7 @@ namespace HVT.VTM.Program
                         await Task.Delay(1000);
                         SYSTEM.System_Board.MachineIO.ADSC = false;
                         SYSTEM.System_Board.MachineIO.BDSC = false;
-                        SYSTEM.System_Board.MachineIO.MainUP = true;
+                        SYSTEM.System_Board.MachineIO.MainUP = false;
                         SYSTEM.System_Board.SendControl();
                         await Task.Delay(2000);
                         SYSTEM.System_Board.MachineIO.BUZZER = false;

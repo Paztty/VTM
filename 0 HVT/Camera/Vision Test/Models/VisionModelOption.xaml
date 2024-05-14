@@ -48,19 +48,19 @@
         <Label Content="Brightness Threshold"  Foreground="White" Grid.Row="3"
                VerticalAlignment="Center" HorizontalAlignment="Left"
                Margin="10,0,5,0"  Padding="0,0,0,0"/>
-        <xc:IntegerUpDown Grid.Row="3" Width="70" Margin="135,5,0,5" HorizontalAlignment="Left" Minimum="0" Maximum="255"  ClipValueToMinMax="True"
-                          />
+        <xc:IntegerUpDown x:Name="threshould_nud" Grid.Row="3" Width="70" Margin="135,5,0,5" HorizontalAlignment="Left" Minimum="0" Maximum="255"  ClipValueToMinMax="True"
+                          ValueChanged="threshold_ValueChanged"/>
         <Label Content="Noise size filter"  Foreground="White" Grid.Row="4"
                VerticalAlignment="Center" HorizontalAlignment="Left"
                Margin="10,0,5,0"  Padding="0,0,0,0"/>
-        <xc:IntegerUpDown Grid.Row="4" Width="70" Margin="135,5,0,5" HorizontalAlignment="Left" Minimum="0" Maximum="10000" ClipValueToMinMax="True"
-                          />
+        <xc:IntegerUpDown x:Name="noise_nud"  Grid.Row="4" Width="70" Margin="135,5,0,5" HorizontalAlignment="Left" Minimum="0" Maximum="10000" ClipValueToMinMax="True"
+                         ValueChanged="noiseFilterValueChanged" />
 
         <Label Content="Blur"  Foreground="White" Grid.Row="5"
                VerticalAlignment="Center" HorizontalAlignment="Left"
                Margin="10,0,5,0"  Padding="0,0,0,0"/>
-        <xc:IntegerUpDown Grid.Row="5" Width="70" Margin="135,5,0,5" HorizontalAlignment="Left" Minimum="0" Maximum="100" ClipValueToMinMax="True"
-                          />
+        <xc:IntegerUpDown x:Name="blur_nud"  Grid.Row="5" Width="70" Margin="135,5,0,5" HorizontalAlignment="Left" Minimum="0" Maximum="100" ClipValueToMinMax="True"
+                         ValueChanged="BlurChange" />
         <ProgressBar Value="{Binding TurningProgress}" Grid.Row="6" Minimum="0" Maximum="100" Margin="5" Background="Black" BorderThickness="0"/>
         <Label Content="{Binding TurningProgress}" ContentStringFormat=" {0} %" Foreground="White" Grid.Row="6"
                VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"
